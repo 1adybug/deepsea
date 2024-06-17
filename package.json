@@ -6,7 +6,7 @@
     "private": true,
     "scripts": {
         "dev": "tsx scripts/dev.ts",
-        "r": "pnpm publish -r",
+        "r": "pnpm i && pnpm publish -r",
         "v": "pnpm changeset && pnpm changeset version"
     },
     "keywords": [],
