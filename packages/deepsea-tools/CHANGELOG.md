@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.0.6
+
+### Patch Changes
+
+- 1233123
+
 ## 5.0.5
 
 ### Patch Changes
