@@ -5,7 +5,9 @@
     "main": "index.js",
     "private": true,
     "scripts": {
-        "dev": "tsx scripts/dev.ts"
+        "dev": "tsx scripts/dev.ts",
+        "r": "pnpm publish -r",
+        "v": "pnpm changeset && pnpm changeset version"
     },
     "keywords": [],
     "author": "",
