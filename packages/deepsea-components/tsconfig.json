@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "declaration": true,
+        "skipLibCheck": true,
+        "jsx": "react-jsx",
+        "target": "ESNext",
+        "moduleResolution": "Bundler"
+    },
+    "exclude": ["dist"]
+}
