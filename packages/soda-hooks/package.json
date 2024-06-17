@@ -1,0 +1,41 @@
+{
+    "name": "soda-hooks",
+    "version": "5.0.6",
+    "description": "",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/esm/index.d.ts",
+    "scripts": {
+        "dev": "father dev",
+        "build": "father build",
+        "build:deps": "father prebundle",
+        "prepublishOnly": "father doctor && npm run build"
+    },
+    "keywords": [],
+    "authors": [],
+    "license": "MIT",
+    "files": [
+        "compiled",
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/soda-hooks.git"
+    },
+    "dependencies": {
+        "react-router-dom": "^6.23.1",
+        "soda-type": "workspace:*"
+    },
+    "devDependencies": {
+        "father": "^4.4.1"
+    },
+    "peerDependencies": {
+        "@types/react": "^18.3.2",
+        "react": "^18.3.1"
+    }
+}
