@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.1.0
+
+### Minor Changes
+
+- 新增 InfiniteScroll 组件
+
 ## 5.0.7
 
 ### Patch Changes
