@@ -1,7 +1,7 @@
 import { css } from "@emotion/css"
 import { useSize } from "ahooks"
 import { clsx } from "deepsea-tools"
-import { ComponentProps, CSSProperties, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
+import { ComponentProps, CSSProperties, forwardRef, MouseEvent as ReactMouseEvent, useEffect, useImperativeHandle, useRef } from "react"
 
 export type InfiniteScrollProps = ComponentProps<"div"> & {
     /**
@@ -24,6 +24,8 @@ export type InfiniteScrollProps = ComponentProps<"div"> & {
     withGap?: boolean
     /** 尺寸刚好相同时，是否视为溢出 */
     withEqual?: boolean
+    /** 鼠标移入时，是否停止动画 */
+    pauseOnHover?: boolean
 }
 
 /**
@@ -32,7 +34,7 @@ export type InfiniteScrollProps = ComponentProps<"div"> & {
  * 但是，如果内部检测到并没有溢出，那么不会渲染两次，并且没有动画
  */
 export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((props, ref) => {
-    const { className, direction = "vertical", children, containerClassName, containerStyle, gap = 0, duration, withGap, withEqual, ...rest } = props
+    const { className, direction = "vertical", children, containerClassName, containerStyle, gap = 0, duration, withGap, withEqual, pauseOnHover, onMouseEnter, onMouseLeave, ...rest } = props
 
     const wrapper = useRef<HTMLDivElement>(null)
     const wrapperSize = useSize(wrapper)
@@ -50,16 +52,32 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
 
     const overflow = wrapperSize && containerSize ? (direction === "vertical" ? bigger(containerSize.height, wrapperSize.height) : bigger(containerSize.width, wrapperSize.width)) : false
 
+    const animation = useRef<Animation | undefined>(undefined)
+
     useEffect(() => {
         if (!wrapperSize || !containerSize || !overflow) return
-        const animation = ele.current?.animate(
+        animation.current = ele.current?.animate(
             {
                 transform: direction === "vertical" ? [`translateY(0)`, `translateY(-${containerSize.height + gap}px)`] : [`translateX(0)`, `translateX(-${containerSize.width + gap}px)`]
             },
             { duration, iterations: Infinity }
         )
-        return () => animation?.cancel()
+        return () => animation.current?.cancel()
     }, [wrapperSize, containerSize, overflow, direction, duration])
+
+    function enter(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) {
+        if (pauseOnHover) animation.current?.pause()
+        onMouseEnter?.(e)
+    }
+
+    function leave(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) {
+        if (pauseOnHover) animation.current?.play()
+        onMouseLeave?.(e)
+    }
+
+    useEffect(() => {
+        if (!pauseOnHover) animation.current?.play()
+    }, [animation.current, pauseOnHover])
 
     return (
         <div
@@ -71,6 +89,8 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
                 `,
                 className
             )}
+            onMouseEnter={enter}
+            onMouseLeave={leave}
             {...rest}>
             <div
                 ref={ele}
