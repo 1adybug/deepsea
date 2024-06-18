@@ -7,7 +7,7 @@
     "scripts": {
         "dev": "tsx scripts/dev.ts",
         "r": "pnpm i && pnpm publish -r",
-        "v": "pnpm changeset && pnpm changeset version"
+        "cs": "pnpm changeset && pnpm changeset version"
     },
     "keywords": [],
     "author": "",
