@@ -1,5 +1,16 @@
 # deepsea-components-demo
 
+## 0.1.0
+
+### Minor Changes
+
+-   新增 Echart 组件
+
+### Patch Changes
+
+-   Updated dependencies
+    -   deepsea-components@5.2.0
+
 ## 0.0.2
 
 ### Patch Changes
