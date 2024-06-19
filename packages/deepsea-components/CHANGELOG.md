@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.2.1
+
+### Patch Changes
+
+- 细节优化
+
 ## 5.2.0
 
 ### Minor Changes

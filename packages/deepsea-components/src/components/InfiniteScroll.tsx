@@ -76,7 +76,7 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
     }
 
     useEffect(() => {
-        if (!pauseOnHover) animation.current?.play()
+        if (!pauseOnHover && animation.current?.playState === "paused") animation.current?.play()
     }, [animation.current, pauseOnHover])
 
     return (
@@ -85,7 +85,7 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
             className={clsx(
                 css`
                     position: relative;
-                    overflow: hidden;
+                    ${direction === "vertical" ? "overflow-y: hidden;" : "overflow-x: hidden;"}
                 `,
                 className
             )}
