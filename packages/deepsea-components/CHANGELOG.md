@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.2.0
+
+### Minor Changes
+
+- 新增 Echart 组件
+
 ## 5.1.1
 
 ### Patch Changes
