@@ -1,3 +1,4 @@
+import { TransitionNum, TransitionNumConfig } from "deepsea-tools"
 import type { CSSProperties, DependencyList, Dispatch, MutableRefObject, SetStateAction } from "react"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { useSearchParams } from "react-router-dom"
@@ -168,11 +169,12 @@ export type QueryStateOptions<T extends string = never, K extends QueryToStateFn
     deps?: any[]
 }
 
-export type QueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap> = Equal<K, QueryToStateFnMap> extends true
-    ? Record<T, string | undefined>
-    : {
-          [Key in T | keyof K]: Key extends keyof K ? (K[Key] extends (...args: any[]) => infer R ? R : string | undefined) : string | undefined
-      }
+export type QueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap> =
+    Equal<K, QueryToStateFnMap> extends true
+        ? Record<T, string | undefined>
+        : {
+              [Key in T | keyof K]: Key extends keyof K ? (K[Key] extends (...args: any[]) => infer R ? R : string | undefined) : string | undefined
+          }
 
 export function compareArray(a: any[], b: any[]) {
     return a.length === b.length && a.every((value, index) => Object.is(value, b[index]))
@@ -494,4 +496,27 @@ export function useSearchTree<T, K>(treeOrFiber: TreeNode<T>[] | TreeFiber<T>, c
         }
     }, [fiber, callback, transform])
     return searchTreeResult
+}
+
+export function useTransitionNum(config: TransitionNumConfig | number) {
+    config = typeof config === "number" ? { target: config, speed: 1 } : config
+    const { target, speed } = config
+    const [num, setNum] = useState(target)
+    const t = useRef<TransitionNum | undefined>(undefined)
+    if (!t.current) {
+        t.current = new TransitionNum(config)
+        t.current.subscribe(function (this) {
+            if (this.target > this.current) {
+                setNum(Math.floor(this.current))
+            } else {
+                setNum(Math.ceil(this.current))
+            }
+        })
+    }
+    t.current.target = target
+    t.current.speed = speed
+    useEffect(() => {
+        return () => t.current?.destroy()
+    }, [])
+    return num
 }
