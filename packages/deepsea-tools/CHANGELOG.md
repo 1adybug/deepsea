@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.1.0
+
+### Minor Changes
+
+- 新增 TransitionNum 方法
+
 ## 5.0.7
 
 ### Patch Changes
