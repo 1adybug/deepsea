@@ -1,3 +1,6 @@
+import { ColumnsType } from "antd/es/table"
+import { ReactNode } from "react"
+
 /** 判断两个类型是否全等 */
 export type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? true : false
 
@@ -90,3 +93,17 @@ export type CanJSONStringify<T> = _CanJSONStringify<T>
 
 /** 获取字符串提示 */
 export type TipString<T extends string> = T | (string & {})
+
+export type Column<T, K extends keyof T = keyof T> = Omit<ColumnsType<T>[0], "dataIndex" | "render"> &
+    (
+        | (K extends keyof T
+              ? {
+                    dataIndex: K
+                } & (T[K] extends ReactNode ? { render?: (value: T[K], record: T, index: number) => ReactNode } : { render: (value: T[K], record: T, index: number) => ReactNode })
+              : never)
+        | ({
+              dataIndex?: undefined
+          } & (T extends ReactNode ? { render?: (value: T, record: T, index: number) => ReactNode } : { render: (value: T, record: T, index: number) => ReactNode }))
+    )
+
+export type Columns<T> = Column<T, keyof T>[]

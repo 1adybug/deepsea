@@ -1,5 +1,11 @@
 # deepsea-components-demo
 
+## 0.1.4
+
+### Patch Changes
+
+-   soda-hooks@5.1.1
+
 ## 0.1.3
 
 ### Patch Changes
