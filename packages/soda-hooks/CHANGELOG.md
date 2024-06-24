@@ -1,5 +1,12 @@
 # soda-hooks
 
+## 5.1.1
+
+### Patch Changes
+
+- Updated dependencies
+  - soda-type@5.1.0
+
 ## 5.1.0
 
 ### Minor Changes
