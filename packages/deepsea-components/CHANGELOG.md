@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.3.1
+
+### Patch Changes
+
+- 修复组件没有导出的问题
+
 ## 5.3.0
 
 ### Minor Changes
