@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 5.1.2
+
+### Patch Changes
+
+- 修复 react-router-dom 依赖问题
+
 ## 5.1.1
 
 ### Patch Changes
