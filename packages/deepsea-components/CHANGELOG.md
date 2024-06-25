@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.3.0
+
+### Minor Changes
+
+- 新增 title 组件
+
 ## 5.2.2
 
 ### Patch Changes
