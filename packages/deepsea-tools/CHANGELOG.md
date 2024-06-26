@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.2.1
+
+### Patch Changes
+
+- getEnumKey 限制 value 只能是 enum
+
 ## 5.2.0
 
 ### Minor Changes
