@@ -1,8 +1,16 @@
+import { digits, idReg, plateNoAlphabets } from "@constants/index"
 import { clsx as _clsx, ClassValue } from "clsx"
 import equal from "fast-deep-equal"
 import Cookies from "js-cookie"
 import robustSegmentIntersect from "robust-segment-intersect"
 import { twMerge } from "tailwind-merge"
+export * from "@constants/index"
+export { getErrorMessage } from "@utils/getErrorMessage"
+export { getIntParser } from "@utils/getIntParser"
+export { getPostitiveIntParser } from "@utils/getPostitiveIntParser"
+export { intParser } from "@utils/intParser"
+export { postitiveIntParser } from "@utils/postitiveIntParser"
+export { showTotal } from "@utils/showTotal"
 export { default as equal } from "fast-deep-equal"
 
 /**
@@ -37,9 +45,6 @@ export function getRandomItemFromArray<T>(array: T[]): T {
     return array[getRandomBetween(0, array.length - 1)]
 }
 
-/** 0-9集合 */
-export const digits: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
 /**
  * 获取随机手机号
  */
@@ -71,9 +76,6 @@ export function getRandomPhone() {
 export function possibility(p: number) {
     return Math.random() < p
 }
-
-/** 车牌号可用的字母 */
-export const plateNoAlphabets: string[] = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 /**
  * 获取一个随机车牌号
@@ -227,9 +229,6 @@ export function compareProperties<T extends Object>(a: T, b: T, ...keyList: (key
     })
 }
 
-/** 身份证正则 */
-export const idReg = /^[1-9]\d{5}(?:18|19|20)\d{2}(?:0[1-9]|10|11|12)(?:0[1-9]|[1-2]\d|30|31)\d{3}[\dXx]$/
-
 /**
  * 判断是否是合法身份证号
  * @param {string} id - 身份证号
@@ -324,12 +323,6 @@ export function getRandomName() {
 
     return `${getRandomItemFromArray(firstList)}${getRandomItemFromArray(secondList)}${possibility(0.66) ? getRandomItemFromArray(secondList) : ""}`
 }
-
-/** 一个经度的距离 */
-export const ONE_LNG = 92693
-
-/** 一个纬度的距离 */
-export const ONE_LAT = 111319
 
 /** 得到一个函数，用于判断两个对象之间某些属性是否改变 */
 export function getPropertiesIsModified<T>(a: T, b: T): (...keyList: (keyof T)[]) => boolean {
