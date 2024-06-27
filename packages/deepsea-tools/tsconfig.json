@@ -5,6 +5,17 @@
         "skipLibCheck": true,
         "baseUrl": "./",
         "target": "ESNext",
-        "moduleResolution": "Bundler"
-    }
+        "moduleResolution": "Bundler",
+        "paths": {
+            "@constants/*": [
+                "src/constants/*"
+            ],
+            "@utils/*": [
+                "src/utils/*"
+            ]
+        }
+    },
+    "exclude": [
+        "dist"
+    ]
 }

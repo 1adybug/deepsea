@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.3.0
+
+### Minor Changes
+
+- 新增多个方法
+
 ## 5.2.1
 
 ### Patch Changes
