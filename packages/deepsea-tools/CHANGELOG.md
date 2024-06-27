@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.4.0
+
+### Minor Changes
+
+- 新增 isPlainObject 方法
+
 ## 5.3.0
 
 ### Minor Changes
