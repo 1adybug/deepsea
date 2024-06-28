@@ -1,4 +1,4 @@
-import { TransitionNum, TransitionNumConfig } from "deepsea-tools"
+import { Fiber, Node, TransitionNum, TransitionNumConfig, treeToFiber, walkThroughFiber } from "deepsea-tools"
 import type { CSSProperties, DependencyList, Dispatch, MutableRefObject, SetStateAction } from "react"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { useSearchParams } from "react-router-dom"
@@ -379,68 +379,15 @@ export function useInputState<T>(input: T, deps?: any[]): [T, Dispatch<SetStateA
     return [state, setState]
 }
 
-export type TreeNode<T> = T & {
-    children?: TreeNode<T>[] | undefined
-}
-
-export type TreeFiber<T> = T & {
-    parent: TreeFiber<T> | null
-    child: TreeFiber<T> | null
-    sibling: TreeFiber<T> | null
-}
-
-export function treeToFiber<T>(tree: TreeNode<T>[]): TreeFiber<T> {
-    if (tree.length === 0) throw new Error("树不能为空")
-    let first: TreeFiber<T>
-    function createFiber(tree: TreeNode<T>[], parent: TreeFiber<T> | null): void {
-        let prev: TreeFiber<T> | null = null
-        tree.forEach(item => {
-            const { children, ...others } = item
-            const fiber: TreeFiber<T> = {
-                ...(others as T),
-                parent,
-                child: null,
-                sibling: null
-            }
-            first ??= fiber
-            if (parent && !parent.child) parent.child = fiber
-            if (prev) prev.sibling = fiber
-            prev = fiber
-            if (children) createFiber(children, fiber)
-        })
-    }
-    createFiber(tree, null)
-    return first!
-}
-
-export function getNextFiber<T>(fiber: TreeFiber<T>): TreeFiber<T> | null {
-    if (fiber.child) return fiber.child
-    if (fiber.sibling) return fiber.sibling
-    let parent = fiber.parent
-    while (parent) {
-        if (parent.sibling) return parent.sibling
-        parent = parent.parent
-    }
-    return null
-}
-
-export function walkThroughFiber<T>(fiber: TreeFiber<T>, callback: (fiber: TreeFiber<T>) => void): void {
-    if (fiber.parent) throw new Error("根节点的 parent 必须为空")
-    while (fiber) {
-        callback(fiber)
-        fiber = getNextFiber(fiber)!
-    }
-}
-
 export type SearchTreeResult<T> = {
     /** 原始树的 fiber */
-    fiber: TreeFiber<T>
+    fiber: Fiber<T>
     /** 搜索后的树 */
-    searchTree: TreeNode<T>[]
+    searchTree: Node<T>[]
     /** 自身符合条件的 fiber */
-    trueFibers: Set<TreeFiber<T>>
+    trueFibers: Set<Fiber<T>>
     /** 最终被添加进结果的 fiber 和 node 的映射 */
-    addedFiberMap: Map<TreeFiber<T>, TreeNode<T>>
+    addedFiberMap: Map<Fiber<T>, Node<T>>
 }
 
 /**
@@ -449,18 +396,18 @@ export type SearchTreeResult<T> = {
  * @param callback 回调函数，最好使用 useCallback 包裹
  * @param transform 转换函数，最好使用 useCallback 包裹
  */
-export function useSearchTree<T>(treeOrFiber: TreeNode<T>[] | TreeFiber<T>, callback: (data: T) => boolean): SearchTreeResult<T>
-export function useSearchTree<T, K>(treeOrFiber: TreeNode<T>[] | TreeFiber<T>, callback: (data: T) => boolean, transform: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K): SearchTreeResult<K>
-export function useSearchTree<T, K>(treeOrFiber: TreeNode<T>[] | TreeFiber<T>, callback: (data: T) => boolean, transform?: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K) {
-    const fiber = useMemo(() => (Array.isArray(treeOrFiber) ? treeToFiber(treeOrFiber) : treeOrFiber), [treeToFiber])
+export function useSearchTree<T>(treeOrFiber: Node<T>[] | Fiber<T>, callback: (data: T) => boolean): SearchTreeResult<T>
+export function useSearchTree<T, K>(treeOrFiber: Node<T>[] | Fiber<T>, callback: (data: T) => boolean, transform: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K): SearchTreeResult<K>
+export function useSearchTree<T, K>(treeOrFiber: Node<T>[] | Fiber<T>, callback: (data: T) => boolean, transform?: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K) {
+    const fiber = useMemo(() => (Array.isArray(treeOrFiber) ? treeToFiber(treeOrFiber) : treeOrFiber), [treeOrFiber])
     const searchTreeResult: SearchTreeResult<T> = useMemo(() => {
-        const searchTree: TreeNode<T>[] = []
+        const searchTree: Node<T>[] = []
         /** fiber 与 node 的映射 */
-        const addedFiberMap: Map<TreeFiber<T>, TreeNode<T>> = new Map()
+        const addedFiberMap: Map<Fiber<T>, Node<T>> = new Map()
         /** 自身符合条件的 fiber */
-        const trueFibers: Set<TreeFiber<T>> = new Set()
+        const trueFibers: Set<Fiber<T>> = new Set()
         /** 检测是否有祖先 fiber 符合条件 */
-        function parentIsTrue(fiber: TreeFiber<T>) {
+        function parentIsTrue(fiber: Fiber<T>) {
             let parent = fiber.parent
             while (parent) {
                 if (trueFibers.has(parent)) return true
@@ -469,9 +416,9 @@ export function useSearchTree<T, K>(treeOrFiber: TreeNode<T>[] | TreeFiber<T>, c
             return false
         }
         /** 添加 fiber 到树 */
-        function addFiberToTree(fiber: TreeFiber<T>) {
+        function addFiberToTree(fiber: Fiber<T>) {
             const { parent, child, sibling, ...others } = fiber
-            const node = transform ? (transform(others as T, trueFibers.has(fiber), parentIsTrue(fiber)) as TreeNode<T>) : (others as TreeNode<T>)
+            const node = transform ? (transform(others as T, trueFibers.has(fiber), parentIsTrue(fiber)) as Node<T>) : (others as Node<T>)
             addedFiberMap.set(fiber, node)
             // 如果没有父节点，直接添加到树中
             if (!parent) return searchTree.push(node)
