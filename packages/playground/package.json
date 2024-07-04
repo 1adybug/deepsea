@@ -1,7 +1,7 @@
 {
     "name": "deepsea-components-demo",
     "private": true,
-    "version": "0.1.12",
+    "version": "0.1.13",
     "type": "module",
     "scripts": {
         "dev": "vite --host",
@@ -21,7 +21,8 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.23.1",
-        "soda-hooks": "workspace:*"
+        "soda-hooks": "workspace:*",
+        "soda-coordinate": "workspace:*"
     },
     "devDependencies": {
         "@types/react": "^18.2.66",

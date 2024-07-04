@@ -1,5 +1,12 @@
 # deepsea-components-demo
 
+## 0.1.13
+
+### Patch Changes
+
+-   Updated dependencies
+    -   soda-coordinate@5.1.1
+
 ## 0.1.12
 
 ### Patch Changes
