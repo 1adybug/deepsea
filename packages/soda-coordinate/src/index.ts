@@ -1,4 +1,6 @@
 import robustSegmentIntersect from "robust-segment-intersect"
+export { default as robustPointInPolygon } from "robust-point-in-polygon"
+export { default as robustSegmentIntersect } from "robust-segment-intersect"
 
 export type CoordType = "WGS84" | "GCJ02" | "BD09"
 

@@ -1,5 +1,11 @@
 # soda-coordinate
 
+## 5.1.0
+
+### Minor Changes
+
+- 新增 robustPointInPolygon 和 robustSegmentIntersect 方法
+
 ## 5.0.7
 
 ### Patch Changes
