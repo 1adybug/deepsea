@@ -1,3 +1,5 @@
+/// <reference types="./robust-point-in-polygon" />
+/// <reference types="./robust-segment-intersect" />
 import robustSegmentIntersect from "robust-segment-intersect"
 export { default as robustPointInPolygon } from "robust-point-in-polygon"
 export { default as robustSegmentIntersect } from "robust-segment-intersect"

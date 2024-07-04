@@ -1,6 +1,6 @@
 {
     "name": "soda-coordinate",
-    "version": "5.1.0",
+    "version": "5.1.1",
     "description": "coordinate tools",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -18,15 +18,15 @@
     "files": [
         "dist",
         "compiled",
-        "src",
-        "types.d.ts"
+        "src"
     ],
     "dependencies": {
         "robust-point-in-polygon": "^1.0.3",
         "robust-segment-intersect": "^1.0.1"
     },
     "devDependencies": {
-        "father": "^4.4.0"
+        "father": "^4.4.0",
+        "typescript": "^5.5.3"
     },
     "publishConfig": {
         "access": "public",
