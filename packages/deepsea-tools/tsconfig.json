@@ -13,8 +13,7 @@
             "@utils/*": [
                 "src/utils/*"
             ]
-        },
-        "noEmit": true
+        }
     },
     "exclude": [
         "dist"

@@ -6,7 +6,6 @@
         "jsx": "react-jsx",
         "target": "ESNext",
         "moduleResolution": "Bundler",
-        "noEmit": true,
         "paths": {
             "@components/*": [
                 "./src/components/*"

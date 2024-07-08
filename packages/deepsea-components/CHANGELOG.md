@@ -1,5 +1,13 @@
 # deepsea-components
 
+## 5.4.1
+
+### Patch Changes
+
+- 修复不编译的问题
+- Updated dependencies
+  - deepsea-tools@5.6.1
+
 ## 5.4.0
 
 ### Minor Changes
