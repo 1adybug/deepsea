@@ -1,13 +1,30 @@
 export type Node<T> = T & {
+    /**
+     * 子节点
+     */
     children?: Node<T>[] | undefined
 }
 
 export type Fiber<T> = T & {
+    /**
+     * 父节点
+     */
     parent: Fiber<T> | null
+    /**
+     * 子节点
+     */
     child: Fiber<T> | null
+    /**
+     * 兄弟节点
+     */
     sibling: Fiber<T> | null
 }
 
+/**
+ * 将树转换为 fiber
+ * @param tree 要转换的树
+ * @returns 返回转换后的 fiber
+ */
 export function treeToFiber<T>(tree: Node<T>[]): Fiber<T> {
     if (tree.length === 0) throw new Error("树不能为空")
     let first: Fiber<T>
@@ -30,42 +47,4 @@ export function treeToFiber<T>(tree: Node<T>[]): Fiber<T> {
     }
     createFiber(tree, null)
     return first!
-}
-
-export function fiberToTree<T>(fiber: Fiber<T>): Node<T>[] {
-    const tree: Node<T>[] = []
-    /** fiber 与 node 的映射 */
-    const map: Map<Fiber<T>, Node<T>> = new Map()
-    walkThroughFiber(fiber, item => {
-        const { parent, child, sibling, ...others } = item
-        const node = others as Node<T>
-        map.set(item, node)
-        if (!parent) tree.push(node)
-        else {
-            const parentNode = map.get(parent)!
-            parentNode.children ??= []
-            parentNode.children.push(node)
-        }
-    })
-
-    return tree
-}
-
-export function getNextFiber<T>(fiber: Fiber<T>): Fiber<T> | null {
-    if (fiber.child) return fiber.child
-    if (fiber.sibling) return fiber.sibling
-    let parent = fiber.parent
-    while (parent) {
-        if (parent.sibling) return parent.sibling
-        parent = parent.parent
-    }
-    return null
-}
-
-export function walkThroughFiber<T>(fiber: Fiber<T>, callback: (fiber: Fiber<T>) => void): void {
-    if (fiber.parent) throw new Error(`The fiber is not the root`)
-    while (fiber) {
-        callback(fiber)
-        fiber = getNextFiber(fiber)!
-    }
 }

@@ -5,7 +5,18 @@
         "skipLibCheck": true,
         "jsx": "react-jsx",
         "target": "ESNext",
-        "moduleResolution": "Bundler"
+        "moduleResolution": "Bundler",
+        "noEmit": true,
+        "paths": {
+            "@components/*": [
+                "./src/components/*"
+            ],
+            "@utils/*": [
+                "./src/utils/*"
+            ]
+        }
     },
-    "exclude": ["dist"]
+    "exclude": [
+        "dist"
+    ]
 }

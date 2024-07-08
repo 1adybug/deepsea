@@ -1,5 +1,16 @@
 # deepsea-components
 
+## 5.4.0
+
+### Minor Changes
+
+- 修改了导出
+
+### Patch Changes
+
+- Updated dependencies
+  - deepsea-tools@5.6.0
+
 ## 5.3.6
 
 ### Patch Changes

@@ -1,3 +1,8 @@
+/** 
+ * 获取错误信息
+ * @param error 错误
+ * @returns 错误信息
+ */
 export function getErrorMessage(error: unknown): string {
     if (error === "Failed to fetch") return "网络请求失败，请稍后再试"
     if (typeof error === "string") return error
