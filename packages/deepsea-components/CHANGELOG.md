@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.5.0
+
+### Minor Changes
+
+- 新增 FormLabel 组件
+
 ## 5.4.2
 
 ### Patch Changes
