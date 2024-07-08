@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.5.1
+
+### Patch Changes
+
+- 修复导出问题
+
 ## 5.5.0
 
 ### Minor Changes

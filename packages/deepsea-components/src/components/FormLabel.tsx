@@ -16,7 +16,7 @@ export type FormLabelProps = ComponentProps<"div"> & {
 /**
  * 为 Ant Design 的 FormItem 设计的 Label 组件
  */
-const FormLabel: FC<FormLabelProps> = props => {
+export const FormLabel: FC<FormLabelProps> = props => {
     const { className, style, before, width, ...rest } = props
 
     return (
@@ -36,5 +36,3 @@ const FormLabel: FC<FormLabelProps> = props => {
         </Fragment>
     )
 }
-
-export default FormLabel
