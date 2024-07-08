@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.6.0
+
+### Minor Changes
+
+- 修改了导出
+
 ## 5.5.0
 
 ### Minor Changes

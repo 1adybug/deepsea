@@ -303,3 +303,34 @@ export function canCoordsBePolygon(coords: [number, number][]): boolean {
     }
     return true
 }
+
+/**
+ * 获取到两个经纬度坐标之间的固定距离的可能的坐标
+ * @param coord 经纬度一，[经度, 维度]
+ * @param coord2 经纬度二，[经度, 维度]
+ * @param d 距离一，单位：米
+ * @param d2 距离二，单位：米
+ * @returns 可能的两个坐标
+ */
+export function getCoordsWithCertainDistance(coord: [number, number], coord2: [number, number], d: number, d2: number): [number, number][] {
+    const [longitude, latitude] = coord
+    const [longitude2, latitude2] = coord2
+    const [m, n] = [latitude2 - latitude, longitude2 - longitude]
+    const s = getDistance(coord, [longitude, latitude2]) / m
+    const t = getDistance(coord, [longitude2, latitude]) / n
+    const e = m * s
+    const f = n * t
+    const g = -e / f
+    const h = (e ** 2 + f ** 2 + d ** 2 - d2 ** 2) / (2 * f)
+    const a = g ** 2 + 1
+    const b = 2 * g * h
+    const c = h ** 2 - d ** 2
+    const ox1 = (-b + (b ** 2 - 4 * a * c) ** (1 / 2)) / (2 * a)
+    const oy1 = g * ox1 + h
+    const ox2 = (-b - (b ** 2 - 4 * a * c) ** (1 / 2)) / (2 * a)
+    const oy2 = g * ox2 + h
+    return [
+        [oy1 / t + longitude, ox1 / s + latitude],
+        [oy2 / t + longitude, ox2 / s + latitude]
+    ]
+}

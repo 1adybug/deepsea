@@ -1,6 +1,6 @@
 {
     "name": "deepsea-tools",
-    "version": "5.5.0",
+    "version": "5.6.0",
     "description": "格数科技自用工具包",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -9,7 +9,7 @@
         "dev": "father dev",
         "build": "father build",
         "build:deps": "father prebundle",
-        "prepublishOnly": "father doctor && npm run build"
+        "prepublishOnly": "tsx scripts/exportComponents.ts && father doctor && npm run build"
     },
     "repository": {
         "type": "git",
