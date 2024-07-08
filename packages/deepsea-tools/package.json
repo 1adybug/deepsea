@@ -9,7 +9,7 @@
         "dev": "father dev",
         "build": "father build",
         "build:deps": "father prebundle",
-        "prepublishOnly": "tsx scripts/exportComponents.ts && father doctor && npm run build"
+        "prepublishOnly": "tsx scripts/export.ts && father doctor && npm run build"
     },
     "repository": {
         "type": "git",
