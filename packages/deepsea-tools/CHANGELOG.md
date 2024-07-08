@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.6.1
+
+### Patch Changes
+
+- 修复不编译的问题
+
 ## 5.6.0
 
 ### Minor Changes
