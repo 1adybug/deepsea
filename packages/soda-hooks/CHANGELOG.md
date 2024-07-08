@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 5.3.0
+
+### Minor Changes
+
+- 新增 useNextQueryState
+
 ## 5.2.3
 
 ### Patch Changes

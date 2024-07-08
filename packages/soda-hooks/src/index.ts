@@ -1,4 +1,5 @@
 import { Fiber, Node, TransitionNum, TransitionNumConfig, treeToFiber, walkThroughFiber } from "deepsea-tools"
+import { usePathname as useNextPathname, useRouter as useNextRouter, useSearchParams as useNextSearchParams } from "next/navigation"
 import type { CSSProperties, DependencyList, Dispatch, MutableRefObject, SetStateAction } from "react"
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { useSearchParams } from "react-router-dom"
@@ -191,6 +192,22 @@ export type SetQueryState<T extends string, K extends QueryToStateFnMap> = (stat
  */
 export function useQueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap>(options?: QueryStateOptions<T, K>): [QueryState<T, K>, SetQueryState<T, K>] {
     const [searchParams, setSearchParams] = useSearchParams()
+    return useNativeQueryState({ ...options, search: searchParams, setSearch: setSearchParams })
+}
+
+/**
+ * 使用 Next 的 useSearchParams 实现的 useQueryState
+ */
+export function useNextQueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap>(options?: QueryStateOptions<T, K>): [QueryState<T, K>, SetQueryState<T, K>] {
+    const router = useNextRouter()
+    const pathname = useNextPathname()
+    const searchParams = useNextSearchParams()
+    function setSearchParams(next: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams)) {
+        const newSearchParams = typeof next === "function" ? next(searchParams) : next
+        const newSearch = newSearchParams.toString()
+        if (newSearchParams.size === 0) return router.push(pathname)
+        router.push(`${pathname}?${newSearch}`)
+    }
     return useNativeQueryState({ ...options, search: searchParams, setSearch: setSearchParams })
 }
 
