@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.7.0
+
+### Minor Changes
+
+- 新增 getPagination 方法
+
 ## 5.6.1
 
 ### Patch Changes
