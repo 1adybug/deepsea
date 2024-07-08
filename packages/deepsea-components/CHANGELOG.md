@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.5.2
+
+### Patch Changes
+
+- 修复 before 宽度问题
+
 ## 5.5.1
 
 ### Patch Changes

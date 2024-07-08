@@ -21,7 +21,7 @@ export const FormLabel: FC<FormLabelProps> = props => {
 
     return (
         <Fragment>
-            {!!before && <div className="w-[11px]">&ensp;</div>}
+            {!!before && <div style={{ width: 11 }}>&ensp;</div>}
             <div
                 className={clsx(
                     css`
