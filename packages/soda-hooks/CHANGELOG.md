@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 5.3.1
+
+### Patch Changes
+
+- 允许传入一个函数作为 useInputState 参数
+
 ## 5.3.0
 
 ### Minor Changes

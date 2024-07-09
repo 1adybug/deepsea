@@ -385,13 +385,13 @@ ${
  * @param input props 中的值
  * @param deps 依赖项 deps 变化时，state 会被重置为 input，默认为 [input]
  */
-export function useInputState<T>(input: T, deps?: any[]): [T, Dispatch<SetStateAction<T>>] {
+export function useInputState<T>(input: T | (() => T), deps?: any[]): [T, Dispatch<SetStateAction<T>>] {
     deps ??= [input]
-    const prevInput = useRef(deps)
+    const prevDeps = useRef(deps)
     const [state, setState] = useState(input)
-    if (!compareArray(prevInput.current, deps)) {
+    if (!compareArray(prevDeps.current, deps)) {
         setState(input)
-        prevInput.current = deps
+        prevDeps.current = deps
     }
     return [state, setState]
 }
