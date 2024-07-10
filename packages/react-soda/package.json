@@ -1,6 +1,6 @@
 {
     "name": "react-soda",
-    "version": "5.0.7",
+    "version": "5.0.8",
     "description": "😉 Simpler and more effective state management for react.",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -22,8 +22,9 @@
     "authors": [],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/1adybug/react-soda.git"
+        "url": "git+https://github.com/1adybug/deepsea.git"
     },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/react-soda",
     "license": "MIT",
     "files": [
         "dist",

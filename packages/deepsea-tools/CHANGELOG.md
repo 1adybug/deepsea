@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.7.1
+
+### Patch Changes
+
+- 修复一些字段
+
 ## 5.7.0
 
 ### Minor Changes

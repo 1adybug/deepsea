@@ -1,5 +1,13 @@
 # deepsea-components
 
+## 5.5.3
+
+### Patch Changes
+
+- 修复一些字段
+- Updated dependencies
+  - deepsea-tools@5.7.1
+
 ## 5.5.2
 
 ### Patch Changes
