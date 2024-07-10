@@ -1,6 +1,6 @@
 {
     "name": "soda-nodejs",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -23,7 +23,11 @@
         "access": "public",
         "registry": "https://registry.npmjs.org/"
     },
-    "repository": "https://github.com/1adybug/deepsea/tree/main/packages/soda-nodejs",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-nodejs",
     "devDependencies": {
         "@types/node": "^20.14.10",
         "father": "^4.5.0-rc.2"
