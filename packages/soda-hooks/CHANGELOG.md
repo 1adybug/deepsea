@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 5.4.0
+
+### Minor Changes
+
+- 移除 next 相关
+
 ## 5.3.2
 
 ### Patch Changes
