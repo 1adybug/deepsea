@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.3
+
+### Patch Changes
+
+- 修复 repository
+
 ## 0.0.2
 
 ### Patch Changes
