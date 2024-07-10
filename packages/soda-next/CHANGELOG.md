@@ -1,5 +1,11 @@
 # soda-next
 
+## 0.0.4
+
+### Patch Changes
+
+- 修复 useQueryState 命名
+
 ## 0.0.3
 
 ### Patch Changes

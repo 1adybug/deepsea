@@ -4,7 +4,7 @@ import { QueryState, QueryStateOptions, QueryToStateFnMap, SetQueryState, useNat
 /**
  * 使用 Next 的 useSearchParams 实现的 useQueryState
  */
-export function useNextQueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap>(options?: QueryStateOptions<T, K>): [QueryState<T, K>, SetQueryState<T, K>] {
+export function useQueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap>(options?: QueryStateOptions<T, K>): [QueryState<T, K>, SetQueryState<T, K>] {
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
