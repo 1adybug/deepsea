@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 5.3.2
+
+### Patch Changes
+
+- 修复 useInputState 输入是一个函数时，依赖项的比较问题
+
 ## 5.3.1
 
 ### Patch Changes
