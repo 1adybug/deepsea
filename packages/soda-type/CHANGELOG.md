@@ -1,5 +1,11 @@
 # soda-type
 
+## 5.1.1
+
+### Patch Changes
+
+- 修复一些字段
+
 ## 5.1.0
 
 ### Minor Changes
