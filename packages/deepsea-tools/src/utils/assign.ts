@@ -18,15 +18,12 @@ export function assign<A extends {}, B extends {}, C extends {}>(a: A, b: B, c: 
 export function assign<A extends {}, B extends {}, C extends {}, D extends {}>(a: A, b: B, c: C, d: D): Assign<Assign<Assign<A, B>, C>, D>
 export function assign(a: object, ...sources: object[]): any
 export function assign(a: object, ...sources: object[]): any {
-    if (sources.length === 0) return a
-    const [b, ...rest] = sources
-    const keys = getEnumerable(b)
-    for (const key of keys) {
-        const value = b[key]
-        if (value === undefined) continue
-        a[key] = value
-        return a
+    for (const b of sources) {
+        const keys = getEnumerable(b)
+        for (const key of keys) {
+            const value = b[key]
+            if (value !== undefined) a[key] = value
+        }
     }
-    if (rest.length === 0) return a
-    return assign(a, ...rest)
+    return a
 }
