@@ -10,6 +10,10 @@ export type UnzipOptions = {
      * 解压到的目标文件夹位置
      */
     output: string
+    /**
+     * 压缩文件时的工作目录
+     */
+    cwd?: string
 }
 
 /**
@@ -23,7 +27,7 @@ export type UnzipOptions = {
  * 4. 重启终端，输入 7z，如果出现 7z 的版本信息，则安装成功
  * 5. 如果没有出现版本信息，请重启电脑，或者检查 7z 的安装路径是否正确
  */
-export async function unzip({ input, output }: UnzipOptions) {
+export async function unzip({ input, output, cwd }: UnzipOptions) {
     await which("7z")
-    return await execAsync(`7z x ${input} -o${output}`)
+    return await execAsync(`7z x ${input} -o${output}`, { cwd })
 }
