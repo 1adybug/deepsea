@@ -1,5 +1,12 @@
 # deepsea-components
 
+## 5.5.4
+
+### Patch Changes
+
+- Updated dependencies
+  - deepsea-tools@5.8.0
+
 ## 5.5.3
 
 ### Patch Changes
