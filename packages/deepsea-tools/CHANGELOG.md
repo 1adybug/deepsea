@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.9.2
+
+### Patch Changes
+
+- 修复 assign 错误
+
 ## 5.9.1
 
 ### Patch Changes
