@@ -6,11 +6,11 @@ export type ZipOptions = {
     /**
      * 要压缩的文件
      */
-    source: string | string[]
+    input: string | string[]
     /**
      * 压缩到的目标位置，文件名的后缀就是压缩格式，例如：.zip、.7z
      */
-    target: string
+    output: string
     /**
      * 线程数
      */
@@ -36,10 +36,9 @@ export type ZipOptions = {
  * 4. 重启终端，输入 7z，如果出现 7z 的版本信息，则安装成功
  * 5. 如果没有出现版本信息，请重启电脑，或者检查 7z 的安装路径是否正确
  */
-export async function zip({ source, target, thread = "auto", level, password }: ZipOptions) {
+export async function zip({ input, output, thread = "auto", level, password }: ZipOptions) {
     await which("7z")
-    source = Array.isArray(source) ? source.join(" ") : source
-    const cpuCount = cpus().length
-    if (thread === "max") thread = cpuCount
-    return await execAsync(`7z a ${target} ${source} -mmt=${thread === "auto" ? "on" : thread}${typeof level === "number" ? ` -mx=${level}` : ""}${password ? ` -p${password}` : ""}`)
+    input = Array.isArray(input) ? input.join(" ") : input
+    if (thread === "max") thread = cpus().length
+    return await execAsync(`7z a ${output} ${input} -mmt=${thread === "auto" ? "on" : thread}${typeof level === "number" ? ` -mx=${level}` : ""}${password ? ` -p${password}` : ""}`)
 }

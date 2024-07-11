@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.1.4
+
+### Patch Changes
+
+- 修改一些参数名
+
 ## 0.1.3
 
 ### Patch Changes
