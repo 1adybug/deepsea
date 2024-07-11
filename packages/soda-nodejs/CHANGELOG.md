@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.1.6
+
+### Patch Changes
+
+- 新增 cwd 参数
+
 ## 0.1.5
 
 ### Patch Changes
