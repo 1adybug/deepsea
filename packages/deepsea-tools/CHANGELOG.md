@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.9.0
+
+### Minor Changes
+
+- 新增 assign 和 getEnumerable 两个方法
+
 ## 5.8.0
 
 ### Minor Changes
