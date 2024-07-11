@@ -12,19 +12,21 @@ export type Assign<A extends {}, B extends {}> = {
  * @param b 第二个对象
  * @returns 合并后的对象
  */
+export function assign<A extends {}>(a: A): A
 export function assign<A extends {}, B extends {}>(a: A, b: B): Assign<A, B>
 export function assign<A extends {}, B extends {}, C extends {}>(a: A, b: B, c: C): Assign<Assign<A, B>, C>
 export function assign<A extends {}, B extends {}, C extends {}, D extends {}>(a: A, b: B, c: C, d: D): Assign<Assign<Assign<A, B>, C>, D>
-export function assign(a: any, ...sources: any[]): any
-export function assign(a: any, ...sources: any[]): any {
+export function assign(a: object, ...sources: object[]): any
+export function assign(a: object, ...sources: object[]): any {
     if (sources.length === 0) return a
     const [b, ...rest] = sources
     const keys = getEnumerable(b)
-    const result = keys.reduce((acc, key) => {
+    for (const key of keys) {
         const value = b[key]
-        if (value === undefined) return acc
-        acc[key] = value
-        return acc
-    }, a)
-    return assign(result, ...rest)
+        if (value === undefined) continue
+        a[key] = value
+        return a
+    }
+    if (rest.length === 0) return a
+    return assign(a, ...rest)
 }

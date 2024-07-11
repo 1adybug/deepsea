@@ -1,2 +1,11 @@
 node_modules
 pnpm-lock.yaml
+package-lock.json
+yarn.lock
+dist
+build
+yarn-error.log
+test.js
+test.mjs
+test.ts
+test

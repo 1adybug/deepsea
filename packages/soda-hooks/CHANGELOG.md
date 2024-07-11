@@ -1,5 +1,12 @@
 # soda-hooks
 
+## 5.4.4
+
+### Patch Changes
+
+- Updated dependencies
+  - deepsea-tools@5.9.1
+
 ## 5.4.3
 
 ### Patch Changes
