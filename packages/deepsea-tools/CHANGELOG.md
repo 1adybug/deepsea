@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.9.1
+
+### Patch Changes
+
+- 完善 assign 的逻辑
+
 ## 5.9.0
 
 ### Minor Changes
