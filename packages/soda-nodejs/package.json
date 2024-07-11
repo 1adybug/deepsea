@@ -1,6 +1,6 @@
 {
     "name": "soda-nodejs",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -9,7 +9,7 @@
         "dev": "father dev",
         "build": "father build",
         "build:deps": "father prebundle",
-        "prepublishOnly": "father doctor && npm run build"
+        "prepublishOnly": "tsx scripts/export.ts && father doctor && npm run build"
     },
     "keywords": [],
     "authors": [],
