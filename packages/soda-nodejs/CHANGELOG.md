@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.1.0
+
+### Minor Changes
+
+- 新增多个方法
+
 ## 0.0.4
 
 ### Patch Changes
