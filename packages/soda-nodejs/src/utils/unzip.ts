@@ -19,7 +19,7 @@ export type UnzipOptions = {
 export async function unzip({ source, target }: UnzipOptions) {
     if (!(await check7zip())) {
         install7zip()
-        return
+        throw new Error("检测不到 7z 命令")
     }
     return await execAsync(`7z x ${source} -o${target}`)
 }

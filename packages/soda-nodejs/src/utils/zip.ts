@@ -29,7 +29,7 @@ export type ZipOptions = {
 export async function zip({ source, target, thread = "auto", level, password }: ZipOptions) {
     if (!(await check7zip())) {
         install7zip()
-        return
+        throw new Error("检测不到 7z 命令")
     }
     source = Array.isArray(source) ? source.join(" ") : source
     const cpuCount = cpus().length

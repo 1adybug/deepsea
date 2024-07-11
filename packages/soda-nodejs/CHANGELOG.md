@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.1.2
+
+### Patch Changes
+
+- 修复解压缩没有报错的问题
+
 ## 0.1.1
 
 ### Patch Changes
