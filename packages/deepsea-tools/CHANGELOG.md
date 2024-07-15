@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.9.3
+
+### Patch Changes
+
+- 使用校验位校验身份证
+
 ## 5.9.2
 
 ### Patch Changes
