@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.2.0
+
+### Minor Changes
+
+- 去除无用的方法，修复 execAsync 乱码问题
+
 ## 0.1.6
 
 ### Patch Changes
