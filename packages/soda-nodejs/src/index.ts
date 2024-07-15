@@ -1,6 +1,4 @@
-export * from "@utils/check7zip"
 export * from "@utils/execAsync"
-export * from "@utils/install7zip"
 export * from "@utils/saveFile"
 export * from "@utils/spawnAsync"
 export * from "@utils/unzip"
