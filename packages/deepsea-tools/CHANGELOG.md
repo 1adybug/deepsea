@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.10.0
+
+### Minor Changes
+
+- 新增 getFilenameFromHeaders 方法
+
 ## 5.9.5
 
 ### Patch Changes
