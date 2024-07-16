@@ -1,5 +1,11 @@
 # react-soda
 
+## 5.0.9
+
+### Patch Changes
+
+- 将 father 迁移到公共开发依赖
+
 ## 5.0.8
 
 ### Patch Changes

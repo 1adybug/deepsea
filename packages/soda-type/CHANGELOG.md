@@ -1,5 +1,11 @@
 # soda-type
 
+## 5.1.2
+
+### Patch Changes
+
+- 将 father 迁移到公共开发依赖
+
 ## 5.1.1
 
 ### Patch Changes

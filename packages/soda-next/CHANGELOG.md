@@ -1,5 +1,13 @@
 # soda-next
 
+## 0.1.5
+
+### Patch Changes
+
+- 将 father 迁移到公共开发依赖
+- Updated dependencies
+  - soda-hooks@5.4.7
+
 ## 0.1.4
 
 ### Patch Changes

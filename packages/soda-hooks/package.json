@@ -1,6 +1,6 @@
 {
     "name": "soda-hooks",
-    "version": "5.4.6",
+    "version": "5.4.7",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -31,9 +31,6 @@
     "dependencies": {
         "deepsea-tools": "workspace:*",
         "soda-type": "workspace:*"
-    },
-    "devDependencies": {
-        "father": "^4.4.1"
     },
     "peerDependencies": {
         "@types/react": "^18.3.2",

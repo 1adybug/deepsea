@@ -1,5 +1,13 @@
 # deepsea-components
 
+## 5.5.9
+
+### Patch Changes
+
+- 将 father 迁移到公共开发依赖
+- Updated dependencies
+  - deepsea-tools@5.9.4
+
 ## 5.5.8
 
 ### Patch Changes

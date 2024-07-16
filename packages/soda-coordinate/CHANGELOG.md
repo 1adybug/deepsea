@@ -1,5 +1,11 @@
 # soda-coordinate
 
+## 5.2.3
+
+### Patch Changes
+
+- 将 father 迁移到公共开发依赖
+
 ## 5.2.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
     "name": "react-soda",
-    "version": "5.0.8",
+    "version": "5.0.9",
     "description": "😉 Simpler and more effective state management for react.",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -33,9 +33,6 @@
     ],
     "publishConfig": {
         "access": "public"
-    },
-    "devDependencies": {
-        "father": "^4.4.1"
     },
     "peerDependencies": {
         "@types/react": "^18.3.2",
