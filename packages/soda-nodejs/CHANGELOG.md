@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.3.0
+
+### Minor Changes
+
+- 新增 saveResponse 方法
+
 ## 0.2.1
 
 ### Patch Changes
