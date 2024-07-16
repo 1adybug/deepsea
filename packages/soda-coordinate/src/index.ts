@@ -1,8 +1,6 @@
-/// <reference types="./robust-point-in-polygon" />
-/// <reference types="./robust-segment-intersect" />
-import robustSegmentIntersect from "robust-segment-intersect"
-export { default as robustPointInPolygon } from "robust-point-in-polygon"
-export { default as robustSegmentIntersect } from "robust-segment-intersect"
+import segmentIntersect from "robust-segment-intersect"
+export { default as pointInPolygon } from "robust-point-in-polygon"
+export { default as segmentIntersect } from "robust-segment-intersect"
 
 export type CoordType = "WGS84" | "GCJ02" | "BD09"
 
@@ -280,7 +278,7 @@ export function getDistance(coord1: [number, number], coord2: [number, number]):
 export function ifTwoSegmentsIntersect(line1: [number, number][], line2: [number, number][]): boolean {
     const [a, b] = line1
     const [c, d] = line2
-    return robustSegmentIntersect(a, b, c, d)
+    return segmentIntersect(a, b, c, d)
 }
 
 /**

@@ -1,5 +1,11 @@
 # soda-coordinate
 
+## 5.2.2
+
+### Patch Changes
+
+- 修复一些问题
+
 ## 5.2.1
 
 ### Patch Changes
