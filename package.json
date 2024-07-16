@@ -13,6 +13,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@babel/runtime": "^7.24.8",
         "@changesets/cli": "^2.27.5",
         "father": "^4.4.5",
         "prettier": "^3.3.2",
