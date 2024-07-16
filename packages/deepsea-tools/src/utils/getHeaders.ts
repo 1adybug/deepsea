@@ -1,19 +1,17 @@
 /**
  * 将浏览器中直接复制的 headers 转换为对象
- * @param headers 复制的 headers
+ * @param str 复制的 headers
  * @returns headers 对象
  */
-export function getHeaders(headers: string): Headers {
+export function getHeaders(str: string): Headers {
+    const reg = /^(.+?):$\n^(.+?)$/gm
+    const reg2 = new RegExp(reg.source, "m")
+    const headers = new Headers()
+    const match = str.match(reg)
+    if (!match) throw new Error("headers 格式错误")
+    Array.from(match).forEach(item => {
+        const match2 = item.match(reg2)!
+        headers.set(match2[1], match2[2])
+    })
     return headers
-        .split("\n")
-        .map(str => str.trim())
-        .filter(str => str && !str.startsWith(":"))
-        .reduce((acc: Headers, str) => {
-            const index = str.indexOf(":")
-            if (index < 1) throw new Error(`无效的字段${str}`)
-            const key = str.slice(0, index).trim()
-            const value = str.slice(index + 1).trim()
-            acc.set(key, value)
-            return acc
-        }, new Headers())
 }

@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.9.5
+
+### Patch Changes
+
+- 修复 getHeaders 问题
+
 ## 5.9.4
 
 ### Patch Changes
