@@ -1,5 +1,14 @@
 # soda-hooks
 
+## 5.4.7
+
+### Patch Changes
+
+- 将 father 迁移到公共开发依赖
+- Updated dependencies
+  - deepsea-tools@5.9.4
+  - soda-type@5.1.2
+
 ## 5.4.6
 
 ### Patch Changes

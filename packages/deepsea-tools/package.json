@@ -1,6 +1,6 @@
 {
     "name": "deepsea-tools",
-    "version": "5.9.3",
+    "version": "5.9.4",
     "description": "格数科技自用工具包",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -39,7 +39,6 @@
         "tailwind-merge": "^2.3.0"
     },
     "devDependencies": {
-        "@types/js-cookie": "^3.0.6",
-        "father": "^4.4.0"
+        "@types/js-cookie": "^3.0.6"
     }
 }

@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.2.1
+
+### Patch Changes
+
+- 将 father 迁移到公共开发依赖
+
 ## 0.2.0
 
 ### Minor Changes

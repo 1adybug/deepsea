@@ -1,6 +1,6 @@
 {
     "name": "soda-nodejs",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -30,8 +30,7 @@
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-nodejs",
     "devDependencies": {
         "@types/node": "^20.14.10",
-        "@types/which": "^3.0.4",
-        "father": "^4.5.0-rc.2"
+        "@types/which": "^3.0.4"
     },
     "dependencies": {
         "iconv-lite": "^0.6.3",
