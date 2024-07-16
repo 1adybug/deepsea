@@ -1,5 +1,6 @@
 export * from "@utils/execAsync"
 export * from "@utils/saveFile"
+export * from "@utils/saveResponse"
 export * from "@utils/spawnAsync"
 export * from "@utils/unzip"
 export * from "@utils/zip"
