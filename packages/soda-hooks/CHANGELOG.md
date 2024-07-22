@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 5.5.0
+
+### Minor Changes
+
+- 新增 useAutoPlay
+
 ## 5.4.9
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
     "name": "soda-hooks",
-    "version": "5.4.9",
+    "version": "5.5.0",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
