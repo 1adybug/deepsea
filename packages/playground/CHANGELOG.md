@@ -1,5 +1,11 @@
 # deepsea-components-demo
 
+## 0.1.36
+
+### Patch Changes
+
+-   迁移到 rsbuild
+
 ## 0.1.35
 
 ### Patch Changes
