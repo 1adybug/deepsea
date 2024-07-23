@@ -1,8 +1,5 @@
 import { FC, useState } from "react"
 import { useTransitionNum } from "soda-hooks"
-import { robustSegmentIntersect } from "soda-coordinate"
-
-type A = typeof robustSegmentIntersect
 
 const App: FC = () => {
     const [target, setTarget] = useState(0)
