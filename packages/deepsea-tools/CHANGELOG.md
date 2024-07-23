@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.10.1
+
+### Patch Changes
+
+- 修复 getEnumOptions 类型问题
+
 ## 5.10.0
 
 ### Minor Changes
