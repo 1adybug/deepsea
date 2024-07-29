@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.11.0
+
+### Minor Changes
+
+- 新增自然数解析器
+
 ## 5.10.2
 
 ### Patch Changes

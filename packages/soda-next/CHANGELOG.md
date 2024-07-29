@@ -1,5 +1,11 @@
 # soda-next
 
+## 0.1.11
+
+### Patch Changes
+
+- soda-hooks@5.5.3
+
 ## 0.1.10
 
 ### Patch Changes
