@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.10.2
+
+### Patch Changes
+
+- 修复 positive 单词拼写问题
+
 ## 5.10.1
 
 ### Patch Changes

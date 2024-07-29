@@ -5,7 +5,7 @@ import { intParser } from "./intParser"
  * @param value 字符串
  * @returns 正整数
  */
-export function postitiveIntParser(value: string | null | undefined) {
+export function positiveIntParser(value: string | null | undefined) {
     const num = intParser(value)
     return num && num > 0 ? num : undefined
 }
