@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 5.6.0
+
+### Minor Changes
+
+- 修改目录结构，优化 useInputState
+
 ## 5.5.3
 
 ### Patch Changes
