@@ -1,7 +1,7 @@
-import { useCallback, useMemo, useRef } from "react"
-import { Equal } from "soda-type"
 import { compareArray } from "@utils/compareArray"
 import { compareSearch } from "@utils/compareSearch"
+import { useCallback, useMemo, useRef } from "react"
+import { Equal } from "soda-type"
 
 export type QueryToStateFnMap = Record<string, ((value: string | null, values: string[]) => any) | undefined>
 
@@ -23,19 +23,23 @@ export type QueryState<T extends string = never, K extends QueryToStateFnMap = Q
               [Key in T | keyof K]: Key extends keyof K ? (K[Key] extends (...args: any[]) => infer R ? R : string | undefined) : string | undefined
           }
 
-export type SetQueryState<T extends string, K extends QueryToStateFnMap> = (state: Partial<QueryState<T, K>> | ((prevState: QueryState<T, K>) => Partial<QueryState<T, K>>)) => void
+export type SetQueryState<T extends string, K extends QueryToStateFnMap> = (
+    state: Partial<QueryState<T, K>> | ((prevState: QueryState<T, K>) => Partial<QueryState<T, K>>)
+) => void
 
 export type NativeQueryStateOptions<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap> = QueryStateOptions<T, K> & {
-    search?: URLSearchParams
+    search?: string | URLSearchParams | string[][] | Record<string, string> | undefined
     setSearch?: (next: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams)) => void
 }
 
 /**
  * 使用原生的 URLSearchParams 实现的 useNativeQueryState
  */
-export function useNativeQueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap>(options?: NativeQueryStateOptions<T, K>): [QueryState<T, K>, SetQueryState<T, K>] {
+export function useNativeQueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap>(
+    options?: NativeQueryStateOptions<T, K>
+): [QueryState<T, K>, SetQueryState<T, K>] {
     const { keys = [], parse = {}, stringify = {}, deps = [], search: originalSearch, setSearch: originalSetSearch } = options || {}
-    const searchParams = originalSearch ?? new URLSearchParams(window.location.search)
+    const searchParams = originalSearch instanceof URLSearchParams ? originalSearch : new URLSearchParams(originalSearch ?? globalThis.location.search)
     const setSearchParams =
         originalSetSearch ??
         function setSearchParams(next: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams)) {
