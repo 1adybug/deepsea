@@ -1,0 +1,37 @@
+{
+    "name": "soda-use-query-state",
+    "version": "0.0.1",
+    "description": "",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/esm/index.d.ts",
+    "scripts": {
+        "dev": "father dev",
+        "build": "father build",
+        "build:deps": "father prebundle",
+        "prepublishOnly": "father doctor && npm run build"
+    },
+    "keywords": [],
+    "authors": [],
+    "license": "MIT",
+    "files": [
+        "compiled",
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-use-query-state",
+    "dependencies": {
+        "soda-hooks": "workspace:*"
+    },
+    "peerDependencies": {
+        "react-router-dom": "^6.24.0"
+    }
+}
