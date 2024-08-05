@@ -8,3 +8,5 @@ export function useQueryState<T extends string = never, K extends QueryToStateFn
     const [searchParams, setSearchParams] = useSearchParams()
     return useNativeQueryState({ ...options, search: searchParams, setSearch: setSearchParams })
 }
+
+export default useQueryState
