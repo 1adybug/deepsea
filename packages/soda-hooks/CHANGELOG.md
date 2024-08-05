@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.0.0
+
+### Major Changes
+
+- 移除 useQueryState
+
 ## 5.6.0
 
 ### Minor Changes
