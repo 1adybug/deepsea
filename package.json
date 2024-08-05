@@ -17,7 +17,8 @@
         "@changesets/cli": "^2.27.5",
         "father": "^4.4.5",
         "prettier": "^3.3.2",
+        "soda-nodejs": "^0.3.0",
         "tsx": "^4.15.6",
-        "typescript": "^5.5.3"
+        "typescript": "^5.5.4"
     }
 }
