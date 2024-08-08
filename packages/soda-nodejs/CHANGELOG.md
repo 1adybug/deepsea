@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.4.0
+
+### Minor Changes
+
+- 新增 copy 方法
+
 ## 0.3.0
 
 ### Minor Changes
