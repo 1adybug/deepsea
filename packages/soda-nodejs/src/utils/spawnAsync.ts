@@ -25,7 +25,7 @@ export async function spawnAsync(command: string, args?: any, options?: any) {
         const child = spawn(command, args, options)
         child.on("exit", code => {
             if (code !== 0) {
-                reject(new Error(`Command failed with code ${code}`))
+                reject(new Error(`"${command}" Command failed with code ${code}`))
                 return
             }
             resolve()
