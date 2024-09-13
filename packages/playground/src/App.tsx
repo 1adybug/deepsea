@@ -1,16 +1,10 @@
-import { FC, useState } from "react"
-import { useTransitionNum } from "soda-hooks"
+import { FC } from "react"
+import { InputFileButton } from "deepsea-components"
 
 const App: FC = () => {
-    const [target, setTarget] = useState(0)
-    const num = useTransitionNum(target)
-
     return (
         <div>
-            <div>{num.toString().padStart(6, "0")}</div>
-            <div>
-                <button onClick={() => setTarget(t => t + 200)}>Increment</button>
-            </div>
+            <InputFileButton input={{ onChange: console.dir }} dragFile>上传文件</InputFileButton>
         </div>
     )
 }

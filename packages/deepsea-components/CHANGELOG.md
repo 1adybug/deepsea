@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.6.0
+
+### Minor Changes
+
+- InputFileButton 支持拖动文件上传
+
 ## 5.5.14
 
 ### Patch Changes

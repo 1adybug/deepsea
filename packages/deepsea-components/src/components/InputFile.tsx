@@ -1,6 +1,6 @@
 "use client"
 
-import { ButtonHTMLAttributes, ChangeEvent, Fragment, InputHTMLAttributes, MouseEvent as ReactMouseEvent, forwardRef, useRef, useState } from "react"
+import { ButtonHTMLAttributes, ChangeEvent, Fragment, InputHTMLAttributes, MouseEvent as ReactMouseEvent, forwardRef, useRef, useState, DragEvent } from "react"
 import { read, utils, writeFile } from "xlsx"
 
 export interface InputFileDataTypes {
@@ -106,12 +106,9 @@ export const InputFile = forwardRef<HTMLInputElement, InputFileProps>((props, re
                     file: files[0]
                 } as any)
             }
-            setDisabled(false)
+        } finally {
             if (clearAfterChange) input.value = ""
-        } catch (error) {
             setDisabled(false)
-            if (clearAfterChange) input.value = ""
-            throw error
         }
     }
 
@@ -120,23 +117,67 @@ export const InputFile = forwardRef<HTMLInputElement, InputFileProps>((props, re
 
 export type InputFileButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     input: InputFileProps
+    dragFile?: boolean
 }
 
 /** 专用于读取文件的 button 组件 */
 export const InputFileButton = forwardRef<HTMLButtonElement, InputFileButtonProps>((props, ref) => {
-    const { onClick, input: inputProps, ...rest } = props
-    const { style, ...restInputProps } = inputProps
+    const { onClick: _onClick, input: inputProps, onDrop: _onDrop, onDragOver: _onDragOver, dragFile, disabled: _disabled, ...rest } = props
+    const { style, disabled: __disabled, multiple, onChange, type = "file", ...restInputProps } = inputProps
+    const [disabled, setDisabled] = useState(false)
     const input = useRef<HTMLInputElement>(null)
 
-    function onBtnClick(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) {
+    function onClick(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) {
         input.current?.click()
-        onClick?.(e)
+        _onClick?.(e)
+    }
+
+    async function onDrop(e: DragEvent<HTMLButtonElement>) {
+        _onDrop?.(e)
+        if (disabled || !dragFile) return
+        e.preventDefault()
+        const { files } = e.dataTransfer
+        if (!files || files.length === 0) return
+        setDisabled(true)
+        try {
+            if (multiple) {
+                const result: any[] = []
+                for (const file of Array.from(files)) {
+                    result.push({
+                        result: await getFileData(file, type),
+                        file
+                    })
+                }
+                onChange?.(result as any)
+            } else {
+                onChange?.({
+                    result: await getFileData(files[0], type),
+                    file: files[0]
+                } as any)
+            }
+        } finally {
+            setDisabled(false)
+        }
+    }
+
+    function onDragOver(e: DragEvent<HTMLButtonElement>) {
+        _onDragOver?.(e)
+        if (disabled || !dragFile) return
+        e.preventDefault()
     }
 
     return (
         <Fragment>
-            <InputFile ref={input} style={{ display: "none", ...style }} {...restInputProps} />
-            <button ref={ref} type="button" onClick={onBtnClick} {...rest} />
+            <InputFile
+                ref={input}
+                disabled={disabled || _disabled || __disabled}
+                style={{ display: "none", ...style }}
+                multiple={multiple as any}
+                onChange={onChange as any}
+                type={type as any}
+                {...restInputProps}
+            />
+            <button ref={ref} type="button" disabled={disabled || _disabled} onClick={onClick} onDrop={onDrop} onDragOver={onDragOver} {...rest} />
         </Fragment>
     )
 })
