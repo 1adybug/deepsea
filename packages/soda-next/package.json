@@ -8,8 +8,9 @@
     "scripts": {
         "dev": "father dev",
         "build": "father build",
+        "prebuild": "tsx scripts/export.ts",
         "build:deps": "father prebundle",
-        "prepublishOnly": "tsx scripts/export.ts && father doctor && npm run build"
+        "prepublishOnly": "father doctor && npm run build"
     },
     "keywords": [],
     "authors": [],
