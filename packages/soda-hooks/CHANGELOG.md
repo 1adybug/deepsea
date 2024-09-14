@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.1.0
+
+### Minor Changes
+
+- 新增 useCalcRef
+
 ## 6.0.1
 
 ### Patch Changes
