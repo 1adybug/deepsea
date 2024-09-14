@@ -1,6 +1,7 @@
 export * from "@hooks/useArraySignal"
 export * from "@hooks/useAsync"
 export * from "@hooks/useAutoPlay"
+export * from "@hooks/useCalcRef"
 export * from "@hooks/useInputState"
 export * from "@hooks/useLocalStorageState"
 export * from "@hooks/useNativeQueryState"
