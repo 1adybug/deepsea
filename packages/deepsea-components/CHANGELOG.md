@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.7.0
+
+### Minor Changes
+
+- 新增 CopyButton 组件
+
 ## 5.6.0
 
 ### Minor Changes
