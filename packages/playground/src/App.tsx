@@ -1,10 +1,21 @@
 import { FC } from "react"
-import { InputFileButton } from "deepsea-components"
+import { CopyButton, InputFileButton } from "deepsea-components"
+import { useRef } from "react"
+import { useEffect } from "react"
 
 const App: FC = () => {
+
+    const btn = useRef<HTMLButtonElement>(null)
+
+    useEffect(() => {
+        console.log(btn.current)
+    }, [])
+
     return (
         <div>
-            <InputFileButton input={{ onChange: console.dir }} dragFile>上传文件</InputFileButton>
+            <CopyButton ref={btn} text="Hello, World!" onCopySuccess={e => console.log("success")}>
+                Copy
+            </CopyButton>
         </div>
     )
 }

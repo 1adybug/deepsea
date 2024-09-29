@@ -1,5 +1,13 @@
 # deepsea-components-demo
 
+## 0.2.2
+
+### Patch Changes
+
+-   新增 CopyButton 组件
+-   Updated dependencies
+    -   deepsea-components@5.7.0
+
 ## 0.2.1
 
 ### Patch Changes
