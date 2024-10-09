@@ -7,7 +7,8 @@
     "scripts": {
         "dev": "tsx scripts/dev.ts",
         "r": "pnpm i && pnpm publish -r",
-        "cs": "pnpm changeset && pnpm changeset version"
+        "cs": "pnpm changeset && pnpm changeset version",
+        "format": "prettier --write ."
     },
     "keywords": [],
     "author": "",
@@ -17,6 +18,7 @@
         "@changesets/cli": "^2.27.5",
         "father": "^4.4.5",
         "prettier": "^3.3.2",
+        "prettier-plugin-organize-imports": "^4.1.0",
         "soda-nodejs": "^0.3.0",
         "tsx": "^4.15.6",
         "typescript": "^5.5.4"
