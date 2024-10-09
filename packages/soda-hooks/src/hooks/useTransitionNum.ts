@@ -1,7 +1,7 @@
 import { TransitionNum, TransitionNumConfig } from "deepsea-tools"
-import { useState, useRef, useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 
-/** 
+/**
  * 用于实现数字的过渡效果
  */
 export function useTransitionNum(config: TransitionNumConfig | number) {

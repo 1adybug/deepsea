@@ -106,7 +106,29 @@ export interface ManualFlowProps<T> extends FlowProps<T> {
 
 /** 手动组件，由外界指定宽度，性能更好 */
 export function ManualFlow<T>(props: ManualFlowProps<T>) {
-    let { itemWidth, itemHeight, columnGap, rowGap, maxRows, data = [], render, keyExactor, className, style, wrapperClassName, wrapperStyle, throttle, transitionDuration, onSizeChange, containerClassName, containerStyle, gap = 0, width, element, ...rest } = props
+    let {
+        itemWidth,
+        itemHeight,
+        columnGap,
+        rowGap,
+        maxRows,
+        data = [],
+        render,
+        keyExactor,
+        className,
+        style,
+        wrapperClassName,
+        wrapperStyle,
+        throttle,
+        transitionDuration,
+        onSizeChange,
+        containerClassName,
+        containerStyle,
+        gap = 0,
+        width,
+        element,
+        ...rest
+    } = props
     rowGap ??= gap
     columnGap ??= gap
     const [minColumnGap, maxColumnGap] = getGapRange(columnGap)
@@ -121,7 +143,7 @@ export function ManualFlow<T>(props: ManualFlowProps<T>) {
         const x = index - y * columnCount
         return {
             left: x * (itemWidth + columnGapSize),
-            top: y * (itemHeight + rowGap!)
+            top: y * (itemHeight + rowGap!),
         }
     }
 
@@ -142,7 +164,19 @@ export function ManualFlow<T>(props: ManualFlowProps<T>) {
     }, [width, itemWidth, throttle, minColumnGap, maxColumnGap])
 
     useEffect(() => {
-        onSizeChange?.({ width, height, itemWidth, itemHeight, columnGap: columnGapSize, columnCount, rowGap: rowGap!, rowCount: contentShownRows, overflow: data.length > contentShownRows * columnCount, itemCount: data.length, maxRows: maxRows ?? null })
+        onSizeChange?.({
+            width,
+            height,
+            itemWidth,
+            itemHeight,
+            columnGap: columnGapSize,
+            columnCount,
+            rowGap: rowGap!,
+            rowCount: contentShownRows,
+            overflow: data.length > contentShownRows * columnCount,
+            itemCount: data.length,
+            maxRows: maxRows ?? null,
+        })
     }, [width, height, columnGapSize, columnCount, rowGap, contentShownRows, data.length, itemWidth, itemHeight, maxRows])
 
     return (
@@ -154,10 +188,11 @@ export function ManualFlow<T>(props: ManualFlowProps<T>) {
                     height: var(--height);
                     overflow: hidden;
                 `,
-                className
+                className,
             )}
             style={transformCSSVariable({ height: px(height) }, style)}
-            {...rest}>
+            {...rest}
+        >
             {data.map((item, index, arr) => (
                 <div
                     key={keyExactor ? keyExactor(item, index, arr) : index}
@@ -171,7 +206,7 @@ export function ManualFlow<T>(props: ManualFlowProps<T>) {
                             top: 0;
                             transform: translate(var(--left), var(--top));
                         `,
-                        wrapperClassName
+                        wrapperClassName,
                     )}
                     style={transformCSSVariable(
                         {
@@ -179,10 +214,11 @@ export function ManualFlow<T>(props: ManualFlowProps<T>) {
                             height: px(itemHeight),
                             transition: transitionDuration === 0 ? "none" : `all ${transitionDuration || 400}ms`,
                             left: px(getPosition(index).left),
-                            top: px(getPosition(index).top)
+                            top: px(getPosition(index).top),
                         },
-                        wrapperStyle
-                    )}>
+                        wrapperStyle,
+                    )}
+                >
                     <div
                         className={clsx(
                             css`
@@ -190,9 +226,10 @@ export function ManualFlow<T>(props: ManualFlowProps<T>) {
                                 height: 100%;
                                 display: var(--display);
                             `,
-                            containerClassName
+                            containerClassName,
                         )}
-                        style={transformCSSVariable({ display: getHidden(index) ? "none" : "block" }, containerStyle)}>
+                        style={transformCSSVariable({ display: getHidden(index) ? "none" : "block" }, containerStyle)}
+                    >
                         {render(item, index, arr)}
                     </div>
                 </div>
@@ -203,7 +240,26 @@ export function ManualFlow<T>(props: ManualFlowProps<T>) {
 
 /** 自适应浮动组件 */
 export function Flow<T>(props: FlowProps<T>) {
-    const { itemWidth, itemHeight, columnGap, rowGap, gap, maxRows, data, render, keyExactor, wrapperClassName, wrapperStyle, containerClassName, containerStyle, throttle, transitionDuration, onSizeChange, element, ...rest } = props
+    const {
+        itemWidth,
+        itemHeight,
+        columnGap,
+        rowGap,
+        gap,
+        maxRows,
+        data,
+        render,
+        keyExactor,
+        wrapperClassName,
+        wrapperStyle,
+        containerClassName,
+        containerStyle,
+        throttle,
+        transitionDuration,
+        onSizeChange,
+        element,
+        ...rest
+    } = props
     const ele = useRef<HTMLDivElement>(null)
     const size = useSize(ele)
     const width = useRef(size?.width || 0)

@@ -4,7 +4,6 @@ import { useRef } from "react"
 import { useEffect } from "react"
 
 const App: FC = () => {
-
     const btn = useRef<HTMLButtonElement>(null)
 
     useEffect(() => {

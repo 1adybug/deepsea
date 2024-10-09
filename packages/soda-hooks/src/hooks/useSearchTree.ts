@@ -19,8 +19,16 @@ export type SearchTreeResult<T> = {
  * @param transform 转换函数，最好使用 useCallback 包裹
  */
 export function useSearchTree<T>(treeOrFiber: Node<T>[] | Fiber<T>, callback: (data: T) => boolean): SearchTreeResult<T>
-export function useSearchTree<T, K>(treeOrFiber: Node<T>[] | Fiber<T>, callback: (data: T) => boolean, transform: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K): SearchTreeResult<K>
-export function useSearchTree<T, K>(treeOrFiber: Node<T>[] | Fiber<T>, callback: (data: T) => boolean, transform?: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K) {
+export function useSearchTree<T, K>(
+    treeOrFiber: Node<T>[] | Fiber<T>,
+    callback: (data: T) => boolean,
+    transform: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K,
+): SearchTreeResult<K>
+export function useSearchTree<T, K>(
+    treeOrFiber: Node<T>[] | Fiber<T>,
+    callback: (data: T) => boolean,
+    transform?: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K,
+) {
     const fiber = useMemo(() => (Array.isArray(treeOrFiber) ? treeToFiber(treeOrFiber) : treeOrFiber), [treeOrFiber])
     const searchTreeResult: SearchTreeResult<T> = useMemo(() => {
         const searchTree: Node<T>[] = []
@@ -61,7 +69,7 @@ export function useSearchTree<T, K>(treeOrFiber: Node<T>[] | Fiber<T>, callback:
             fiber,
             searchTree,
             addedFiberMap,
-            trueFibers
+            trueFibers,
         }
     }, [fiber, callback, transform])
     return searchTreeResult

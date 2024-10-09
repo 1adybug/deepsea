@@ -158,7 +158,7 @@ export function extendArrayPrototype() {
                         prev.push(item)
                     }
                     return prev
-                }, [])
+                }, []),
             )
         }
     }

@@ -31,6 +31,6 @@ export function getPointToLineMinDistance(point: number[], line: number[][], get
                 const y = (y1 / k + x0 + k * y0 - x1) / (k + 1 / k)
                 if ((x - x1) * (x - x2) < 0 && (y - y1) * (y - y2) < 0) return method(point, [x, y])
                 return Math.min(method(point, [x1, y1]), method(point, [x2, y2]))
-            })
+            }),
     )
 }

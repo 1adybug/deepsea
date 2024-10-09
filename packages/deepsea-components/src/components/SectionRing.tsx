@@ -27,8 +27,11 @@ export const SectionRing: FC<SectionRingProps> = props => {
                 height: o * 2,
                 clipPath: `path("${Array(c)
                     .fill(0)
-                    .map((it, idx) => `${arc(o, idx * (a + s), idx * (a + s) + a)} ${arc(i, idx * (a + s) + a, idx * (a + s), { line: true, anticlockwise: true })}`)
-                    .join(" ")} Z")`
+                    .map(
+                        (it, idx) =>
+                            `${arc(o, idx * (a + s), idx * (a + s) + a)} ${arc(i, idx * (a + s) + a, idx * (a + s), { line: true, anticlockwise: true })}`,
+                    )
+                    .join(" ")} Z")`,
             }}
             {...rest}
         />

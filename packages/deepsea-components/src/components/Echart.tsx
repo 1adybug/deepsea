@@ -1,5 +1,26 @@
-import { BarSeriesOption, ComposeOption, DatasetComponentOption, ECharts, GridComponentOption, init, LineSeriesOption, PieSeriesOption, TitleComponentOption, TooltipComponentOption } from "echarts"
-import { ComponentProps, ForwardedRef, forwardRef, ForwardRefExoticComponent, RefAttributes, useEffect, useImperativeHandle, useLayoutEffect, useRef } from "react"
+import {
+    BarSeriesOption,
+    ComposeOption,
+    DatasetComponentOption,
+    ECharts,
+    GridComponentOption,
+    init,
+    LineSeriesOption,
+    PieSeriesOption,
+    TitleComponentOption,
+    TooltipComponentOption,
+} from "echarts"
+import {
+    ComponentProps,
+    ForwardedRef,
+    forwardRef,
+    ForwardRefExoticComponent,
+    RefAttributes,
+    useEffect,
+    useImperativeHandle,
+    useLayoutEffect,
+    useRef,
+} from "react"
 
 export type PieOption = ComposeOption<PieSeriesOption | TitleComponentOption | DatasetComponentOption | GridComponentOption | TooltipComponentOption>
 
@@ -14,7 +35,9 @@ export interface EchartProps<T extends any = any> extends Omit<ComponentProps<"d
     chart?: ForwardedRef<ECharts>
 }
 
-export type EchartComponent<T extends PieOption | BarOption | LineOption> = ForwardRefExoticComponent<Omit<EchartProps<T>, "ref"> & RefAttributes<HTMLDivElement>>
+export type EchartComponent<T extends PieOption | BarOption | LineOption> = ForwardRefExoticComponent<
+    Omit<EchartProps<T>, "ref"> & RefAttributes<HTMLDivElement>
+>
 
 const Echart = forwardRef<HTMLDivElement, EchartProps>((props, ref) => {
     const { width, height, option, chart, ...rest } = props

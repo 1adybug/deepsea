@@ -54,7 +54,22 @@ export interface AutoScrollProps extends ScrollProps {
 }
 
 export const AutoScroll = forwardRef<HTMLDivElement, AutoScrollProps>((props, ref) => {
-    const { count, itemHeight, animation = 1000, duration = 3000, onMouseEnter, onMouseLeave, gap = 0, containerClassName, containerStyle, children, playOnMouseEnter, scrollbar, paused, ...rest } = props
+    const {
+        count,
+        itemHeight,
+        animation = 1000,
+        duration = 3000,
+        onMouseEnter,
+        onMouseLeave,
+        gap = 0,
+        containerClassName,
+        containerStyle,
+        children,
+        playOnMouseEnter,
+        scrollbar,
+        paused,
+        ...rest
+    } = props
     const bar = useRef<Scrollbar | null>(null)
     const timeout = useRef<NodeJS.Timeout | undefined>(undefined)
     const ele = useRef<HTMLDivElement>(null)
@@ -122,9 +137,10 @@ export const AutoScroll = forwardRef<HTMLDivElement, AutoScrollProps>((props, re
                             flex: none;
                         }
                     `,
-                    containerClassName
+                    containerClassName,
                 )}
-                style={transformCSSVariable({ gap: px(gap) }, containerStyle)}>
+                style={transformCSSVariable({ gap: px(gap) }, containerStyle)}
+            >
                 {children}
             </div>
         </Scroll>

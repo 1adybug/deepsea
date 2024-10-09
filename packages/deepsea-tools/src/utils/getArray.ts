@@ -11,5 +11,5 @@ export function getArray<T>(length: number, item: T): (T extends Function ? neve
 export function getArray<T>(length: number, fun?: any): (T | number)[] {
     return Array(length)
         .fill(0)
-        .map((item, index) => (typeof fun === "function" ? fun(index) : fun ?? index))
+        .map((item, index) => (typeof fun === "function" ? fun(index) : (fun ?? index)))
 }

@@ -7,15 +7,9 @@
         "target": "ESNext",
         "moduleResolution": "Bundler",
         "paths": {
-            "@constants/*": [
-                "src/constants/*"
-            ],
-            "@utils/*": [
-                "src/utils/*"
-            ]
+            "@constants/*": ["src/constants/*"],
+            "@utils/*": ["src/utils/*"]
         }
     },
-    "exclude": [
-        "dist"
-    ]
+    "exclude": ["dist"]
 }

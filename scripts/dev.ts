@@ -1,5 +1,5 @@
-import { spawnAsync } from "soda-nodejs"
 import { readdir, readFile } from "node:fs/promises"
+import { spawnAsync } from "soda-nodejs"
 
 async function main() {
     const dir = await readdir("packages")
@@ -11,7 +11,7 @@ async function main() {
             ...packageJSON.dependencies,
             ...packageJSON.devDependencies,
             ...packageJSON.peerDependencies,
-            ...packageJSON.optionalDependencies
+            ...packageJSON.optionalDependencies,
         })
             .filter(([name, version]) => (version as string).includes("workspace:"))
             .map(([name]) => name)

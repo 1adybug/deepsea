@@ -36,7 +36,7 @@ export function treeToFiber<T>(tree: Node<T>[]): Fiber<T> {
                 ...(others as T),
                 parent,
                 child: null,
-                sibling: null
+                sibling: null,
             }
             first ??= fiber
             if (parent && !parent.child) parent.child = fiber

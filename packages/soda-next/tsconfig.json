@@ -8,12 +8,8 @@
         "module": "ESNext",
         "moduleResolution": "Bundler",
         "paths": {
-            "@hooks/*": [
-                "./src/hooks/*"
-            ],
-            "@utils/*": [
-                "./src/utils/*"
-            ]
+            "@hooks/*": ["./src/hooks/*"],
+            "@utils/*": ["./src/utils/*"]
         }
     }
 }

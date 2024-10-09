@@ -4,5 +4,5 @@
 
 ### Patch Changes
 
-- Updated dependencies
-  - soda-hooks@6.1.0
+-   Updated dependencies
+    -   soda-hooks@6.1.0

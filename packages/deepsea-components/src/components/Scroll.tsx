@@ -77,18 +77,19 @@ export const Scroll = forwardRef<HTMLDivElement, ScrollProps>((props, ref) => {
                         ${thumbColor !== undefined ? "background-color: var(--thumb-color);" : ""}
                     }
                 `,
-                className
+                className,
             )}
             style={transformCSSVariable(
                 {
                     thumbWidth: px(thumbWidth),
                     thumbRadius: px(thumbRadius),
                     thumbColor,
-                    trackColor
+                    trackColor,
                 },
-                style
+                style,
             )}
-            {...rest}>
+            {...rest}
+        >
             {children}
         </div>
     )

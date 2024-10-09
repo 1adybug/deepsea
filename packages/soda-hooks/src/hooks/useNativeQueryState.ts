@@ -24,7 +24,7 @@ export type QueryState<T extends string = never, K extends QueryToStateFnMap = Q
           }
 
 export type SetQueryState<T extends string, K extends QueryToStateFnMap> = (
-    state: Partial<QueryState<T, K>> | ((prevState: QueryState<T, K>) => Partial<QueryState<T, K>>)
+    state: Partial<QueryState<T, K>> | ((prevState: QueryState<T, K>) => Partial<QueryState<T, K>>),
 ) => void
 
 export type NativeQueryStateOptions<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap> = QueryStateOptions<T, K> & {
@@ -36,7 +36,7 @@ export type NativeQueryStateOptions<T extends string = never, K extends QueryToS
  * 使用原生的 URLSearchParams 实现的 useNativeQueryState
  */
 export function useNativeQueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap>(
-    options?: NativeQueryStateOptions<T, K>
+    options?: NativeQueryStateOptions<T, K>,
 ): [QueryState<T, K>, SetQueryState<T, K>] {
     const { keys = [], parse = {}, stringify = {}, deps = [], search: originalSearch, setSearch: originalSetSearch } = options || {}
     const searchParams = originalSearch instanceof URLSearchParams ? originalSearch : new URLSearchParams(originalSearch ?? globalThis.location.search)

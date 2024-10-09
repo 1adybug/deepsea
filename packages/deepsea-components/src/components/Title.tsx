@@ -7,7 +7,6 @@ export type TitleProps = ComponentProps<"title">
 const [major] = getReactVersion()
 
 export const Title = forwardRef<HTMLTitleElement, TitleProps>((props, ref) => {
-
     if (major >= 19) return <title ref={ref} {...props} />
 
     const ele = useRef<HTMLTitleElement>(null)

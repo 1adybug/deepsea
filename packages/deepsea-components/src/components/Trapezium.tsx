@@ -43,15 +43,15 @@ export const Trapezium = forwardRef<HTMLDivElement, TrapeziumProps>((props, ref)
                     height: var(--height);
                     clip-path: var(--clip-path);
                 `,
-                className
+                className,
             )}
             style={transformCSSVariable(
                 {
                     width: px(bottom),
                     height: px(height),
-                    clipath: `path("M ${diff + f} ${0}  A ${borderRadius} ${borderRadius} 0 0 0 ${diff - g} ${h} L ${c} ${height - d} A ${borderRadius} ${borderRadius} 0 0 0 ${b} ${height} L ${bottom - b} ${height} A ${borderRadius} ${borderRadius} 0 0 0 ${bottom - c} ${height - d} L ${top + diff + g} ${h} A ${borderRadius} ${borderRadius} 0 0 0 ${top + diff - f} ${0} Z")`
+                    clipath: `path("M ${diff + f} ${0}  A ${borderRadius} ${borderRadius} 0 0 0 ${diff - g} ${h} L ${c} ${height - d} A ${borderRadius} ${borderRadius} 0 0 0 ${b} ${height} L ${bottom - b} ${height} A ${borderRadius} ${borderRadius} 0 0 0 ${bottom - c} ${height - d} L ${top + diff + g} ${h} A ${borderRadius} ${borderRadius} 0 0 0 ${top + diff - f} ${0} Z")`,
                 },
-                style
+                style,
             )}
             {...rest}
         />

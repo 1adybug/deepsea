@@ -30,7 +30,7 @@ export async function copy({ input, output, mode }: CopyOptions) {
             await copy({
                 input: join(input, entry.name),
                 output: join(output, base),
-                mode
+                mode,
             })
         }
     }

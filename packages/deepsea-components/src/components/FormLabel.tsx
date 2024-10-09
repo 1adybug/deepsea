@@ -28,7 +28,7 @@ export const FormLabel: FC<FormLabelProps> = props => {
                         text-align: justify;
                         text-align-last: justify;
                     `,
-                    className
+                    className,
                 )}
                 style={{ width, ...style }}
                 {...rest}

@@ -20,7 +20,15 @@ export const LoopSwiper = forwardRef<HTMLDivElement, LoopSwiperProps>((props, re
     const directionRef = useRef(direction)
     directionRef.current = direction
     const flexDirection: CSSProperties["flexDirection"] = direction === "vertical" ? (reverse ? "column-reverse" : "column") : reverse ? "row-reverse" : "row"
-    const animationName = swiper ? (direction === "vertical" ? (reverse ? "deepsea-reverse-vertical-loop-swipe" : "deepsea-vertical-loop-swipe") : reverse ? "deepsea-reverse-horizontal-loop-swipe" : "deepsea-horizontal-loop-swipe") : "none"
+    const animationName = swiper
+        ? direction === "vertical"
+            ? reverse
+                ? "deepsea-reverse-vertical-loop-swipe"
+                : "deepsea-vertical-loop-swipe"
+            : reverse
+              ? "deepsea-reverse-horizontal-loop-swipe"
+              : "deepsea-horizontal-loop-swipe"
+        : "none"
     const animationDuration = `${period}ms`
     const animationTimingFunction = "linear"
     const animationIterationCount = "infinite"
@@ -88,14 +96,30 @@ export const LoopSwiper = forwardRef<HTMLDivElement, LoopSwiperProps>((props, re
                         }
                     }
                 `,
-                className
+                className,
             )}
             style={{ display: "flex", flexDirection, gap, ...style }}
-            {...rest}>
-            <div ref={container} style={{ display: "flex", flexDirection, gap, animationName, animationTimingFunction, animationDuration, animationIterationCount }}>
+            {...rest}
+        >
+            <div
+                ref={container}
+                style={{ display: "flex", flexDirection, gap, animationName, animationTimingFunction, animationDuration, animationIterationCount }}
+            >
                 {children}
             </div>
-            <div style={{ display: swiper ? "flex" : "none", flexDirection, gap, animationName, animationTimingFunction, animationDuration, animationIterationCount }}>{children}</div>
+            <div
+                style={{
+                    display: swiper ? "flex" : "none",
+                    flexDirection,
+                    gap,
+                    animationName,
+                    animationTimingFunction,
+                    animationDuration,
+                    animationIterationCount,
+                }}
+            >
+                {children}
+            </div>
         </div>
     )
 })

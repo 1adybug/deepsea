@@ -66,6 +66,6 @@ export function getPagination<T>({ data, pageNum, pageSize }: PaginationConfig<T
         size,
         total,
         startRow,
-        endRow
+        endRow,
     }
 }

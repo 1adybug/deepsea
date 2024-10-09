@@ -13,7 +13,7 @@ export function getRandomPhone() {
         5: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
         7: [0, 1, 2, 3, 4, 5, 6, 7, 8],
         8: digits,
-        9: [1, 5, 8, 9]
+        9: [1, 5, 8, 9],
     }
 
     const second = getRandomItemFromArray(secondList)

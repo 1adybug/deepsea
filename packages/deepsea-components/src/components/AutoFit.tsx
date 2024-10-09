@@ -57,7 +57,9 @@ export const AutoFit = forwardRef<HTMLDivElement, AutoFitProps>((props, ref) => 
                 setHeight(px(designHeight))
             } else {
                 const scale = Math.min(contentRect.width / designWidth, contentRect.height / designHeight)
-                setTransform(`translateX(${(contentRect.width - designWidth * scale) / 2}px) translateY(${(contentRect.height - designHeight * scale) / 2}px) scale(${scale})`)
+                setTransform(
+                    `translateX(${(contentRect.width - designWidth * scale) / 2}px) translateY(${(contentRect.height - designHeight * scale) / 2}px) scale(${scale})`,
+                )
                 setWidth(px(designWidth))
                 setHeight(px(designHeight))
             }
@@ -92,7 +94,7 @@ export const AutoFit = forwardRef<HTMLDivElement, AutoFitProps>((props, ref) => 
                     width: var(--width);
                     height: var(--height);
                 `,
-                className
+                className,
             )}
             style={transformCSSVariable({ transform, width, height }, style)}
             {...rest}

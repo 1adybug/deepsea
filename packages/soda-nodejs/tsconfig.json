@@ -8,12 +8,8 @@
         "module": "ESNext",
         "moduleResolution": "Bundler",
         "paths": {
-            "@utils/*": [
-                "./src/utils/*"
-            ]
+            "@utils/*": ["./src/utils/*"]
         }
     },
-    "exclude": [
-        "dist"
-    ]
+    "exclude": ["dist"]
 }
