@@ -5,7 +5,7 @@ export default defineConfig({
     cjs: {},
     targets: {
         node: 18,
-        chrome: 100
+        chrome: 100,
     },
-    sourcemap: true
+    sourcemap: true,
 })

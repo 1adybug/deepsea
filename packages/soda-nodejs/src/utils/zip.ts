@@ -44,5 +44,8 @@ export async function zip({ input, output, thread = "auto", level, password, cwd
     await which("7z")
     input = Array.isArray(input) ? input.join(" ") : input
     if (thread === "max") thread = cpus().length
-    return await execAsync(`7z a ${output} ${input} -mmt=${thread === "auto" ? "on" : thread}${typeof level === "number" ? ` -mx=${level}` : ""}${password ? ` -p${password}` : ""}`, { cwd })
+    return await execAsync(
+        `7z a ${output} ${input} -mmt=${thread === "auto" ? "on" : thread}${typeof level === "number" ? ` -mx=${level}` : ""}${password ? ` -p${password}` : ""}`,
+        { cwd },
+    )
 }

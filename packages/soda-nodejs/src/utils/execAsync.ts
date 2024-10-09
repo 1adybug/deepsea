@@ -15,7 +15,10 @@ export async function execAsync(command: string, options: { encoding: BufferEnco
 export async function execAsync(command: string, options: { encoding: BufferEncoding } & ExecOptions & { decode: IconvDecodeOptions }): Promise<string>
 export async function execAsync(command: string, options: ExecOptions): Promise<string>
 export async function execAsync(command: string, options: (ObjectEncodingOptions & ExecOptions) | undefined | null): Promise<string | Buffer>
-export async function execAsync(command: string, options: (ObjectEncodingOptions & ExecOptions & { decode: IconvDecodeOptions }) | undefined | null): Promise<string>
+export async function execAsync(
+    command: string,
+    options: (ObjectEncodingOptions & ExecOptions & { decode: IconvDecodeOptions }) | undefined | null,
+): Promise<string>
 export async function execAsync(command: string, options?: any) {
     const decode = options?.decode as IconvDecodeOptions | undefined
     if (typeof options === "object" && options !== null && options.decode) {

@@ -37,9 +37,10 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>((props, ref) =
                         animation-timing-function: linear;
                         background-size: 800px 104px;
                     `,
-                className
+                className,
             )}
-            {...rest}>
+            {...rest}
+        >
             {children}
         </div>
     )

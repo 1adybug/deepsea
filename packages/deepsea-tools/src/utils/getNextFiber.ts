@@ -1,6 +1,6 @@
 import { Fiber } from "./treeToFibers"
 
-/** 
+/**
  * 获取下一个 fiber
  * @param fiber 当前 fiber
  * @returns 下一个 fiber

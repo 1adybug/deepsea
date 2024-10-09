@@ -34,7 +34,21 @@ export type InfiniteScrollProps = ComponentProps<"div"> & {
  * 但是，如果内部检测到并没有溢出，那么不会渲染两次，并且没有动画
  */
 export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((props, ref) => {
-    const { className, direction = "vertical", children, containerClassName, containerStyle, gap = 0, duration, withGap, withEqual, pauseOnHover, onMouseEnter, onMouseLeave, ...rest } = props
+    const {
+        className,
+        direction = "vertical",
+        children,
+        containerClassName,
+        containerStyle,
+        gap = 0,
+        duration,
+        withGap,
+        withEqual,
+        pauseOnHover,
+        onMouseEnter,
+        onMouseLeave,
+        ...rest
+    } = props
 
     const wrapper = useRef<HTMLDivElement>(null)
     const wrapperSize = useSize(wrapper)
@@ -50,7 +64,12 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
         return withEqual ? containerSize + (withGap ? gap : 0) >= wrapperSize : containerSize + (withGap ? gap : 0) > wrapperSize
     }
 
-    const overflow = wrapperSize && containerSize ? (direction === "vertical" ? bigger(containerSize.height, wrapperSize.height) : bigger(containerSize.width, wrapperSize.width)) : false
+    const overflow =
+        wrapperSize && containerSize
+            ? direction === "vertical"
+                ? bigger(containerSize.height, wrapperSize.height)
+                : bigger(containerSize.width, wrapperSize.width)
+            : false
 
     const animation = useRef<Animation | undefined>(undefined)
 
@@ -58,9 +77,12 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
         if (!wrapperSize || !containerSize || !overflow) return
         animation.current = ele.current?.animate(
             {
-                transform: direction === "vertical" ? [`translateY(0)`, `translateY(-${containerSize.height + gap}px)`] : [`translateX(0)`, `translateX(-${containerSize.width + gap}px)`]
+                transform:
+                    direction === "vertical"
+                        ? [`translateY(0)`, `translateY(-${containerSize.height + gap}px)`]
+                        : [`translateX(0)`, `translateX(-${containerSize.width + gap}px)`],
             },
-            { duration, iterations: Infinity }
+            { duration, iterations: Infinity },
         )
         return () => animation.current?.cancel()
     }, [wrapperSize, containerSize, overflow, direction, duration])
@@ -87,18 +109,20 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
                     position: relative;
                     ${direction === "vertical" ? "overflow-y: hidden;" : "overflow-x: hidden;"}
                 `,
-                className
+                className,
             )}
             onMouseEnter={enter}
             onMouseLeave={leave}
-            {...rest}>
+            {...rest}
+        >
             <div
                 ref={ele}
                 style={{
                     position: "absolute",
                     width: direction === "vertical" ? "100%" : containerSize && (overflow ? containerSize.width * 2 + gap : containerSize.width),
-                    height: direction === "horizontal" ? "100%" : containerSize && (overflow ? containerSize.height * 2 + gap : containerSize.width)
-                }}>
+                    height: direction === "horizontal" ? "100%" : containerSize && (overflow ? containerSize.height * 2 + gap : containerSize.width),
+                }}
+            >
                 <div
                     ref={container}
                     className={clsx(
@@ -108,9 +132,10 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
                             top: 0;
                             ${direction === "vertical" ? "width: 100%;" : "height: 100%;"}
                         `,
-                        containerClassName
+                        containerClassName,
                     )}
-                    style={containerStyle}>
+                    style={containerStyle}
+                >
                     {children}
                 </div>
                 {overflow && (
@@ -123,9 +148,10 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
                                 bottom: 0;
                                 ${direction === "vertical" ? "width: 100%;" : "height: 100%;"}
                             `,
-                            containerClassName
+                            containerClassName,
                         )}
-                        style={containerStyle}>
+                        style={containerStyle}
+                    >
                         {children}
                     </div>
                 )}

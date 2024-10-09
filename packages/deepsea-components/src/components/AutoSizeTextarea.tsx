@@ -40,7 +40,7 @@ export const AutoSizeTextArea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttr
                     resize: none;
                     overflow-y: hidden;
                 `,
-                className
+                className,
             )}
             style={transformCSSVariable({ height }, style)}
             {...rest}

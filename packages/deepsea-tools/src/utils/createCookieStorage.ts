@@ -23,7 +23,7 @@ export function createCookieStorage(): Storage {
         },
         removeItem(key) {
             Cookies.remove(key)
-        }
+        },
     }
     return cookieStorage
 }

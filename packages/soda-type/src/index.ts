@@ -26,7 +26,11 @@ type _KeyofUnion<T, K extends T = T> = K extends T ? keyof K : never
 export type KeyOfUnion<T> = _KeyofUnion<T>
 
 /** 判断一个 key 在所有的联合类型是否可以是 optional */
-type _IsOptionalInUnion<T, K extends KeyOfUnion<T>, P extends T = T> = true extends (P extends T ? (K extends keyof P ? (IsRequired<P, K> extends true ? false : true) : true) : never) ? true : false
+type _IsOptionalInUnion<T, K extends KeyOfUnion<T>, P extends T = T> = true extends (
+    P extends T ? (K extends keyof P ? (IsRequired<P, K> extends true ? false : true) : true) : never
+)
+    ? true
+    : false
 
 /** 判断一个 key 在所有的联合类型是否可以是 optional */
 export type IsOptionalInUnion<T, K extends KeyOfUnion<T>> = _IsOptionalInUnion<T, K>
@@ -53,7 +57,15 @@ type _PossibleValuesInUnion<T, K extends KeyOfUnion<T>, P extends T = T> = P ext
 export type PossibleValuesInUnion<T, K extends KeyOfUnion<T>> = _PossibleValuesInUnion<T, K>
 
 /** 判断一个类型是否是普通对象 */
-export type IsObject<T> = T extends any[] ? false : T extends Function ? false : T extends Record<string, any> ? (Exclude<keyof T, string | number> extends never ? true : false) : false
+export type IsObject<T> = T extends any[]
+    ? false
+    : T extends Function
+      ? false
+      : T extends Record<string, any>
+        ? Exclude<keyof T, string | number> extends never
+            ? true
+            : false
+        : false
 
 /** 获取联合类型内部所有的普通对象 */
 type _ObjectInUnion<T, K extends T = T> = K extends T ? (IsObject<K> extends true ? K : never) : never
@@ -86,7 +98,20 @@ export type CombineUnion<T> =
 export type CommonType = string | number | boolean | null | undefined
 
 /** 判断一个类型能否被 JSON.stringify */
-type _CanJSONStringify<T, I extends boolean = false> = IsNever<T> extends true ? I : T extends Function ? false : Exclude<T, CommonType> extends never ? true : Exclude<T, CommonType> extends (infer K)[] ? _CanJSONStringify<K, true> : Exclude<T, CommonType> extends Record<string, any> ? (Exclude<keyof Exclude<T, CommonType>, string | number> extends never ? _CanJSONStringify<Exclude<T, CommonType>[keyof Exclude<T, CommonType>], true> : false) : false
+type _CanJSONStringify<T, I extends boolean = false> =
+    IsNever<T> extends true
+        ? I
+        : T extends Function
+          ? false
+          : Exclude<T, CommonType> extends never
+            ? true
+            : Exclude<T, CommonType> extends (infer K)[]
+              ? _CanJSONStringify<K, true>
+              : Exclude<T, CommonType> extends Record<string, any>
+                ? Exclude<keyof Exclude<T, CommonType>, string | number> extends never
+                    ? _CanJSONStringify<Exclude<T, CommonType>[keyof Exclude<T, CommonType>], true>
+                    : false
+                : false
 
 /** 判断一个类型能否被 JSON.stringify */
 export type CanJSONStringify<T> = _CanJSONStringify<T>
@@ -99,11 +124,15 @@ export type Column<T, K extends keyof T = keyof T> = Omit<ColumnsType<T>[0], "da
         | (K extends keyof T
               ? {
                     dataIndex: K
-                } & (T[K] extends ReactNode ? { render?: (value: T[K], record: T, index: number) => ReactNode } : { render: (value: T[K], record: T, index: number) => ReactNode })
+                } & (T[K] extends ReactNode
+                    ? { render?: (value: T[K], record: T, index: number) => ReactNode }
+                    : { render: (value: T[K], record: T, index: number) => ReactNode })
               : never)
         | ({
               dataIndex?: undefined
-          } & (T extends ReactNode ? { render?: (value: T, record: T, index: number) => ReactNode } : { render: (value: T, record: T, index: number) => ReactNode }))
+          } & (T extends ReactNode
+              ? { render?: (value: T, record: T, index: number) => ReactNode }
+              : { render: (value: T, record: T, index: number) => ReactNode }))
     )
 
 export type Columns<T> = Column<T, keyof T>[]

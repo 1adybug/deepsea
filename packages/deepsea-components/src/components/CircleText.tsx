@@ -27,7 +27,20 @@ export interface CircleTextProps extends Omit<HTMLAttributes<HTMLSpanElement>, "
 
 /** 环形文字 */
 export const CircleText: FC<CircleTextProps> = props => {
-    const { width, height, radius, startAngel = 0, gapAngel = 0, align = "center", style, direction = "outer", reverse = false, separator, children, ...rest } = props
+    const {
+        width,
+        height,
+        radius,
+        startAngel = 0,
+        gapAngel = 0,
+        align = "center",
+        style,
+        direction = "outer",
+        reverse = false,
+        separator,
+        children,
+        ...rest
+    } = props
     const unitAngle = Math.atan(width / 2 / radius) * 2
     const totalAngle = (unitAngle + gapAngel) * children.length - gapAngel
     const offsetAngle = align === "left" ? 0 : align === "right" ? totalAngle : totalAngle / 2
@@ -47,7 +60,19 @@ export const CircleText: FC<CircleTextProps> = props => {
     return (
         <Fragment>
             {words.map((w, idx) => (
-                <span key={idx} style={{ position: "absolute", ...style, transform: getTransform(idx), textAlign: "center", width, lineHeight: `${height}px`, height: height }} {...rest}>
+                <span
+                    key={idx}
+                    style={{
+                        position: "absolute",
+                        ...style,
+                        transform: getTransform(idx),
+                        textAlign: "center",
+                        width,
+                        lineHeight: `${height}px`,
+                        height: height,
+                    }}
+                    {...rest}
+                >
                     {w}
                 </span>
             ))}

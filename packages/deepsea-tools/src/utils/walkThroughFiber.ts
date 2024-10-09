@@ -1,7 +1,7 @@
 import { getNextFiber } from "./getNextFiber"
 import { Fiber } from "./treeToFibers"
 
-/** 
+/**
  * 遍历 fiber
  * @param fiber 要遍历的 fiber
  * @param callback 回调函数

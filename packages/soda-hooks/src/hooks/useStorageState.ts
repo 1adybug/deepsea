@@ -20,7 +20,7 @@ export interface StorageStateHookDataConfig<Data> {
     serializer: (value: Data) => string | null
 }
 
-/** 
+/**
  * 用于存储状态到 storage 中，当 storage 中的值发生变化时，state 也会发生变化
  */
 export function useStorageState(config: StorageStateHookStringConfig): [string | null, Dispatch<SetStateAction<string | null>>]

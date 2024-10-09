@@ -1,6 +1,6 @@
 declare module "robust-point-in-polygon" {
     export type Point = [number, number]
-    /** 
+    /**
      * 判断点是否在多边形内部
      * @param polygon 多边形的顶点
      * @param point 待判断的点

@@ -1,4 +1,4 @@
-/** 
+/**
  * 获取错误信息
  * @param error 错误
  * @returns 错误信息

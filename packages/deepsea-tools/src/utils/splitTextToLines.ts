@@ -37,7 +37,7 @@ export function splitTextToLines(text: string, options?: SplitTextToLinesOptions
         }
         lines.push({
             str: char,
-            length: charLength
+            length: charLength,
         })
     }
     if (overflow) {

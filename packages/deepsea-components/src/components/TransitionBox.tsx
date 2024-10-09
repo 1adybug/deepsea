@@ -24,7 +24,15 @@ export const TransitionBox: FC<TransitionBoxProps> = forwardRef<HTMLDivElement, 
         setCount(count => Math.min(count + 1, 3))
     }, [width, height])
 
-    const outerStyle: CSSProperties = { transitionProperty: count === 3 ? [horizontal && "width", vertical && "height"].filter(Boolean).join(", ") : undefined, transitionDuration: count === 3 ? `${time}ms` : undefined, width, height, overflow: "hidden", position: "relative", ...style }
+    const outerStyle: CSSProperties = {
+        transitionProperty: count === 3 ? [horizontal && "width", vertical && "height"].filter(Boolean).join(", ") : undefined,
+        transitionDuration: count === 3 ? `${time}ms` : undefined,
+        width,
+        height,
+        overflow: "hidden",
+        position: "relative",
+        ...style,
+    }
 
     return (
         <div ref={ref} style={outerStyle} {...rest}>

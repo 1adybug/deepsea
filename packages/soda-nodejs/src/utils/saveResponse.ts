@@ -12,6 +12,6 @@ export async function saveResponse(response: Response, file: string) {
         Readable.fromWeb(response.body! as any)
             .pipe(writeable)
             .on("close", resolve)
-            .on("error", reject)
+            .on("error", reject),
     )
 }

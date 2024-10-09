@@ -1,9 +1,13 @@
-import { DependencyList, useEffect } from "react"
 import { isAsyncGenerator } from "@utils/isAsyncGenerator"
+import { DependencyList, useEffect } from "react"
 
 export function useAsync(effect: () => AsyncGenerator<void, void, void> | Promise<void>, deps?: DependencyList): void
 export function useAsync(effect: () => AsyncGenerator<void, void, void> | Promise<void>, callback: () => void, deps?: DependencyList): void
-export function useAsync(effect: () => AsyncGenerator<void, void, void> | Promise<void>, callbackOrDeps?: (() => void) | DependencyList, deps?: DependencyList) {
+export function useAsync(
+    effect: () => AsyncGenerator<void, void, void> | Promise<void>,
+    callbackOrDeps?: (() => void) | DependencyList,
+    deps?: DependencyList,
+) {
     const dependencyList = typeof callbackOrDeps === "function" ? deps : callbackOrDeps
     useEffect(() => {
         const generator = effect()

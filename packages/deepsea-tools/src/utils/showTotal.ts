@@ -1,4 +1,4 @@
-/** 
+/**
  * 显示总数
  * @param total 总数
  * @returns 总数文本

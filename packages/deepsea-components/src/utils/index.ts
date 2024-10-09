@@ -24,7 +24,7 @@ export function transformCSSVariable(style: Partial<Record<string, CSSVariableVa
             acc[transformCSSVariableName(key)] = value
             return acc
         }, {}),
-        style2
+        style2,
     )
 }
 

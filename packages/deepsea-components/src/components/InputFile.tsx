@@ -1,6 +1,6 @@
 "use client"
 
-import { ButtonHTMLAttributes, ChangeEvent, Fragment, InputHTMLAttributes, MouseEvent as ReactMouseEvent, forwardRef, useRef, useState, DragEvent } from "react"
+import { ButtonHTMLAttributes, ChangeEvent, DragEvent, Fragment, InputHTMLAttributes, MouseEvent as ReactMouseEvent, forwardRef, useRef, useState } from "react"
 import { read, utils, writeFile } from "xlsx"
 
 export interface InputFileDataTypes {
@@ -96,14 +96,14 @@ export const InputFile = forwardRef<HTMLInputElement, InputFileProps>((props, re
                 for (const file of Array.from(files)) {
                     result.push({
                         result: await getFileData(file, type),
-                        file
+                        file,
                     })
                 }
                 onChange?.(result as any)
             } else {
                 onChange?.({
                     result: await getFileData(files[0], type),
-                    file: files[0]
+                    file: files[0],
                 } as any)
             }
         } finally {
@@ -145,14 +145,14 @@ export const InputFileButton = forwardRef<HTMLButtonElement, InputFileButtonProp
                 for (const file of Array.from(files)) {
                     result.push({
                         result: await getFileData(file, type),
-                        file
+                        file,
                     })
                 }
                 onChange?.(result as any)
             } else {
                 onChange?.({
                     result: await getFileData(files[0], type),
-                    file: files[0]
+                    file: files[0],
                 } as any)
             }
         } finally {

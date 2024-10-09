@@ -1,6 +1,6 @@
 import { compareArray } from "./compareArray"
 
-/** 
+/**
  * 比较两个搜索对象是否相等
  * @param a 搜索对象a
  * @param b 搜索对象b
