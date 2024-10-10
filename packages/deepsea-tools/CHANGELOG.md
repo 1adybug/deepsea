@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.12.0
+
+### Minor Changes
+
+-   新增 color
+
 ## 5.11.0
 
 ### Minor Changes
