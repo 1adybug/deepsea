@@ -14,13 +14,13 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@babel/runtime": "^7.24.8",
-        "@changesets/cli": "^2.27.5",
-        "father": "^4.4.5",
-        "prettier": "^3.3.2",
+        "@babel/runtime": "^7.25.7",
+        "@changesets/cli": "^2.27.9",
+        "father": "^4.5.0",
+        "prettier": "^3.3.3",
         "prettier-plugin-organize-imports": "^4.1.0",
-        "soda-nodejs": "^0.3.0",
-        "tsx": "^4.15.6",
-        "typescript": "^5.5.4"
+        "soda-nodejs": "^0.4.0",
+        "tsx": "^4.19.1",
+        "typescript": "^5.6.3"
     }
 }
