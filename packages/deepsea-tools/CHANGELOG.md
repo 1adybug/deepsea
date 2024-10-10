@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.14.0
+
+### Minor Changes
+
+-   新增 getEnumKeys 方法
+
 ## 5.13.0
 
 ### Minor Changes
