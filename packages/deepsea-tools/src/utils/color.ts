@@ -10,6 +10,10 @@ const colorReg5 =
     /^rgba\( *(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]) *, *(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]) *, *(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]) *, *(0|0?\.\d+|1(\.0+)?) *\)$/
 
 export interface Color {
+    setR(this: Color, r: number): Color
+    setG(this: Color, g: number): Color
+    setB(this: Color, b: number): Color
+    setA(this: Color, a: number): Color
     toString(this: Color, type?: ColorType): string
 }
 
@@ -61,12 +65,36 @@ export class Color {
             this.a = parseFloat(match5[4])
             return
         }
-        throw new TypeError("unavailable color")
+        throw new TypeError("invalid color")
     }
 }
 
 function padHex(value: number): string {
     return value.toString(16).padStart(2, "0")
+}
+
+Color.prototype.setR = function setR(this: Color, r: number): Color {
+    if (!Number.isInteger(r) || r < 0 || r > 255) throw new TypeError("invalid red value")
+    this.r = r
+    return this
+}
+
+Color.prototype.setG = function setG(this: Color, g: number): Color {
+    if (!Number.isInteger(g) || g < 0 || g > 255) throw new TypeError("invalid green value")
+    this.g = g
+    return this
+}
+
+Color.prototype.setB = function setB(this: Color, b: number): Color {
+    if (!Number.isInteger(b) || b < 0 || b > 255) throw new TypeError("invalid blue value")
+    this.b = b
+    return this
+}
+
+Color.prototype.setA = function setA(this: Color, a: number): Color {
+    if (typeof a !== "number" || Number.isNaN(a) || a < 0 || a > 1) throw new TypeError("invalid alpha value")
+    this.a = a
+    return this
 }
 
 Color.prototype.toString = function toString(this: Color, type?: ColorType): string {
