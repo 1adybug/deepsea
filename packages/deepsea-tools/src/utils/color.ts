@@ -13,6 +13,8 @@ export interface Color {
     toString(this: Color, type?: ColorType): string
 }
 
+export type ColorType = "HEX" | "HEXA" | "RGB" | "RGBA"
+
 export class Color {
     r: number
     g: number
@@ -63,10 +65,8 @@ export class Color {
     }
 }
 
-export type ColorType = "HEX" | "HEXA" | "RGB" | "RGBA"
-
 function padHex(value: number): string {
-    return value.toString(16).padStart(2, '0');
+    return value.toString(16).padStart(2, "0")
 }
 
 Color.prototype.toString = function toString(this: Color, type?: ColorType): string {
