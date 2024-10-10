@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.13.0
+
+### Minor Changes
+
+-   新增多个方法
+
 ## 5.12.0
 
 ### Minor Changes
