@@ -1,5 +1,11 @@
 # soda-type
 
+## 5.1.3
+
+### Patch Changes
+
+-   升级依赖
+
 ## 5.1.2
 
 ### Patch Changes
