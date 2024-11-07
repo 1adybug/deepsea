@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.14.1
+
+### Patch Changes
+
+-   升级依赖
+
 ## 5.14.0
 
 ### Minor Changes
