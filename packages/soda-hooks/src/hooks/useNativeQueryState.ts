@@ -72,6 +72,7 @@ export function useNativeQueryState<T extends string = never, K extends QueryToS
     queryStateRef.current = queryState
     const setQueryState: SetQueryState<T, K> = useCallback(state => {
         const newState = typeof state === "function" ? state(queryStateRef.current) : state
+        queryStateRef.current = newState as QueryState<T, K>
         const { searchParams, setSearchParams, search, parse, stringify } = cache.current
         const newSearchParams = new URLSearchParams(searchParams)
         Object.keys(search).forEach(key => {
