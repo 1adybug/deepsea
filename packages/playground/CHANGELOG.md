@@ -1,5 +1,13 @@
 # deepsea-components-demo
 
+## 0.2.7
+
+### Patch Changes
+
+-   修复连续 setQuery(q => newQ) 参数 q 依旧为最初的错误
+-   Updated dependencies
+    -   soda-hooks@6.1.5
+
 ## 0.2.6
 
 ### Patch Changes

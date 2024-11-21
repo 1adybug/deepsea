@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.1.5
+
+### Patch Changes
+
+-   修复连续 setQuery(q => newQ) 参数 q 依旧为最初的错误
+
 ## 6.1.4
 
 ### Patch Changes
