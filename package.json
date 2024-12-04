@@ -8,7 +8,8 @@
         "dev": "tsx scripts/dev.ts",
         "r": "pnpm i && pnpm publish -r",
         "cs": "pnpm changeset && pnpm changeset version",
-        "format": "prettier --write ."
+        "format": "prettier --write .",
+        "lint": "prettier --write ."
     },
     "keywords": [],
     "author": "",
@@ -16,7 +17,9 @@
     "devDependencies": {
         "@babel/runtime": "^7.26.0",
         "@changesets/cli": "^2.27.9",
+        "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
         "father": "^4.5.1",
+        "glob": "^11.0.0",
         "prettier": "^3.3.3",
         "prettier-plugin-organize-imports": "^4.1.0",
         "soda-nodejs": "^0.4.0",

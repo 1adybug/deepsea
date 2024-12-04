@@ -1,9 +1,10 @@
-import { css } from "@emotion/css"
 import { useSize } from "ahooks"
 import { clsx } from "deepsea-tools"
-import { ComponentProps, CSSProperties, forwardRef, MouseEvent as ReactMouseEvent, useEffect, useImperativeHandle, useRef } from "react"
+import { CSSProperties, ComponentPropsWithoutRef, MouseEvent as ReactMouseEvent, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 
-export type InfiniteScrollProps = ComponentProps<"div"> & {
+import { css } from "@emotion/css"
+
+export type InfiniteScrollProps = ComponentPropsWithoutRef<"div"> & {
     /**
      * 滚动的方向
      * @default "vertical"

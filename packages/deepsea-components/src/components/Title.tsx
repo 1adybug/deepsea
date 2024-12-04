@@ -1,8 +1,9 @@
-import { ComponentProps, forwardRef, useImperativeHandle, useLayoutEffect, useRef } from "react"
+import { ComponentPropsWithoutRef, forwardRef, useImperativeHandle, useLayoutEffect, useRef } from "react"
 import { createPortal } from "react-dom"
+
 import { getReactVersion } from "../utils/getReactVersion"
 
-export type TitleProps = ComponentProps<"title">
+export type TitleProps = ComponentPropsWithoutRef<"title">
 
 const [major] = getReactVersion()
 

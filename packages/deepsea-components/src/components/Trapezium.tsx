@@ -1,8 +1,9 @@
 "use client"
 
-import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
 import { HTMLAttributes, forwardRef } from "react"
+
+import { css } from "@emotion/css"
 import { px, transformCSSVariable } from "../utils"
 
 export interface TrapeziumProps extends HTMLAttributes<HTMLDivElement> {

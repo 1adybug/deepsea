@@ -1,8 +1,9 @@
-import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
-import { ComponentProps, FC, Fragment } from "react"
+import { ComponentPropsWithoutRef, FC, Fragment } from "react"
 
-export type FormLabelProps = ComponentProps<"div"> & {
+import { css } from "@emotion/css"
+
+export type FormLabelProps = ComponentPropsWithoutRef<"div"> & {
     /**
      * Label 的宽度.
      */

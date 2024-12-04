@@ -1,8 +1,9 @@
 "use client"
 
-import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
-import { forwardRef, HTMLAttributes } from "react"
+import { HTMLAttributes, forwardRef } from "react"
+
+import { css } from "@emotion/css"
 
 export interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
     loading?: boolean

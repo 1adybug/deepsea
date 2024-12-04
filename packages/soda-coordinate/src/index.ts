@@ -1,4 +1,5 @@
 import segmentIntersect from "robust-segment-intersect"
+
 export { default as pointInPolygon } from "robust-point-in-polygon"
 export { default as segmentIntersect } from "robust-segment-intersect"
 

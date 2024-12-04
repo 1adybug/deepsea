@@ -1,5 +1,6 @@
-import { compareArray } from "@utils/compareArray"
 import { Dispatch, SetStateAction, useRef, useState } from "react"
+
+import { compareArray } from "@utils/compareArray"
 
 /**
  * 有时候我们需要一个 state，它接收一个外界值作为初始状态，后续变化不受外界值影响，这时候就可以使用 useInputState，当外界值变化时，state 也会变化
