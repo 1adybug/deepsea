@@ -1,8 +1,9 @@
 "use client"
 
-import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
-import { CSSProperties, forwardRef, HTMLAttributes, useEffect, useImperativeHandle, useRef, useState } from "react"
+import { CSSProperties, HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
+
+import { css } from "@emotion/css"
 
 export interface LoopSwiperProps extends HTMLAttributes<HTMLDivElement> {
     direction?: "horizontal" | "vertical"

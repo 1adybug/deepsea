@@ -9,7 +9,7 @@ const App: FC = () => {
     return (
         <div>
             <button onClick={() => (setQuery(q => ({ ...q, a: "1" })), setQuery(q => ({ ...q, b: "2" })))}>change</button>
-            <button onClick={() => (setQuery({}))}>change</button>
+            <button onClick={() => setQuery({})}>change</button>
         </div>
     )
 }

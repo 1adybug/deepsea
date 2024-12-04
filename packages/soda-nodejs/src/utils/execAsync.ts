@@ -1,4 +1,4 @@
-import { exec, ExecOptions } from "child_process"
+import { ExecOptions, exec } from "child_process"
 import { ObjectEncodingOptions } from "fs"
 import iconv, { Options } from "iconv-lite"
 

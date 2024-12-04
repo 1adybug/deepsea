@@ -1,6 +1,6 @@
 "use client"
 
-import { forwardRef, HTMLAttributes } from "react"
+import { HTMLAttributes, forwardRef } from "react"
 
 export interface RingProps extends HTMLAttributes<HTMLDivElement> {
     outerWidth: number

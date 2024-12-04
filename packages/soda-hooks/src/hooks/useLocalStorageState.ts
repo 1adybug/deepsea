@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
+
 import { StorageStateHookDataConfig, StorageStateHookStringConfig, useStorageState } from "./useStorageState"
 
 export function useLocalStorageState(key: string): [string | null, Dispatch<SetStateAction<string | null>>]

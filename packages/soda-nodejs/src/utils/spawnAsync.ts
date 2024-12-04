@@ -1,4 +1,4 @@
-import { spawn, SpawnOptions, SpawnOptionsWithoutStdio, SpawnOptionsWithStdioTuple, StdioNull, StdioPipe } from "child_process"
+import { SpawnOptions, SpawnOptionsWithStdioTuple, SpawnOptionsWithoutStdio, StdioNull, StdioPipe, spawn } from "child_process"
 
 export function spawnAsync(command: string, options?: SpawnOptionsWithoutStdio): Promise<void>
 export function spawnAsync(command: string, options: SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioPipe>): Promise<void>

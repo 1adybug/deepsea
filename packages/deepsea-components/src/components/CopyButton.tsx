@@ -1,10 +1,10 @@
 import { useLatest } from "ahooks"
 import ClipboardJS, { Event } from "clipboard"
-import { ComponentProps, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
+import { ComponentPropsWithoutRef, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 
 export { Event } from "clipboard"
 
-export type CopyButtonProps = ComponentProps<"button"> & {
+export type CopyButtonProps = ComponentPropsWithoutRef<"button"> & {
     text?: string
     onCopySuccess?: (e: Event) => void
     onCopyError?: (e: Event) => void

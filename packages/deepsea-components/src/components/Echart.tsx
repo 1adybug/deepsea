@@ -4,18 +4,18 @@ import {
     DatasetComponentOption,
     ECharts,
     GridComponentOption,
-    init,
     LineSeriesOption,
     PieSeriesOption,
     TitleComponentOption,
     TooltipComponentOption,
+    init,
 } from "echarts"
 import {
-    ComponentProps,
-    ForwardedRef,
-    forwardRef,
+    ComponentPropsWithoutRef,
     ForwardRefExoticComponent,
+    ForwardedRef,
     RefAttributes,
+    forwardRef,
     useEffect,
     useImperativeHandle,
     useLayoutEffect,
@@ -28,7 +28,7 @@ export type BarOption = ComposeOption<BarSeriesOption | TitleComponentOption | D
 
 export type LineOption = ComposeOption<LineSeriesOption | TitleComponentOption | DatasetComponentOption | GridComponentOption | TooltipComponentOption>
 
-export interface EchartProps<T extends any = any> extends Omit<ComponentProps<"div">, "children"> {
+export interface EchartProps<T extends any = any> extends Omit<ComponentPropsWithoutRef<"div">, "children"> {
     width: number
     height: number
     option: T
