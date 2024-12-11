@@ -17,23 +17,19 @@ export type FormLabelProps = ComponentPropsWithoutRef<"div"> & {
 /**
  * 为 Ant Design 的 FormItem 设计的 Label 组件
  */
-export const FormLabel: FC<FormLabelProps> = props => {
-    const { className, style, before, width, ...rest } = props
-
-    return (
-        <Fragment>
-            {!!before && <div style={{ width: 11 }}>&ensp;</div>}
-            <div
-                className={clsx(
-                    css`
-                        text-align: justify;
-                        text-align-last: justify;
-                    `,
-                    className,
-                )}
-                style={{ width, ...style }}
-                {...rest}
-            />
-        </Fragment>
-    )
-}
+export const FormLabel: FC<FormLabelProps> = ({ className, style, before, width, ...rest }) => (
+    <Fragment>
+        {!!before && <div style={{ width: 11 }}>&ensp;</div>}
+        <div
+            className={clsx(
+                css`
+                    text-align: justify;
+                    text-align-last: justify;
+                `,
+                className,
+            )}
+            style={{ width, ...style }}
+            {...rest}
+        />
+    </Fragment>
+)

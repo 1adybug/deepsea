@@ -1,7 +1,7 @@
 "use client"
 
 import { DrawArcOptions, drawArc } from "deepsea-tools"
-import { FC, HTMLAttributes } from "react"
+import { HTMLAttributes, forwardRef } from "react"
 
 export interface SectionRingProps extends HTMLAttributes<HTMLDivElement> {
     outerRadius: number
@@ -10,7 +10,7 @@ export interface SectionRingProps extends HTMLAttributes<HTMLDivElement> {
     angel: number
 }
 
-export const SectionRing: FC<SectionRingProps> = props => {
+export const SectionRing = forwardRef<HTMLDivElement, SectionRingProps>((props, ref) => {
     const { outerRadius: o, innerRadius: i, count: c, angel: a, style, ...rest } = props
 
     const s = (Math.PI * 2) / c - a
@@ -21,8 +21,8 @@ export const SectionRing: FC<SectionRingProps> = props => {
 
     return (
         <div
+            ref={ref}
             style={{
-                ...style,
                 width: o * 2,
                 height: o * 2,
                 clipPath: `path("${Array(c)
@@ -32,8 +32,9 @@ export const SectionRing: FC<SectionRingProps> = props => {
                             `${arc(o, idx * (a + s), idx * (a + s) + a)} ${arc(i, idx * (a + s) + a, idx * (a + s), { line: true, anticlockwise: true })}`,
                     )
                     .join(" ")} Z")`,
+                ...style,
             }}
             {...rest}
         />
     )
-}
+})

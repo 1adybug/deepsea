@@ -1,3 +1,5 @@
+"use client"
+
 import { ComponentPropsWithoutRef, forwardRef, useImperativeHandle, useLayoutEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 

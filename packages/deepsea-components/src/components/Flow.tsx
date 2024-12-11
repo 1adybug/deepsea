@@ -240,7 +240,7 @@ export function ManualFlow<T>(props: ManualFlowProps<T>) {
 }
 
 /** 自适应浮动组件 */
-export function Flow<T>(props: FlowProps<T>) {
+export function Flow<T>(props: FlowProps<T>): ReactNode {
     const {
         itemWidth,
         itemHeight,
