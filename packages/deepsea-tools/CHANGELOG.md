@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.15.0
+
+### Minor Changes
+
+-   新增 formatTime 函数，优化 getPagination 函数
+
 ## 5.14.1
 
 ### Patch Changes
