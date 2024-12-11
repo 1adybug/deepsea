@@ -1,5 +1,3 @@
-"use client"
-
 import { clsx } from "deepsea-tools"
 import { HTMLAttributes, forwardRef } from "react"
 
@@ -10,9 +8,7 @@ export interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>((props, ref) => {
-    let { className, loading, children, ...rest } = props
-
-    loading ??= children === undefined || children === null
+    const { className, children, loading = children === undefined || children === null, ...rest } = props
 
     return (
         <div

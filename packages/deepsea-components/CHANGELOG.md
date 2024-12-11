@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.7.6
+
+### Patch Changes
+
+-   修复客户端服务端组件标记
+
 ## 5.7.5
 
 ### Patch Changes

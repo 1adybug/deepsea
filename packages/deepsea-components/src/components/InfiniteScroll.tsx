@@ -1,3 +1,5 @@
+"use client"
+
 import { useSize } from "ahooks"
 import { clsx } from "deepsea-tools"
 import { CSSProperties, ComponentPropsWithoutRef, MouseEvent as ReactMouseEvent, forwardRef, useEffect, useImperativeHandle, useRef } from "react"

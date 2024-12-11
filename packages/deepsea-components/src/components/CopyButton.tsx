@@ -1,3 +1,5 @@
+"use client"
+
 import { useLatest } from "ahooks"
 import ClipboardJS, { Event } from "clipboard"
 import { ComponentPropsWithoutRef, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
