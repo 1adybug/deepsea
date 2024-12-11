@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.15.1
+
+### Patch Changes
+
+-   修复 Title 组件在服务端渲染的错误
+
 ## 5.15.0
 
 ### Minor Changes

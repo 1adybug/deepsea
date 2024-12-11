@@ -1,5 +1,13 @@
 # deepsea-components
 
+## 5.7.7
+
+### Patch Changes
+
+-   修复 Title 组件在服务端渲染的错误
+-   Updated dependencies
+    -   deepsea-tools@5.15.1
+
 ## 5.7.6
 
 ### Patch Changes

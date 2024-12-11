@@ -1,5 +1,11 @@
 # soda-react-router
 
+## 0.0.9
+
+### Patch Changes
+
+-   soda-hooks@6.1.7
+
 ## 0.0.8
 
 ### Patch Changes
