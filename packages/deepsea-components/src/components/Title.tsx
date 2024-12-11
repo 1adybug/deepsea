@@ -1,5 +1,6 @@
 "use client"
 
+import { isBrowser } from "deepsea-tools"
 import { ComponentPropsWithoutRef, forwardRef, useImperativeHandle, useLayoutEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 
@@ -22,5 +23,5 @@ export const Title = forwardRef<HTMLTitleElement, TitleProps>((props, ref) => {
         document.head.insertBefore(ele.current as HTMLTitleElement, title)
     }, [])
 
-    return createPortal(<title ref={ele} {...props} />, document.head)
+    return isBrowser && createPortal(<title ref={ele} {...props} />, document.head)
 })

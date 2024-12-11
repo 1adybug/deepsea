@@ -9,7 +9,9 @@
         "r": "pnpm i && pnpm publish -r",
         "cs": "pnpm changeset && pnpm changeset version",
         "format": "prettier --write .",
-        "lint": "prettier --write ."
+        "lint": "prettier --write .",
+        "sync": "tsx scripts/sync.ts",
+        "postr": "npm run sync"
     },
     "keywords": [],
     "author": "",

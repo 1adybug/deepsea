@@ -67,3 +67,12 @@ export const uintReg = /^\d+$/
 /** 邮箱正则 */
 export const emailReg =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+/** 是否是开发环境 */
+export const isDev = process.env.NODE_ENV === "development"
+
+/** 是否是生产环境 */
+export const isProd = process.env.NODE_ENV === "production"
+
+/** 是否是浏览器环境 */
+export const isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined"
