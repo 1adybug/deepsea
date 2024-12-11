@@ -23,16 +23,18 @@ export type Page<T> = {
 
 export type PaginationConfig<T> = {
     data: T[]
+    total?: number
     pageNum: number
     pageSize: number
 }
 
-export function getPagination<T>({ data, pageNum, pageSize }: PaginationConfig<T>): Page<T> {
+export function getPagination<T>({ data, total, pageNum, pageSize }: PaginationConfig<T>): Page<T> {
     const start = (pageNum - 1) * pageSize
     const end = start + pageSize
+    if (total === undefined) total = data.length
+    else data = getArray(total, index => (index >= start && index < end ? data[index] : undefined)) as T[]
     const list = data.slice(start, end)
     const size = list.length
-    const total = data.length
     const range = Math.floor(pageNum / 8)
     const hasNextPage = total > end
     const hasPreviousPage = start > 0
