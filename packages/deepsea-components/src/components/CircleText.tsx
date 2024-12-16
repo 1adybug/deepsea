@@ -1,3 +1,5 @@
+"use client"
+
 import { FC, Fragment, HTMLAttributes } from "react"
 
 export interface CircleTextProps extends Omit<HTMLAttributes<HTMLSpanElement>, "children"> {
