@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.7.10
+
+### Patch Changes
+
+-   更新 FormLabel 组件，宽度属性改为可选
+
 ## 5.7.9
 
 ### Patch Changes

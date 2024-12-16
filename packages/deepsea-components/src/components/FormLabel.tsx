@@ -6,7 +6,7 @@ export type FormLabelConfig = {
     /**
      * Label 的宽度.
      */
-    width: number
+    width?: number
     /**
      * 是否在 Label 前面添加一个空白区域，只有当前 Label 为非必选，而存在其他 Label 为必选的时候开启
      */
