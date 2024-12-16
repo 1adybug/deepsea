@@ -1,3 +1,5 @@
+"use client"
+
 import { clsx } from "deepsea-tools"
 import { HTMLAttributes, forwardRef } from "react"
 

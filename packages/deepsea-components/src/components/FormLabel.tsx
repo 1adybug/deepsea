@@ -28,7 +28,7 @@ export const FormLabelConfigProvider: FC<FormLabelConfigProviderProps> = ({ widt
 /**
  * 为 Ant Design 的 FormItem 设计的 Label 组件
  */
-const FormLabel: FC<FormLabelProps> = props => {
+export const FormLabel: FC<FormLabelProps> = props => {
     const { width: _width, before: _before } = useContext(FormLabelConfigContext)
     const { style, width = _width, before = _before, ...rest } = props
 
@@ -39,5 +39,3 @@ const FormLabel: FC<FormLabelProps> = props => {
         </Fragment>
     )
 }
-
-export default FormLabel

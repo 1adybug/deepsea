@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.7.9
+
+### Patch Changes
+
+-   修复 FormLabel 组件没有导出的问题
+
 ## 5.7.8
 
 ### Patch Changes
