@@ -46,9 +46,7 @@ function syncPackage(packageName: string) {
 
 async function sync() {
     const packages = (await readdir("packages")).filter(name => name !== "playground")
-    for (const packageName of packages) {
-        await syncPackage(packageName)
-    }
+    await Promise.all(packages.map(syncPackage))
 }
 
 sync()
