@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.7.8
+
+### Patch Changes
+
+-   增强 FormLabel 组件，支持配置上下文和默认属性
+
 ## 5.7.7
 
 ### Patch Changes
