@@ -1,5 +1,11 @@
 # soda-react-router
 
+## 0.0.10
+
+### Patch Changes
+
+-   新增替换选项
+
 ## 0.0.9
 
 ### Patch Changes
