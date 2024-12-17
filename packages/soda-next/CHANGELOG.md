@@ -1,5 +1,11 @@
 # soda-next
 
+## 0.3.0
+
+### Minor Changes
+
+-   添加 Navigate 组件，支持页面跳转功能
+
 ## 0.2.0
 
 ### Minor Changes

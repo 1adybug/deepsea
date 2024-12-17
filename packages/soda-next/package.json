@@ -1,6 +1,6 @@
 {
     "name": "soda-next",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -30,6 +30,7 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-next",
     "dependencies": {
+        "deepsea-tools": "workspace:*",
         "soda-hooks": "workspace:*"
     },
     "peerDependencies": {
