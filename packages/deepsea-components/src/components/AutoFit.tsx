@@ -4,7 +4,7 @@ import { clsx } from "deepsea-tools"
 import { HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from "react"
 
 import { css } from "@emotion/css"
-import { px, transformCSSVariable } from "../utils"
+import { px, transformCSSVariable } from "@/utils"
 
 export interface AutoFitProps extends HTMLAttributes<HTMLDivElement> {
     /** 设计稿宽度，默认 1920 */

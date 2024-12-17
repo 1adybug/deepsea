@@ -1,5 +1,13 @@
 # soda-react-router
 
+## 0.0.11
+
+### Patch Changes
+
+-   更新路径别名，统一使用 @ 符号引入模块
+-   Updated dependencies
+    -   soda-hooks@6.1.8
+
 ## 0.0.10
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import { clsx } from "deepsea-tools"
 import { HTMLAttributes, forwardRef } from "react"
 
 import { css } from "@emotion/css"
-import { px, transformCSSVariable } from "../utils"
+import { px, transformCSSVariable } from "@/utils"
 
 export interface TrapeziumProps extends HTMLAttributes<HTMLDivElement> {
     top: number

@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useRef } from "react"
 import { Equal } from "soda-type"
 
-import { compareArray } from "@utils/compareArray"
-import { compareSearch } from "@utils/compareSearch"
+import { compareArray } from "@/utils/compareArray"
+import { compareSearch } from "@/utils/compareSearch"
 
 export type QueryToStateFnMap = Record<string, ((value: string | null, values: string[]) => any) | undefined>
 

@@ -4,7 +4,7 @@ import { clsx } from "deepsea-tools"
 import { TextareaHTMLAttributes, forwardRef, useImperativeHandle, useLayoutEffect, useRef, useState } from "react"
 
 import { css } from "@emotion/css"
-import { px, transformCSSVariable } from "../utils"
+import { px, transformCSSVariable } from "@/utils"
 
 /**
  * 自适应高度的文本域

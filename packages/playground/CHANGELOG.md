@@ -1,5 +1,16 @@
 # deepsea-components-demo
 
+## 0.2.14
+
+### Patch Changes
+
+-   Updated dependencies
+    -   deepsea-components@5.7.11
+    -   soda-coordinate@5.2.4
+    -   deepsea-tools@5.15.2
+    -   soda-array@0.0.3
+    -   soda-hooks@6.1.8
+
 ## 0.2.13
 
 ### Patch Changes

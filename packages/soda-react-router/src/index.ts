@@ -1,1 +1,1 @@
-export * from "@hooks/useQueryState"
+export * from "@/hooks/useQueryState"

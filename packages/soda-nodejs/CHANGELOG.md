@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.4.2
+
+### Patch Changes
+
+-   更新路径别名，统一使用 @ 符号引入模块
+
 ## 0.4.1
 
 ### Patch Changes

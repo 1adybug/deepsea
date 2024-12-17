@@ -1,5 +1,11 @@
 # soda-type
 
+## 5.1.4
+
+### Patch Changes
+
+-   更新路径别名，统一使用 @ 符号引入模块
+
 ## 5.1.3
 
 ### Patch Changes

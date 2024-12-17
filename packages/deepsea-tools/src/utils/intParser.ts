@@ -1,4 +1,4 @@
-import { intReg } from "@constants/index"
+import { intReg } from "@/constants/index"
 
 /**
  * 将字符串转换为整数

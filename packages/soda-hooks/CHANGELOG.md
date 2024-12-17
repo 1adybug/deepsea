@@ -1,5 +1,14 @@
 # soda-hooks
 
+## 6.1.8
+
+### Patch Changes
+
+-   更新路径别名，统一使用 @ 符号引入模块
+-   Updated dependencies
+    -   deepsea-tools@5.15.2
+    -   soda-type@5.1.4
+
 ## 6.1.7
 
 ### Patch Changes

@@ -7,7 +7,7 @@ import Scrollbar from "smooth-scrollbar"
 import { ScrollStatus } from "smooth-scrollbar/interfaces/scrollbar"
 
 import { css } from "@emotion/css"
-import { px, transformCSSVariable } from "../utils"
+import { px, transformCSSVariable } from "@/utils"
 import { Scroll, ScrollProps } from "./Scroll"
 
 export interface AutoScrollProps extends ScrollProps {

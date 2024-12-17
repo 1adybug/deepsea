@@ -5,7 +5,7 @@ import { clsx } from "deepsea-tools"
 import { CSSProperties, HTMLAttributes, Key, ReactNode, RefObject, useEffect, useImperativeHandle, useRef, useState } from "react"
 
 import { css } from "@emotion/css"
-import { px, transformCSSVariable } from "../utils"
+import { px, transformCSSVariable } from "@/utils"
 
 export interface FlowSizeData {
     /** 容器宽度 */

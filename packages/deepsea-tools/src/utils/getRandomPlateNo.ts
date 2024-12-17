@@ -1,4 +1,4 @@
-import { plateNoAlphabets } from "@constants/index"
+import { plateNoAlphabets } from "@/constants/index"
 import { getArray } from "./getArray"
 import { getRandomItemFromArray } from "./getRandomItemFromArray"
 

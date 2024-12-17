@@ -1,5 +1,11 @@
 # react-soda
 
+## 5.0.10
+
+### Patch Changes
+
+-   更新路径别名，统一使用 @ 符号引入模块
+
 ## 5.0.9
 
 ### Patch Changes

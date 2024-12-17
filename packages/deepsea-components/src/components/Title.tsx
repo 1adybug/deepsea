@@ -4,7 +4,7 @@ import { isBrowser } from "deepsea-tools"
 import { ComponentPropsWithoutRef, forwardRef, useImperativeHandle, useLayoutEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 
-import { getReactVersion } from "../utils/getReactVersion"
+import { getReactVersion } from "@/utils/getReactVersion"
 
 export type TitleProps = ComponentPropsWithoutRef<"title">
 

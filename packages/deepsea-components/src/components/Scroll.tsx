@@ -6,7 +6,7 @@ import Scrollbar from "smooth-scrollbar"
 import type { ScrollListener, ScrollbarOptions } from "smooth-scrollbar/interfaces"
 
 import { css } from "@emotion/css"
-import { px, transformCSSVariable } from "../utils"
+import { px, transformCSSVariable } from "@/utils"
 
 export { default as Scrollbar } from "smooth-scrollbar"
 export * from "smooth-scrollbar/interfaces"

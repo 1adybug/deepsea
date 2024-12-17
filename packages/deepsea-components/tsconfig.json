@@ -7,9 +7,12 @@
         "target": "ESNext",
         "moduleResolution": "Bundler",
         "paths": {
-            "@components/*": ["./src/components/*"],
-            "@utils/*": ["./src/utils/*"]
+            "@/*": [
+                "./src/*"
+            ]
         }
     },
-    "exclude": ["dist"]
+    "exclude": [
+        "dist"
+    ]
 }
