@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.15.3
+
+### Patch Changes
+
+-   更新路径别名，统一使用 @ 符号引入模块
+
 ## 5.15.2
 
 ### Patch Changes
