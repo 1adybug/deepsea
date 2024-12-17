@@ -32,7 +32,8 @@
         "src"
     ],
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
     },
     "peerDependencies": {
         "@types/react": "^18.3.2",
