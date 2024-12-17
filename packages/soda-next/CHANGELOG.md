@@ -1,5 +1,11 @@
 # soda-next
 
+## 0.2.0
+
+### Minor Changes
+
+-   移除 getDataRequest 和 getDataResponse
+
 ## 0.1.23
 
 ### Patch Changes
