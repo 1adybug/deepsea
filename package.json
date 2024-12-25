@@ -10,7 +10,8 @@
         "cs": "pnpm changeset && pnpm changeset version",
         "format": "prettier --write .",
         "lint": "prettier --write .",
-        "postr": "node scripts/syncPackage.mjs"
+        "sync": "node scripts/syncPackage.mjs",
+        "postr": "npm run sync"
     },
     "keywords": [],
     "author": "",
