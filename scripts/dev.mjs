@@ -1,9 +1,12 @@
+// @ts-check
+
 import { readFile, readdir } from "node:fs/promises"
 import { spawnAsync } from "soda-nodejs"
 
 async function main() {
     const dir = await readdir("packages")
-    const dependencies: Record<string, string[]> = {}
+    /** @type {Record<string, string[]>} */
+    const dependencies = {}
     for (const item of dir) {
         const packageJSON = JSON.parse(await readFile(`packages/${item}/package.json`, "utf-8"))
         if (packageJSON.private) continue
@@ -13,7 +16,7 @@ async function main() {
             ...packageJSON.peerDependencies,
             ...packageJSON.optionalDependencies,
         })
-            .filter(([name, version]) => (version as string).includes("workspace:"))
+            .filter(([name, version]) => /** @type {string} */ (version).includes("workspace:"))
             .map(([name]) => name)
     }
     while (true) {

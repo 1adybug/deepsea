@@ -5,13 +5,12 @@
     "main": "index.js",
     "private": true,
     "scripts": {
-        "dev": "tsx scripts/dev.ts",
+        "dev": "node scripts/dev.mjs",
         "r": "pnpm i && pnpm publish -r",
         "cs": "pnpm changeset && pnpm changeset version",
         "format": "prettier --write .",
         "lint": "prettier --write .",
-        "sync": "tsx scripts/sync.ts",
-        "postr": "npm run sync"
+        "postr": "node scripts/syncPackage.mjs"
     },
     "keywords": [],
     "author": "",
