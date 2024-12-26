@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.5.4
+
+### Patch Changes
+
+- 优化 spawnAsync 函数的错误处理，简化失败时的命令日志记录
+
 ## 0.5.3
 
 ### Patch Changes
