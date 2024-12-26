@@ -18,14 +18,14 @@
     "license": "ISC",
     "devDependencies": {
         "@babel/runtime": "^7.26.0",
-        "@changesets/cli": "^2.27.9",
+        "@changesets/cli": "^2.27.11",
         "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
         "father": "^4.5.1",
         "glob": "^11.0.0",
-        "prettier": "^3.3.3",
+        "prettier": "^3.4.2",
         "prettier-plugin-organize-imports": "^4.1.0",
         "soda-nodejs": "workspace:*",
         "tsx": "^4.19.2",
-        "typescript": "^5.6.3"
+        "typescript": "^5.7.2"
     }
 }
