@@ -1,5 +1,11 @@
 # soda-type
 
+## 5.1.5
+
+### Patch Changes
+
+-   更新多个包的依赖版本以提升兼容性和性能
+
 ## 5.1.4
 
 ### Patch Changes

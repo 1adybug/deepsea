@@ -1,7 +1,7 @@
 {
     "name": "playground",
     "private": true,
-    "version": "0.2.15",
+    "version": "0.2.16",
     "type": "module",
     "scripts": {
         "dev": "rsbuild dev --open",
@@ -9,34 +9,34 @@
         "preview": "rsbuild preview"
     },
     "dependencies": {
-        "@ant-design/cssinjs": "^1.21.1",
-        "@ant-design/icons": "^5.5.1",
-        "@emotion/css": "^11.13.4",
-        "ahooks": "^3.8.1",
-        "antd": "^5.21.6",
+        "@ant-design/cssinjs": "^1.22.1",
+        "@ant-design/icons": "^5.5.2",
+        "@emotion/css": "^11.13.5",
+        "ahooks": "^3.8.4",
+        "antd": "^5.22.6",
         "dayjs": "^1.11.13",
         "deepsea-components": "workspace:*",
         "deepsea-tools": "workspace:*",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-router-dom": "^6.28.0",
+        "react-router-dom": "^6.28.1",
         "soda-array": "workspace:*",
         "soda-coordinate": "workspace:*",
         "soda-hooks": "workspace:*"
     },
     "devDependencies": {
-        "@rsbuild/core": "1.0.19",
-        "@rsbuild/plugin-react": "1.0.6",
-        "@rsbuild/plugin-svgr": "1.0.5",
-        "@types/react": "^18.3.12",
-        "@types/react-dom": "^18.3.1",
-        "@vitejs/plugin-react": "^4.3.3",
+        "@rsbuild/core": "1.1.13",
+        "@rsbuild/plugin-react": "1.1.0",
+        "@rsbuild/plugin-svgr": "1.0.6",
+        "@types/react": "^18.3.18",
+        "@types/react-dom": "^18.3.5",
+        "@vitejs/plugin-react": "^4.3.4",
         "autoprefixer": "^10.4.20",
         "get-port-please": "^3.1.2",
-        "postcss": "^8.4.47",
-        "prettier": "^3.3.3",
-        "prettier-plugin-tailwindcss": "^0.6.8",
-        "tailwindcss": "^3.4.14",
-        "typescript": "^5.6.3"
+        "postcss": "^8.4.49",
+        "prettier": "^3.4.2",
+        "prettier-plugin-tailwindcss": "^0.6.9",
+        "tailwindcss": "^3.4.17",
+        "typescript": "^5.7.2"
     }
 }

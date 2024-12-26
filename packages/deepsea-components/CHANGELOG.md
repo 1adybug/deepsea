@@ -1,5 +1,13 @@
 # deepsea-components
 
+## 5.7.13
+
+### Patch Changes
+
+-   更新多个包的依赖版本以提升兼容性和性能
+-   Updated dependencies
+    -   deepsea-tools@5.15.4
+
 ## 5.7.12
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # soda-react-router
 
+## 0.0.13
+
+### Patch Changes
+
+-   更新多个包的依赖版本以提升兼容性和性能
+    -   soda-hooks@6.1.10
+
 ## 0.0.12
 
 ### Patch Changes

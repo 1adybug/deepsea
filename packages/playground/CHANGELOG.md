@@ -1,5 +1,15 @@
 # deepsea-components-demo
 
+## 0.2.16
+
+### Patch Changes
+
+-   更新多个包的依赖版本以提升兼容性和性能
+-   Updated dependencies
+    -   deepsea-components@5.7.13
+    -   deepsea-tools@5.15.4
+    -   soda-hooks@6.1.10
+
 ## 0.2.15
 
 ### Patch Changes

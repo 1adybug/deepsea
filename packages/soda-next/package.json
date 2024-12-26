@@ -1,6 +1,6 @@
 {
     "name": "soda-next",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -37,6 +37,6 @@
         "next": ">=14"
     },
     "devDependencies": {
-        "@types/react": "^18.3.12"
+        "@types/react": "^18.3.18"
     }
 }
