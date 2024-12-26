@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.4.3
+
+### Patch Changes
+
+-   重构 spawnAsync 函数，增强返回类型，支持子进程访问
+
 ## 0.4.2
 
 ### Patch Changes
