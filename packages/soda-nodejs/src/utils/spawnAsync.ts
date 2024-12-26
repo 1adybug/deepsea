@@ -15,6 +15,41 @@ export interface PromiseWithChildProcess<T> extends Promise<T> {
     child: T
 }
 
+export type Options =
+    | SpawnOptionsWithoutStdio
+    | SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioPipe>
+    | SpawnOptionsWithStdioTuple<StdioPipe, StdioPipe, StdioNull>
+    | SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioPipe>
+    | SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioPipe>
+    | SpawnOptionsWithStdioTuple<StdioPipe, StdioNull, StdioNull>
+    | SpawnOptionsWithStdioTuple<StdioNull, StdioPipe, StdioNull>
+    | SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioPipe>
+    | SpawnOptionsWithStdioTuple<StdioNull, StdioNull, StdioNull>
+    | SpawnOptions
+
+let defaultOptions: Options = {}
+
+/**
+ * @description get default options for spawnAsync
+ * @returns {Options} options
+ */
+export function getDefaultOptions(): Options {
+    return defaultOptions
+}
+
+/**
+ * @description set default options for spawnAsync
+ * @param  {Options | ((prev: Options) => Options)} options
+ */
+export function setDefaultOptions(options: Options | ((prev: Options) => Options)) {
+    if (typeof options === "function") {
+        defaultOptions = options(defaultOptions)
+        return
+    }
+    defaultOptions = options
+    return defaultOptions
+}
+
 export function spawnAsync(command: string, options?: SpawnOptionsWithoutStdio): PromiseWithChildProcess<ChildProcessWithoutNullStreams>
 export function spawnAsync(
     command: string,
@@ -102,6 +137,8 @@ export function spawnAsync(command: string, args: readonly string[], options: Sp
  */
 export function spawnAsync(command: string, args?: any, options?: any): Promise<any> {
     const promise = new Promise<any>((resolve, reject) => {
+        if (Array.isArray(args)) options = { ...defaultOptions, ...options }
+        else args = { ...defaultOptions, ...args }
         const child = spawn(command, args, options)
         promise.child = child
         child.on("exit", code => {

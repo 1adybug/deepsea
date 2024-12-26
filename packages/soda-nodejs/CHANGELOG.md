@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.5.0
+
+### Minor Changes
+
+-   添加 spawnAsync 的默认选项设置和获取功能，增强灵活性
+
 ## 0.4.3
 
 ### Patch Changes
