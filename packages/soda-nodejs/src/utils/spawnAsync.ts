@@ -143,8 +143,13 @@ export function spawnAsync(command: string, args?: any, options?: any): Promise<
         child = spawn(command, args, options)
         child.on("exit", (code: number) => {
             if (code === 0) return resolve(child)
-            console.error(`"${command}" Command failed with code ${code}`)
-            reject(new Error(`"${command}" Command failed with code ${code}`))
+            let command2 = command
+            if (Array.isArray(args)) {
+                const args2 = args.map((item: string) => item.trim()).filter(Boolean)
+                if (args2.length > 0) command2 = `${command2} ${args2.join(" ")}`
+            }
+            console.error(`"${command2}" Command failed with code ${code}`)
+            reject(new Error(`"${command2}" Command failed with code ${code}`))
             return
         })
     }) as PromiseWithChildProcess<any>
