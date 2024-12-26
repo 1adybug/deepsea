@@ -136,17 +136,18 @@ export function spawnAsync(command: string, args: readonly string[], options: Sp
  * @returns a promise that resolves with the child process when the command exits successfully. Also, the child process is attached to the promise as a property.
  */
 export function spawnAsync(command: string, args?: any, options?: any): Promise<any> {
+    let child: any
     const promise = new Promise<any>((resolve, reject) => {
         if (Array.isArray(args)) options = { ...defaultOptions, ...options }
         else args = { ...defaultOptions, ...args }
-        const child = spawn(command, args, options)
-        promise.child = child
-        child.on("exit", code => {
+        child = spawn(command, args, options)
+        child.on("exit", (code: number) => {
             if (code === 0) return resolve(child)
             console.error(`"${command}" Command failed with code ${code}`)
             reject(new Error(`"${command}" Command failed with code ${code}`))
             return
         })
     }) as PromiseWithChildProcess<any>
+    promise.child = child
     return promise
 }

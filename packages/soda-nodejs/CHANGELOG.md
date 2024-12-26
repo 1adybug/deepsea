@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.5.1
+
+### Patch Changes
+
+-   修复 Promise 在创建完成前被访问的问题
+
 ## 0.5.0
 
 ### Minor Changes
