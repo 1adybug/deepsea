@@ -136,3 +136,13 @@ export type Column<T, K extends keyof T = keyof T> = Omit<ColumnsType<T>[0], "da
     )
 
 export type Columns<T> = Column<T, keyof T>[]
+
+/** 编辑器 props */
+export interface EditorProps<Data, Error = unknown> {
+    id?: "id" extends keyof Data ? Data["id"] : string
+    open?: boolean
+    onOpenChange?: (open: boolean) => void
+    onSuccess?: (data: Data) => void
+    onError?: (error: Error) => void
+    onSettled?: ((error: Error, data: undefined) => void) | ((error: undefined, data: Data) => void)
+}
