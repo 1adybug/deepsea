@@ -5,7 +5,7 @@ type ArrayKey<T, K extends keyof T = keyof T> = K extends keyof T ? (Exclude<T[K
 export type Where<T extends Record<string, any>, P extends StringKey<T>> = {
     AND: Record<Exclude<StringKey<T>, P>, { contains: string }>[]
 } & Omit<T, Exclude<StringKey<T>, P> | ArrayKey<T>> & {
-        [K in ArrayKey<T>]: { gte?: T[K][0]; lte?: T[K][0] }
+        [K in ArrayKey<T>]: { gte?: Exclude<Exclude<T[K], undefined>[0], undefined>; lte?: Exclude<Exclude<T[K], undefined>[0], undefined> }
     }
 
 /**

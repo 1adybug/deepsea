@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.16.5
+
+### Patch Changes
+
+- 修复 ArrayKey 类型中 gte 和 lte 的类型推断问题
+
 ## 5.16.4
 
 ### Patch Changes
