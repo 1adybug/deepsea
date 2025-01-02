@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.16.4
+
+### Patch Changes
+
+- 支持匹配模式
+
 ## 5.16.3
 
 ### Patch Changes
