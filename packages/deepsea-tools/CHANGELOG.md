@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.16.2
+
+### Patch Changes
+
+- 添加 ArrayKey 类型以支持数组类型的 where 条件
+
 ## 5.16.1
 
 ### Patch Changes
