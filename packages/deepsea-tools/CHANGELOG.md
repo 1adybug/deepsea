@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.16.1
+
+### Patch Changes
+
+- 修复属性可选时，StringKey 失败的问题
+
 ## 5.16.0
 
 ### Minor Changes

@@ -1,4 +1,4 @@
-type StringKey<T, K extends keyof T = keyof T> = K extends keyof T ? (T[K] extends string ? K : never) : never
+type StringKey<T, K extends keyof T = keyof T> = K extends keyof T ? (Exclude<T[K], undefined> extends string ? K : never) : never
 
 export type Where<T extends Record<string, any>, P extends StringKey<T>> = {
     AND: Record<Exclude<StringKey<T>, P>, { contains: string }>[]
@@ -9,7 +9,7 @@ export type Where<T extends Record<string, any>, P extends StringKey<T>> = {
  * @param params - 参数
  * @param exact - 精准匹配的 key，非字符串类型的会自动精准匹配，不需要传入
  */
-export function getWhere<T extends Record<string, any>, P extends StringKey<T>>(params: T, exact: P[] = []) {
+export function getWhere<T extends Record<string, any>, P extends StringKey<T> = never>(params: T, exact: P[] = []) {
     return Object.entries(params).reduce(
         (prev, [key, value]) => {
             if (value === undefined) return prev
