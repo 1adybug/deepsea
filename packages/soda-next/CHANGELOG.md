@@ -1,5 +1,11 @@
 # soda-next
 
+## 0.4.0
+
+### Minor Changes
+
+- 添加 useNextSearchParams 钩子以支持更灵活的搜索参数管理
+
 ## 0.3.10
 
 ### Patch Changes
