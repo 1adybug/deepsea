@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.1.18
+
+### Patch Changes
+
+- useQueryState 支持 exact 配置是否精准匹配
+
 ## 6.1.17
 
 ### Patch Changes

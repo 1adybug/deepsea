@@ -1,5 +1,13 @@
 # soda-next
 
+## 0.4.1
+
+### Patch Changes
+
+- useQueryState 支持 exact 配置是否精准匹配
+- Updated dependencies
+    - soda-hooks@6.1.18
+
 ## 0.4.0
 
 ### Minor Changes

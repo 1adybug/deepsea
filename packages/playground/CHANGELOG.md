@@ -1,5 +1,14 @@
 # deepsea-components-demo
 
+## 0.2.24
+
+### Patch Changes
+
+- useQueryState 支持 exact 配置是否精准匹配
+- Updated dependencies
+    - soda-react-router@0.0.21
+    - soda-hooks@6.1.18
+
 ## 0.2.23
 
 ### Patch Changes

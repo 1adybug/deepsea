@@ -12,9 +12,9 @@ export type SetQueryStateOptions = {
 /**
  * 使用 React Router 的 useSearchParams 实现的 useQueryState
  */
-export function useQueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap>(
-    options?: QueryStateOptions<T, K> & SetQueryStateOptions,
-): [QueryState<T, K>, SetQueryState<T, K>] {
+export function useQueryState<T extends string = never, K extends QueryToStateFnMap = QueryToStateFnMap, P extends boolean = true>(
+    options?: QueryStateOptions<T, K, P> & SetQueryStateOptions,
+): [QueryState<T, K, P>, SetQueryState<T, K, P>] {
     const { replace, scroll = false, ...rest } = options ?? {}
     const [searchParams, setSearchParams] = useSearchParams()
     function setSearch(action: SetStateAction<URLSearchParams>) {

@@ -1,6 +1,6 @@
 {
     "name": "soda-react-router",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -33,7 +33,7 @@
         "soda-hooks": "workspace:*"
     },
     "peerDependencies": {
-        "react-router-dom": "^6.24.0"
+        "react-router-dom": "^6.28.1"
     },
     "devDependencies": {
         "@types/react": "^18.3.18"
