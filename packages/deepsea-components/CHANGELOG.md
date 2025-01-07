@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.7.20
+
+### Patch Changes
+
+- 优化 Excel 数据类型
+
 ## 5.7.19
 
 ### Patch Changes

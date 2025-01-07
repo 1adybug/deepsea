@@ -182,8 +182,10 @@ export const InputFileButton = forwardRef<HTMLButtonElement, InputFileButtonProp
     )
 })
 
+export type ExcelItem = Record<string, string | undefined>
+
 export interface ImportExcelProps extends Omit<InputFileProps, "multiple" | "onChange" | "accept" | "type"> {
-    onChange?: (data: Record<string, string>[]) => void
+    onChange?: (data: ExcelItem[]) => void
 }
 
 /** 专门用于读取 excel 的组件 */
@@ -209,7 +211,7 @@ export const ImportExcel = forwardRef<HTMLInputElement, ImportExcelProps>((props
 })
 
 /** 手动导出 excel */
-export function exportExcel(data: Record<string, string>[], name: string) {
+export function exportExcel(data: ExcelItem[], name: string) {
     const workSheet = utils.json_to_sheet(data)
     const workBook = utils.book_new()
     utils.book_append_sheet(workBook, workSheet)
@@ -217,7 +219,7 @@ export function exportExcel(data: Record<string, string>[], name: string) {
 }
 
 export interface ExportExcelProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    data: Record<string, string>[]
+    data: ExcelItem[]
     fileName: string
 }
 
