@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.16.7
+
+### Patch Changes
+
+- 修复 AND 为空时，条件却不成立的问题
+
 ## 5.16.6
 
 ### Patch Changes

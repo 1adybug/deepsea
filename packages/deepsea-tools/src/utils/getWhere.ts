@@ -3,7 +3,7 @@ type StringKey<T, K extends keyof T = keyof T> = K extends keyof T ? (Exclude<T[
 type ArrayKey<T, K extends keyof T = keyof T> = K extends keyof T ? (Exclude<T[K], undefined> extends (number | Date | undefined)[] ? K : never) : never
 
 export type Where<T extends Record<string, any>, P extends StringKey<T>> = {
-    AND: Record<Exclude<StringKey<T>, P>, { contains: string }>[]
+    AND?: Record<Exclude<StringKey<T>, P>, { contains: string }>[]
 } & Omit<T, Exclude<StringKey<T>, P> | ArrayKey<T>> & {
         [K in ArrayKey<T>]: { gte?: Exclude<Exclude<T[K], undefined>[0], undefined>; lte?: Exclude<Exclude<T[K], undefined>[0], undefined> }
     }
@@ -21,14 +21,19 @@ export function getWhere<T extends Record<string, any>, K extends StringKey<T> =
 ) {
     type P = E extends true ? K : Exclude<StringKey<T>, K>
     return Object.entries(params).reduce(
-        (prev, [key, value]) => {
-            if (value === undefined) return prev
+        (acc, [key, value]) => {
+            if (value === undefined) return acc
             if (Array.isArray(value) && value.every(item => item === undefined || typeof item === "number" || item instanceof Date))
-                prev[key as ArrayKey<T>] = { gte: value.at(0), lte: value.at(1) } as any
-            else if (keys.includes(key as K) === exact || typeof value !== "string") prev[key as keyof typeof prev] = value as any
-            else prev.AND.push(...(Array.from(new Set(value.split(" ").filter(Boolean))).map(item => ({ [key]: { contains: item } })) as any))
-            return prev
+                acc[key as ArrayKey<T>] = { gte: value.at(0), lte: value.at(1) } as any
+            else if (keys.includes(key as K) === exact || typeof value !== "string") acc[key as keyof typeof acc] = value as any
+            else {
+                const contains = Array.from(new Set(value.split(" ").filter(Boolean))).map(item => ({ [key]: { contains: item } }))
+                if (contains.length === 0) return acc
+                acc.AND ??= []
+                acc.AND.push(...(contains as any))
+            }
+            return acc
         },
-        { AND: [] } as unknown as Where<T, P>,
+        {} as unknown as Where<T, P>,
     )
 }
