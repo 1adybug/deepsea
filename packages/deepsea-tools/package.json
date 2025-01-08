@@ -1,6 +1,6 @@
 {
     "name": "deepsea-tools",
-    "version": "5.16.5",
+    "version": "5.16.6",
     "description": "格数科技自用工具包",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",

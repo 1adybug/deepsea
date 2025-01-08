@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.16.6
+
+### Patch Changes
+
+- 修改 formatTime 函数以支持自定义时间格式模板
+
 ## 5.16.5
 
 ### Patch Changes
