@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.1.19
+
+### Patch Changes
+
+- 移除 useNativeQueryState 中的调试日志
+
 ## 6.1.18
 
 ### Patch Changes

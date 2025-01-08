@@ -65,7 +65,6 @@ export function useNativeQueryState<T extends string = never, K extends QueryToS
         prev[key] = searchParams.getAll(key)
         return prev
     }, {})
-    console.log(search)
     const cache = useRef({ searchParams, setSearchParams, search, parse, stringify, exact, deps })
     cache.current.searchParams = searchParams
     cache.current.setSearchParams = setSearchParams
