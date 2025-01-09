@@ -69,6 +69,8 @@ export function NiceSearch<Data, Field extends FieldType<Data> = FieldType<Data>
 
     return (
         <Select
+            className={className}
+            style={style}
             showSearch
             filterOption={false}
             defaultActiveFirstOption={false}
