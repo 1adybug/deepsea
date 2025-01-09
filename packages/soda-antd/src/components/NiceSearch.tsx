@@ -2,7 +2,7 @@
 
 import { Select } from "antd"
 import { satisfyKeyword } from "deepsea-tools"
-import { useState } from "react"
+import { CSSProperties, ReactNode, useState } from "react"
 import { useInputState } from "soda-hooks"
 
 type Key<Data> = keyof Data
@@ -24,6 +24,8 @@ type FilterItem<Data, Value> = {
 }
 
 export interface NiceSearchProps<Data, Field extends FieldType<Data> = FieldType<Data>, Value = ValueType<Data, Field>> {
+    className?: string
+    style?: CSSProperties
     data?: Data[]
     mode?: "multiple" | "tags"
     placeholder?: string
@@ -35,8 +37,17 @@ export interface NiceSearchProps<Data, Field extends FieldType<Data> = FieldType
     onChange?: (value: Value | undefined) => void
 }
 
-export function NiceSearch<Data, Field extends FieldType<Data> = FieldType<Data>, Value = ValueType<Data, Field>>(props: NiceSearchProps<Data, Field, Value>) {
-    const { data, labelField, valueField, filter, value: _value, onChange: _onChange, ...rest } = props
+export function NiceSearch<Data, Field extends FieldType<Data> = FieldType<Data>, Value = ValueType<Data, Field>>({
+    className,
+    style,
+    data,
+    labelField,
+    valueField,
+    filter,
+    value: _value,
+    onChange: _onChange,
+    ...rest
+}: NiceSearchProps<Data, Field, Value>): ReactNode {
     const [value, setValue] = useInputState(_value)
     const [keyword, setKeyword] = useState("")
     const options = data
