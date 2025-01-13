@@ -2,7 +2,7 @@
 
 import { ComponentPropsWithoutRef, FC, Fragment, ReactNode, createContext, useContext } from "react"
 
-export type FormLabelConfig = {
+export interface FormLabelConfig {
     /**
      * Label 的宽度.
      */
@@ -13,11 +13,11 @@ export type FormLabelConfig = {
     before?: boolean | number
 }
 
-export type FormLabelProps = ComponentPropsWithoutRef<"div"> & FormLabelConfig
+export interface FormLabelProps extends ComponentPropsWithoutRef<"div">, FormLabelConfig {}
 
 export const FormLabelConfigContext = createContext<Partial<FormLabelConfig>>({})
 
-export type FormLabelConfigProviderProps = FormLabelConfig & {
+export interface FormLabelConfigProviderProps extends FormLabelConfig {
     children?: ReactNode
 }
 
@@ -34,7 +34,7 @@ export const FormLabel: FC<FormLabelProps> = props => {
 
     return (
         <Fragment>
-            {!!before && <div style={{ width: 11, color: "transparent" }}>&ensp;</div>}
+            {!!before && <div style={{ width: 11, color: "transparent", userSelect: "none" }}>&ensp;</div>}
             <div style={{ width, textAlign: "justify", textAlignLast: "justify", ...style }} {...rest} />
         </Fragment>
     )

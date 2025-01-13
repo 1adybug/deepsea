@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.7.23
+
+### Patch Changes
+
+- before 区域不可选中
+
 ## 5.7.22
 
 ### Patch Changes
