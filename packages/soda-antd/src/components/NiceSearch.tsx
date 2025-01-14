@@ -1,8 +1,9 @@
 "use client"
 
 import { Select } from "antd"
+import { DefaultOptionType } from "antd/es/select"
 import { satisfyKeyword } from "deepsea-tools"
-import { CSSProperties, ReactNode, useState } from "react"
+import { ComponentProps, ReactNode, useState } from "react"
 import { useInputState } from "soda-hooks"
 
 type Key<Data> = keyof Data
@@ -23,13 +24,10 @@ type FilterItem<Data, Value> = {
     data: Data
 }
 
-export interface NiceSearchProps<Data, Field extends FieldType<Data> = FieldType<Data>, Value = ValueType<Data, Field>> {
-    className?: string
-    style?: CSSProperties
+export interface NiceSearchProps<Data, Field extends FieldType<Data> = FieldType<Data>, Value = ValueType<Data, Field>>
+    extends Omit<ComponentProps<typeof Select<Value>>, "value" | "onChange" | "options" | "mode" | "searchValue" | "onSearch"> {
     data?: Data[]
     mode?: "multiple" | "tags"
-    placeholder?: string
-    allowClear?: boolean
     labelField: Key<Data> | ((item: Data) => string)
     valueField: Field
     filter?: (item: FilterItem<Data, Value>, keyword: string) => boolean
@@ -38,14 +36,15 @@ export interface NiceSearchProps<Data, Field extends FieldType<Data> = FieldType
 }
 
 export function NiceSearch<Data, Field extends FieldType<Data> = FieldType<Data>, Value = ValueType<Data, Field>>({
-    className,
-    style,
     data,
     labelField,
     valueField,
     filter,
     value: _value,
     onChange: _onChange,
+    showSearch = true,
+    filterOption = false,
+    defaultActiveFirstOption = false,
     ...rest
 }: NiceSearchProps<Data, Field, Value>): ReactNode {
     const [value, setValue] = useInputState(_value)
@@ -68,16 +67,14 @@ export function NiceSearch<Data, Field extends FieldType<Data> = FieldType<Data>
     }
 
     return (
-        <Select
-            className={className}
-            style={style}
-            showSearch
-            filterOption={false}
-            defaultActiveFirstOption={false}
+        <Select<Value>
+            showSearch={showSearch}
+            filterOption={filterOption}
+            defaultActiveFirstOption={defaultActiveFirstOption}
             searchValue={keyword}
             onSearch={setKeyword}
-            options={options}
-            value={value as any}
+            options={options as DefaultOptionType[]}
+            value={value}
             onChange={onChange}
             {...rest}
         />
