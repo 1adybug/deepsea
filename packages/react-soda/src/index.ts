@@ -97,7 +97,7 @@ export function isPlainObject<T>(obj: T): obj is T & Record<string, any> {
  *
  * 初始状态，或者返回初始状态的函数
  */
-export function createStore<T>(init: T | (() => T)): UseStore<T> {
+export function createStore<T>(init: T | (() => T), getServerSnapshot?: () => T): UseStore<T> {
     let nowState: T = typeof init === "function" ? (init as () => T)() : init
 
     const listeners = new Set<Listener<T>>()
@@ -133,7 +133,11 @@ export function createStore<T>(init: T | (() => T)): UseStore<T> {
         function getState() {
             return _getState(selector)
         }
-        const state = useSyncExternalStore(subscribe, getState)
+        const state = useSyncExternalStore(
+            subscribe,
+            getState,
+            getServerSnapshot ? () => (typeof selector === "function" ? selector(getServerSnapshot()) : getServerSnapshot()) : undefined,
+        )
         return [state, setState]
     }
 
@@ -235,7 +239,11 @@ export interface UsePersistentStore<T> extends UseStore<T> {
  *
  * 选项或者持久化存储的唯一 key
  */
-export function createPersistentStore<T>(init: T | (() => T), optionOrString: CreatePersistentStoreOption<T> | string): UsePersistentStore<T> {
+export function createPersistentStore<T>(
+    init: T | (() => T),
+    optionOrString: CreatePersistentStoreOption<T> | string,
+    getServerSnapshot?: () => T,
+): UsePersistentStore<T> {
     const options = typeof optionOrString === "string" ? { name: optionOrString } : optionOrString
     const { name, stringify = JSON.stringify, parse = JSON.parse } = options
     const storage: StateStorage = typeof options.storage === "function" ? options.storage() : options.storage || globalThis.localStorage
@@ -291,7 +299,7 @@ export function createPersistentStore<T>(init: T | (() => T), optionOrString: Cr
             console.error(error)
         }
         if (success) {
-            const useStore = createStore(data! as T) as UsePersistentStore<T>
+            const useStore = createStore(data! as T, getServerSnapshot) as UsePersistentStore<T>
             useStore.getStorage = getStorage
             useStore.getName = getName
             useStore.getStorageKey = getStorageKey
@@ -303,7 +311,7 @@ export function createPersistentStore<T>(init: T | (() => T), optionOrString: Cr
             return useStore
         }
     }
-    const useStore = createStore(init) as UsePersistentStore<T>
+    const useStore = createStore(init, getServerSnapshot) as UsePersistentStore<T>
     useStore.getStorage = getStorage
     useStore.getName = getName
     useStore.getStorageKey = getStorageKey
