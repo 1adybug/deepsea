@@ -1,5 +1,13 @@
 # deepsea-components-demo
 
+## 0.2.30
+
+### Patch Changes
+
+- 添加压缩功能，支持文件夹压缩并输出到指定路径
+- Updated dependencies
+    - soda-nodejs@0.6.0
+
 ## 0.2.29
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.6.0
+
+### Minor Changes
+
+- 添加压缩功能，支持文件夹压缩并输出到指定路径
+
 ## 0.5.4
 
 ### Patch Changes
