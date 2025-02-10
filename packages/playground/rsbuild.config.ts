@@ -1,4 +1,4 @@
-import { defineConfig, RsbuildConfig } from "@rsbuild/core"
+import { RsbuildConfig, defineConfig } from "@rsbuild/core"
 import { pluginReact } from "@rsbuild/plugin-react"
 import { pluginSvgr } from "@rsbuild/plugin-svgr"
 import { checkPort } from "get-port-please"
@@ -13,21 +13,21 @@ export default defineConfig(async ({ env, command, envMode }) => {
 
     return {
         html: {
-            template: "public/index.html"
+            template: "public/index.html",
         },
         plugins: [
             pluginReact(),
             pluginSvgr({
                 svgrOptions: {
-                    exportType: "default"
-                }
-            })
+                    exportType: "default",
+                },
+            }),
         ],
         server: {
-            port
+            port,
         },
         output: {
-            polyfill: "usage"
-        }
+            polyfill: "usage",
+        },
     } satisfies RsbuildConfig
 })

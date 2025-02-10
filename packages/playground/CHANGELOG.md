@@ -1,5 +1,19 @@
 # deepsea-components-demo
 
+## 0.2.32
+
+### Patch Changes
+
+- 修复 ExportExcel 没有被导出的错误
+- Updated dependencies
+    - deepsea-components@5.8.1
+    - soda-react-router@0.0.26
+    - soda-coordinate@5.2.5
+    - deepsea-tools@5.17.1
+    - soda-nodejs@0.6.1
+    - soda-array@0.0.4
+    - soda-hooks@6.2.1
+
 ## 0.2.31
 
 ### Patch Changes

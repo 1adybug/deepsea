@@ -1,5 +1,11 @@
 # soda-type
 
+## 5.2.1
+
+### Patch Changes
+
+- 修复 ExportExcel 没有被导出的错误
+
 ## 5.2.0
 
 ### Minor Changes

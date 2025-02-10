@@ -1,4 +1,5 @@
 import { idReg } from "@/constants/index"
+
 import { getIdChecksum } from "./getIdChecksum"
 
 /**

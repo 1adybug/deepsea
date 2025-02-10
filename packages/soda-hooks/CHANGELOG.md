@@ -1,5 +1,14 @@
 # soda-hooks
 
+## 6.2.1
+
+### Patch Changes
+
+- 修复 ExportExcel 没有被导出的错误
+- Updated dependencies
+    - deepsea-tools@5.17.1
+    - soda-type@5.2.1
+
 ## 6.2.0
 
 ### Minor Changes

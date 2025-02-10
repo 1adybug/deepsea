@@ -1,5 +1,14 @@
 # soda-next
 
+## 0.4.6
+
+### Patch Changes
+
+- 修复 ExportExcel 没有被导出的错误
+- Updated dependencies
+    - deepsea-tools@5.17.1
+    - soda-hooks@6.2.1
+
 ## 0.4.5
 
 ### Patch Changes

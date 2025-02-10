@@ -25,7 +25,7 @@ const App: FC = () => {
             <div>
                 <button onClick={() => setQuery({ a: "1" })}>set a=1</button>
                 <button onClick={() => setQuery({ b: "2" })}>set b=2</button>
-                <button onClick={() => setQuery({ c: "3", d: 99, e:999 })}>set c=3</button>
+                <button onClick={() => setQuery({ c: "3", d: 99, e: 999 })}>set c=3</button>
             </div>
         </div>
     )

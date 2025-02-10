@@ -1,7 +1,7 @@
 "use client"
 
-import Hls from "hls.js"
 import { MediaHTMLAttributes, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
+import Hls from "hls.js"
 
 export interface HlsPlayerProps extends Omit<MediaHTMLAttributes<HTMLVideoElement>, "src"> {
     src: string

@@ -1,8 +1,8 @@
 "use client"
 
+import { ComponentPropsWithoutRef, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 import { useLatest } from "ahooks"
 import ClipboardJS, { Event } from "clipboard"
-import { ComponentPropsWithoutRef, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 
 export { Event } from "clipboard"
 

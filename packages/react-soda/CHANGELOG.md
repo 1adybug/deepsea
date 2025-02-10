@@ -1,5 +1,11 @@
 # react-soda
 
+## 5.1.1
+
+### Patch Changes
+
+- 修复 ExportExcel 没有被导出的错误
+
 ## 5.1.0
 
 ### Minor Changes

@@ -4,9 +4,7 @@
         "declaration": true,
         "skipLibCheck": true,
         "paths": {
-            "@/*": [
-                "./src/*"
-            ]
+            "@/*": ["./src/*"]
         }
     }
 }

@@ -1,5 +1,14 @@
 # soda-antd
 
+## 0.0.8
+
+### Patch Changes
+
+- 修复 ExportExcel 没有被导出的错误
+- Updated dependencies
+    - deepsea-tools@5.17.1
+    - soda-hooks@6.2.1
+
 ## 0.0.7
 
 ### Patch Changes

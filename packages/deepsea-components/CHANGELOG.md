@@ -1,5 +1,13 @@
 # deepsea-components
 
+## 5.8.1
+
+### Patch Changes
+
+- 修复 ExportExcel 没有被导出的错误
+- Updated dependencies
+    - deepsea-tools@5.17.1
+
 ## 5.8.0
 
 ### Minor Changes

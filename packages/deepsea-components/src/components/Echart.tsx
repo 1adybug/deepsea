@@ -1,6 +1,17 @@
 "use client"
 
 import {
+    ComponentPropsWithoutRef,
+    ForwardRefExoticComponent,
+    ForwardedRef,
+    RefAttributes,
+    forwardRef,
+    useEffect,
+    useImperativeHandle,
+    useLayoutEffect,
+    useRef,
+} from "react"
+import {
     BarSeriesOption,
     ComposeOption,
     DatasetComponentOption,
@@ -12,17 +23,6 @@ import {
     TooltipComponentOption,
     init,
 } from "echarts"
-import {
-    ComponentPropsWithoutRef,
-    ForwardRefExoticComponent,
-    ForwardedRef,
-    RefAttributes,
-    forwardRef,
-    useEffect,
-    useImperativeHandle,
-    useLayoutEffect,
-    useRef,
-} from "react"
 
 export type PieOption = ComposeOption<PieSeriesOption | TitleComponentOption | DatasetComponentOption | GridComponentOption | TooltipComponentOption>
 

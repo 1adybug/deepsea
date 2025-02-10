@@ -1,11 +1,11 @@
 "use client"
 
-import { clsx } from "deepsea-tools"
 import { CSSProperties, ForwardedRef, HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef } from "react"
+import { css } from "@emotion/css"
+import { clsx } from "deepsea-tools"
 import Scrollbar from "smooth-scrollbar"
 import type { ScrollListener, ScrollbarOptions } from "smooth-scrollbar/interfaces"
 
-import { css } from "@emotion/css"
 import { px, transformCSSVariable } from "@/utils"
 
 export { default as Scrollbar } from "smooth-scrollbar"
@@ -58,25 +58,24 @@ export const Scroll = forwardRef<HTMLDivElement, ScrollProps>((props, ref) => {
             className={clsx(
                 css`
                     .scrollbar-track.scrollbar-track-x {
-                        ${thumbWidth !== undefined ? "height: var(--thumb-width);" : ""}
-                        ${trackColor !== undefined ? "background-color: var(--track-color);" : ""}
+                        ${thumbWidth !== undefined ? "height: var(--thumb-width);" : ""} ${trackColor !== undefined
+                            ? "background-color: var(--track-color);"
+                            : ""}
                     }
-
                     .scrollbar-thumb.scrollbar-thumb-x {
-                        ${thumbWidth !== undefined ? "height: var(--thumb-width);" : ""}
-                        ${thumbRadius !== undefined ? "border-radius: var(--thumb-radius);" : ""}
-                        ${thumbColor !== undefined ? "background-color: var(--thumb-color);" : ""}
+                        ${thumbWidth !== undefined ? "height: var(--thumb-width);" : ""} ${thumbRadius !== undefined
+                            ? "border-radius: var(--thumb-radius);"
+                            : ""} ${thumbColor !== undefined ? "background-color: var(--thumb-color);" : ""}
                     }
-
                     .scrollbar-track.scrollbar-track-y {
-                        ${thumbWidth !== undefined ? "width: var(--thumb-width);" : ""}
-                        ${trackColor !== undefined ? "background-color: var(--track-color);" : ""}
+                        ${thumbWidth !== undefined ? "width: var(--thumb-width);" : ""} ${trackColor !== undefined
+                            ? "background-color: var(--track-color);"
+                            : ""}
                     }
-
                     .scrollbar-thumb.scrollbar-thumb-y {
-                        ${thumbWidth !== undefined ? "width: var(--thumb-width);" : ""}
-                        ${thumbRadius !== undefined ? "border-radius: var(--thumb-radius);" : ""}
-                        ${thumbColor !== undefined ? "background-color: var(--thumb-color);" : ""}
+                        ${thumbWidth !== undefined ? "width: var(--thumb-width);" : ""} ${thumbRadius !== undefined
+                            ? "border-radius: var(--thumb-radius);"
+                            : ""} ${thumbColor !== undefined ? "background-color: var(--thumb-color);" : ""}
                     }
                 `,
                 className,

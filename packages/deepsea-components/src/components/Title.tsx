@@ -1,8 +1,8 @@
 "use client"
 
-import { isBrowser } from "deepsea-tools"
 import { ComponentPropsWithoutRef, forwardRef, useImperativeHandle, useLayoutEffect, useRef } from "react"
 import { createPortal } from "react-dom"
+import { isBrowser } from "deepsea-tools"
 
 import { getReactVersion } from "@/utils/getReactVersion"
 

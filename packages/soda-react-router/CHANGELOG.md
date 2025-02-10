@@ -1,5 +1,13 @@
 # soda-react-router
 
+## 0.0.26
+
+### Patch Changes
+
+- 修复 ExportExcel 没有被导出的错误
+- Updated dependencies
+    - soda-hooks@6.2.1
+
 ## 0.0.25
 
 ### Patch Changes
