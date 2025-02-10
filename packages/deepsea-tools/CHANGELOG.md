@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.17.0
+
+### Minor Changes
+
+- 修改 Excel 相关功能，新增 useSize Hook
+
 ## 5.16.7
 
 ### Patch Changes

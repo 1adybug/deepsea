@@ -1,7 +1,6 @@
 "use client"
 
 import { ButtonHTMLAttributes, ChangeEvent, DragEvent, Fragment, InputHTMLAttributes, MouseEvent as ReactMouseEvent, forwardRef, useRef, useState } from "react"
-import { read, utils, writeFile } from "xlsx"
 
 export interface InputFileDataTypes {
     base64: string
@@ -180,57 +179,4 @@ export const InputFileButton = forwardRef<HTMLButtonElement, InputFileButtonProp
             <button ref={ref} type="button" disabled={disabled || _disabled} onClick={onClick} onDrop={onDrop} onDragOver={onDragOver} {...rest} />
         </Fragment>
     )
-})
-
-export type ExcelItem = Record<string, string | undefined>
-
-export interface ImportExcelProps extends Omit<InputFileProps, "multiple" | "onChange" | "accept" | "type"> {
-    onChange?: (data: ExcelItem[]) => void
-}
-
-/** 专门用于读取 excel 的组件 */
-export const ImportExcel = forwardRef<HTMLInputElement, ImportExcelProps>((props, ref) => {
-    const { onChange, ...rest } = props
-
-    function onInputChange(data: InputFileData<ArrayBuffer>) {
-        const wb = read(data.result)
-        const result = utils.sheet_to_json<any>(wb.Sheets[wb.SheetNames[0]])
-        if (typeof result === "object") {
-            const $ = result.map(it => {
-                const _: Record<string, string> = {}
-                Object.keys(it)
-                    .filter(key => key !== "__rowNum__")
-                    .forEach(key => (_[key] = String(it[key])))
-                return _
-            })
-            onChange?.($)
-        }
-    }
-
-    return <InputFile ref={ref} accept=".xlsx" type="arrayBuffer" onChange={onInputChange} {...rest} />
-})
-
-/** 手动导出 excel */
-export function exportExcel(data: ExcelItem[], name: string) {
-    const workSheet = utils.json_to_sheet(data)
-    const workBook = utils.book_new()
-    utils.book_append_sheet(workBook, workSheet)
-    writeFile(workBook, `${name}${name.endsWith(".xlsx") ? "" : ".xlsx"}`)
-}
-
-export interface ExportExcelProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    data: ExcelItem[]
-    fileName: string
-}
-
-/** 导出 excel 的 button 组件 */
-export const ExportExcel = forwardRef<HTMLButtonElement, ExportExcelProps>((props, ref) => {
-    const { data, fileName, onClick, ...rest } = props
-
-    function onButtonClick(e: ReactMouseEvent<HTMLButtonElement, MouseEvent>) {
-        exportExcel(data, fileName)
-        onClick?.(e)
-    }
-
-    return <button ref={ref} onClick={onButtonClick} {...rest} />
 })

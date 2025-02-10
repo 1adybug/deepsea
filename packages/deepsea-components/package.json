@@ -1,6 +1,6 @@
 {
     "name": "deepsea-components",
-    "version": "5.7.23",
+    "version": "5.8.0",
     "description": "格数科技自用组件库",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -38,8 +38,7 @@
         "deepsea-tools": "workspace:*",
         "echarts": "^5.5.1",
         "hls.js": "^1.5.18",
-        "smooth-scrollbar": "^8.8.4",
-        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
+        "smooth-scrollbar": "^8.8.4"
     },
     "peerDependencies": {
         "@types/react": "^18.3.1",

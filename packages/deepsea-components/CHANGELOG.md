@@ -1,5 +1,16 @@
 # deepsea-components
 
+## 5.8.0
+
+### Minor Changes
+
+- 修改 Excel 相关功能，新增 useSize Hook
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.17.0
+
 ## 5.7.23
 
 ### Patch Changes
