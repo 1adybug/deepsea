@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.1.0
+
+### Minor Changes
+
+- 新增 Theme 组件
+
 ## 0.0.8
 
 ### Patch Changes
