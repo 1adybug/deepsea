@@ -18,11 +18,10 @@ function getComponent<T extends keyof ComponentsConfig>(key: T) {
 
 const themeMap = {} as Required<ThemeMap>
 
-const Theme = new Proxy(themeMap, {
+export const Theme = new Proxy(themeMap, {
     get(target, property) {
         target[property as keyof ComponentsConfig] ??= getComponent(property as keyof ComponentsConfig) as any
         return target[property as keyof ComponentsConfig]
     },
 })
 
-export default Theme

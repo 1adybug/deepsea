@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.1.1
+
+### Patch Changes
+
+- 修复 Theme 组件未导出的问题
+
 ## 0.1.0
 
 ### Minor Changes
