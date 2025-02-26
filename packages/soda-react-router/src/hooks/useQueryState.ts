@@ -1,5 +1,5 @@
 import { SetStateAction } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router"
 import { QueryState, QueryStateOptions, QueryToStateFnMap, SetQueryState, useNativeQueryState } from "soda-hooks"
 
 export type SetQueryStateOptions = {

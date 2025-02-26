@@ -1,5 +1,11 @@
 # soda-react-router
 
+## 1.0.0
+
+### Major Changes
+
+- 迁移到 react-router@7
+
 ## 0.0.27
 
 ### Patch Changes
