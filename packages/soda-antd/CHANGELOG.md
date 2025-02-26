@@ -1,5 +1,12 @@
 # soda-antd
 
+## 0.1.2
+
+### Patch Changes
+
+- 修复了一些问题
+    - soda-hooks@6.2.2
+
 ## 0.1.1
 
 ### Patch Changes

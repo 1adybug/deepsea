@@ -119,7 +119,7 @@ export type CanJSONStringify<T> = _CanJSONStringify<T>
 /** 获取字符串提示 */
 export type TipString<T extends string> = T | (string & {})
 
-export type Column<T, K extends keyof T = keyof T> = Omit<ColumnsType<T>[0], "dataIndex" | "render"> &
+type _Column<T, K extends keyof T = keyof T> = Omit<ColumnsType<T>[0], "dataIndex" | "render"> &
     (
         | (K extends keyof T
               ? {
@@ -135,7 +135,9 @@ export type Column<T, K extends keyof T = keyof T> = Omit<ColumnsType<T>[0], "da
               : { render: (value: T, record: T, index: number) => ReactNode }))
     )
 
-export type Columns<T> = Column<T, keyof T>[]
+export type Column<T> = _Column<T>
+
+export type Columns<T> = Column<T>[]
 
 /** 编辑器 props */
 export interface EditorProps<Data, Error = unknown> {
@@ -146,3 +148,6 @@ export interface EditorProps<Data, Error = unknown> {
     onError?: (error: Error) => void
     onSettled?: ((error: Error, data: undefined) => void) | ((error: undefined, data: Data) => void)
 }
+
+/** 移除属性 */
+export type StrictOmit<T, K extends keyof T> = Omit<T, K>

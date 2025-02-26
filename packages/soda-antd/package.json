@@ -1,6 +1,6 @@
 {
     "name": "soda-antd",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "soda-antd",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -32,11 +32,11 @@
         "registry": "https://registry.npmjs.org/"
     },
     "dependencies": {
-        "antd": "^5.23.0",
         "deepsea-tools": "workspace:*",
         "soda-hooks": "workspace:*"
     },
     "peerDependencies": {
+        "antd": "^5.24.2",
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5",
         "react": "^18.3.1",
