@@ -1,11 +1,17 @@
 import Cookies from "js-cookie"
 
+export type CookieAttributes = Cookies.CookieAttributes
+
+export interface CookieStorage extends Storage {
+    setItem(key: string, value: string, options?: CookieAttributes): void
+}
+
 /**
  * 创建 cookie 的存储
  * @returns 返回一个 Storage 对象
  */
-export function createCookieStorage(): Storage {
-    const cookieStorage: Storage = {
+export function createCookieStorage(): CookieStorage {
+    const cookieStorage: CookieStorage = {
         get length() {
             return Object.keys(Cookies.get() || {}).length
         },
@@ -15,8 +21,8 @@ export function createCookieStorage(): Storage {
         getItem(key) {
             return Cookies.get(key) || null
         },
-        setItem(key, value) {
-            Cookies.set(key, value)
+        setItem(key, value, options) {
+            Cookies.set(key, value, options)
         },
         key(index) {
             return Object.keys(Cookies.get())[index]

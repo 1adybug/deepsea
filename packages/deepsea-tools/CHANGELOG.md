@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.18.1
+
+### Patch Changes
+
+- cookieStorage 支持设置选项
+
 ## 5.18.0
 
 ### Minor Changes
