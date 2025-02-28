@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.18.0
+
+### Minor Changes
+
+- 新增 isAbortError 方法
+
 ## 5.17.1
 
 ### Patch Changes
