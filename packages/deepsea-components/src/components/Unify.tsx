@@ -22,7 +22,7 @@ export type UnifyProps<T extends keyof JSX.IntrinsicElements = "div"> = Componen
     as?: T
 }
 
-function Unify<T extends keyof JSX.IntrinsicElements = "div">(props: UnifyProps<T>) {
+export function Unify<T extends keyof JSX.IntrinsicElements = "div">(props: UnifyProps<T>) {
     const { as, className, style, ...rest } = props
     const { className: _className, style: _style } = useContext(UnifyConfigContext)
 
@@ -33,4 +33,3 @@ function Unify<T extends keyof JSX.IntrinsicElements = "div">(props: UnifyProps<
     }) as ReactNode
 }
 
-export default Unify

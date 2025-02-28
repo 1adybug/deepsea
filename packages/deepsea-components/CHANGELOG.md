@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.9.1
+
+### Patch Changes
+
+- 修复 Unify 组件没有导出的问题
+
 ## 5.9.0
 
 ### Minor Changes
