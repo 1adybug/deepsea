@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.9.0
+
+### Minor Changes
+
+- 新增 Unify 组件
+
 ## 5.8.4
 
 ### Patch Changes
