@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.18.2
+
+### Patch Changes
+
+- 修复 CookieAttributes 没有导出的问题
+
 ## 5.18.1
 
 ### Patch Changes
