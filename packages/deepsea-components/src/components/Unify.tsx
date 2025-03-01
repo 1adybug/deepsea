@@ -14,9 +14,13 @@ export interface UnifyConfigProviderProps extends UnifyConfig {
     children?: ReactNode
 }
 
-export const UnifyConfigProvider: FC<UnifyConfigProviderProps> = ({ className, style, children }) => (
-    <UnifyConfigContext.Provider value={{ className, style }}>{children}</UnifyConfigContext.Provider>
-)
+export const UnifyConfigProvider: FC<UnifyConfigProviderProps> = ({ className, style, children }) => {
+    const { className: _className, style: _style } = useContext(UnifyConfigContext)
+
+    return (
+        <UnifyConfigContext.Provider value={{ className: clsx(_className, className), style: { ..._style, ...style } }}>{children}</UnifyConfigContext.Provider>
+    )
+}
 
 export type UnifyProps<T extends keyof JSX.IntrinsicElements = "div"> = ComponentProps<T> & {
     as?: T
@@ -32,4 +36,3 @@ export function Unify<T extends keyof JSX.IntrinsicElements = "div">(props: Unif
         ...rest,
     }) as ReactNode
 }
-

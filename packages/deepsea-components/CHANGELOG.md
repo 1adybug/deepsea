@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.9.2
+
+### Patch Changes
+
+- 修复全局样式被覆盖的问题
+
 ## 5.9.1
 
 ### Patch Changes
