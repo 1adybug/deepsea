@@ -1,15 +1,27 @@
 import { useEffect, useRef } from "react"
 
-export interface UseLongPressOptions {
+export interface UseLongPressOptions<T extends HTMLElement = HTMLElement> {
+    /** 长按时间阈值 */
     threshold?: number
-    onStart?: () => void
-    onEnd?: () => void
-    onCancel?: () => void
+    /** 长按开始时触发 */
+    onStart?: (element: T) => void
+    /** 长按结束时触发 */
+    onEnd?: (element: T) => void
+    /** 长按取消时触发 */
+    onCancel?: (element: T) => void
+    /** 是否阻止默认行为 */
+    preventDefault?: boolean
 }
 
+/**
+ * 长按事件
+ * @param onLongPress 长按事件
+ * @param options 配置
+ * @returns 
+ */
 export function useLongPress<T extends HTMLElement = HTMLElement>(
-    onLongPress: () => void,
-    { threshold = 400, onStart, onEnd, onCancel }: UseLongPressOptions = {},
+    onLongPress: (element: T) => void,
+    { threshold = 400, onStart, onEnd, onCancel, preventDefault = false }: UseLongPressOptions<T> = {},
 ) {
     const ref = useRef<T>(null)
     const callbacksRef = useRef({ onLongPress, onStart, onEnd, onCancel })
@@ -25,8 +37,11 @@ export function useLongPress<T extends HTMLElement = HTMLElement>(
         element.addEventListener(
             "mousedown",
             () => {
-                timeout = setTimeout(() => callbacksRef.current.onLongPress(), threshold)
-                callbacksRef.current.onStart?.()
+                timeout = setTimeout(() => {
+                    callbacksRef.current.onLongPress(element)
+                    if (preventDefault) element.addEventListener("click", e => e.preventDefault(), { once: true })
+                }, threshold)
+                callbacksRef.current.onStart?.(element)
             },
             { signal: abortController.signal },
         )
@@ -36,7 +51,7 @@ export function useLongPress<T extends HTMLElement = HTMLElement>(
             "mouseup",
             () => {
                 clearTimeout(timeout)
-                callbacksRef.current.onEnd?.()
+                callbacksRef.current.onEnd?.(element)
             },
             { signal: abortController.signal },
         )
@@ -46,7 +61,7 @@ export function useLongPress<T extends HTMLElement = HTMLElement>(
             "mouseleave",
             () => {
                 clearTimeout(timeout)
-                callbacksRef.current.onCancel?.()
+                callbacksRef.current.onCancel?.(element)
             },
             { signal: abortController.signal },
         )
@@ -56,8 +71,11 @@ export function useLongPress<T extends HTMLElement = HTMLElement>(
             "touchstart",
             e => {
                 e.preventDefault()
-                timeout = setTimeout(() => callbacksRef.current.onLongPress(), threshold)
-                callbacksRef.current.onStart?.()
+                timeout = setTimeout(() => {
+                    callbacksRef.current.onLongPress(element)
+                    if (preventDefault) element.addEventListener("click", e => e.preventDefault(), { once: true })
+                }, threshold)
+                callbacksRef.current.onStart?.(element)
             },
             { signal: abortController.signal },
         )
@@ -67,7 +85,7 @@ export function useLongPress<T extends HTMLElement = HTMLElement>(
             "touchend",
             () => {
                 clearTimeout(timeout)
-                callbacksRef.current.onEnd?.()
+                callbacksRef.current.onEnd?.(element)
             },
             { signal: abortController.signal },
         )
@@ -77,7 +95,7 @@ export function useLongPress<T extends HTMLElement = HTMLElement>(
             "touchcancel",
             () => {
                 clearTimeout(timeout)
-                callbacksRef.current.onCancel?.()
+                callbacksRef.current.onCancel?.(element)
             },
             { signal: abortController.signal },
         )
@@ -86,7 +104,7 @@ export function useLongPress<T extends HTMLElement = HTMLElement>(
             abortController.abort()
             clearTimeout(timeout)
         }
-    }, [ref.current, onLongPress, threshold])
+    }, [ref.current, threshold, preventDefault])
 
     return ref
 }

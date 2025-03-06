@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.4.0
+
+### Minor Changes
+
+- 回调函数新增 element 参数，允许阻止默认行为
+
 ## 6.3.0
 
 ### Minor Changes
