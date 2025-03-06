@@ -1,32 +1,25 @@
+import { message } from "antd"
 import { FC } from "react"
-import { useQueryState } from "soda-react-router"
-
-type A = {
-    a: number
-} & Record<string, any>
-
-const a: A = { a: 1 }
+import { useLongPress } from "soda-hooks"
 
 const App: FC = () => {
-    const [query, setQuery] = useQueryState({
-        parse: {
-            d: Number,
+    const ref = useLongPress<HTMLAnchorElement>(
+        () => {
+            message.success("long press")
         },
-        exact: false,
-    })
-
-    query.d
+        {
+            threshold: 1000,
+            onStart: () => {
+                console.log("start")
+            },
+        },
+    )
 
     return (
         <div>
-            <div>
-                <pre>{JSON.stringify(query, null, 4)}</pre>
-            </div>
-            <div>
-                <button onClick={() => setQuery({ a: "1" })}>set a=1</button>
-                <button onClick={() => setQuery({ b: "2" })}>set b=2</button>
-                <button onClick={() => setQuery({ c: "3", d: 99, e: 999 })}>set c=3</button>
-            </div>
+            <a style={{ display: "block" }} ref={ref} href="https://www.baidu.com">
+                Long Press
+            </a>
         </div>
     )
 }
