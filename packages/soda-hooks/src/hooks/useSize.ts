@@ -17,7 +17,7 @@ export interface UseSizeOptions<T> {
 }
 
 export function useSize<T extends HTMLElement>(
-    element: T | string | RefObject<T> | null | undefined,
+    element: T | null | undefined | RefObject<T | null | undefined> | string,
     { type = "border", direction = "horizontal" }: UseSizeOptions<T> = {},
 ) {
     const [size, setSize] = useState<Size | undefined>(undefined)

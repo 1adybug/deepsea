@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.4.1
+
+### Patch Changes
+
+- 优化类型提示
+
 ## 6.4.0
 
 ### Minor Changes
