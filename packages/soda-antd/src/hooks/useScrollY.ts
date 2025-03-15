@@ -7,7 +7,15 @@ interface Elements {
     pagination?: Element | null
 }
 
-export function useScrollY<T extends Element>(container: T | null | undefined | RefObject<T | null | undefined> | string, interval = 100) {
+export interface UseScrollYOptions {
+    interval?: number
+    paginationMargin?: number
+}
+
+export function useScrollY<T extends Element>(
+    container: T | null | undefined | RefObject<T | null | undefined> | string,
+    { interval = 500, paginationMargin = 0 }: UseScrollYOptions = {},
+) {
     const [elements, setElements] = useState<Elements>()
     const size = useSize(elements?.container)
     const theadSize = useSize(elements?.thead)
@@ -32,5 +40,5 @@ export function useScrollY<T extends Element>(container: T | null | undefined | 
         return () => clearInterval(timer)
     }, [container, interval])
 
-    return size ? size.height - (theadSize?.height || 0) - (paginationSize?.height || 0) : 0
+    return size ? size.height - (theadSize?.height || 0) - (paginationSize?.height || 0) - paginationMargin : 0
 }
