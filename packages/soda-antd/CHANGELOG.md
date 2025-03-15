@@ -1,5 +1,17 @@
 # soda-antd
 
+## 0.2.0
+
+### Minor Changes
+
+- 新增多个工具和钩子函数
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.19.0
+    - soda-hooks@6.5.0
+
 ## 0.1.8
 
 ### Patch Changes

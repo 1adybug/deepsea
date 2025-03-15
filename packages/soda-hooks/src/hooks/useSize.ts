@@ -1,4 +1,5 @@
 import { RefObject, useEffect, useState } from "react"
+import { isNonNullable } from "deepsea-tools"
 
 export interface Size {
     width: number
@@ -16,14 +17,25 @@ export interface UseSizeOptions<T> {
     direction?: "horizontal" | "vertical"
 }
 
-export function useSize<T extends HTMLElement>(
+export function getElement<T extends Element>(element: T | null | undefined | RefObject<T | null | undefined> | string) {
+    return (
+        isNonNullable(element)
+            ? typeof element === "string"
+                ? document.querySelector(element)
+                : element instanceof Element
+                  ? element
+                  : element.current
+            : undefined
+    ) as T | undefined | null
+}
+
+export function useSize<T extends Element>(
     element: T | null | undefined | RefObject<T | null | undefined> | string,
     { type = "border", direction = "horizontal" }: UseSizeOptions<T> = {},
 ) {
     const [size, setSize] = useState<Size | undefined>(undefined)
     useEffect(() => {
-        if (!element) return
-        const target = (typeof element === "string" ? document.querySelector(element) : element instanceof HTMLElement ? element : element.current) as T
+        const target = getElement(element)
         if (!target) return
         const observer = new ResizeObserver(entries => {
             const entry = entries[0]

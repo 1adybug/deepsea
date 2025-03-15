@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.19.0
+
+### Minor Changes
+
+- 新增多个工具和钩子函数
+
 ## 5.18.2
 
 ### Patch Changes

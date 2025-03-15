@@ -1,5 +1,16 @@
 # soda-hooks
 
+## 6.5.0
+
+### Minor Changes
+
+- 新增多个工具和钩子函数
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.19.0
+
 ## 6.4.1
 
 ### Patch Changes
