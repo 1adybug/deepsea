@@ -1,5 +1,14 @@
 # soda-next
 
+## 0.4.17
+
+### Patch Changes
+
+- 修复导出方式
+- Updated dependencies
+    - deepsea-tools@5.19.3
+    - soda-hooks@6.5.3
+
 ## 0.4.16
 
 ### Patch Changes

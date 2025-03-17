@@ -1,10 +1,11 @@
 {
     "name": "react-soda",
-    "version": "5.1.3",
+    "version": "5.1.4",
     "description": "😉 Simpler and more effective state management for react.",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
+    "sideEffects": false,
     "scripts": {
         "dev": "father dev",
         "build": "father build",

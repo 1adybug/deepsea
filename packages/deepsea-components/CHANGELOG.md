@@ -1,5 +1,13 @@
 # deepsea-components
 
+## 5.9.6
+
+### Patch Changes
+
+- 修复导出方式
+- Updated dependencies
+    - deepsea-tools@5.19.3
+
 ## 5.9.5
 
 ### Patch Changes

@@ -1,3 +1,5 @@
-export { Navigate, NavigateProps } from "@/components/Navigate"
-export { SetNextSearchParamsOptions, useNextSearchParams } from "@/hooks/useNextSearchParams"
+export { Navigate } from "@/components/Navigate"
+export type { NavigateProps } from "@/components/Navigate"
+export { useNextSearchParams } from "@/hooks/useNextSearchParams"
+export type { SetNextSearchParamsOptions } from "@/hooks/useNextSearchParams"
 export { useQueryState } from "@/hooks/useQueryState"

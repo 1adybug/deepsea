@@ -1,1 +1,2 @@
-export { SetQueryStateOptions, useQueryState } from "@/hooks/useQueryState"
+export { useQueryState } from "@/hooks/useQueryState"
+export type { SetQueryStateOptions } from "@/hooks/useQueryState"

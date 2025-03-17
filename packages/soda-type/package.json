@@ -1,10 +1,11 @@
 {
     "name": "soda-type",
-    "version": "5.2.4",
+    "version": "5.2.5",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
+    "sideEffects": false,
     "scripts": {
         "dev": "father dev",
         "build": "father build",

@@ -1,10 +1,11 @@
 {
     "name": "soda-antd",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "soda-antd",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
+    "sideEffects": false,
     "scripts": {
         "dev": "father dev",
         "build": "father build",

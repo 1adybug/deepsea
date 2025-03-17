@@ -1,10 +1,11 @@
 {
     "name": "soda-hooks",
-    "version": "6.5.2",
+    "version": "6.5.3",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
+    "sideEffects": false,
     "scripts": {
         "dev": "father dev",
         "build": "father build",

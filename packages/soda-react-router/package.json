@@ -1,10 +1,11 @@
 {
     "name": "soda-react-router",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
+    "sideEffects": false,
     "scripts": {
         "dev": "father dev",
         "build": "father build",

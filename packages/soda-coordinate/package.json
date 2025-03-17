@@ -1,9 +1,10 @@
 {
     "name": "soda-coordinate",
-    "version": "5.2.7",
+    "version": "5.2.8",
     "description": "coordinate tools",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
+    "sideEffects": false,
     "scripts": {
         "dev": "father dev",
         "build": "father build",

@@ -1,10 +1,11 @@
 {
     "name": "deepsea-components",
-    "version": "5.9.5",
+    "version": "5.9.6",
     "description": "格数科技自用组件库",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
+    "sideEffects": false,
     "scripts": {
         "dev": "father dev",
         "build": "father build",

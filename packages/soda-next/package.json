@@ -1,10 +1,11 @@
 {
     "name": "soda-next",
-    "version": "0.4.16",
+    "version": "0.4.17",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
+    "sideEffects": false,
     "scripts": {
         "dev": "father dev",
         "build": "father build",

@@ -1,5 +1,11 @@
 # react-soda
 
+## 5.1.4
+
+### Patch Changes
+
+- 修复导出方式
+
 ## 5.1.3
 
 ### Patch Changes
