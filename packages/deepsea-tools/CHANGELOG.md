@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.19.1
+
+### Patch Changes
+
+- 修复导出方式
+
 ## 5.19.0
 
 ### Minor Changes

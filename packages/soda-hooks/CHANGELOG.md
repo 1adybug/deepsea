@@ -1,5 +1,14 @@
 # soda-hooks
 
+## 6.5.1
+
+### Patch Changes
+
+- 修复导出方式
+- Updated dependencies
+    - deepsea-tools@5.19.1
+    - soda-type@5.2.3
+
 ## 6.5.0
 
 ### Minor Changes

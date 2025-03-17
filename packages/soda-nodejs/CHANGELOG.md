@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.6.2
+
+### Patch Changes
+
+- 修复导出方式
+
 ## 0.6.1
 
 ### Patch Changes

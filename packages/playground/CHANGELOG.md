@@ -1,5 +1,19 @@
 # deepsea-components-demo
 
+## 0.2.45
+
+### Patch Changes
+
+- 修复导出方式
+- Updated dependencies
+    - deepsea-components@5.9.4
+    - deepsea-tools@5.19.1
+    - soda-array@0.0.5
+    - soda-coordinate@5.2.6
+    - soda-hooks@6.5.1
+    - soda-nodejs@0.6.2
+    - soda-react-router@1.0.8
+
 ## 0.2.44
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # soda-coordinate
 
+## 5.2.6
+
+### Patch Changes
+
+- 修复导出方式
+
 ## 5.2.5
 
 ### Patch Changes

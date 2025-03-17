@@ -1,6 +1,6 @@
 {
     "name": "soda-coordinate",
-    "version": "5.2.5",
+    "version": "5.2.6",
     "description": "coordinate tools",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
