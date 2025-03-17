@@ -1,5 +1,11 @@
 # react-soda
 
+## 5.1.5
+
+### Patch Changes
+
+- 将 Column 类型移动到 soda-antd 包中，升级 react 相关依赖
+
 ## 5.1.4
 
 ### Patch Changes

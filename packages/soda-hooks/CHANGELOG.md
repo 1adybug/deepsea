@@ -1,5 +1,13 @@
 # soda-hooks
 
+## 6.5.4
+
+### Patch Changes
+
+- 将 Column 类型移动到 soda-antd 包中，升级 react 相关依赖
+- Updated dependencies
+    - soda-type@6.0.0
+
 ## 6.5.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # soda-react-router
 
+## 1.0.11
+
+### Patch Changes
+
+- 将 Column 类型移动到 soda-antd 包中，升级 react 相关依赖
+- Updated dependencies
+    - soda-hooks@6.5.4
+
 ## 1.0.10
 
 ### Patch Changes

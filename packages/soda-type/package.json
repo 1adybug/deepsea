@@ -1,6 +1,6 @@
 {
     "name": "soda-type",
-    "version": "5.2.5",
+    "version": "6.0.0",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -28,13 +28,5 @@
         "type": "git",
         "url": "git+https://github.com/1adybug/deepsea.git"
     },
-    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-type",
-    "devDependencies": {
-        "@types/react": "^18.3.18",
-        "react": "^18.3.1"
-    },
-    "peerDependencies": {
-        "antd": "^5.24.2",
-        "react": "^18.2.0"
-    }
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-type"
 }

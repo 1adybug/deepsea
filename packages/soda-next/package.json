@@ -1,6 +1,6 @@
 {
     "name": "soda-next",
-    "version": "0.4.17",
+    "version": "0.4.18",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -34,11 +34,9 @@
         "deepsea-tools": "workspace:*",
         "soda-hooks": "workspace:*"
     },
-    "devDependencies": {
-        "@types/react": "^18.3.18"
-    },
     "peerDependencies": {
+        "@types/react": ">=18.3.18",
         "next": ">=14",
-        "react": ">=18"
+        "react": ">=18.3.1"
     }
 }
