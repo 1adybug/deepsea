@@ -1,9 +1,9 @@
 "use client"
 
-import { CSSProperties, HTMLAttributes, Key, ReactNode, RefObject, useEffect, useImperativeHandle, useRef, useState } from "react"
 import { css } from "@emotion/css"
 import { useSize } from "ahooks"
 import { clsx } from "deepsea-tools"
+import { CSSProperties, HTMLAttributes, Key, ReactNode, Ref, useEffect, useImperativeHandle, useRef, useState } from "react"
 
 import { px, transformCSSVariable } from "@/utils"
 
@@ -77,7 +77,7 @@ export interface FlowProps<T> extends Omit<HTMLAttributes<HTMLDivElement>, "chil
     transitionDuration?: number
     /** 变化的回调函数 */
     onSizeChange?: (sizeData: FlowSizeData) => void
-    element?: RefObject<HTMLDivElement>
+    element?: Ref<HTMLDivElement>
 }
 
 export function getGapRange(gap?: undefined | number | "auto" | (number | "auto")[]): [number, number | "auto"] {
