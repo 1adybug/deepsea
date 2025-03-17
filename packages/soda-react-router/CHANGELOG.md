@@ -1,5 +1,13 @@
 # soda-react-router
 
+## 1.0.9
+
+### Patch Changes
+
+- 修复导出方式
+- Updated dependencies
+    - soda-hooks@6.5.2
+
 ## 1.0.8
 
 ### Patch Changes

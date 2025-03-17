@@ -1,6 +1,6 @@
 {
     "name": "soda-type",
-    "version": "5.2.3",
+    "version": "5.2.4",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",

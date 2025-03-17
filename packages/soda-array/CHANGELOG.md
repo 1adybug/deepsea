@@ -1,5 +1,11 @@
 # soda-array
 
+## 0.0.6
+
+### Patch Changes
+
+- 修复导出方式
+
 ## 0.0.5
 
 ### Patch Changes

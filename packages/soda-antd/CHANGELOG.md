@@ -1,5 +1,14 @@
 # soda-antd
 
+## 0.2.3
+
+### Patch Changes
+
+- 修复导出方式
+- Updated dependencies
+    - deepsea-tools@5.19.2
+    - soda-hooks@6.5.2
+
 ## 0.2.2
 
 ### Patch Changes
