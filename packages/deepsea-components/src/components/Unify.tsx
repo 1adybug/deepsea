@@ -1,6 +1,6 @@
 "use client"
 
-import { CSSProperties, ComponentProps, FC, ReactNode, createContext, createElement, useContext } from "react"
+import { CSSProperties, ComponentProps, FC, ReactNode, createContext, createElement, useContext, JSX } from "react"
 import { clsx } from "deepsea-tools"
 
 export interface UnifyConfig {
