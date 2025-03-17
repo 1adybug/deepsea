@@ -1,7 +1,7 @@
 import { ConfigProvider } from "antd"
 import { ComponentProps, FC, ReactNode } from "react"
 
-export type ComponentsConfig = NonNullable<NonNullable<ComponentProps<(...params: Parameters<typeof ConfigProvider>) => ReactNode>["theme"]>["components"]>
+export type ComponentsConfig = NonNullable<NonNullable<ComponentProps<typeof ConfigProvider>["theme"]>["components"]>
 
 export type ThemeComponentProps<T extends keyof ComponentsConfig> = NonNullable<ComponentsConfig[T]> & {
     children?: ReactNode
