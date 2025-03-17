@@ -1,7 +1,7 @@
 import { ConfigProvider } from "antd"
 import { ComponentProps, FC, ReactNode } from "react"
 
-export type ComponentsConfig = NonNullable<NonNullable<ComponentProps<typeof ConfigProvider>["theme"]>["components"]>
+export type ComponentsConfig = NonNullable<NonNullable<ComponentProps<(...params: Parameters<typeof ConfigProvider>) => ReactNode>["theme"]>["components"]>
 
 export type ThemeComponentProps<T extends keyof ComponentsConfig> = NonNullable<ComponentsConfig[T]> & {
     children?: ReactNode
@@ -12,7 +12,9 @@ export type ThemeMap = {
 }
 
 function getComponent<T extends keyof ComponentsConfig>(key: T) {
-    const Component: FC<ThemeComponentProps<T>> = ({ children, ...rest }) => <ConfigProvider theme={{ components: { [key]: rest } }}>{children}</ConfigProvider>
+    const Component: FC<ThemeComponentProps<T>> = ({ children, ...rest }) => (
+        <ConfigProvider theme={{ components: { [key]: rest } }}>{children}</ConfigProvider>
+    )
     return Component
 }
 
@@ -24,4 +26,3 @@ export const Theme = new Proxy(themeMap, {
         return target[property as keyof ComponentsConfig]
     },
 })
-
