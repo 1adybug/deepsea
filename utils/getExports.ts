@@ -15,21 +15,15 @@ export async function getExports() {
             if (!file.endsWith(".ts") && !file.endsWith(".tsx")) continue
             const content = await readFile(join(folder, file), "utf-8")
             const variables = Array.from(content.matchAll(/^export (const|let|var|function|class) (\w+)/gm))
-            if (variables.length > 0)
-                exports.push(
-                    `export { ${variables
-                        .map(v => v[2])
-                        .toSorted()
-                        .join(", ")} } from "@/${item}/${file.replace(/\.tsx?$/, "")}"`,
-                )
+                .map(v => v[2])
+                .filter((item, index, array) => array.indexOf(item) === index)
+                .toSorted()
+            if (variables.length > 0) exports.push(`export { ${variables.join(", ")} } from "@/${item}/${file.replace(/\.tsx?$/, "")}"`)
             const types = Array.from(content.matchAll(/^export (type|interface) (\w+)/gm))
-            if (types.length > 0)
-                exports.push(
-                    `export type { ${types
-                        .map(v => v[2])
-                        .toSorted()
-                        .join(", ")} } from "@/${item}/${file.replace(/\.tsx?$/, "")}"`,
-                )
+                .map(v => v[2])
+                .filter((item, index, array) => array.indexOf(item) === index)
+                .toSorted()
+            if (types.length > 0) exports.push(`export type { ${types.join(", ")} } from "@/${item}/${file.replace(/\.tsx?$/, "")}"`)
         }
     }
     return exports
