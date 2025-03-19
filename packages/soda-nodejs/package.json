@@ -31,7 +31,7 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-nodejs",
     "devDependencies": {
-        "@types/node": "^20.17.10",
+        "@types/node": "^20.17.24",
         "@types/which": "^3.0.4"
     },
     "dependencies": {
