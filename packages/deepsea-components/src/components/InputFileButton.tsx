@@ -1,13 +1,24 @@
 "use client"
 
-import { ComponentProps, ComponentRef, createElement, DragEvent, Fragment, JSX, MouseEvent as ReactMouseEvent, useRef, useState } from "react"
+import {
+    ComponentProps,
+    ComponentRef,
+    createElement,
+    DragEvent,
+    Fragment,
+    JSX,
+    JSXElementConstructor,
+    MouseEvent as ReactMouseEvent,
+    useRef,
+    useState,
+} from "react"
 import { FileType, getFileData, InputFile, InputFileBaseProps, InputFileDataType, InputFileDataTypeMap, InputFileExtraProps, ValueType } from "./InputFile"
 
 export type InputFileButtonProps<
     Multiple extends boolean = false,
     Type extends InputFileDataType = "file",
-    AS extends keyof JSX.IntrinsicElements = "button",
-> = Omit<ComponentProps<AS>, "type" | "disabled"> &
+    AS extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = "button",
+> = Omit<ComponentProps<AS>, "as" | "type" | "disabled"> &
     InputFileExtraProps<Multiple, Type> & {
         disabled?: boolean
         inputProps?: Omit<InputFileBaseProps, "accept">
@@ -17,9 +28,11 @@ export type InputFileButtonProps<
     }
 
 /** 专用于读取文件的 button 组件 */
-export function InputFileButton<Multiple extends boolean = false, Type extends InputFileDataType = "file", AS extends keyof JSX.IntrinsicElements = "button">(
-    props: InputFileButtonProps<Multiple, Type, AS>,
-) {
+export function InputFileButton<
+    Multiple extends boolean = false,
+    Type extends InputFileDataType = "file",
+    AS extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = "button",
+>(props: InputFileButtonProps<Multiple, Type, AS>) {
     const {
         as = "button",
         onClick: _onClick,

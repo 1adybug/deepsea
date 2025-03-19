@@ -1,7 +1,7 @@
 "use client"
 
-import { CSSProperties, ComponentProps, FC, ReactNode, createContext, createElement, useContext, JSX } from "react"
 import { clsx } from "deepsea-tools"
+import { CSSProperties, ComponentProps, FC, JSX, JSXElementConstructor, ReactNode, createContext, createElement, useContext } from "react"
 
 export interface UnifyConfig {
     className?: string
@@ -22,15 +22,15 @@ export const UnifyConfigProvider: FC<UnifyConfigProviderProps> = ({ className, s
     )
 }
 
-export type UnifyProps<T extends keyof JSX.IntrinsicElements = "div"> = ComponentProps<T> & {
-    as?: T
+export type UnifyProps<AS extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = "div"> = Omit<ComponentProps<AS>, "as"> & {
+    as?: AS
 }
 
-export function Unify<T extends keyof JSX.IntrinsicElements = "div">(props: UnifyProps<T>) {
-    const { as, className, style, ...rest } = props
+export function Unify<AS extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = "div">(props: UnifyProps<AS>) {
+    const { as = "div", className, style, ...rest } = props
     const { className: _className, style: _style } = useContext(UnifyConfigContext)
 
-    return createElement(as ?? "div", {
+    return createElement(as, {
         className: clsx(_className, className),
         style: { ..._style, ...style },
         ...rest,
