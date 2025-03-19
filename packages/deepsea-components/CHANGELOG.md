@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.10.0
+
+### Minor Changes
+
+- 升级了 file 相关组件
+
 ## 5.9.7
 
 ### Patch Changes

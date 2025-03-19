@@ -1,17 +1,17 @@
 "use client"
 
-import { forwardRef } from "react"
 import { readExcel } from "deepsea-tools"
+import { FC } from "react"
 
 import { InputFile, InputFileProps } from "./InputFile"
 
-export interface ImportExcelProps extends Omit<InputFileProps, "multiple" | "onChange" | "accept" | "type"> {
-    onChange?: (data: Record<string, any>[]) => void
+export interface ImportExcelProps extends Omit<InputFileProps<false, "arrayBuffer">, "multiple" | "accept" | "type" | "onValueChange"> {
+    onValueChange?: (data: Record<string, any>[]) => void
 }
 
 /** 专门用于读取 excel 的组件 */
-export const ImportExcel = forwardRef<HTMLInputElement, ImportExcelProps>((props, ref) => {
-    const { onChange, ...rest } = props
+export const ImportExcel: FC<ImportExcelProps> = props => {
+    const { onValueChange, ...rest } = props
 
-    return <InputFile ref={ref} accept=".xlsx" type="arrayBuffer" onChange={({ result }) => onChange?.(readExcel(result))} {...rest} />
-})
+    return <InputFile accept=".xlsx" type="arrayBuffer" onValueChange={data => onValueChange?.(readExcel(data))} {...rest} />
+}
