@@ -1,5 +1,5 @@
-import { RefObject, useEffect, useState } from "react"
 import { isNonNullable } from "deepsea-tools"
+import { RefObject, useEffect, useState } from "react"
 
 export interface Size {
     width: number
@@ -34,8 +34,8 @@ export function useSize<T extends Element>(
     { type = "border", direction = "horizontal" }: UseSizeOptions<T> = {},
 ) {
     const [size, setSize] = useState<Size | undefined>(undefined)
+    const target = getElement(element)
     useEffect(() => {
-        const target = getElement(element)
         if (!target) return
         const observer = new ResizeObserver(entries => {
             const entry = entries[0]
@@ -51,6 +51,6 @@ export function useSize<T extends Element>(
         })
         observer.observe(target)
         return () => observer.disconnect()
-    }, [element, type, direction])
+    }, [target, type, direction])
     return size
 }

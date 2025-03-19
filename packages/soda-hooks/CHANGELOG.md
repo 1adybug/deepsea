@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.5.5
+
+### Patch Changes
+
+- 修复某些情况下，依赖失效的问题
+
 ## 6.5.4
 
 ### Patch Changes
