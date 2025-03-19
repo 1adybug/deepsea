@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.10.1
+
+### Patch Changes
+
+- 将 accept 参数移动到 InputFileButtonProps
+
 ## 5.10.0
 
 ### Minor Changes

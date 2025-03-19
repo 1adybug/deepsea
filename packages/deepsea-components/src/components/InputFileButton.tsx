@@ -10,7 +10,8 @@ export type InputFileButtonProps<
 > = Omit<ComponentProps<AS>, "type" | "disabled"> &
     InputFileExtraProps<Multiple, Type> & {
         disabled?: boolean
-        inputProps?: InputFileBaseProps
+        inputProps?: Omit<InputFileBaseProps, "accept">
+        accept?: string
         dragFile?: boolean
         as?: AS
     }
@@ -23,6 +24,7 @@ export function InputFileButton<Multiple extends boolean = false, Type extends I
         as = "button",
         onClick: _onClick,
         inputProps = {},
+        accept,
         onDrop: _onDrop,
         onDragOver: _onDragOver,
         dragFile,
@@ -83,6 +85,7 @@ export function InputFileButton<Multiple extends boolean = false, Type extends I
                 disabled={disabled || _disabled || __disabled}
                 style={{ display: "none", ...style }}
                 multiple={multiple}
+                accept={accept}
                 type={type as Type}
                 onValueChange={onValueChange}
                 onFileChange={onFileChange}
@@ -99,4 +102,3 @@ export function InputFileButton<Multiple extends boolean = false, Type extends I
         </Fragment>
     )
 }
-
