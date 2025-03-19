@@ -9,6 +9,7 @@ import {
     JSX,
     JSXElementConstructor,
     MouseEvent as ReactMouseEvent,
+    useImperativeHandle,
     useRef,
     useState,
 } from "react"
@@ -50,9 +51,11 @@ export function InputFileButton<
         ...rest
     } = props
 
-    const { style, disabled: __disabled, ...restInputProps } = inputProps
+    const { ref, style, disabled: __disabled, ...restInputProps } = inputProps
     const [disabled, setDisabled] = useState(false)
     const input = useRef<HTMLInputElement>(null)
+
+    useImperativeHandle(ref, () => input.current!, [input.current])
 
     function onClick(e: ReactMouseEvent<ComponentRef<AS>, MouseEvent>) {
         input.current?.click()
@@ -95,6 +98,7 @@ export function InputFileButton<
     return (
         <Fragment>
             <InputFile<Multiple, Type>
+                ref={input}
                 disabled={disabled || _disabled || __disabled}
                 style={{ display: "none", ...style }}
                 multiple={multiple}

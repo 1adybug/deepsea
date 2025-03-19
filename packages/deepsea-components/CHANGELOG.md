@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.10.3
+
+### Patch Changes
+
+- 修复 InputFileButton 按钮失效的问题
+
 ## 5.10.2
 
 ### Patch Changes
