@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "declaration": true,
+        "skipLibCheck": true,
+        "baseUrl": "./",
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    }
+}

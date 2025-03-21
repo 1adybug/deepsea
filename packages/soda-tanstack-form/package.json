@@ -1,0 +1,37 @@
+{
+    "name": "soda-tanstack-form",
+    "version": "0.0.1",
+    "description": "",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/esm/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "dev": "father dev",
+        "build": "father build",
+        "prebuild": "tsx scripts/export.ts",
+        "build:deps": "father prebundle",
+        "prepublishOnly": "father doctor && npm run build"
+    },
+    "keywords": [],
+    "authors": [],
+    "license": "MIT",
+    "files": [
+        "compiled",
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-tanstack-form",
+    "peerDependencies": {
+        "@tanstack/react-form": "^1.1.2",
+        "@types/react": ">=18.3.18"
+    }
+}
