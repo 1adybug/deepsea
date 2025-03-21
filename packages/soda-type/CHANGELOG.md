@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.0.2
+
+### Patch Changes
+
+- 优化编辑器类型
+
 ## 6.0.1
 
 ### Patch Changes

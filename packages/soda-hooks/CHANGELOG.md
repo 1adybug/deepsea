@@ -1,5 +1,12 @@
 # soda-hooks
 
+## 6.5.7
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-type@6.0.2
+
 ## 6.5.6
 
 ### Patch Changes

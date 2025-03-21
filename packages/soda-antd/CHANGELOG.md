@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.3.4
+
+### Patch Changes
+
+- soda-hooks@6.5.7
+
 ## 0.3.3
 
 ### Patch Changes

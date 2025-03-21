@@ -117,13 +117,13 @@ export type CanJSONStringify<T> = _CanJSONStringify<T>
 export type TipString<T extends string> = T | (string & {})
 
 /** 编辑器 props */
-export interface EditorProps<Data, IdKey extends keyof Data = never> {
-    id?: IsNever<IdKey> extends true ? ("id" extends keyof Data ? Data["id"] : string) : Data[IdKey]
+export interface EditorProps<Data, Id extends keyof Data = never> {
+    id?: IsNever<Id> extends true ? ("id" extends keyof Data ? Data["id"] : string) : Id
     open?: boolean
     onOpenChange?: (open: boolean) => void
     onSuccess?: (data: Data) => void
     onError?: (error: Error) => void
-    onSettled?: ((error: Error, data: undefined) => void) | ((error: undefined, data: Data) => void)
+    onSettled?: (error: Error | undefined, data: Data | undefined) => void
 }
 
 /** 移除属性 */
