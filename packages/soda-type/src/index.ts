@@ -117,8 +117,8 @@ export type CanJSONStringify<T> = _CanJSONStringify<T>
 export type TipString<T extends string> = T | (string & {})
 
 /** 编辑器 props */
-export interface EditorProps<Data, Error = unknown> {
-    id?: "id" extends keyof Data ? Data["id"] : string
+export interface EditorProps<Data, IdKey extends keyof Data = never> {
+    id?: IsNever<IdKey> extends true ? ("id" extends keyof Data ? Data["id"] : string) : Data[IdKey]
     open?: boolean
     onOpenChange?: (open: boolean) => void
     onSuccess?: (data: Data) => void
