@@ -2,7 +2,7 @@
 
 import { CSSProperties, MouseEvent as ReactMouseEvent, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 import { css } from "@emotion/css"
-import { useSize } from "ahooks"
+import { useSize } from "soda-hooks"
 import { clsx, getArray } from "deepsea-tools"
 import Scrollbar from "smooth-scrollbar"
 import { ScrollStatus } from "smooth-scrollbar/interfaces/scrollbar"

@@ -1,7 +1,7 @@
 {
     "name": "playground",
     "private": true,
-    "version": "0.2.55",
+    "version": "0.2.56",
     "type": "module",
     "scripts": {
         "dev": "rsbuild dev --open",
@@ -13,7 +13,6 @@
         "@ant-design/cssinjs": "^1.23.0",
         "@ant-design/icons": "^5.6.1",
         "@emotion/css": "^11.13.5",
-        "ahooks": "^3.8.4",
         "antd": "^5.24.4",
         "dayjs": "^1.11.13",
         "deepsea-components": "workspace:*",

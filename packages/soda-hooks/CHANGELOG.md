@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.5.8
+
+### Patch Changes
+
+- 优化依赖
+
 ## 6.5.7
 
 ### Patch Changes

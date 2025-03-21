@@ -1,7 +1,7 @@
 "use client"
 
 import { ComponentPropsWithoutRef, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
-import { useLatest } from "ahooks"
+import { useLatest } from "soda-hooks"
 import ClipboardJS, { Event } from "clipboard"
 
 export { Event } from "clipboard"

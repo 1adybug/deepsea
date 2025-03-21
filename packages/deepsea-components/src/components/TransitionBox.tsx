@@ -1,7 +1,7 @@
 "use client"
 
 import { CSSProperties, FC, HTMLAttributes, forwardRef, useEffect, useRef, useState } from "react"
-import { useSize } from "ahooks"
+import { useSize } from "soda-hooks"
 
 export interface TransitionBoxProps extends HTMLAttributes<HTMLDivElement> {
     containerClassName?: string
