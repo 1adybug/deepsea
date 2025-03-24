@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.21.0
+
+### Minor Changes
+
+- 新增 emptyWith 方法
+
 ## 5.20.0
 
 ### Minor Changes
