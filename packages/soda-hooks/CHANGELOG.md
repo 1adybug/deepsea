@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.5.9
+
+### Patch Changes
+
+- 新增 soda-heroui
+
 ## 6.5.8
 
 ### Patch Changes

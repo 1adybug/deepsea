@@ -1,5 +1,13 @@
 # deepsea-components
 
+## 5.10.5
+
+### Patch Changes
+
+- 新增 soda-heroui
+- Updated dependencies
+    - soda-hooks@6.5.9
+
 ## 5.10.4
 
 ### Patch Changes

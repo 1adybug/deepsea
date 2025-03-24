@@ -17,7 +17,7 @@ export interface UseLongPressOptions<T extends HTMLElement = HTMLElement> {
  * 长按事件
  * @param onLongPress 长按事件
  * @param options 配置
- * @returns 
+ * @returns
  */
 export function useLongPress<T extends HTMLElement = HTMLElement>(
     onLongPress: (element: T) => void,

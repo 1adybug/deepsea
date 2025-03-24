@@ -1,5 +1,13 @@
 # soda-antd
 
+## 0.3.6
+
+### Patch Changes
+
+- 新增 soda-heroui
+- Updated dependencies
+    - soda-hooks@6.5.9
+
 ## 0.3.5
 
 ### Patch Changes

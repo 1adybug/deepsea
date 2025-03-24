@@ -1,0 +1,26 @@
+"use client"
+
+import { ReactNode } from "react"
+import { Autocomplete } from "@heroui/react"
+import { FieldComponentProps } from "soda-tanstack-form"
+
+import { ErrorMessage } from "./ErrorMessage"
+
+export interface FormAutocompleteProps<FieldValue extends string | undefined = string | undefined, T extends object = object>
+    extends FieldComponentProps<typeof Autocomplete<T>, FieldValue> {}
+
+export function FormAutocomplete<FieldValue extends string | undefined = string | undefined, T extends object = object>({
+    field,
+    ...rest
+}: FormAutocompleteProps<FieldValue, T>): ReactNode {
+    return (
+        <Autocomplete<T>
+            selectedKey={field.state.value ?? null}
+            onSelectionChange={value => field.handleChange((value ?? undefined) as FieldValue)}
+            onBlur={field.handleBlur}
+            errorMessage={<ErrorMessage data={field.state.meta.errors} />}
+            isInvalid={field.state.meta.errors.some(Boolean)}
+            {...rest}
+        />
+    )
+}

@@ -3,17 +3,18 @@
 import {
     ComponentProps,
     ComponentRef,
-    createElement,
     DragEvent,
     Fragment,
     JSX,
     JSXElementConstructor,
     MouseEvent as ReactMouseEvent,
+    createElement,
     useImperativeHandle,
     useRef,
     useState,
 } from "react"
-import { FileType, getFileData, InputFile, InputFileBaseProps, InputFileDataType, InputFileDataTypeMap, InputFileExtraProps, ValueType } from "./InputFile"
+
+import { FileType, InputFile, InputFileBaseProps, InputFileDataType, InputFileDataTypeMap, InputFileExtraProps, ValueType, getFileData } from "./InputFile"
 
 export type InputFileButtonProps<
     Multiple extends boolean = false,

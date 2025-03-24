@@ -1,5 +1,16 @@
 # deepsea-components-demo
 
+## 0.2.57
+
+### Patch Changes
+
+- 新增 soda-heroui
+- Updated dependencies
+    - deepsea-components@5.10.5
+    - soda-nodejs@0.6.5
+    - soda-hooks@6.5.9
+    - soda-react-router@1.0.16
+
 ## 0.2.56
 
 ### Patch Changes

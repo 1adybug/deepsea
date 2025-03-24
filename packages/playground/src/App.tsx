@@ -1,15 +1,11 @@
 import { FC } from "react"
-import {InputFile} from "deepsea-components"
-
-
-console.log(InputFile)
+import { DateInput, HeroUIProvider } from "@heroui/react"
 
 const App: FC = () => {
-
     return (
-        <>
-            
-        </>
+        <HeroUIProvider>
+            <DateInput />
+        </HeroUIProvider>
     )
 }
 

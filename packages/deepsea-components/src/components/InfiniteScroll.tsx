@@ -2,8 +2,8 @@
 
 import { CSSProperties, ComponentPropsWithoutRef, MouseEvent as ReactMouseEvent, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 import { css } from "@emotion/css"
-import { useSize } from "soda-hooks"
 import { clsx } from "deepsea-tools"
+import { useSize } from "soda-hooks"
 
 export type InfiniteScrollProps = ComponentPropsWithoutRef<"div"> & {
     /**

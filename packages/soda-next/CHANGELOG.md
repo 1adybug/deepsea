@@ -1,5 +1,13 @@
 # soda-next
 
+## 0.4.23
+
+### Patch Changes
+
+- 新增 soda-heroui
+- Updated dependencies
+    - soda-hooks@6.5.9
+
 ## 0.4.22
 
 ### Patch Changes

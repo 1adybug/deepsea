@@ -1,5 +1,5 @@
-import { ConfigProvider } from "antd"
 import { ComponentProps, FC, ReactNode } from "react"
+import { ConfigProvider } from "antd"
 
 export type ComponentsConfig = NonNullable<NonNullable<ComponentProps<typeof ConfigProvider>["theme"]>["components"]>
 
@@ -12,9 +12,7 @@ export type ThemeMap = {
 }
 
 function getComponent<T extends keyof ComponentsConfig>(key: T) {
-    const Component: FC<ThemeComponentProps<T>> = ({ children, ...rest }) => (
-        <ConfigProvider theme={{ components: { [key]: rest } }}>{children}</ConfigProvider>
-    )
+    const Component: FC<ThemeComponentProps<T>> = ({ children, ...rest }) => <ConfigProvider theme={{ components: { [key]: rest } }}>{children}</ConfigProvider>
     return Component
 }
 

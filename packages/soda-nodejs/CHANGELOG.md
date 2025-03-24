@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.6.5
+
+### Patch Changes
+
+- 新增 soda-heroui
+
 ## 0.6.4
 
 ### Patch Changes
