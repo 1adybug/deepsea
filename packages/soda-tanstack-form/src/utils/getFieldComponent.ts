@@ -3,8 +3,23 @@ import { FieldApi } from "@tanstack/react-form"
 
 export type UseFieldContext<TData> = () => FieldApi<any, string, TData, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any>
 
+export type FieldContext<TData> = ReturnType<UseFieldContext<TData>>
+
+export interface FieldMeta<TData> {
+    errors: FieldContext<TData>["state"]["meta"]["errors"]
+}
+
+export interface FieldState<TData> {
+    value: TData
+    meta: FieldMeta<TData>
+}
+
+export interface Field<TData> extends Pick<FieldContext<TData>, "handleChange" | "handleBlur"> {
+    state: FieldState<TData>
+}
+
 export type FieldComponentProps<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>, Value> = ComponentProps<T> & {
-    field: ReturnType<UseFieldContext<Value>>
+    field: Field<Value>
 }
 
 export function getFieldComponent<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>, Value>(

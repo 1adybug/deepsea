@@ -1,6 +1,7 @@
 "use client"
 
 import { Select } from "@heroui/react"
+import { Key } from "@react-types/shared"
 import { isNonNullable } from "deepsea-tools"
 import { FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
@@ -8,7 +9,7 @@ import { StrictOmit } from "soda-type"
 import { ErrorMessage } from "./ErrorMessage"
 
 export interface FormSelectProps<
-    Value extends string | undefined = string | undefined,
+    Value extends Key | undefined = Key | undefined,
     Multiple extends boolean = false,
     T extends object = object,
     FieldValue = Multiple extends true ? Value[] : Value,
@@ -17,7 +18,7 @@ export interface FormSelectProps<
 }
 
 export function FormSelect<
-    Value extends string | undefined = string | undefined,
+    Value extends Key | undefined = Key | undefined,
     Multiple extends boolean = false,
     T extends object = object,
     FieldValue = Multiple extends true ? Value[] : Value,
@@ -25,7 +26,7 @@ export function FormSelect<
     return (
         <Select<T>
             selectedKeys={
-                Array.isArray(field.state.value) ? field.state.value.filter(isNonNullable) : typeof field.state.value === "string" ? [field.state.value] : []
+                Array.isArray(field.state.value) ? field.state.value.filter(isNonNullable) : isNonNullable(field.state.value) ? [field.state.value] : []
             }
             onSelectionChange={keys => {
                 const value = Array.from(keys) as string[]

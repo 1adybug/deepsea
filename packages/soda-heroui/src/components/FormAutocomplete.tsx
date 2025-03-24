@@ -2,14 +2,15 @@
 
 import { ReactNode } from "react"
 import { Autocomplete } from "@heroui/react"
+import { Key } from "@react-types/shared"
 import { FieldComponentProps } from "soda-tanstack-form"
 
 import { ErrorMessage } from "./ErrorMessage"
 
-export interface FormAutocompleteProps<FieldValue extends string | undefined = string | undefined, T extends object = object>
+export interface FormAutocompleteProps<FieldValue extends Key | undefined = Key | undefined, T extends object = object>
     extends FieldComponentProps<typeof Autocomplete<T>, FieldValue> {}
 
-export function FormAutocomplete<FieldValue extends string | undefined = string | undefined, T extends object = object>({
+export function FormAutocomplete<FieldValue extends Key | undefined = Key | undefined, T extends object = object>({
     field,
     ...rest
 }: FormAutocompleteProps<FieldValue, T>): ReactNode {

@@ -2,7 +2,6 @@
 
 import { ComponentProps, FC } from "react"
 import { isNonNullable } from "deepsea-tools"
-import { ZodError } from "zod"
 
 export interface ErrorMessageItem {
     message: string
@@ -15,7 +14,7 @@ export interface ErrorMessageProps extends Omit<ComponentProps<"div">, "children
 function getErrorMessage(error: ErrorMessageItem | string | undefined): string[] {
     if (!isNonNullable(error)) return []
     if (typeof error === "string") return [error]
-    if (error instanceof ZodError) return error.errors.map(e => e.message).filter((item, index, array) => array.indexOf(item) === index)
+    if ("errors" in error && Array.isArray(error.errors)) return error.errors.map(e => e.message).filter((item, index, array) => array.indexOf(item) === index)
     return [error.message]
 }
 
