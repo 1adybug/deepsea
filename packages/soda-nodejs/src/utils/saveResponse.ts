@@ -8,7 +8,7 @@ import { Readable } from "stream"
  */
 export async function saveResponse(response: Response, file: string) {
     const writeable = createWriteStream(file)
-    await new Promise((resolve, reject) =>
+    await new Promise<void>((resolve, reject) =>
         Readable.fromWeb(response.body! as any)
             .pipe(writeable)
             .on("close", resolve)

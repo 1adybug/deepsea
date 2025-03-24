@@ -12,7 +12,7 @@ export type SaveFileOptions = {
  * 保存文件
  */
 export async function saveFile({ input, output }: SaveFileOptions) {
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
         const writeAble = createWriteStream(output)
         Readable.fromWeb(input.stream() as any)
             .pipe(writeAble)
