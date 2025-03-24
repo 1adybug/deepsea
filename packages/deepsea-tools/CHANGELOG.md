@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.20.0
+
+### Minor Changes
+
+- 新增 swap 方法
+
 ## 5.19.3
 
 ### Patch Changes
