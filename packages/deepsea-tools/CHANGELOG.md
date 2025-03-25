@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.22.0
+
+### Minor Changes
+
+- 新增 isIterable 方法，优化类型
+
 ## 5.21.0
 
 ### Minor Changes

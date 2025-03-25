@@ -9,28 +9,24 @@ import { StrictOmit } from "soda-type"
 import { ErrorMessage } from "./ErrorMessage"
 
 export interface FormSelectProps<
-    Value extends Key | undefined = Key | undefined,
     Multiple extends boolean = false,
-    T extends object = object,
-    FieldValue = Multiple extends true ? Value[] : Value,
-> extends StrictOmit<FieldComponentProps<typeof Select<T>, FieldValue>, "multiple"> {
+    Value extends (Multiple extends true ? Key[] : Key) | undefined = (Multiple extends true ? Key[] : Key) | undefined,
+    RenderItem extends object = object,
+> extends StrictOmit<FieldComponentProps<typeof Select<RenderItem>, Value>, "multiple"> {
     multiple?: Multiple
 }
 
 export function FormSelect<
-    Value extends Key | undefined = Key | undefined,
     Multiple extends boolean = false,
-    T extends object = object,
-    FieldValue = Multiple extends true ? Value[] : Value,
->({ field, multiple, ...rest }: FormSelectProps<Value, Multiple, T, FieldValue>) {
+    Value extends (Multiple extends true ? Key[] : Key) | undefined = (Multiple extends true ? Key[] : Key) | undefined,
+    RenderItem extends object = object,
+>({ field, multiple, ...rest }: FormSelectProps<Multiple, Value, RenderItem>) {
     return (
-        <Select<T>
-            selectedKeys={
-                Array.isArray(field.state.value) ? field.state.value.filter(isNonNullable) : isNonNullable(field.state.value) ? [field.state.value] : []
-            }
+        <Select<RenderItem>
+            selectedKeys={isNonNullable(field.state.value) ? (multiple ? (field.state.value as Key[]) : [field.state.value as Key]) : []}
             onSelectionChange={keys => {
-                const value = Array.from(keys) as string[]
-                field.handleChange((multiple ? value : value.at(0)) as FieldValue)
+                const value = Array.from(keys)
+                field.handleChange((multiple ? value : value.at(0)) as Value)
             }}
             onBlur={field.handleBlur}
             errorMessage={<ErrorMessage data={field.state.meta.errors} />}

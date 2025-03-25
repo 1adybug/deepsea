@@ -1,5 +1,13 @@
 # soda-tanstack-form
 
+## 0.0.5
+
+### Patch Changes
+
+- 新增 isIterable 方法，优化类型
+- Updated dependencies
+    - deepsea-tools@5.22.0
+
 ## 0.0.4
 
 ### Patch Changes
