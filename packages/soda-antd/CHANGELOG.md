@@ -1,5 +1,16 @@
 # soda-antd
 
+## 0.4.0
+
+### Minor Changes
+
+- 优化逻辑和类型
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.5.13
+
 ## 0.3.9
 
 ### Patch Changes

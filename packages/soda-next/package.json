@@ -1,6 +1,6 @@
 {
     "name": "soda-next",
-    "version": "0.4.26",
+    "version": "0.4.27",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",

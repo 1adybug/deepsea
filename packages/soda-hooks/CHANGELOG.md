@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.5.13
+
+### Patch Changes
+
+- 优化逻辑和类型
+
 ## 6.5.12
 
 ### Patch Changes

@@ -1,5 +1,5 @@
-import { RefObject, useEffect, useState } from "react"
 import { isNonNullable } from "deepsea-tools"
+import { RefObject, useEffect, useState } from "react"
 
 export interface Size {
     width: number
@@ -17,7 +17,9 @@ export interface UseSizeOptions<T> {
     direction?: "horizontal" | "vertical"
 }
 
-export function getElement<T extends Element>(element: T | null | undefined | RefObject<T | null | undefined> | string) {
+export type ElementInput<T extends Element> = T | null | undefined | RefObject<T | null | undefined> | string
+
+export function getElement<T extends Element>(element: ElementInput<T>) {
     return (
         isNonNullable(element)
             ? typeof element === "string"
@@ -29,10 +31,7 @@ export function getElement<T extends Element>(element: T | null | undefined | Re
     ) as T | undefined | null
 }
 
-export function useSize<T extends Element>(
-    element: T | null | undefined | RefObject<T | null | undefined> | string,
-    { type = "border", direction = "horizontal" }: UseSizeOptions<T> = {},
-) {
+export function useSize<T extends Element>(element: ElementInput<T>, { type = "border", direction = "horizontal" }: UseSizeOptions<T> = {}) {
     const [size, setSize] = useState<Size | undefined>(undefined)
     const target = getElement(element)
     useEffect(() => {
