@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.4.2
+
+### Patch Changes
+
+- 修复元素获取失败的bug
+
 ## 0.4.1
 
 ### Patch Changes
