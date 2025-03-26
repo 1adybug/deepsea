@@ -6,12 +6,10 @@ export interface UseScrollOptions {
 
 export function useScroll<T extends Element>(container: ElementInput<T>, { paginationMargin = 0 }: UseScrollOptions = {}) {
     const containerEle = getElement(container)
-    const theadEle = containerEle?.querySelector(".ant-table-thead")
-    const paginationEle = containerEle?.querySelector(".ant-pagination")
 
     const size = useSize(containerEle)
-    const theadSize = useSize(theadEle)
-    const paginationSize = useSize(paginationEle)
+    const theadSize = useSize(() => containerEle?.querySelector(".ant-table-thead"))
+    const paginationSize = useSize(() => containerEle?.querySelector(".ant-pagination"))
 
     return {
         x: size?.width ?? 0,

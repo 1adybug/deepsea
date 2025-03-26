@@ -1,5 +1,5 @@
 import { isNonNullable } from "deepsea-tools"
-import { RefObject, useEffect, useState } from "react"
+import { RefObject, useEffect, useRef, useState } from "react"
 
 export interface Size {
     width: number
@@ -17,9 +17,12 @@ export interface UseSizeOptions<T> {
     direction?: "horizontal" | "vertical"
 }
 
-export type ElementInput<T extends Element> = T | null | undefined | RefObject<T | null | undefined> | string
+export type ElementType<T extends Element> = T | null | undefined | RefObject<T | null | undefined> | string
+
+export type ElementInput<T extends Element> = ElementType<T> | (() => ElementType<T>)
 
 export function getElement<T extends Element>(element: ElementInput<T>) {
+    if (typeof element === "function") return getElement(element())
     return (
         isNonNullable(element)
             ? typeof element === "string"
@@ -31,12 +34,31 @@ export function getElement<T extends Element>(element: ElementInput<T>) {
     ) as T | undefined | null
 }
 
+interface Cache<T extends Element> extends UseSizeOptions<T> {
+    target?: T
+    observer?: ResizeObserver
+}
+
+/**
+ * 获取元素尺寸
+ * @param element 元素，可以是元素本身、元素的 ref、元素的 id 或选择器，也可以是函数，返回值可以是上述类型，推荐使用函数
+ * @param options 选项
+ * @returns 尺寸
+ */
 export function useSize<T extends Element>(element: ElementInput<T>, { type = "border", direction = "horizontal" }: UseSizeOptions<T> = {}) {
     const [size, setSize] = useState<Size | undefined>(undefined)
-    const target = getElement(element)
+    const { current: cache } = useRef<Cache<T>>({})
+
     useEffect(() => {
+        const target = getElement(element)
+        if (cache.target === target && cache.type === type && cache.direction === direction) return
+        cache.target = target ?? undefined
+        cache.type = type
+        cache.direction = direction
+        cache.observer?.disconnect()
+        cache.observer = undefined
         if (!target) return
-        const observer = new ResizeObserver(entries => {
+        cache.observer = new ResizeObserver(entries => {
             const entry = entries[0]
             setSize(
                 type === "border"
@@ -48,8 +70,10 @@ export function useSize<T extends Element>(element: ElementInput<T>, { type = "b
                       : { width: entry.contentBoxSize[0].blockSize, height: entry.contentBoxSize[0].inlineSize },
             )
         })
-        observer.observe(target)
-        return () => observer.disconnect()
-    }, [target, type, direction])
+        cache.observer?.observe(target)
+    })
+
+    useEffect(() => () => cache.observer?.disconnect(), [])
+
     return size
 }

@@ -1,5 +1,13 @@
 # soda-antd
 
+## 0.4.1
+
+### Patch Changes
+
+- 修复元素获取失败的 bug
+- Updated dependencies
+    - soda-hooks@6.5.14
+
 ## 0.4.0
 
 ### Minor Changes

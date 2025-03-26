@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.5.14
+
+### Patch Changes
+
+- 修复元素获取失败的 bug
+
 ## 6.5.13
 
 ### Patch Changes
