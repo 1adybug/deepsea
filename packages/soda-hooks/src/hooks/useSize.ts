@@ -35,7 +35,7 @@ export function getElement<T extends Element>(element: ElementInput<T>) {
 }
 
 interface Cache<T extends Element> extends UseSizeOptions<T> {
-    target?: T
+    target?: T | null | undefined
     observer?: ResizeObserver
 }
 
@@ -52,11 +52,12 @@ export function useSize<T extends Element>(element: ElementInput<T>, { type = "b
     useEffect(() => {
         const target = getElement(element)
         if (cache.target === target && cache.type === type && cache.direction === direction && !!cache.observer) return
-        cache.observer?.disconnect()
-        if (!target) return
         cache.target = target
         cache.type = type
         cache.direction = direction
+        cache.observer?.disconnect()
+        cache.observer = undefined
+        if (!target) return
         cache.observer = new ResizeObserver(entries => {
             const entry = entries[0]
             setSize(
