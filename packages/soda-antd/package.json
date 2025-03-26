@@ -1,6 +1,6 @@
 {
     "name": "soda-antd",
-    "version": "0.4.4",
+    "version": "0.4.5",
     "description": "soda-antd",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",

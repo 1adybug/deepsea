@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.5.17
+
+### Patch Changes
+
+- 优化效果
+
 ## 6.5.16
 
 ### Patch Changes

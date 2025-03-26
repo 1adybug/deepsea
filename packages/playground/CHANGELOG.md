@@ -1,5 +1,14 @@
 # deepsea-components-demo
 
+## 0.2.65
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.5.17
+    - deepsea-components@5.10.13
+    - soda-react-router@1.0.24
+
 ## 0.2.64
 
 ### Patch Changes
