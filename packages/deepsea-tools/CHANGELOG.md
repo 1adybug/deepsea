@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.23.0
+
+### Minor Changes
+
+- 新增 isActiveHref 方法和 AutoNavbarItem 组件
+
 ## 5.22.0
 
 ### Minor Changes

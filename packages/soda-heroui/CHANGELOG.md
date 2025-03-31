@@ -1,5 +1,16 @@
 # soda-tanstack-form
 
+## 0.1.0
+
+### Minor Changes
+
+- 新增 isActiveHref 方法和 AutoNavbarItem 组件
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.23.0
+
 ## 0.0.5
 
 ### Patch Changes

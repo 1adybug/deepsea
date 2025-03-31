@@ -1,3 +1,4 @@
+export * from "@/components/AutoNavbarItem"
 export * from "@/components/ErrorMessage"
 export * from "@/components/FormAutocomplete"
 export * from "@/components/FormCalendar"
