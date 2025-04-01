@@ -8,7 +8,7 @@ import { StrictOmit } from "soda-type"
 import { ErrorMessage } from "./ErrorMessage"
 
 export interface FormSwitchProps<FieldValue extends boolean | undefined = boolean | undefined>
-    extends StrictOmit<FieldComponentProps<typeof Switch, FieldValue>, "children"> {}
+    extends StrictOmit<FieldComponentProps<typeof Switch, FieldValue>, never> {}
 
 export function FormSwitch<FieldValue extends boolean | undefined = boolean | undefined>({ field, ...rest }: FormSwitchProps<FieldValue>): ReactNode {
     return (
