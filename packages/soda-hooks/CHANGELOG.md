@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.6.2
+
+### Patch Changes
+
+- 新增类型支持
+
 ## 6.6.1
 
 ### Patch Changes
