@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.6.0
+
+### Minor Changes
+
+- 新增 useIsActive hook
+
 ## 6.5.19
 
 ### Patch Changes
