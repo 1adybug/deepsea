@@ -1,21 +1,31 @@
-export function isActiveHref(standard: string, current: string) {
-    let standardUrl: URL
-    try {
-        standardUrl = new URL(standard)
-    } catch (error) {
-        standardUrl = new URL(standard, location.origin)
+export interface ActivePath {
+    pathname: string
+    hash: string
+    search: string
+}
+
+export function isActiveHref(standard: string | ActivePath, current: string | ActivePath) {
+    if (typeof standard === "string") {
+        try {
+            standard = new URL(standard)
+        } catch (error) {
+            standard = new URL(standard as string, location.origin)
+        }
     }
-    let currentUrl: URL
-    try {
-        currentUrl = new URL(current)
-    } catch (error) {
-        currentUrl = new URL(current, location.origin)
+    if (typeof current === "string") {
+        try {
+            current = new URL(current)
+        } catch (error) {
+            current = new URL(current as string, location.origin)
+        }
     }
-    if (standardUrl.origin !== currentUrl.origin) return false
-    if (standardUrl.pathname !== currentUrl.pathname) return false
-    if (standardUrl.hash !== currentUrl.hash) return false
-    const standardSearch = new URLSearchParams(standardUrl.search)
-    const currentSearch = new URLSearchParams(currentUrl.search)
+    const standardOrigin = (standard as URL).origin ?? location.origin
+    const currentOrigin = (current as URL).origin ?? location.origin
+    if (standardOrigin !== currentOrigin) return false
+    if (standard.pathname !== current.pathname) return false
+    if (standard.hash !== current.hash) return false
+    const standardSearch = new URLSearchParams(standard.search)
+    const currentSearch = new URLSearchParams(current.search)
     return Array.from(standardSearch.keys()).every(key => {
         const values = standardSearch.getAll(key)
         return values.every(value => currentSearch.getAll(key).includes(value))

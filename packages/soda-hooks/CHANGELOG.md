@@ -1,5 +1,13 @@
 # soda-hooks
 
+## 6.6.1
+
+### Patch Changes
+
+- 新增类型支持
+- Updated dependencies
+    - deepsea-tools@5.23.1
+
 ## 6.6.0
 
 ### Minor Changes

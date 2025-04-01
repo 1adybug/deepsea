@@ -1,15 +1,15 @@
-import { isActiveHref } from "deepsea-tools"
+import { ActivePath, isActiveHref } from "deepsea-tools"
 
 export interface LocationState {
     href: string
 }
 
-export type UseLocation = () => LocationState
+export type UseLocation = () => LocationState | ActivePath
 
 export function createUseIsActive(useLocation: UseLocation) {
     function useIsActive(href: string) {
         const location = useLocation()
-        return isActiveHref(href, location.href)
+        return isActiveHref(href, "href" in location ? location.href : location)
     }
     return useIsActive
 }

@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.23.1
+
+### Patch Changes
+
+- 新增类型支持
+
 ## 5.23.0
 
 ### Minor Changes
