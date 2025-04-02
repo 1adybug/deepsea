@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.2.0
+
+### Minor Changes
+
+- 新增 Date 类型支持
+
 ## 0.1.2
 
 ### Patch Changes
