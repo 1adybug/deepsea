@@ -1,12 +1,12 @@
 "use client"
 
 import { FC } from "react"
-import { ReadExcelData, readExcel } from "deepsea-tools"
+import { WorkBookData, WorkSheetData, readExcel } from "deepsea-tools"
 
 import { InputFile, InputFileProps } from "./InputFile"
 
 export interface ReadExcelProps extends Omit<InputFileProps<false, "arrayBuffer">, "multiple" | "accept" | "type" | "onValueChange"> {
-    onValueChange?: (data: ReadExcelData) => void
+    onValueChange?: <Sheet = WorkSheetData>(data: WorkBookData<Sheet>) => void
 }
 
 /** 专门用于读取 excel 的组件 */

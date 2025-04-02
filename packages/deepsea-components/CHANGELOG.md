@@ -1,5 +1,14 @@
 # deepsea-components
 
+## 5.11.2
+
+### Patch Changes
+
+- 优化 Excel 相关代码
+- Updated dependencies
+    - deepsea-tools@5.24.1
+    - soda-hooks@6.6.4
+
 ## 5.11.1
 
 ### Patch Changes
