@@ -5,7 +5,7 @@ import { CheckboxGroup } from "@heroui/react"
 import { FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
 
-import { ErrorMessage } from "./ErrorMessage"
+import { getFieldProps } from "../utils/getFieldProps"
 
 export interface FormCheckboxGroupProps<FieldValue extends string[] | undefined = string[] | undefined>
     extends StrictOmit<FieldComponentProps<typeof CheckboxGroup, FieldValue>, "children"> {}
@@ -14,14 +14,5 @@ export function FormCheckboxGroup<FieldValue extends string[] | undefined = stri
     field,
     ...rest
 }: FormCheckboxGroupProps<FieldValue>): ReactNode {
-    return (
-        <CheckboxGroup
-            value={field.state.value ?? []}
-            onValueChange={field.handleChange as (value: string[]) => void}
-            onBlur={field.handleBlur}
-            errorMessage={<ErrorMessage data={field.state.meta.errors} />}
-            isInvalid={field.state.meta.errors.some(Boolean)}
-            {...rest}
-        />
-    )
+    return <CheckboxGroup value={field.state.value ?? []} onValueChange={field.handleChange as (value: string[]) => void} {...getFieldProps(field)} {...rest} />
 }

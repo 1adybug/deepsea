@@ -5,23 +5,11 @@ import { Autocomplete } from "@heroui/react"
 import { Key } from "@react-types/shared"
 import { FieldComponentProps } from "soda-tanstack-form"
 
-import { ErrorMessage } from "./ErrorMessage"
+import { getFieldProps } from "../utils/getFieldProps"
 
 export interface FormAutocompleteProps<FieldValue extends Key | undefined = Key | undefined, RenderItem extends object = object>
     extends FieldComponentProps<typeof Autocomplete<RenderItem>, FieldValue> {}
 
-export function FormAutocomplete<FieldValue extends Key | undefined = Key | undefined, RenderItem extends object = object>({
-    field,
-    ...rest
-}: FormAutocompleteProps<FieldValue, RenderItem>): ReactNode {
-    return (
-        <Autocomplete<RenderItem>
-            selectedKey={field.state.value ?? null}
-            onSelectionChange={value => field.handleChange((value ?? undefined) as FieldValue)}
-            onBlur={field.handleBlur}
-            errorMessage={<ErrorMessage data={field.state.meta.errors} />}
-            isInvalid={field.state.meta.errors.some(Boolean)}
-            {...rest}
-        />
-    )
+export function FormAutocomplete<FieldValue extends string | undefined = string | undefined>({ field, ...rest }: FormAutocompleteProps<FieldValue>): ReactNode {
+    return <Autocomplete value={field.state.value ?? ""} onValueChange={field.handleChange as (value: string) => void} {...getFieldProps(field)} {...rest} />
 }

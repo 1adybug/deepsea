@@ -1,17 +1,13 @@
 "use client"
 
-import { ReactNode, SetStateAction } from "react"
-import { DateRangePicker, DateValue, RangeValue } from "@heroui/react"
-import { isNonNullable } from "deepsea-tools"
+import { ReactNode } from "react"
+import { DateRangePicker } from "@heroui/react"
 import { Field, FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
 
-import { getTimeValue } from "@/utils/getTimeValue"
-
-import { parseTime } from "../utils/parseTime"
-import { ErrorMessage } from "./ErrorMessage"
-import { TimeValueMode, TimeValueModeMap } from "./FormTimeInput"
+import { getFieldProps } from "../utils/getFieldProps"
 import { getFieldRangeValue, getOnRangeChange } from "./FormRangeCalendar"
+import { TimeValueMode, TimeValueModeMap } from "./FormTimeInput"
 
 export interface FormDateRangePickerProps<
     ValueMode extends TimeValueMode = "date",
@@ -32,9 +28,7 @@ export function FormDateRangePicker<
         <DateRangePicker
             value={getFieldRangeValue(field as unknown as Field<[Date, Date] | [number, number] | undefined>)}
             onChange={getOnRangeChange(field as unknown as Field<[Date, Date] | [number, number] | undefined>, valueMode)}
-            onBlur={field.handleBlur}
-            errorMessage={<ErrorMessage data={field.state.meta.errors} />}
-            isInvalid={field.state.meta.errors.some(Boolean)}
+            {...getFieldProps(field)}
             {...rest}
         />
     )

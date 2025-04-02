@@ -8,8 +8,8 @@ import { StrictOmit } from "soda-type"
 
 import { getTimeValue } from "@/utils/getTimeValue"
 
+import { getFieldProps } from "../utils/getFieldProps"
 import { parseTime } from "../utils/parseTime"
-import { ErrorMessage } from "./ErrorMessage"
 import { TimeValueMode, TimeValueModeMap } from "./FormTimeInput"
 
 export interface FormRangeCalendarProps<
@@ -64,9 +64,7 @@ export function FormRangeCalendar<
         <RangeCalendar
             value={getFieldRangeValue(field as unknown as Field<[Date, Date] | [number, number] | undefined>)}
             onChange={getOnRangeChange(field as unknown as Field<[Date, Date] | [number, number] | undefined>, valueMode)}
-            onBlur={field.handleBlur}
-            errorMessage={<ErrorMessage data={field.state.meta.errors} />}
-            isInvalid={field.state.meta.errors.some(Boolean)}
+            {...getFieldProps(field)}
             {...rest}
         />
     )

@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.3.0
+
+### Minor Changes
+
+- 移除无用组件，优化代码结构
+
 ## 0.2.0
 
 ### Minor Changes

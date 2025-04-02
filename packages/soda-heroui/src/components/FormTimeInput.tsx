@@ -7,10 +7,10 @@ import { isNonNullable } from "deepsea-tools"
 import { Field, FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
 
+import { getFieldProps } from "@/utils/getFieldProps"
 import { getTimeValue } from "@/utils/getTimeValue"
 
 import { parseTime } from "../utils/parseTime"
-import { ErrorMessage } from "./ErrorMessage"
 
 export type TimeValue = Date | number
 
@@ -53,14 +53,5 @@ export function FormTimeInput<
     ValueMode extends TimeValueMode = "date",
     FieldValue extends TimeValueModeMap<ValueMode> | undefined = TimeValueModeMap<ValueMode> | undefined,
 >({ field, valueMode, ...rest }: FormTimeInputProps<ValueMode, FieldValue>): ReactNode {
-    return (
-        <TimeInput
-            value={getFieldValue(field)}
-            onChange={getOnChange(field, valueMode)}
-            onBlur={field.handleBlur}
-            errorMessage={<ErrorMessage data={field.state.meta.errors} />}
-            isInvalid={field.state.meta.errors.some(Boolean)}
-            {...rest}
-        />
-    )
+    return <TimeInput value={getFieldValue(field)} onChange={getOnChange(field, valueMode)} {...getFieldProps(field)} {...rest} />
 }

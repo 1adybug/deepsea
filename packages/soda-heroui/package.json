@@ -1,6 +1,6 @@
 {
     "name": "soda-heroui",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -11,7 +11,8 @@
         "build": "father build",
         "prebuild": "tsx scripts/export.ts",
         "build:deps": "father prebundle",
-        "prepublishOnly": "father doctor && npm run build"
+        "prepublishOnly": "father doctor && npm run build",
+        "lint": "prettier --write ."
     },
     "keywords": [],
     "authors": [],
@@ -43,7 +44,10 @@
         "soda-type": "workspace:*"
     },
     "devDependencies": {
+        "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
         "@react-types/shared": "^3.28.0",
+        "glob": "^11.0.1",
+        "prettier": "^3.5.3",
         "typescript": "^5.8.2"
     }
 }
