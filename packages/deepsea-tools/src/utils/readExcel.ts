@@ -1,17 +1,33 @@
 import { read, utils } from "xlsx"
 
-export function readExcel(buffer: ArrayBuffer): Record<string, string | number | boolean | undefined>[] {
+/**
+ Excel 的数据
+ */
+export type ReadExcelData = {
+    [sheetName: string]: ReadSheetData[]
+}
+
+export type ReadExcelValue = string | number | boolean | undefined
+
+/**
+ * 工作表的数据
+ */
+export type ReadSheetData = {
+    /**
+     * 第几行
+     */
+    __rowNum__: number
+    /**
+     * key 是表头，value 是单元格的值
+     */
+    [columnName: string]: ReadExcelValue
+}
+
+export function readExcel(buffer: ArrayBuffer): ReadExcelData {
     const wb = read(buffer)
-    const result = utils.sheet_to_json<any>(wb.Sheets[wb.SheetNames[0]])
-    if (typeof result === "object") {
-        const data = result.map(item => {
-            const record: Record<string, string> = {}
-            Object.keys(item)
-                .filter(key => key !== "__rowNum__")
-                .forEach(key => (record[key] = item[key]))
-            return record
-        })
-        return data
-    }
-    return []
+    const result = wb.SheetNames.reduce((acc, item) => {
+        acc[item] = utils.sheet_to_json<any>(wb.Sheets[item])
+        return acc
+    }, {} as ReadExcelData)
+    return result
 }

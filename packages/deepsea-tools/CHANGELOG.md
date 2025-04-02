@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.24.0
+
+### Minor Changes
+
+- 优化了 Excel 相关内容
+
 ## 5.23.1
 
 ### Patch Changes
