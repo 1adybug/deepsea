@@ -1,6 +1,6 @@
 import { ParsingOptions, Sheet2JSONOpts, read, utils } from "xlsx"
 
-export { ParsingOptions, Sheet2JSONOpts }
+export type { ParsingOptions, Sheet2JSONOpts } from "xlsx"
 
 /**
  * 工作簿的数据

@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.24.3
+
+### Patch Changes
+
+- 修复类型导出的错误
+
 ## 5.24.2
 
 ### Patch Changes
