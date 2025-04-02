@@ -1,6 +1,6 @@
 {
     "name": "soda-type",
-    "version": "6.0.2",
+    "version": "6.0.3",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -28,5 +28,8 @@
         "type": "git",
         "url": "git+https://github.com/1adybug/deepsea.git"
     },
-    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-type"
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-type",
+    "devDependencies": {
+        "typescript": "^5.8.2"
+    }
 }

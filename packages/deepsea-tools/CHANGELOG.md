@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.24.4
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+
 ## 5.24.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # soda-coordinate
 
+## 5.2.9
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+
 ## 5.2.8
 
 ### Patch Changes

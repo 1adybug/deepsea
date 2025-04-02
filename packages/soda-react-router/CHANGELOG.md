@@ -1,5 +1,13 @@
 # soda-react-router
 
+## 1.0.34
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+- Updated dependencies
+    - soda-hooks@6.6.7
+
 ## 1.0.33
 
 ### Patch Changes

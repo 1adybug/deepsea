@@ -1,5 +1,14 @@
 # soda-next
 
+## 0.4.41
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+- Updated dependencies
+    - deepsea-tools@5.24.4
+    - soda-hooks@6.6.7
+
 ## 0.4.40
 
 ### Patch Changes

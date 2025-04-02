@@ -1,5 +1,14 @@
 # deepsea-components
 
+## 5.11.5
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+- Updated dependencies
+    - deepsea-tools@5.24.4
+    - soda-hooks@6.6.7
+
 ## 5.11.4
 
 ### Patch Changes

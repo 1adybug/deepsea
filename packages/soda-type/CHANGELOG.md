@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.0.3
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+
 ## 6.0.2
 
 ### Patch Changes

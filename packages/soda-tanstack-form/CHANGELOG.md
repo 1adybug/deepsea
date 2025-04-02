@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.0.4
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+
 ## 0.0.3
 
 ### Patch Changes

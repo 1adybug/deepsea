@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.6.6
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+
 ## 0.6.5
 
 ### Patch Changes

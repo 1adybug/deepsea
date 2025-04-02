@@ -1,6 +1,6 @@
 {
     "name": "soda-array",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -29,5 +29,8 @@
         "type": "git",
         "url": "git+https://github.com/1adybug/deepsea.git"
     },
-    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-array"
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-array",
+    "devDependencies": {
+        "typescript": "^5.8.2"
+    }
 }

@@ -1,5 +1,11 @@
 # soda-array
 
+## 0.0.8
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+
 ## 0.0.7
 
 ### Patch Changes

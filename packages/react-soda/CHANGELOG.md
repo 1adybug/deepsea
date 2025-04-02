@@ -1,5 +1,11 @@
 # react-soda
 
+## 5.1.6
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+
 ## 5.1.5
 
 ### Patch Changes
