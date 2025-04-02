@@ -1,5 +1,12 @@
 # deepsea-components-demo
 
+## 0.2.72
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-components@5.11.1
+
 ## 0.2.71
 
 ### Patch Changes

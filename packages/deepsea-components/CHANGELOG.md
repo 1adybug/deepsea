@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.11.1
+
+### Patch Changes
+
+- 优化参数
+
 ## 5.11.0
 
 ### Minor Changes
