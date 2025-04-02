@@ -1,6 +1,6 @@
 import { JSON2SheetOpts, utils, writeFile } from "xlsx"
 
-export { JSON2SheetOpts } from "xlsx"
+export { JSON2SheetOpts }
 
 export type WriteableWorkSheetCellData = string | number | Date | boolean | undefined | null
 
