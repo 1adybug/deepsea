@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.24.5
+
+### Patch Changes
+
+- 优化日期导出
+
 ## 5.24.4
 
 ### Patch Changes

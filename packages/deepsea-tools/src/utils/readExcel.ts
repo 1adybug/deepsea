@@ -17,7 +17,7 @@ export type WorkSheetData = WorkSheetRowData[]
 /**
  * 单元格的值
  */
-export type WorkSheetCellValue = string | number | boolean | undefined
+export type WorkSheetCellValue = Date | string | number | boolean | undefined
 
 /**
  * 工作表的数据
@@ -35,6 +35,9 @@ export type WorkSheetRowData = {
 
 export interface ReadExcelParams {
     buffer: ArrayBuffer
+    /** 
+     * cellDates 将会默认开启
+     */
     parsingOptions?: ParsingOptions
     sheetToJsonOptions?: Sheet2JSONOpts
 }
@@ -47,7 +50,7 @@ export interface ReadExcelParams {
 export function readExcel<Sheet = WorkSheetData>(bufferOrParams: ArrayBuffer | ReadExcelParams): WorkBookData<Sheet> {
     const { buffer, parsingOptions, sheetToJsonOptions } =
         bufferOrParams instanceof ArrayBuffer ? ({ buffer: bufferOrParams } as ReadExcelParams) : bufferOrParams
-    const wb = read(buffer, parsingOptions)
+    const wb = read(buffer, { cellDates: true, ...parsingOptions })
     const result = wb.SheetNames.reduce((acc, item) => {
         acc[item] = utils.sheet_to_json(wb.Sheets[item], sheetToJsonOptions) as any
         return acc
