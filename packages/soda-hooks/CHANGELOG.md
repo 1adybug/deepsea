@@ -1,5 +1,17 @@
 # soda-hooks
 
+## 6.7.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.25.0
+    - soda-type@6.1.0
+
 ## 6.6.8
 
 ### Patch Changes

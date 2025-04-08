@@ -4,5 +4,4 @@ packages:
 
 catalog:
     react: ">=19"
-    father: ">=4.5"
     typescript: ">=5.8.2"

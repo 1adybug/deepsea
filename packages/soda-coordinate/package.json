@@ -1,16 +1,25 @@
 {
     "name": "soda-coordinate",
-    "version": "5.2.9",
+    "version": "5.3.0",
     "description": "coordinate tools",
-    "main": "dist/cjs/index.js",
-    "module": "dist/esm/index.js",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "sideEffects": false,
     "scripts": {
-        "dev": "father dev",
-        "build": "father build",
-        "postbuild": "tsx scripts/clearReference.ts",
-        "build:deps": "father prebundle",
-        "prepublishOnly": "father doctor && npm run build"
+        "dev": "rslib build --watch",
+        "build": "rslib build",
+        "postbuild": "tsx scripts/addReference.ts",
+        "prepublishOnly": "npm run build",
+        "lint": "prettier --write ."
     },
     "keywords": [],
     "authors": [
@@ -18,14 +27,11 @@
     ],
     "license": "MIT",
     "files": [
-        "dist",
         "compiled",
-        "src"
+        "dist",
+        "src",
+        "tsconfig.json"
     ],
-    "dependencies": {
-        "robust-point-in-polygon": "^1.0.3",
-        "robust-segment-intersect": "^1.0.1"
-    },
     "publishConfig": {
         "access": "public",
         "registry": "https://registry.npmjs.org/"
@@ -35,7 +41,12 @@
         "url": "git+https://github.com/1adybug/deepsea.git"
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-coordinate",
+    "dependencies": {
+        "robust-point-in-polygon": "^1.0.3",
+        "robust-segment-intersect": "^1.0.1"
+    },
     "devDependencies": {
-        "typescript": "^5.8.2"
-    }
+        "typescript": "^5.8.3"
+    },
+    "peerDependencies": {}
 }

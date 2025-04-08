@@ -1,15 +1,16 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
         "strict": true,
         "declaration": true,
         "skipLibCheck": true,
-        "baseUrl": "./",
+        "jsx": "react-jsx",
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Bundler",
-        "jsx": "react-jsx",
         "paths": {
             "@/*": ["./src/*"]
         }
-    }
+    },
+    "include": ["src"]
 }

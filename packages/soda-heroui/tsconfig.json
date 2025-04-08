@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
         "strict": true,
         "declaration": true,
         "skipLibCheck": true,
-        "baseUrl": "./",
         "jsx": "react-jsx",
         "target": "ESNext",
         "module": "ESNext",
@@ -11,5 +11,6 @@
         "paths": {
             "@/*": ["./src/*"]
         }
-    }
+    },
+    "include": ["src"]
 }

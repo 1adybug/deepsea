@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.1.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
 ## 6.0.3
 
 ### Patch Changes

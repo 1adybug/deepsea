@@ -1,5 +1,18 @@
 # soda-tanstack-form
 
+## 0.4.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-tanstack-form@0.1.0
+    - deepsea-tools@5.25.0
+    - soda-type@6.1.0
+
 ## 0.3.6
 
 ### Patch Changes

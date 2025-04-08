@@ -1,26 +1,36 @@
 {
     "name": "soda-heroui",
-    "version": "0.3.6",
+    "version": "0.4.0",
     "description": "",
-    "main": "dist/cjs/index.js",
-    "module": "dist/esm/index.js",
-    "types": "dist/esm/index.d.ts",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "sideEffects": false,
     "scripts": {
-        "dev": "father dev",
-        "build": "father build",
+        "dev": "rslib build --watch",
+        "build": "rslib build",
         "prebuild": "tsx scripts/export.ts",
-        "build:deps": "father prebundle",
-        "prepublishOnly": "father doctor && npm run build",
+        "prepublishOnly": "npm run build",
         "lint": "prettier --write ."
     },
     "keywords": [],
-    "authors": [],
+    "authors": [
+        "lurongv@qq.com"
+    ],
     "license": "MIT",
     "files": [
         "compiled",
         "dist",
-        "src"
+        "src",
+        "tsconfig.json"
     ],
     "publishConfig": {
         "access": "public",
@@ -31,11 +41,6 @@
         "url": "git+https://github.com/1adybug/deepsea.git"
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-heroui",
-    "peerDependencies": {
-        "@heroui/react": ">=2",
-        "@types/react": ">=18.3.18",
-        "react": ">=18.3.1"
-    },
     "dependencies": {
         "@internationalized/date": "^3.7.0",
         "@tanstack/react-form": "^1.1.2",
@@ -48,6 +53,11 @@
         "@react-types/shared": "^3.28.0",
         "glob": "^11.0.1",
         "prettier": "^3.5.3",
-        "typescript": "^5.8.2"
+        "typescript": "^5.8.3"
+    },
+    "peerDependencies": {
+        "@heroui/react": ">=2",
+        "@types/react": ">=18.3.18",
+        "react": ">=18.3.1"
     }
 }

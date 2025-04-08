@@ -1,5 +1,22 @@
 # deepsea-components-demo
 
+## 0.3.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-components@5.12.0
+    - soda-react-router@1.1.0
+    - soda-coordinate@5.3.0
+    - deepsea-tools@5.25.0
+    - soda-nodejs@0.7.0
+    - soda-array@0.1.0
+    - soda-hooks@6.7.0
+
 ## 0.2.77
 
 ### Patch Changes

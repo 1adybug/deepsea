@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.7.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
 ## 0.6.6
 
 ### Patch Changes

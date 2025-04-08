@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.25.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
 ## 5.24.5
 
 ### Patch Changes

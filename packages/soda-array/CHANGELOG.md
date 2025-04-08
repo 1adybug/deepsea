@@ -1,5 +1,11 @@
 # soda-array
 
+## 0.1.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
 ## 0.0.8
 
 ### Patch Changes

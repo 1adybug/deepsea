@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.1.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
 ## 0.0.4
 
 ### Patch Changes

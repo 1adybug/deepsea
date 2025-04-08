@@ -1,5 +1,11 @@
 # react-soda
 
+## 5.2.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
 ## 5.1.6
 
 ### Patch Changes

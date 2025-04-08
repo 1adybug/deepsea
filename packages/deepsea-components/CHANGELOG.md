@@ -1,5 +1,17 @@
 # deepsea-components
 
+## 5.12.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.25.0
+    - soda-hooks@6.7.0
+
 ## 5.11.6
 
 ### Patch Changes

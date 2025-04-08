@@ -1,23 +1,26 @@
 {
     "name": "deepsea-components",
-    "version": "5.11.6",
+    "version": "5.12.0",
     "description": "格数科技自用组件库",
-    "main": "dist/cjs/index.js",
-    "module": "dist/esm/index.js",
-    "types": "dist/esm/index.d.ts",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "sideEffects": false,
     "scripts": {
-        "dev": "father dev",
-        "build": "father build",
+        "dev": "rslib build --watch",
+        "build": "rslib build",
         "prebuild": "tsx scripts/export.ts",
-        "build:deps": "father prebundle",
-        "prepublishOnly": "father doctor && npm run build"
+        "prepublishOnly": "npm run build",
+        "lint": "prettier --write ."
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/1adybug/deepsea.git"
-    },
-    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/deepsea-components",
     "keywords": [],
     "authors": [
         "lurongv@qq.com"
@@ -26,23 +29,29 @@
     "files": [
         "compiled",
         "dist",
-        "src"
+        "src",
+        "tsconfig.json"
     ],
     "publishConfig": {
         "access": "public",
         "registry": "https://registry.npmjs.org/"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/deepsea-components",
     "dependencies": {
         "@emotion/css": "^11.13.5",
         "clipboard": "^2.0.11",
         "deepsea-tools": "workspace:*",
         "echarts": "^5.6.0",
-        "hls.js": "^1.5.20",
+        "hls.js": "^1.6.1",
         "smooth-scrollbar": "^8.8.4",
         "soda-hooks": "workspace:*"
     },
     "devDependencies": {
-        "typescript": "^5.8.2"
+        "typescript": "^5.8.3"
     },
     "peerDependencies": {
         "@types/react": ">=18.3.18",

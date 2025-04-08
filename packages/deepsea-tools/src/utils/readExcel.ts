@@ -35,7 +35,7 @@ export type WorkSheetRowData = {
 
 export interface ReadExcelParams {
     buffer: ArrayBuffer
-    /** 
+    /**
      * cellDates 将会默认开启
      */
     parsingOptions?: ParsingOptions
