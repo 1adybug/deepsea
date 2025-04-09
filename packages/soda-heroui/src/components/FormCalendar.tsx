@@ -11,7 +11,7 @@ import { TimeValueMode, TimeValueModeMap, getFieldValue, getOnChange } from "./F
 export interface FormCalendarProps<
     ValueMode extends TimeValueMode = "date",
     FieldValue extends TimeValueModeMap<ValueMode> | undefined = TimeValueModeMap<ValueMode> | undefined,
-> extends StrictOmit<FieldComponentProps<typeof Calendar, FieldValue>, "children"> {
+> extends StrictOmit<FieldComponentProps<typeof Calendar, FieldValue>, never> {
     valueMode?: ValueMode
 }
 

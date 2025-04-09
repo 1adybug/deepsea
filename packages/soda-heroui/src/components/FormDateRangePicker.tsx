@@ -14,7 +14,7 @@ export interface FormDateRangePickerProps<
     FieldValue extends [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>] | undefined =
         | [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>]
         | undefined,
-> extends StrictOmit<FieldComponentProps<typeof DateRangePicker, FieldValue>, "children"> {
+> extends StrictOmit<FieldComponentProps<typeof DateRangePicker, FieldValue>, never> {
     valueMode?: ValueMode
 }
 

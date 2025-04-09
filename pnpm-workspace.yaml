@@ -1,7 +1,7 @@
 packages:
-  # all packages in direct subdirs of packages/
-  - "packages/*"
+    # all packages in direct subdirs of packages/
+    - "packages/*"
 
 catalog:
-  react: ">=19.1.0"
-  typescript: ">=5.8.3"
+    react: ">=19.1.0"
+    typescript: ">=5.8.3"

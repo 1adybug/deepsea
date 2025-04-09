@@ -17,7 +17,7 @@ export interface FormRangeCalendarProps<
     FieldValue extends [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>] | undefined =
         | [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>]
         | undefined,
-> extends StrictOmit<FieldComponentProps<typeof RangeCalendar, FieldValue>, "children"> {
+> extends StrictOmit<FieldComponentProps<typeof RangeCalendar, FieldValue>, never> {
     valueMode?: ValueMode
 }
 

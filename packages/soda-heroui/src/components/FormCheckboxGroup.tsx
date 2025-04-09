@@ -8,7 +8,7 @@ import { StrictOmit } from "soda-type"
 import { getFieldProps } from "../utils/getFieldProps"
 
 export interface FormCheckboxGroupProps<FieldValue extends string[] | undefined = string[] | undefined>
-    extends StrictOmit<FieldComponentProps<typeof CheckboxGroup, FieldValue>, "children"> {}
+    extends StrictOmit<FieldComponentProps<typeof CheckboxGroup, FieldValue>, never> {}
 
 export function FormCheckboxGroup<FieldValue extends string[] | undefined = string[] | undefined>({
     field,

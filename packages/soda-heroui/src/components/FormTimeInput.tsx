@@ -21,7 +21,7 @@ export type TimeValueModeMap<ValueMode extends TimeValueMode> = ValueMode extend
 export interface FormTimeInputProps<
     ValueMode extends TimeValueMode = "date",
     FieldValue extends TimeValueModeMap<ValueMode> | undefined = TimeValueModeMap<ValueMode> | undefined,
-> extends StrictOmit<FieldComponentProps<typeof TimeInput, FieldValue>, "children"> {
+> extends StrictOmit<FieldComponentProps<typeof TimeInput, FieldValue>, never> {
     valueMode?: ValueMode
 }
 
