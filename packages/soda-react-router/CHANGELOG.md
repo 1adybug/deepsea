@@ -1,5 +1,12 @@
 # soda-react-router
 
+## 1.1.1
+
+### Patch Changes
+
+- 新增 ValueOf 类型，升级依赖
+    - soda-hooks@6.7.1
+
 ## 1.1.0
 
 ### Minor Changes

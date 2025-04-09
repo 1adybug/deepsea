@@ -1,5 +1,14 @@
 # soda-tanstack-form
 
+## 0.4.1
+
+### Patch Changes
+
+- 新增 ValueOf 类型，升级依赖
+- Updated dependencies
+    - deepsea-tools@5.25.1
+    - soda-type@6.1.1
+
 ## 0.4.0
 
 ### Minor Changes

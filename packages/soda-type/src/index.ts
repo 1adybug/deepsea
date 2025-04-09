@@ -128,3 +128,6 @@ export interface EditorProps<Data, Id extends keyof Data = never> {
 
 /** 移除属性 */
 export type StrictOmit<T, K extends keyof T> = Omit<T, K>
+
+/** 获取对象的值 */
+export type ValueOf<T> = T[keyof T]

@@ -1,6 +1,6 @@
 {
     "name": "soda-antd",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "description": "soda-antd",
     "type": "module",
     "exports": {

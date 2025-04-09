@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.1.1
+
+### Patch Changes
+
+- 新增 ValueOf 类型，升级依赖
+
 ## 6.1.0
 
 ### Minor Changes

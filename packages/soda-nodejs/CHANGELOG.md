@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.7.1
+
+### Patch Changes
+
+- 新增 ValueOf 类型，升级依赖
+
 ## 0.7.0
 
 ### Minor Changes

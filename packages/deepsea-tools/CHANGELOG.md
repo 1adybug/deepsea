@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.25.1
+
+### Patch Changes
+
+- 新增 ValueOf 类型，升级依赖
+
 ## 5.25.0
 
 ### Minor Changes
