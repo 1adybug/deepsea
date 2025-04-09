@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.4.3
+
+### Patch Changes
+
+- 修复了某些组件不需要 ErrorMessage 的错误
+
 ## 0.4.2
 
 ### Patch Changes

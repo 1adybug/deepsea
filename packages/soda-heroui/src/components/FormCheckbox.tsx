@@ -12,6 +12,11 @@ export interface FormCheckboxProps<FieldValue extends boolean | undefined = bool
 
 export function FormCheckbox<FieldValue extends boolean | undefined = boolean | undefined>({ field, ...rest }: FormCheckboxProps<FieldValue>): ReactNode {
     return (
-        <Checkbox isSelected={field.state.value ?? false} onValueChange={field.handleChange as (value: boolean) => void} {...getFieldProps(field)} {...rest} />
+        <Checkbox
+            isSelected={field.state.value ?? false}
+            onValueChange={field.handleChange as (value: boolean) => void}
+            {...getFieldProps(field, true)}
+            {...rest}
+        />
     )
 }

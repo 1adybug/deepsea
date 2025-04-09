@@ -11,5 +11,12 @@ export interface FormSwitchProps<FieldValue extends boolean | undefined = boolea
     extends StrictOmit<FieldComponentProps<typeof Switch, FieldValue>, never> {}
 
 export function FormSwitch<FieldValue extends boolean | undefined = boolean | undefined>({ field, ...rest }: FormSwitchProps<FieldValue>): ReactNode {
-    return <Switch isSelected={field.state.value ?? false} onValueChange={field.handleChange as (value: boolean) => void} {...getFieldProps(field)} {...rest} />
+    return (
+        <Switch
+            isSelected={field.state.value ?? false}
+            onValueChange={field.handleChange as (value: boolean) => void}
+            {...getFieldProps(field, true)}
+            {...rest}
+        />
+    )
 }
