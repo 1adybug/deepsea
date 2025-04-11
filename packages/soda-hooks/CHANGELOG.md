@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.7.3
+
+### Patch Changes
+
+- 优化 Dom 依赖
+
 ## 6.7.2
 
 ### Patch Changes
