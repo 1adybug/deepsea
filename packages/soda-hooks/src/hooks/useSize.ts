@@ -15,6 +15,10 @@ export interface UseSizeOptions<T> {
      * 方向，默认为 horizontal
      */
     direction?: "horizontal" | "vertical"
+    /**
+     * 是否缓存尺寸，当元素变化时，尺寸应该先变为 undefined，再变为新的尺寸，开启后会跳过变 undefined 的过程，保持最后一次的尺寸，默认为 false
+     */
+    cache?: boolean
 }
 
 export type ElementType<T extends Element> = T | null | undefined | RefObject<T | null | undefined> | string
@@ -34,7 +38,7 @@ export function getElement<T extends Element>(element: ElementInput<T>) {
     ) as T | undefined | null
 }
 
-interface Cache<T extends Element> extends UseSizeOptions<T> {
+interface ConfigCache<T extends Element> extends UseSizeOptions<T> {
     target?: T | null | undefined
     observer?: ResizeObserver
 }
@@ -45,20 +49,22 @@ interface Cache<T extends Element> extends UseSizeOptions<T> {
  * @param options 选项
  * @returns 尺寸
  */
-export function useSize<T extends Element>(element: ElementInput<T>, { type = "border", direction = "horizontal" }: UseSizeOptions<T> = {}) {
+export function useSize<T extends Element>(element: ElementInput<T>, { type = "border", direction = "horizontal", cache = false }: UseSizeOptions<T> = {}) {
     const [size, setSize] = useState<Size | undefined>(undefined)
-    const { current: cache } = useRef<Cache<T>>({})
+    const { current: config } = useRef<ConfigCache<T>>({})
 
     useEffect(() => {
         const target = getElement(element)
-        if (cache.target === target && cache.type === type && cache.direction === direction && !!cache.observer) return
-        cache.target = target
-        cache.type = type
-        cache.direction = direction
-        cache.observer?.disconnect()
-        cache.observer = undefined
+        if (config.target === target && config.type === type && config.direction === direction && config.cache === cache) return
+        config.target = target
+        config.type = type
+        config.direction = direction
+        config.cache = cache
+        config.observer?.disconnect()
+        config.observer = undefined
+        if (!cache) setSize(undefined)
         if (!target) return
-        cache.observer = new ResizeObserver(entries => {
+        config.observer = new ResizeObserver(entries => {
             const entry = entries[0]
             setSize(
                 type === "border"
@@ -70,13 +76,13 @@ export function useSize<T extends Element>(element: ElementInput<T>, { type = "b
                       : { width: entry.contentBoxSize[0].blockSize, height: entry.contentBoxSize[0].inlineSize },
             )
         })
-        cache.observer?.observe(target)
+        config.observer?.observe(target)
     })
 
     useEffect(
         () => () => {
-            cache.observer?.disconnect()
-            cache.observer = undefined
+            config.observer?.disconnect()
+            Object.keys(config).forEach(key => delete config[key as keyof ConfigCache<T>])
         },
         [],
     )
