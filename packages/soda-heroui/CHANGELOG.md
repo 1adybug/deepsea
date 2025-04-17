@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.5.1
+
+### Patch Changes
+
+- 修复 AutoRefresh 组件未导出的问题
+
 ## 0.5.0
 
 ### Minor Changes

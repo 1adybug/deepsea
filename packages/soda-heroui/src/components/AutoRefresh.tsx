@@ -4,17 +4,17 @@ import { useAutoRefresh } from "soda-hooks"
 import { FirstParameter } from "soda-type"
 
 export interface AutoRefreshProps extends FirstParameter<typeof addToast> {
-    onNavigate?: () => void
+    onRefresh?: () => void
     children?: ReactNode
 }
 
-const AutoRefresh: FC<AutoRefreshProps> = ({ children, onNavigate, ...rest }) => {
+export const AutoRefresh: FC<AutoRefreshProps> = ({ children, onRefresh, ...rest }) => {
     if (process.env.NODE_ENV === "development") return children
 
     function onPress(e: PressEvent) {
         const closeButton = e.target.parentElement?.querySelector(`[aria-label="关闭"]`) as HTMLButtonElement
         closeButton?.click()
-        onNavigate?.()
+        onRefresh?.()
     }
 
     useAutoRefresh(() =>
@@ -34,5 +34,3 @@ const AutoRefresh: FC<AutoRefreshProps> = ({ children, onNavigate, ...rest }) =>
 
     return children
 }
-
-export default AutoRefresh
