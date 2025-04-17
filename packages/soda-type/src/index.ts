@@ -131,3 +131,6 @@ export type StrictOmit<T, K extends keyof T> = Omit<T, K>
 
 /** 获取对象的值 */
 export type ValueOf<T> = T[keyof T]
+
+/** 获取函数第一个参数的类型 */
+export type FirstParameter<T extends (...args: any[]) => any> = Parameters<T>[0]

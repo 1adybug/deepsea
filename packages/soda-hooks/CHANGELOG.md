@@ -1,5 +1,17 @@
 # soda-hooks
 
+## 6.8.0
+
+### Minor Changes
+
+- 新增 AutoRefresh 相关方法和组件
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-type@6.2.0
+    - deepsea-tools@5.25.1
+
 ## 6.7.3
 
 ### Patch Changes
