@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.26.1
+
+### Patch Changes
+
+- 修复 soda-type 在开发依赖导致的错误
+
 ## 5.26.0
 
 ### Minor Changes
