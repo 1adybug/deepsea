@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.26.0
+
+### Minor Changes
+
+- 新增 getSample 函数
+
 ## 5.25.1
 
 ### Patch Changes
