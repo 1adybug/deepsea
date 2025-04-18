@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.5.4
+
+### Patch Changes
+
+- 修复泛型错误
+
 ## 0.5.3
 
 ### Patch Changes
