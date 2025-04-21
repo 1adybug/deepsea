@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.13.0
+
+### Minor Changes
+
+- 新增 ScrollMask 组件
+
 ## 5.12.7
 
 ### Patch Changes
