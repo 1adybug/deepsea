@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.13.1
+
+### Patch Changes
+
+- 修复半径计算错误
+
 ## 5.13.0
 
 ### Minor Changes

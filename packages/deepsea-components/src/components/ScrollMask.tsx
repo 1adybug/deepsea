@@ -32,8 +32,8 @@ export const ScrollMask: FC<ScrollMaskProps> = ({
     const contentSize = useSize(ref)
     const radius = isNonNullable(contentSize)
         ? position === "top" || position === "bottom"
-            ? (contentSize.width ** 2 / 4 + contentSize.height ** 2) * (contentSize.height * 2)
-            : (contentSize.height ** 2 / 4 + contentSize.width ** 2) * (contentSize.width * 2)
+            ? (contentSize.width ** 2 / 4 + contentSize.height ** 2) / (contentSize.height * 2)
+            : (contentSize.height ** 2 / 4 + contentSize.width ** 2) / (contentSize.width * 2)
         : undefined
     const clipPath =
         showRadian && isNonNullable(radius)
