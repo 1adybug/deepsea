@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.13.2
+
+### Patch Changes
+
+- 修复尺寸错误
+
 ## 5.13.1
 
 ### Patch Changes

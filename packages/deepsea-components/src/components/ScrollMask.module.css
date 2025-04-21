@@ -17,7 +17,7 @@
     position: absolute;
     background-image: linear-gradient(
         to var(--scroll-mask-direction),
-        var(--scroll-mask-color-from, rgba(0, 0, 0, 0.15)),
+        var(--scroll-mask-color-from, rgba(0, 0, 0, 0.1)),
         var(--scroll-mask-color-to, rgba(0, 0, 0, 0))
     );
     clip-path: var(--scroll-mask-clip-path, none);
@@ -25,7 +25,7 @@
 
 .top-scroll-mask-content {
     width: 100%;
-    height: var(--scroll-mask-size, 16px);
+    height: var(--scroll-mask-size, 8px);
     top: 0;
     right: 50%;
     transform: translateX(50%);
@@ -43,7 +43,7 @@
 
 .bottom-scroll-mask-content {
     width: 100%;
-    height: var(--scroll-mask-size, 16px);
+    height: var(--scroll-mask-size, 8px);
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -60,7 +60,7 @@
 }
 
 .left-scroll-mask-content {
-    width: var(--scroll-mask-size, 16px);
+    width: var(--scroll-mask-size, 8px);
     height: 100%;
     left: 0;
     top: 50%;
@@ -78,7 +78,7 @@
 }
 
 .right-scroll-mask-content {
-    width: var(--scroll-mask-size, 16px);
+    width: var(--scroll-mask-size, 8px);
     height: 100%;
     right: 0;
     bottom: 50%;

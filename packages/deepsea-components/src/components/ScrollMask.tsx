@@ -20,8 +20,8 @@ export const ScrollMask: FC<ScrollMaskProps> = ({
     className,
     style,
     position = "top",
-    size = 16,
-    from = "rgba(0, 0, 0, 0.15)",
+    size = 8,
+    from = "rgba(0, 0, 0, 0.1)",
     to = "rgba(0, 0, 0, 0)",
     contentClassName,
     contentStyle,
@@ -42,7 +42,7 @@ export const ScrollMask: FC<ScrollMaskProps> = ({
                 : position === "bottom"
                   ? `circle(${radius}px at 50% ${radius}px)`
                   : position === "left"
-                    ? `circle(${radius}px at -${radius - contentSize!.width} 50%)`
+                    ? `circle(${radius}px at -${radius - contentSize!.width}px 50%)`
                     : position === "right"
                       ? `circle(${radius}px at ${radius}px 50%)`
                       : "none"
