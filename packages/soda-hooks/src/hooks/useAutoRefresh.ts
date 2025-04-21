@@ -29,6 +29,7 @@ export function useAutoRefresh(callback: () => void, { interval = 10000, url = "
                 url2.searchParams.set("refresh-timestamp", Date.now().toString())
                 abortController.current = new AbortController()
                 const response = await fetch(url2, { signal: abortController.current.signal })
+                abortController.current?.abort()
                 const newEtag = response.headers.get("etag")
                 if (newEtag === null || newEtag === etag.current) return
                 if (etag.current === undefined) return (etag.current = newEtag)

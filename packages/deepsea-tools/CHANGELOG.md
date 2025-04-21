@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.27.0
+
+### Minor Changes
+
+- 新增 toAdd、toDelete 方法，优化 useAutoRefresh
+
 ## 5.26.1
 
 ### Patch Changes

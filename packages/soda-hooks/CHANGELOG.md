@@ -1,5 +1,16 @@
 # soda-hooks
 
+## 6.9.0
+
+### Minor Changes
+
+- 新增 toAdd、toDelete 方法，优化 useAutoRefresh
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.27.0
+
 ## 6.8.2
 
 ### Patch Changes
