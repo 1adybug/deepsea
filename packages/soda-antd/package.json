@@ -1,6 +1,6 @@
 {
     "name": "soda-antd",
-    "version": "0.5.7",
+    "version": "0.6.0",
     "description": "soda-antd",
     "type": "module",
     "exports": {
@@ -43,7 +43,8 @@
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-antd",
     "dependencies": {
         "deepsea-tools": "workspace:*",
-        "soda-hooks": "workspace:*"
+        "soda-hooks": "workspace:*",
+        "zod": "^3.24.3"
     },
     "devDependencies": {
         "typescript": "^5.8.3"

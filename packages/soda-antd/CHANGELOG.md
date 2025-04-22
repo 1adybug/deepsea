@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.6.0
+
+### Minor Changes
+
+- 新增 schemaToRule 方法
+
 ## 0.5.7
 
 ### Patch Changes
