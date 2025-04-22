@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.6.1
+
+### Patch Changes
+
+- 修复依赖问题
+
 ## 0.6.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # soda-tanstack-form
 
+## 0.6.1
+
+### Patch Changes
+
+- 修复依赖问题
+- Updated dependencies
+    - soda-tanstack-form@0.2.1
+
 ## 0.6.0
 
 ### Minor Changes
