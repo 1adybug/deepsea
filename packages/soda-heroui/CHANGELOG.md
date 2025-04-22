@@ -1,5 +1,16 @@
 # soda-tanstack-form
 
+## 0.6.0
+
+### Minor Changes
+
+- isFieldInvalid 移到 soda-tanstack-form 中
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-tanstack-form@0.2.0
+
 ## 0.5.5
 
 ### Patch Changes

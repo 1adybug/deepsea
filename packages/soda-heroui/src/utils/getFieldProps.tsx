@@ -1,9 +1,7 @@
 import { JSX } from "react"
-import { Field } from "soda-tanstack-form"
+import { Field, isFieldInvalid } from "soda-tanstack-form"
 
 import { ErrorMessage } from "@/components/ErrorMessage"
-
-import { isFieldInvalid } from "./isFieldInvalid"
 
 export interface FieldProps {
     onBlur: () => void

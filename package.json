@@ -9,8 +9,7 @@
         "dev": "node scripts/dev.mjs",
         "r": "pnpm i && pnpm publish -r",
         "cs": "pnpm changeset && pnpm changeset version",
-        "format": "prettier --write .",
-        "lint": "prettier --config prettier.config.mjs --write . && prettier --config .prettierrc.mjs --write .",
+        "format": "prettier --config prettier.config.mjs --write . && prettier --config .prettierrc.mjs --write .",
         "sync": "node scripts/syncPackage.mjs",
         "postr": "npm run sync",
         "build": "node scripts/build.mjs"
