@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.14.0
+
+### Minor Changes
+
+- 新增 IconFileType 组件
+
 ## 5.13.2
 
 ### Patch Changes
