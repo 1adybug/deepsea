@@ -57,7 +57,7 @@ Z
 
 export interface IconFileTypeDogEarPropsBase extends Required<Pick<IconFileTypePagePropsBase, "pageWidth">> {
     /**
-     * 折角颜色，默认为 #c20e4d
+     * 折角颜色，默认为 rgba(0, 0, 0, 0.25)
      */
     dogEarColor?: string
     /**
@@ -68,7 +68,7 @@ export interface IconFileTypeDogEarPropsBase extends Required<Pick<IconFileTypeP
 
 export interface IconFileTypeDogEarProps extends IconFileTypeDogEarPropsBase, ComponentProps<"path"> {}
 
-export const IconFileTypeDogEar: FC<IconFileTypeDogEarProps> = ({ pageWidth, dogEarColor = "#c20e4d", dogEarSize = pageWidth * (1 - GOLD), ...rest }) => (
+export const IconFileTypeDogEar: FC<IconFileTypeDogEarProps> = ({ pageWidth, dogEarColor = "rgba(0, 0, 0, 0.25)", dogEarSize = pageWidth * (1 - GOLD), ...rest }) => (
     <path
         d={`M ${pageWidth / 2 - dogEarSize} ${-(FileTypeSize / 2)}
 L ${pageWidth / 2} ${-(FileTypeSize / 2 - dogEarSize)}

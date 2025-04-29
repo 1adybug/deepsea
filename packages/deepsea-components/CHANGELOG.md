@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.14.1
+
+### Patch Changes
+
+- 折角默认颜色改为 rgba(0, 0, 0, 0.25)
+
 ## 5.14.0
 
 ### Minor Changes
