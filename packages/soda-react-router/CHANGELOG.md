@@ -1,5 +1,11 @@
 # soda-react-router
 
+## 1.1.8
+
+### Patch Changes
+
+- 优化 useQueryState 的兼容性
+
 ## 1.1.7
 
 ### Patch Changes
