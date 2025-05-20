@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.30.0
+
+### Minor Changes
+
+- 启用 Excel 系列，使用 Sheet 代替
+
 ## 5.29.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # deepsea-components
 
+## 5.15.0
+
+### Minor Changes
+
+- 启用 Excel 系列，使用 Sheet 代替
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.30.0
+    - soda-hooks@6.9.3
+
 ## 5.14.3
 
 ### Patch Changes
