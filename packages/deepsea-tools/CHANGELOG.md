@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.29.0
+
+### Minor Changes
+
+- 新增 resolveNull 方法
+
 ## 5.28.0
 
 ### Minor Changes
