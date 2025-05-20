@@ -1,18 +1,17 @@
+import { ReactNode } from "react"
 import { WriteableWorkSheetCellData } from "deepsea-tools"
 import { renderToText, renderToWorkSheetCell } from "soda-react"
 
-import { Column, Columns } from "@/types"
-import { ReactNode } from "react"
+import { Columns } from "@/types"
 
 export interface GetWorkSheetParams<T> {
     data: T[]
     columns: Columns<T>
-    filter: (item: Column<T>, index: number, array: Column<T>[]) => boolean
 }
 
-export function getWorkSheet<T>({ data, columns, filter }: GetWorkSheetParams<T>) {
+export function getWorkSheet<T>({ data, columns }: GetWorkSheetParams<T>) {
     return data.map((item, index) =>
-        columns.filter(filter).reduce((acc: Record<string, WriteableWorkSheetCellData>, item2) => {
+        columns.reduce((acc: Record<string, WriteableWorkSheetCellData>, item2) => {
             const key = renderToText(item2.title as ReactNode)
             const value = renderToWorkSheetCell(
                 item2.render

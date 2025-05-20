@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.7.1
+
+### Patch Changes
+
+- 去除过滤选项
+
 ## 0.7.0
 
 ### Minor Changes
