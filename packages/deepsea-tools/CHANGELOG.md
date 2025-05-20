@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.28.0
+
+### Minor Changes
+
+- 新增 isNullable 和 createRequestFn 方法
+
 ## 5.27.0
 
 ### Minor Changes
