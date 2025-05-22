@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.32.0
+
+### Minor Changes
+
+- 新增 assignFnName 和 createFnWithMiddleware 方法，修改 createRequestFn 实现
+
 ## 5.31.0
 
 ### Minor Changes
