@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.3.0
+
+### Minor Changes
+
+- 新增严格可选、严格必选和严格只读类型定义
+
 ## 6.2.0
 
 ### Minor Changes

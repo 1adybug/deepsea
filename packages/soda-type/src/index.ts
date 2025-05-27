@@ -134,3 +134,12 @@ export type ValueOf<T> = T[keyof T]
 
 /** 获取函数第一个参数的类型 */
 export type FirstParameter<T extends (...args: any[]) => any> = Parameters<T>[0]
+
+/** 严格可选 */
+export type StrictPartial<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>
+
+/** 严格必选 */
+export type StrictRequired<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>
+
+/** 严格只读 */
+export type StrictReadonly<T, K extends keyof T> = Readonly<Pick<T, K>> & Omit<T, K>
