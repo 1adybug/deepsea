@@ -7,6 +7,6 @@ export interface ErrorPageProps {
     reset: () => void
 }
 
-export interface PageProps<Params extends Record<string, string> = Record<string, string>> {
-    params: Promise<Params>
+export interface DynamicPageProps<Key extends string = string> {
+    params: Promise<Record<Key, string>>
 }

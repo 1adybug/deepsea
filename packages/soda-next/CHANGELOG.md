@@ -1,5 +1,11 @@
 # soda-next
 
+## 0.6.1
+
+### Patch Changes
+
+- 优化动态路由 PageProps
+
 ## 0.6.0
 
 ### Minor Changes
