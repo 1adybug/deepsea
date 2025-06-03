@@ -1,5 +1,11 @@
 # soda-next
 
+## 0.6.0
+
+### Minor Changes
+
+- 新增 ErrorPageProps 和 PageProps
+
 ## 0.5.13
 
 ### Patch Changes
