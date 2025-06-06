@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.6.8
+
+### Patch Changes
+
+- 修复时间字符串中包含时区引起的错误
+
 ## 0.6.7
 
 ### Patch Changes
