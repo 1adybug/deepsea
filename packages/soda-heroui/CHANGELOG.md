@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.7.0
+
+### Minor Changes
+
+- 新增 addBetterToast 方法
+
 ## 0.6.9
 
 ### Patch Changes
