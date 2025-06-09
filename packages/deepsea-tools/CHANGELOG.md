@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.33.0
+
+### Minor Changes
+
+- 新增 whileDo 函数
+
 ## 5.32.1
 
 ### Patch Changes
