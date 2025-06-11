@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.34.0
+
+### Minor Changes
+
+- 新增 prettierError 方法
+
 ## 5.33.0
 
 ### Minor Changes
