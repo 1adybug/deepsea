@@ -1,20 +1,17 @@
-import dayjs from "dayjs"
-
 export interface PrettierErrorParams {
     error: Error
     source: string
+    time: string
 }
 
 /** 根据传入的 error 生成 HTML 代码用于邮件发送 */
-export function prettierError({ error, source }: PrettierErrorParams): string {
+export function prettierError({ error, source, time }: PrettierErrorParams): string {
     const message = error.message || "未知错误"
     const name = error.name || "Error"
     const stack = error.stack?.trim().replace(/^[\s\n]*(.*?)[\s\n]*$/s, "$1") || "暂无调用栈信息"
-    const time = dayjs().format("YYYY-MM-DD HH:mm:ss")
 
-    return `
-  <div style="background: white; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); padding: 20px; max-width: 800px; border-radius: 12px;">
-      
+    return `<div style="background: white; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); padding: 20px; max-width: 800px; border-radius: 12px;">
+
       <!-- 错误来源 -->
       <div style="margin-bottom: 20px;">
           <h3 style="margin: 0 0 10px 0; color: #374151; font-size: 16px; font-weight: 600; display: flex; align-items: center;">

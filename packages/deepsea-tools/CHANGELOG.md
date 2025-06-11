@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.34.1
+
+### Patch Changes
+
+- 优化 prettierError 参数
+
 ## 5.34.0
 
 ### Minor Changes

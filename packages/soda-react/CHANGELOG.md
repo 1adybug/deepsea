@@ -1,5 +1,12 @@
 # soda-react
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.34.1
+
 ## 0.0.5
 
 ### Patch Changes
