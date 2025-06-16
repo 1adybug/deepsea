@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.35.0
+
+### Minor Changes
+
+- 新增 json2type 方法
+
 ## 5.34.1
 
 ### Patch Changes
