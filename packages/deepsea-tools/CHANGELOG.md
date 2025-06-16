@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.35.1
+
+### Patch Changes
+
+- 修复属性名无效的问题
+
 ## 5.35.0
 
 ### Minor Changes
