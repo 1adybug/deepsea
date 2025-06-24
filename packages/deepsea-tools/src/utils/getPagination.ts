@@ -22,18 +22,24 @@ export type Page<T> = {
 }
 
 export type PaginationConfig<T> = {
+    /**
+     * 数据
+     */
     data: T[]
+    /**
+     * 是否就是需要的数据，如果为 true，则最终返回的 list 就是 data 本身，否则会进行分页
+     */
+    exact?: boolean
     total?: number
     pageNum: number
     pageSize: number
 }
 
-export function getPagination<T>({ data, total, pageNum, pageSize }: PaginationConfig<T>): Page<T> {
+export function getPagination<T>({ data, exact, total, pageNum, pageSize }: PaginationConfig<T>): Page<T> {
     const start = (pageNum - 1) * pageSize
     const end = start + pageSize
-    if (total === undefined) total = data.length
-    else data = getArray(total, index => (index >= start && index < end ? data[index] : undefined)) as T[]
-    const list = data.slice(start, end)
+    total ??= data.length
+    const list = exact ? data.slice(0, pageSize) : data.slice(start, end)
     const size = list.length
     const range = Math.floor(pageNum / 8)
     const hasNextPage = total > end

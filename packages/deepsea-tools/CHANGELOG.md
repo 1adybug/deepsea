@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.35.3
+
+### Patch Changes
+
+- 新增 exact 参数
+
 ## 5.35.2
 
 ### Patch Changes
