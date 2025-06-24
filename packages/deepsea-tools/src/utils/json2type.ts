@@ -167,7 +167,10 @@ export function json2type(json: string): string {
         .map(
             ([key, value]) => `export interface ${key} {
     ${Object.entries(value)
-        .map(([key2, value2]) => `${reg.test(key2) ? key2 : `"${key2}"`}${value2 instanceof UnionType && value2.types.includes("undefined") ? "?" : ""}: ${value2.toString()}`)
+        .map(
+            ([key2, value2]) =>
+                `${reg.test(key2) ? key2 : `"${key2}"`}${value2 instanceof UnionType && value2.types.includes("undefined") ? "?" : ""}: ${value2.toString()}`,
+        )
         .join(`\n    `)}
 }
 `,

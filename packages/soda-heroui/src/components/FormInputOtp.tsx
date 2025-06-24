@@ -7,9 +7,12 @@ import { StrictOmit } from "soda-type"
 
 import { getFieldProps } from "../utils/getFieldProps"
 
-export interface FormInputOtpProps<FieldValue extends string | undefined = string | undefined>
+export interface FormInputOtpProps<FieldValue extends string | null | undefined = string | null | undefined>
     extends StrictOmit<FieldComponentProps<typeof InputOtp, FieldValue>, never> {}
 
-export function FormInputOtp<FieldValue extends string | undefined = string | undefined>({ field, ...rest }: FormInputOtpProps<FieldValue>): ReactNode {
+export function FormInputOtp<FieldValue extends string | null | undefined = string | null | undefined>({
+    field,
+    ...rest
+}: FormInputOtpProps<FieldValue>): ReactNode {
     return <InputOtp value={field.state.value ?? ""} onValueChange={field.handleChange as (value: string) => void} {...getFieldProps(field)} {...rest} />
 }

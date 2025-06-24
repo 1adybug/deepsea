@@ -68,7 +68,12 @@ export interface IconFileTypeDogEarPropsBase extends Required<Pick<IconFileTypeP
 
 export interface IconFileTypeDogEarProps extends IconFileTypeDogEarPropsBase, ComponentProps<"path"> {}
 
-export const IconFileTypeDogEar: FC<IconFileTypeDogEarProps> = ({ pageWidth, dogEarColor = "rgba(0, 0, 0, 0.25)", dogEarSize = pageWidth * (1 - GOLD), ...rest }) => (
+export const IconFileTypeDogEar: FC<IconFileTypeDogEarProps> = ({
+    pageWidth,
+    dogEarColor = "rgba(0, 0, 0, 0.25)",
+    dogEarSize = pageWidth * (1 - GOLD),
+    ...rest
+}) => (
     <path
         d={`M ${pageWidth / 2 - dogEarSize} ${-(FileTypeSize / 2)}
 L ${pageWidth / 2} ${-(FileTypeSize / 2 - dogEarSize)}
@@ -119,7 +124,11 @@ export const IconFileTypeText: FC<IconFileTypeTextProps> = ({
     <text textAnchor="middle" fill={textColor} x={textX} y={textY} fontSize={textFontSize} fontWeight={textFontWeight} fontFamily={textFontFamily} {...rest} />
 )
 
-export interface IconFileTypeProps extends IconFileTypePagePropsBase, Omit<IconFileTypeDogEarPropsBase, "pageWidth">, IconFileTypeTextPropsBase, ComponentProps<"svg"> {}
+export interface IconFileTypeProps
+    extends IconFileTypePagePropsBase,
+        Omit<IconFileTypeDogEarPropsBase, "pageWidth">,
+        IconFileTypeTextPropsBase,
+        ComponentProps<"svg"> {}
 
 export const IconFileType: FC<IconFileTypeProps> = ({
     pageColor,

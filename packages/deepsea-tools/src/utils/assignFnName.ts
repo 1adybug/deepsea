@@ -5,7 +5,8 @@ import { AnyFunction } from "./createFnWithMiddleware"
  * @param target 目标函数
  * @param source 源函数
  */
-export function assignFnName<T extends AnyFunction>(target: T, source: Function): T {
-    if (source.name) Object.defineProperty(target, "name", { value: source.name })
+export function assignFnName<T extends AnyFunction>(target: T, source: Function | string): T {
+    const name = typeof source === "string" ? source : source.name
+    Object.defineProperty(target, "name", { value: name })
     return target
 }

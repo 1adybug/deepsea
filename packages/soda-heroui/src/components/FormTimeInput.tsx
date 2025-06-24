@@ -1,6 +1,6 @@
 "use client"
 
-import { ReactNode, SetStateAction } from "react"
+import { ReactNode, SetStateAction, useContext } from "react"
 import { TimeInput } from "@heroui/react"
 import { CalendarDate, CalendarDateTime, Time, ZonedDateTime } from "@internationalized/date"
 import { isNonNullable } from "deepsea-tools"
@@ -11,6 +11,7 @@ import { getFieldProps } from "@/utils/getFieldProps"
 import { getTimeValue } from "@/utils/getTimeValue"
 
 import { parseTime } from "../utils/parseTime"
+import { EmptyValue, FormContext, getEmptyValue } from "./FormProvider"
 
 export type TimeValue = Date | number
 
@@ -20,38 +21,51 @@ export type TimeValueModeMap<ValueMode extends TimeValueMode> = ValueMode extend
 
 export interface FormTimeInputProps<
     ValueMode extends TimeValueMode = "date",
-    FieldValue extends TimeValueModeMap<ValueMode> | undefined = TimeValueModeMap<ValueMode> | undefined,
+    FieldValue extends TimeValueModeMap<ValueMode> | null | undefined = TimeValueModeMap<ValueMode> | null | undefined,
 > extends StrictOmit<FieldComponentProps<typeof TimeInput, FieldValue>, never> {
     valueMode?: ValueMode
+    emptyValue?: EmptyValue
 }
 
-export function getValue(value: Date | number | undefined) {
+export function getValue(value: Date | number | null | undefined) {
     return isNonNullable(value) ? parseTime(value.valueOf()) : null
 }
 
-export function getFieldValue<T extends Date | number | undefined>(field: Field<T>) {
+export function getFieldValue<T extends Date | number | null | undefined>(field: Field<T>) {
     return getValue(field.state.value)
 }
 
-export function getUpdater(
-    value: CalendarDateTime | ZonedDateTime | Time | CalendarDate | CalendarDateTime | ZonedDateTime | null,
-    valueMode?: TimeValueMode,
-): SetStateAction<Date | number | undefined> {
-    const timestamp = getTimeValue(value)
-    if (!isNonNullable(timestamp)) return undefined
-    if (valueMode === "timestamp") return timestamp
-    return (prev: Date | number | undefined) => (prev instanceof Date && prev.valueOf() === timestamp ? prev : new Date(timestamp))
+export interface GetUpdaterParams {
+    value: CalendarDateTime | ZonedDateTime | Time | CalendarDate | CalendarDateTime | ZonedDateTime | null
+    valueMode?: TimeValueMode
+    emptyValue?: EmptyValue
 }
 
-export function getOnChange<T extends Date | number | undefined>(field: Field<T>, valueMode?: TimeValueMode) {
+export function getUpdater({ value, valueMode, emptyValue }: GetUpdaterParams): SetStateAction<Date | number | null | undefined> {
+    const timestamp = getTimeValue(value)
+    if (!isNonNullable(timestamp)) return getEmptyValue(emptyValue)
+    if (valueMode === "timestamp") return timestamp
+    return (prev: Date | number | null | undefined) => (prev instanceof Date && prev.valueOf() === timestamp ? prev : new Date(timestamp))
+}
+
+export interface GetOnChangeParams<T extends Date | number | null | undefined> {
+    field: Field<T>
+    valueMode?: TimeValueMode
+    emptyValue?: EmptyValue
+}
+
+export function getOnChange<T extends Date | number | null | undefined>({ field, valueMode, emptyValue }: GetOnChangeParams<T>) {
     return function onChange(value: CalendarDateTime | ZonedDateTime | Time | CalendarDate | CalendarDateTime | ZonedDateTime | null) {
-        field.handleChange(getUpdater(value, valueMode) as SetStateAction<T>)
+        field.handleChange(getUpdater({ value, valueMode, emptyValue }) as SetStateAction<T>)
     }
 }
 
 export function FormTimeInput<
     ValueMode extends TimeValueMode = "date",
-    FieldValue extends TimeValueModeMap<ValueMode> | undefined = TimeValueModeMap<ValueMode> | undefined,
->({ field, valueMode, ...rest }: FormTimeInputProps<ValueMode, FieldValue>): ReactNode {
-    return <TimeInput value={getFieldValue(field)} onChange={getOnChange(field, valueMode)} {...getFieldProps(field)} {...rest} />
+    FieldValue extends TimeValueModeMap<ValueMode> | null | undefined = TimeValueModeMap<ValueMode> | null | undefined,
+>({ field, valueMode, emptyValue, ...rest }: FormTimeInputProps<ValueMode, FieldValue>): ReactNode {
+    const context = useContext(FormContext)
+    emptyValue ??= context.emptyValue
+
+    return <TimeInput value={getFieldValue(field)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
 }

@@ -1,5 +1,15 @@
 # soda-antd
 
+## 0.7.9
+
+### Patch Changes
+
+- 更改默认空值为 null
+- Updated dependencies
+    - deepsea-tools@5.35.2
+    - soda-hooks@6.10.8
+    - soda-react@0.0.9
+
 ## 0.7.8
 
 ### Patch Changes

@@ -1,5 +1,4 @@
 import { DependencyList, useEffect } from "react"
-
 import { isAsyncGenerator } from "deepsea-tools"
 
 export function useAsync(effect: () => AsyncGenerator<void, void, void> | Promise<void>, deps?: DependencyList): void

@@ -7,10 +7,13 @@ import { StrictOmit } from "soda-type"
 
 import { getFieldProps } from "../utils/getFieldProps"
 
-export interface FormCheckboxProps<FieldValue extends boolean | undefined = boolean | undefined>
+export interface FormCheckboxProps<FieldValue extends boolean | null | undefined = boolean | null | undefined>
     extends StrictOmit<FieldComponentProps<typeof Checkbox, FieldValue>, never> {}
 
-export function FormCheckbox<FieldValue extends boolean | undefined = boolean | undefined>({ field, ...rest }: FormCheckboxProps<FieldValue>): ReactNode {
+export function FormCheckbox<FieldValue extends boolean | null | undefined = boolean | null | undefined>({
+    field,
+    ...rest
+}: FormCheckboxProps<FieldValue>): ReactNode {
     return (
         <Checkbox
             isSelected={field.state.value ?? false}

@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.35.2
+
+### Patch Changes
+
+- 更改默认空值为 null
+
 ## 5.35.1
 
 ### Patch Changes

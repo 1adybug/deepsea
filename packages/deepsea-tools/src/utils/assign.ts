@@ -7,7 +7,7 @@ export type Assign<A extends {}, B extends {}> = {
 }
 
 /**
- * 合并两个对象，如果两个对象有相同的键，那么后者的值会覆盖前者的值，和 Object.assign 的区别是，Object.assign 会忽略 undefined 值，而这个函数不会
+ * 合并两个对象，如果两个对象有相同的键，那么后者的值会覆盖前者的值，和 Object.assign 的区别是，当后者的值为 undefined 时，Object.assign 依然会使用 undefined 覆盖前者的值，这个函数会忽略，不会覆盖
  * @param a 第一个对象
  * @param b 第二个对象
  * @returns 合并后的对象

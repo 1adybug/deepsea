@@ -1,5 +1,13 @@
 # soda-react
 
+## 0.0.9
+
+### Patch Changes
+
+- 更改默认空值为 null
+- Updated dependencies
+    - deepsea-tools@5.35.2
+
 ## 0.0.8
 
 ### Patch Changes

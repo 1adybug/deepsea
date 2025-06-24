@@ -1,5 +1,13 @@
 # soda-hooks
 
+## 6.10.8
+
+### Patch Changes
+
+- 更改默认空值为 null
+- Updated dependencies
+    - deepsea-tools@5.35.2
+
 ## 6.10.7
 
 ### Patch Changes

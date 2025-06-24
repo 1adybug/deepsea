@@ -7,9 +7,12 @@ import { StrictOmit } from "soda-type"
 
 import { getFieldProps } from "../utils/getFieldProps"
 
-export interface FormNumberInputProps<FieldValue extends number | undefined = number | undefined>
+export interface FormNumberInputProps<FieldValue extends number | null | undefined = number | null | undefined>
     extends StrictOmit<FieldComponentProps<typeof NumberInput, FieldValue>, never> {}
 
-export function FormNumberInput<FieldValue extends number | undefined = number | undefined>({ field, ...rest }: FormNumberInputProps<FieldValue>): ReactNode {
+export function FormNumberInput<FieldValue extends number | null | undefined = number | null | undefined>({
+    field,
+    ...rest
+}: FormNumberInputProps<FieldValue>): ReactNode {
     return <NumberInput value={field.state.value ?? 0} onValueChange={field.handleChange as (value: number) => void} {...getFieldProps(field)} {...rest} />
 }

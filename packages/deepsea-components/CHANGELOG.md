@@ -1,5 +1,14 @@
 # deepsea-components
 
+## 5.15.9
+
+### Patch Changes
+
+- 更改默认空值为 null
+- Updated dependencies
+    - deepsea-tools@5.35.2
+    - soda-hooks@6.10.8
+
 ## 5.15.8
 
 ### Patch Changes
