@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.36.0
+
+### Minor Changes
+
+- 将中间件 context 中的 arguments 参数改为 args
+
 ## 5.35.3
 
 ### Patch Changes

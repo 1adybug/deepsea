@@ -6,7 +6,7 @@ export type NextFunction = () => Promise<void>
 
 export type Context<T extends AnyFunction = AnyFunction> = {
     fn: T
-    arguments: Parameters<T>
+    args: Parameters<T>
     result?: Awaited<ReturnType<T>>
     [key: string]: any
 }
@@ -48,7 +48,7 @@ export function createFnWithMiddleware<T extends AnyFunction = AnyFunction>(
 
         const context: Context<T> = {
             fn,
-            arguments: args,
+            args,
             result: undefined,
         }
 
@@ -65,7 +65,7 @@ export function createFnWithMiddleware<T extends AnyFunction = AnyFunction>(
                     await execute(index + 1)
                     return
                 }
-                context.result = await context.fn(...context.arguments)
+                context.result = await context.fn(...context.args)
             }
             await middleware(context, next)
             if (!executed) await next()
