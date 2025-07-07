@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.37.0
+
+### Minor Changes
+
+- 新增首字母大写和小写方法
+
 ## 5.36.0
 
 ### Minor Changes
