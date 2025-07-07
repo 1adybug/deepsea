@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.8.0
+
+### Minor Changes
+
+- 新增 isPathLike 方法
+
 ## 0.7.1
 
 ### Patch Changes

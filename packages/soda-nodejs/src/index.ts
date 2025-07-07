@@ -1,6 +1,7 @@
 export * from "@/utils/compress"
 export * from "@/utils/copy"
 export * from "@/utils/execAsync"
+export * from "@/utils/isPathLike"
 export * from "@/utils/saveFile"
 export * from "@/utils/saveResponse"
 export * from "@/utils/spawnAsync"
