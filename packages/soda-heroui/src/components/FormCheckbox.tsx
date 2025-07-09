@@ -1,19 +1,24 @@
 "use client"
 
-import { ReactNode } from "react"
-import { Checkbox } from "@heroui/react"
-import { FieldComponentProps } from "soda-tanstack-form"
-import { StrictOmit } from "soda-type"
+import { ComponentPropsWithoutRef, ReactNode } from "react"
+import { As, Checkbox, CheckboxProps, MergeWithAs } from "@heroui/react"
+import { Field } from "soda-tanstack-form"
 
 import { getFieldProps } from "../utils/getFieldProps"
 
-export interface FormCheckboxProps<FieldValue extends boolean | null | undefined = boolean | null | undefined>
-    extends StrictOmit<FieldComponentProps<typeof Checkbox, FieldValue>, never> {}
+export type FormCheckboxProps<FieldValue extends boolean | null | undefined = boolean | null | undefined, AsComponent extends As = "input"> = MergeWithAs<
+    ComponentPropsWithoutRef<"input">,
+    ComponentPropsWithoutRef<AsComponent>,
+    CheckboxProps,
+    AsComponent
+> & {
+    field: Field<FieldValue>
+}
 
-export function FormCheckbox<FieldValue extends boolean | null | undefined = boolean | null | undefined>({
+export function FormCheckbox<FieldValue extends boolean | null | undefined = boolean | null | undefined, AsComponent extends As = "input">({
     field,
     ...rest
-}: FormCheckboxProps<FieldValue>): ReactNode {
+}: FormCheckboxProps<FieldValue, AsComponent>): ReactNode {
     return (
         <Checkbox
             isSelected={field.state.value ?? false}

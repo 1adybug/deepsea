@@ -1,18 +1,30 @@
 "use client"
 
-import { ReactNode } from "react"
-import { Textarea } from "@heroui/react"
-import { FieldComponentProps } from "soda-tanstack-form"
-import { StrictOmit } from "soda-type"
+import { ComponentPropsWithoutRef, ReactNode } from "react"
+import { As, MergeWithAs, TextAreaProps, Textarea } from "@heroui/react"
+import { Field } from "soda-tanstack-form"
 
 import { getFieldProps } from "../utils/getFieldProps"
 
-export interface FormTextareaProps<FieldValue extends string | null | undefined = string | null | undefined>
-    extends StrictOmit<FieldComponentProps<typeof Textarea, FieldValue>, never> {}
+export type FormTextareaProps<FieldValue extends string | null | undefined = string | null | undefined, AsComponent extends As = "textarea"> = MergeWithAs<
+    ComponentPropsWithoutRef<"input">,
+    ComponentPropsWithoutRef<AsComponent>,
+    TextAreaProps,
+    AsComponent
+> & {
+    field: Field<FieldValue>
+}
 
-export function FormTextarea<FieldValue extends string | null | undefined = string | null | undefined>({
+export function FormTextarea<FieldValue extends string | null | undefined = string | null | undefined, AsComponent extends As = "textarea">({
     field,
     ...rest
-}: FormTextareaProps<FieldValue>): ReactNode {
-    return <Textarea value={field.state.value ?? ""} onValueChange={field.handleChange as (value: string) => void} {...getFieldProps(field)} {...rest} />
+}: FormTextareaProps<FieldValue, AsComponent>): ReactNode {
+    return (
+        <Textarea<AsComponent>
+            value={field.state.value ?? ""}
+            onValueChange={field.handleChange as (value: string) => void}
+            {...getFieldProps(field)}
+            {...rest}
+        />
+    )
 }

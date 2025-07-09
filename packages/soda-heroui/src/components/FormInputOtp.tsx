@@ -1,18 +1,30 @@
 "use client"
 
-import { ReactNode } from "react"
-import { InputOtp } from "@heroui/react"
-import { FieldComponentProps } from "soda-tanstack-form"
-import { StrictOmit } from "soda-type"
+import { ComponentPropsWithoutRef, ReactNode } from "react"
+import { As, InputOtp, InputOtpProps, MergeWithAs } from "@heroui/react"
+import { Field } from "soda-tanstack-form"
 
 import { getFieldProps } from "../utils/getFieldProps"
 
-export interface FormInputOtpProps<FieldValue extends string | null | undefined = string | null | undefined>
-    extends StrictOmit<FieldComponentProps<typeof InputOtp, FieldValue>, never> {}
+export type FormInputOtpProps<FieldValue extends string | null | undefined = string | null | undefined, AsComponent extends As = "input"> = MergeWithAs<
+    ComponentPropsWithoutRef<"input">,
+    ComponentPropsWithoutRef<AsComponent>,
+    InputOtpProps,
+    AsComponent
+> & {
+    field: Field<FieldValue>
+}
 
-export function FormInputOtp<FieldValue extends string | null | undefined = string | null | undefined>({
+export function FormInputOtp<FieldValue extends string | null | undefined = string | null | undefined, AsComponent extends As = "input">({
     field,
     ...rest
-}: FormInputOtpProps<FieldValue>): ReactNode {
-    return <InputOtp value={field.state.value ?? ""} onValueChange={field.handleChange as (value: string) => void} {...getFieldProps(field)} {...rest} />
+}: FormInputOtpProps<FieldValue, AsComponent>): ReactNode {
+    return (
+        <InputOtp<AsComponent>
+            value={field.state.value ?? ""}
+            onValueChange={field.handleChange as (value: string) => void}
+            {...getFieldProps(field)}
+            {...rest}
+        />
+    )
 }
