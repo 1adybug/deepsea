@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.38.0
+
+### Minor Changes
+
+- 新增 getAll 方法
+
 ## 5.37.0
 
 ### Minor Changes
