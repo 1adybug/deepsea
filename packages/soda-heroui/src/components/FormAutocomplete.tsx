@@ -1,6 +1,6 @@
 "use client"
 
-import { ReactNode } from "react"
+import { Key, ReactNode } from "react"
 import { Autocomplete, AutocompleteProps } from "@heroui/react"
 import { FieldComponentProps } from "soda-tanstack-form"
 
@@ -18,8 +18,8 @@ export function FormAutocomplete<FieldValue extends string | null | undefined = 
 }: FormAutocompleteProps<FieldValue, RenderItem>): ReactNode {
     return (
         <Autocomplete2<RenderItem>
-            value={field.state.value ?? ""}
-            onValueChange={field.handleChange as (value: string) => void}
+            selectedKey={field.state.value ?? ""}
+            onSelectionChange={field.handleChange as (value: Key | null) => void}
             {...getFieldProps(field)}
             {...rest}
         />

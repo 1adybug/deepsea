@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.8.2
+
+### Patch Changes
+
+- 修复 AutoComplete 受控错误的问题
+
 ## 0.8.1
 
 ### Patch Changes
