@@ -1,1 +1,1 @@
-export { Field } from "soda-tanstack-form"
+export { type Field } from "soda-tanstack-form"

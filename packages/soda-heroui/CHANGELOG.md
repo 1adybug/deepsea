@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.8.3
+
+### Patch Changes
+
+- 修复类型导出错误
+
 ## 0.8.2
 
 ### Patch Changes
