@@ -13,14 +13,18 @@ export type FormCheckboxProps<FieldValue extends boolean | null | undefined = bo
     AsComponent
 > & {
     field: Field<FieldValue>
+    component?: <AsComponent extends As = "input">(
+        props: MergeWithAs<ComponentPropsWithoutRef<"input">, ComponentPropsWithoutRef<AsComponent>, CheckboxProps, AsComponent>,
+    ) => ReactNode
 }
 
 export function FormCheckbox<FieldValue extends boolean | null | undefined = boolean | null | undefined, AsComponent extends As = "input">({
     field,
+    component: Checkbox2 = Checkbox,
     ...rest
 }: FormCheckboxProps<FieldValue, AsComponent>): ReactNode {
     return (
-        <Checkbox
+        <Checkbox2<AsComponent>
             isSelected={field.state.value ?? false}
             onValueChange={field.handleChange as (value: boolean) => void}
             {...getFieldProps(field, true)}

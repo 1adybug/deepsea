@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode, SetStateAction, useContext } from "react"
-import { TimeInput } from "@heroui/react"
+import { TimeInput, TimeInputProps } from "@heroui/react"
 import { CalendarDate, CalendarDateTime, Time, ZonedDateTime } from "@internationalized/date"
 import { isNonNullable } from "deepsea-tools"
 import { Field, FieldComponentProps } from "soda-tanstack-form"
@@ -25,6 +25,7 @@ export interface FormTimeInputProps<
 > extends StrictOmit<FieldComponentProps<typeof TimeInput, FieldValue>, never> {
     valueMode?: ValueMode
     emptyValue?: EmptyValue
+    component?: <T extends Time | CalendarDateTime | ZonedDateTime>(props: TimeInputProps<T>) => ReactNode
 }
 
 export function getValue(value: Date | number | null | undefined) {
@@ -63,9 +64,9 @@ export function getOnChange<T extends Date | number | null | undefined>({ field,
 export function FormTimeInput<
     ValueMode extends TimeValueMode = "date",
     FieldValue extends TimeValueModeMap<ValueMode> | null | undefined = TimeValueModeMap<ValueMode> | null | undefined,
->({ field, valueMode, emptyValue, ...rest }: FormTimeInputProps<ValueMode, FieldValue>): ReactNode {
+>({ field, valueMode, emptyValue, component: TimeInput2 = TimeInput, ...rest }: FormTimeInputProps<ValueMode, FieldValue>): ReactNode {
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 
-    return <TimeInput value={getFieldValue(field)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+    return <TimeInput2 value={getFieldValue(field)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
 }

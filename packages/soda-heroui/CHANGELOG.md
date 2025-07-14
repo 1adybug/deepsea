@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.8.0
+
+### Minor Changes
+
+- 允许传入自定义组件
+
 ## 0.7.9
 
 ### Patch Changes

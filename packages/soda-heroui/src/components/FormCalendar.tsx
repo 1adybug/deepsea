@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode, useContext } from "react"
-import { Calendar } from "@heroui/react"
+import { Calendar, CalendarProps, DateValue } from "@heroui/react"
 import { FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
 
@@ -15,14 +15,15 @@ export interface FormCalendarProps<
 > extends StrictOmit<FieldComponentProps<typeof Calendar, FieldValue>, never> {
     valueMode?: ValueMode
     emptyValue?: EmptyValue
+    component?: <T extends DateValue>(props: CalendarProps<T>) => ReactNode
 }
 
 export function FormCalendar<
     ValueMode extends TimeValueMode = "date",
     FieldValue extends TimeValueModeMap<ValueMode> | null | undefined = TimeValueModeMap<ValueMode> | null | undefined,
->({ field, valueMode, emptyValue, ...rest }: FormCalendarProps<ValueMode, FieldValue>): ReactNode {
+>({ field, valueMode, emptyValue, component: Calendar2 = Calendar, ...rest }: FormCalendarProps<ValueMode, FieldValue>): ReactNode {
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 
-    return <Calendar value={getFieldValue(field)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+    return <Calendar2 value={getFieldValue(field)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
 }

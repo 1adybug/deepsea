@@ -13,14 +13,18 @@ export type FormInputOtpProps<FieldValue extends string | null | undefined = str
     AsComponent
 > & {
     field: Field<FieldValue>
+    component?: <AsComponent extends As = "input">(
+        props: MergeWithAs<ComponentPropsWithoutRef<"input">, ComponentPropsWithoutRef<AsComponent>, InputOtpProps, AsComponent>,
+    ) => ReactNode
 }
 
 export function FormInputOtp<FieldValue extends string | null | undefined = string | null | undefined, AsComponent extends As = "input">({
     field,
+    component: InputOtp2 = InputOtp,
     ...rest
 }: FormInputOtpProps<FieldValue, AsComponent>): ReactNode {
     return (
-        <InputOtp<AsComponent>
+        <InputOtp2<AsComponent>
             value={field.state.value ?? ""}
             onValueChange={field.handleChange as (value: string) => void}
             {...getFieldProps(field)}

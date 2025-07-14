@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode, useContext } from "react"
-import { DateRangePicker } from "@heroui/react"
+import { DateRangePicker, DateRangePickerProps, DateValue } from "@heroui/react"
 import { Field, FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
 
@@ -19,6 +19,7 @@ export interface FormDateRangePickerProps<
 > extends StrictOmit<FieldComponentProps<typeof DateRangePicker, FieldValue>, never> {
     valueMode?: ValueMode
     emptyValue?: EmptyValue
+    component?: <T extends DateValue>(props: DateRangePickerProps<T>) => ReactNode
 }
 
 export function FormDateRangePicker<
@@ -27,12 +28,18 @@ export function FormDateRangePicker<
         | [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>]
         | null
         | undefined,
->({ field: _field, valueMode, emptyValue, ...rest }: FormDateRangePickerProps<ValueMode, FieldValue>): ReactNode {
+>({
+    field: _field,
+    valueMode,
+    emptyValue,
+    component: DateRangePicker2 = DateRangePicker,
+    ...rest
+}: FormDateRangePickerProps<ValueMode, FieldValue>): ReactNode {
     const field = _field as unknown as Field<[Date, Date] | [number, number] | null | undefined>
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 
     return (
-        <DateRangePicker value={getFieldRangeValue(field)} onChange={getOnRangeChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+        <DateRangePicker2 value={getFieldRangeValue(field)} onChange={getOnRangeChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
     )
 }

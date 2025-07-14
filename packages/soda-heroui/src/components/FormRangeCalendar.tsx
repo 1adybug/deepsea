@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode, SetStateAction, useContext } from "react"
-import { DateValue, RangeCalendar, RangeValue } from "@heroui/react"
+import { DateValue, RangeCalendar, RangeCalendarProps, RangeValue } from "@heroui/react"
 import { isNonNullable } from "deepsea-tools"
 import { Field, FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
@@ -22,6 +22,7 @@ export interface FormRangeCalendarProps<
 > extends StrictOmit<FieldComponentProps<typeof RangeCalendar, FieldValue>, never> {
     valueMode?: ValueMode
     emptyValue?: EmptyValue
+    component?: <T extends DateValue>(props: RangeCalendarProps<T>) => ReactNode
 }
 
 export function getRangeValue(value: [Date, Date] | [number, number] | null | undefined): RangeValue<DateValue> | null {
@@ -75,10 +76,12 @@ export function FormRangeCalendar<
         | [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>]
         | null
         | undefined,
->({ field: _field, valueMode, emptyValue, ...rest }: FormRangeCalendarProps<ValueMode, FieldValue>): ReactNode {
+>({ field: _field, valueMode, emptyValue, component: RangeCalendar2 = RangeCalendar, ...rest }: FormRangeCalendarProps<ValueMode, FieldValue>): ReactNode {
     const field = _field as unknown as Field<[Date, Date] | [number, number] | null | undefined>
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 
-    return <RangeCalendar value={getFieldRangeValue(field)} onChange={getOnRangeChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+    return (
+        <RangeCalendar2 value={getFieldRangeValue(field)} onChange={getOnRangeChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+    )
 }

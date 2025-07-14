@@ -13,14 +13,18 @@ export type FormNumberInputProps<FieldValue extends number | null | undefined = 
     AsComponent
 > & {
     field: Field<FieldValue>
+    component?: <AsComponent extends As = "input">(
+        props: MergeWithAs<ComponentPropsWithoutRef<"input">, ComponentPropsWithoutRef<AsComponent>, NumberInputProps, AsComponent>,
+    ) => ReactNode
 }
 
 export function FormNumberInput<FieldValue extends number | null | undefined = number | null | undefined, AsComponent extends As = "input">({
     field,
+    component: NumberInput2 = NumberInput,
     ...rest
 }: FormNumberInputProps<FieldValue, AsComponent>): ReactNode {
     return (
-        <NumberInput<AsComponent>
+        <NumberInput2<AsComponent>
             value={field.state.value ?? 0}
             onValueChange={field.handleChange as (value: number) => void}
             {...getFieldProps(field)}

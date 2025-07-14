@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode, useContext } from "react"
-import { DatePicker } from "@heroui/react"
+import { DatePicker, DatePickerProps, DateValue } from "@heroui/react"
 import { FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
 
@@ -15,14 +15,15 @@ export interface FormDatePickerProps<
 > extends StrictOmit<FieldComponentProps<typeof DatePicker, FieldValue>, never> {
     valueMode?: ValueMode
     emptyValue?: EmptyValue
+    component?: <T extends DateValue>(props: DatePickerProps<T>) => ReactNode
 }
 
 export function FormDatePicker<
     ValueMode extends TimeValueMode = "date",
     FieldValue extends TimeValueModeMap<ValueMode> | null | undefined = TimeValueModeMap<ValueMode> | null | undefined,
->({ field, valueMode, emptyValue, ...rest }: FormDatePickerProps<ValueMode, FieldValue>): ReactNode {
+>({ field, valueMode, emptyValue, component: DatePicker2 = DatePicker, ...rest }: FormDatePickerProps<ValueMode, FieldValue>): ReactNode {
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 
-    return <DatePicker value={getFieldValue(field)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+    return <DatePicker2 value={getFieldValue(field)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
 }

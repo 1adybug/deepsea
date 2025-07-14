@@ -1,7 +1,7 @@
 "use client"
 
 import { ReactNode, useContext } from "react"
-import { Select } from "@heroui/react"
+import { Select, SelectProps } from "@heroui/react"
 import { Key } from "@react-types/shared"
 import { isNonNullable } from "deepsea-tools"
 import { FieldComponentProps } from "soda-tanstack-form"
@@ -17,18 +17,19 @@ export interface FormSelectProps<
 > extends StrictOmit<FieldComponentProps<typeof Select<RenderItem>, Value>, "multiple"> {
     multiple?: Multiple
     emptyValue?: EmptyValue
+    component?: <RenderItem extends object>(props: SelectProps<RenderItem>) => ReactNode
 }
 
 export function FormSelect<
     Multiple extends boolean = false,
     Value extends (Multiple extends true ? Key[] : Key) | null | undefined = (Multiple extends true ? Key[] : Key) | null | undefined,
     RenderItem extends object = object,
->({ field, multiple, emptyValue, ...rest }: FormSelectProps<Multiple, Value, RenderItem>): ReactNode {
+>({ field, multiple, emptyValue, component: Select2 = Select, ...rest }: FormSelectProps<Multiple, Value, RenderItem>): ReactNode {
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 
     return (
-        <Select<RenderItem>
+        <Select2<RenderItem>
             selectedKeys={isNonNullable(field.state.value) ? (multiple ? (field.state.value as Key[]) : [field.state.value as Key]) : []}
             onSelectionChange={keys => {
                 const value = Array.from(keys)
