@@ -1,5 +1,17 @@
 # deepsea-tools
 
+## 5.38.2
+
+### Patch Changes
+
+- 升级依赖
+
+## 5.38.1
+
+### Patch Changes
+
+- 升级依赖
+
 ## 5.38.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
     "name": "soda-antd",
-    "version": "0.7.13",
+    "version": "0.7.15",
     "description": "soda-antd",
     "type": "module",
     "exports": {
@@ -45,12 +45,12 @@
         "deepsea-tools": "workspace:*",
         "soda-hooks": "workspace:*",
         "soda-react": "workspace:*",
-        "zod": "^3.24.3"
+        "zod": "^3.25.76"
     },
     "devDependencies": {
-        "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
-        "glob": "^11.0.2",
-        "prettier": "^3.5.3",
+        "@ianvs/prettier-plugin-sort-imports": "^4.5.1",
+        "glob": "^11.0.3",
+        "prettier": "^3.6.2",
         "prettier-plugin-organize-imports": "^4.1.0",
         "typescript": "^5.8.3"
     },

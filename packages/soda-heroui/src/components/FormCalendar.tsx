@@ -25,5 +25,5 @@ export function FormCalendar<
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 
-    return <Calendar2 value={getFieldValue(field)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+    return <Calendar2 focusedValue={getFieldValue(field)} onFocusChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
 }

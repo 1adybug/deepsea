@@ -1,6 +1,6 @@
 {
     "name": "soda-nodejs",
-    "version": "0.8.0",
+    "version": "0.8.2",
     "description": "",
     "type": "module",
     "exports": {
@@ -47,7 +47,7 @@
         "which": "^5.0.0"
     },
     "devDependencies": {
-        "@types/node": "^22.14.0",
+        "@types/node": "^22.16.3",
         "@types/which": "^3.0.4",
         "typescript": "^5.8.3"
     },
