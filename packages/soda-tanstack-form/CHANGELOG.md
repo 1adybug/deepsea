@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.2.2
+
+### Patch Changes
+
+- 自动匹配表单元素的 name 属性
+
 ## 0.2.1
 
 ### Patch Changes

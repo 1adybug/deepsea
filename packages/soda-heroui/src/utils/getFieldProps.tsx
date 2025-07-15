@@ -5,6 +5,7 @@ import { ErrorMessage } from "@/components/ErrorMessage"
 
 export interface FieldProps {
     onBlur: () => void
+    name: string
     errorMessage: JSX.Element
     isInvalid: boolean
 }
@@ -17,11 +18,13 @@ export function getFieldProps<T extends boolean = false>(field: Field<any>, noEr
             ? {
                   onBlur: field.handleBlur,
                   isInvalid: isFieldInvalid(field),
+                  name: field.name,
               }
             : {
                   onBlur: field.handleBlur,
                   errorMessage: <ErrorMessage data={field.state.meta.errors} />,
                   isInvalid: isFieldInvalid(field),
+                  name: field.name,
               }
     ) as T extends true ? FieldPropsWithoutErrorMessage : FieldProps
 }
