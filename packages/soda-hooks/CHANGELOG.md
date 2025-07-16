@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.11.0
+
+### Minor Changes
+
+- 优化 useDomEffect 的参数
+
 ## 6.10.14
 
 ### Patch Changes

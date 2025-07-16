@@ -32,8 +32,7 @@ export function useSize<T extends Element>(element: ElementInput<T>, { type = "b
     const [size, setSize] = useState<Size | undefined>(undefined)
 
     useDomEffect(
-        eles => {
-            const target = eles[0]
+        target => {
             if (!cache) setSize(undefined)
             if (!target) return
             const observer = new ResizeObserver(entries => {

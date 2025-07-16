@@ -1,5 +1,12 @@
 # soda-next
 
+## 0.6.14
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.11.0
+
 ## 0.6.13
 
 ### Patch Changes

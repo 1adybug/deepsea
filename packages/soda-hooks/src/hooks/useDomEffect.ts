@@ -20,22 +20,28 @@ export function getElement<T extends Element>(element: ElementInput<T>) {
     ) as T | undefined | null
 }
 
-export function useDomEffect<T extends Element = Element>(
-    effect: (eles: (T | null | undefined)[]) => void | ((eles: (T | null | undefined)[]) => void),
-    eles: ElementInput<T>[],
+export type GetElement<T> = T extends ElementInput<infer U> ? U | null | undefined : never
+
+export type GetElements<T extends ElementInput<Element>[]> = T extends [infer First, ...infer Rest]
+    ? [GetElement<First>, ...(Rest extends ElementInput<Element>[] ? GetElements<Rest> : [])]
+    : []
+
+export function useDomEffect<T extends [ElementInput<Element>, ...ElementInput<Element>[]]>(
+    effect: (...eles: GetElements<T>) => void | ((...eles: GetElements<T>) => void),
+    eles: T,
     deps: any[] = [],
 ) {
-    const [value, setValue] = useState<(T | null | undefined)[]>([])
+    const [value, setValue] = useState(eles.map(() => null) as GetElements<T>)
 
     useEffect(() => {
         const newValue = eles.map(dom => getElement(dom))
         if (compareArray(value, newValue)) return
-        setValue(newValue)
+        setValue(newValue as GetElements<T>)
     })
 
     useEffect(() => {
-        const unmount = effect(value)
+        const unmount = effect(...value)
         if (typeof unmount !== "function") return
-        return () => unmount(value)
+        return () => unmount(...value)
     }, [value, ...deps])
 }
