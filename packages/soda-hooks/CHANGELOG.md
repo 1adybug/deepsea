@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.12.0
+
+### Minor Changes
+
+- 新增 useCalcEffect
+
 ## 6.11.0
 
 ### Minor Changes

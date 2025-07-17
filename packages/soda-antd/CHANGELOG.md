@@ -1,5 +1,12 @@
 # soda-antd
 
+## 0.7.17
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.12.0
+
 ## 0.7.16
 
 ### Patch Changes

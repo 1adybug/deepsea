@@ -1,7 +1,7 @@
-import { RefObject, useEffect, useState } from "react"
+import { RefObject } from "react"
 import { isNonNullable } from "deepsea-tools"
 
-import { compareArray } from "@/utils/compareArray"
+import { useCalcEffect } from "./useCalcEffect"
 
 export type ElementType<T extends Element> = T | null | undefined | RefObject<T | null | undefined> | string
 
@@ -22,26 +22,12 @@ export function getElement<T extends Element>(element: ElementInput<T>) {
 
 export type GetElement<T> = T extends ElementInput<infer U> ? U | null | undefined : never
 
-export type GetElements<T extends ElementInput<Element>[]> = T extends [infer First, ...infer Rest]
-    ? [GetElement<First>, ...(Rest extends ElementInput<Element>[] ? GetElements<Rest> : [])]
-    : []
+export type GetElements<T extends any[]> = T extends [infer First, ...infer Rest] ? [GetElement<First>, ...GetElements<Rest>] : []
 
 export function useDomEffect<T extends [ElementInput<Element>, ...ElementInput<Element>[]]>(
     effect: (...eles: GetElements<T>) => void | ((...eles: GetElements<T>) => void),
     eles: T,
     deps: any[] = [],
 ) {
-    const [value, setValue] = useState(eles.map(() => null) as GetElements<T>)
-
-    useEffect(() => {
-        const newValue = eles.map(dom => getElement(dom))
-        if (compareArray(value, newValue)) return
-        setValue(newValue as GetElements<T>)
-    })
-
-    useEffect(() => {
-        const unmount = effect(...value)
-        if (typeof unmount !== "function") return
-        return () => unmount(...value)
-    }, [value, ...deps])
+    useCalcEffect(effect as any, eles.map(item => () => getElement(item)) as any, deps)
 }
