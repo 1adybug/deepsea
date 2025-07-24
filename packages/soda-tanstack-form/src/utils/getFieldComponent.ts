@@ -15,7 +15,7 @@ export interface FieldState<TData> {
 }
 
 export interface Field<TData> extends Pick<FieldContext<TData>, "handleChange" | "handleBlur"> {
-    name: string
+    name?: string
     state: FieldState<TData>
 }
 

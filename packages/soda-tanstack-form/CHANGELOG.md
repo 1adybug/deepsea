@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.2.3
+
+### Patch Changes
+
+- name 属性变为可选
+
 ## 0.2.2
 
 ### Patch Changes
