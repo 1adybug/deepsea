@@ -6,10 +6,10 @@ import { isNonNullable } from "deepsea-tools"
 import { Field, FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
 
+import { getFieldProps } from "@/utils/getFieldProps"
 import { getTimeValue } from "@/utils/getTimeValue"
 
-import { getFieldProps } from "../utils/getFieldProps"
-import { parseTime } from "../utils/parseTime"
+import { DateMode, parseTime } from "../utils/parseTime"
 import { EmptyValue, FormContext, getEmptyValue } from "./FormProvider"
 import { TimeValueMode, TimeValueModeMap } from "./FormTimeInput"
 
@@ -22,20 +22,21 @@ export interface FormRangeCalendarProps<
 > extends StrictOmit<FieldComponentProps<typeof RangeCalendar, FieldValue>, never> {
     valueMode?: ValueMode
     emptyValue?: EmptyValue
+    dateMode?: DateMode
     component?: <T extends DateValue>(props: RangeCalendarProps<T>) => ReactNode
 }
 
-export function getRangeValue(value: [Date, Date] | [number, number] | null | undefined): RangeValue<DateValue> | null {
+export function getRangeValue<T extends DateMode>(value: [Date, Date] | [number, number] | null | undefined, dateMode?: T): RangeValue<DateValue> | null {
     return isNonNullable(value)
         ? {
-              start: parseTime(value[0].valueOf()),
-              end: parseTime(value[1].valueOf()),
+              start: parseTime(value[0].valueOf(), dateMode),
+              end: parseTime(value[1].valueOf(), dateMode),
           }
         : null
 }
 
-export function getFieldRangeValue<T extends [Date, Date] | [number, number] | null | undefined>(field: Field<T>) {
-    return getRangeValue(field.state.value)
+export function getFieldRangeValue<T extends [Date, Date] | [number, number] | null | undefined, P extends DateMode>(field: Field<T>, dateMode?: P) {
+    return getRangeValue(field.state.value, dateMode)
 }
 
 export interface GetRangeUpdaterParams {
@@ -76,12 +77,24 @@ export function FormRangeCalendar<
         | [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>]
         | null
         | undefined,
->({ field: _field, valueMode, emptyValue, component: RangeCalendar2 = RangeCalendar, ...rest }: FormRangeCalendarProps<ValueMode, FieldValue>): ReactNode {
+>({
+    field: _field,
+    valueMode,
+    emptyValue,
+    dateMode,
+    component: RangeCalendar2 = RangeCalendar,
+    ...rest
+}: FormRangeCalendarProps<ValueMode, FieldValue>): ReactNode {
     const field = _field as unknown as Field<[Date, Date] | [number, number] | null | undefined>
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 
     return (
-        <RangeCalendar2 value={getFieldRangeValue(field)} onChange={getOnRangeChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+        <RangeCalendar2
+            value={getFieldRangeValue(field, dateMode)}
+            onChange={getOnRangeChange({ field, valueMode, emptyValue })}
+            {...getFieldProps(field)}
+            {...rest}
+        />
     )
 }

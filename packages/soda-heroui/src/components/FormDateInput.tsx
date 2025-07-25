@@ -5,7 +5,9 @@ import { DateInput, DateInputProps, DateValue } from "@heroui/react"
 import { FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
 
-import { getFieldProps } from "../utils/getFieldProps"
+import { getFieldProps } from "@/utils/getFieldProps"
+import { DateMode } from "@/utils/parseTime"
+
 import { EmptyValue, FormContext } from "./FormProvider"
 import { TimeValueMode, TimeValueModeMap, getFieldValue, getOnChange } from "./FormTimeInput"
 
@@ -15,15 +17,16 @@ export interface FormDateInputProps<
 > extends StrictOmit<FieldComponentProps<typeof DateInput, FieldValue>, never> {
     valueMode?: ValueMode
     emptyValue?: EmptyValue
+    dateMode?: DateMode
     component?: <T extends DateValue>(props: DateInputProps<T>) => ReactNode
 }
 
 export function FormDateInput<
     ValueMode extends TimeValueMode = "date",
     FieldValue extends TimeValueModeMap<ValueMode> | null | undefined = TimeValueModeMap<ValueMode> | null | undefined,
->({ field, valueMode, emptyValue, component: DateInput2 = DateInput, ...rest }: FormDateInputProps<ValueMode, FieldValue>): ReactNode {
+>({ field, valueMode, emptyValue, dateMode, component: DateInput2 = DateInput, ...rest }: FormDateInputProps<ValueMode, FieldValue>): ReactNode {
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 
-    return <DateInput2 value={getFieldValue(field)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+    return <DateInput2 value={getFieldValue(field, dateMode)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
 }

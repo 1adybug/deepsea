@@ -10,7 +10,7 @@ import { StrictOmit } from "soda-type"
 import { getFieldProps } from "@/utils/getFieldProps"
 import { getTimeValue } from "@/utils/getTimeValue"
 
-import { parseTime } from "../utils/parseTime"
+import { ParseMode, TimeMode, parseTime } from "../utils/parseTime"
 import { EmptyValue, FormContext, getEmptyValue } from "./FormProvider"
 
 export type TimeValue = Date | number
@@ -25,15 +25,16 @@ export interface FormTimeInputProps<
 > extends StrictOmit<FieldComponentProps<typeof TimeInput, FieldValue>, never> {
     valueMode?: ValueMode
     emptyValue?: EmptyValue
+    timeMode?: TimeMode
     component?: <T extends Time | CalendarDateTime | ZonedDateTime>(props: TimeInputProps<T>) => ReactNode
 }
 
-export function getValue(value: Date | number | null | undefined) {
-    return isNonNullable(value) ? parseTime(value.valueOf()) : null
+export function getValue<T extends ParseMode>(value: Date | number | null | undefined, parseMode?: T) {
+    return isNonNullable(value) ? parseTime(value.valueOf(), parseMode) : null
 }
 
-export function getFieldValue<T extends Date | number | null | undefined>(field: Field<T>) {
-    return getValue(field.state.value)
+export function getFieldValue<T extends Date | number | null | undefined, P extends ParseMode>(field: Field<T>, parseMode?: P) {
+    return getValue(field.state.value, parseMode)
 }
 
 export interface GetUpdaterParams {
@@ -64,9 +65,9 @@ export function getOnChange<T extends Date | number | null | undefined>({ field,
 export function FormTimeInput<
     ValueMode extends TimeValueMode = "date",
     FieldValue extends TimeValueModeMap<ValueMode> | null | undefined = TimeValueModeMap<ValueMode> | null | undefined,
->({ field, valueMode, emptyValue, component: TimeInput2 = TimeInput, ...rest }: FormTimeInputProps<ValueMode, FieldValue>): ReactNode {
+>({ field, valueMode, emptyValue, timeMode, component: TimeInput2 = TimeInput, ...rest }: FormTimeInputProps<ValueMode, FieldValue>): ReactNode {
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 
-    return <TimeInput2 value={getFieldValue(field)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+    return <TimeInput2 value={getFieldValue(field, timeMode)} onChange={getOnChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
 }

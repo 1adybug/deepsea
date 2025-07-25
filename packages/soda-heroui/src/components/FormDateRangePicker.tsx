@@ -6,6 +6,7 @@ import { Field, FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
 
 import { getFieldProps } from "../utils/getFieldProps"
+import { DateMode } from "../utils/parseTime"
 import { EmptyValue, FormContext } from "./FormProvider"
 import { getFieldRangeValue, getOnRangeChange } from "./FormRangeCalendar"
 import { TimeValueMode, TimeValueModeMap } from "./FormTimeInput"
@@ -19,6 +20,7 @@ export interface FormDateRangePickerProps<
 > extends StrictOmit<FieldComponentProps<typeof DateRangePicker, FieldValue>, never> {
     valueMode?: ValueMode
     emptyValue?: EmptyValue
+    dateMode?: DateMode
     component?: <T extends DateValue>(props: DateRangePickerProps<T>) => ReactNode
 }
 
@@ -32,6 +34,7 @@ export function FormDateRangePicker<
     field: _field,
     valueMode,
     emptyValue,
+    dateMode,
     component: DateRangePicker2 = DateRangePicker,
     ...rest
 }: FormDateRangePickerProps<ValueMode, FieldValue>): ReactNode {
@@ -40,6 +43,11 @@ export function FormDateRangePicker<
     emptyValue ??= context.emptyValue
 
     return (
-        <DateRangePicker2 value={getFieldRangeValue(field)} onChange={getOnRangeChange({ field, valueMode, emptyValue })} {...getFieldProps(field)} {...rest} />
+        <DateRangePicker2
+            value={getFieldRangeValue(field, dateMode)}
+            onChange={getOnRangeChange({ field, valueMode, emptyValue })}
+            {...getFieldProps(field)}
+            {...rest}
+        />
     )
 }
