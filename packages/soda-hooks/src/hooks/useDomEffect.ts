@@ -1,5 +1,5 @@
-import { RefObject } from "react"
 import { isNonNullable } from "deepsea-tools"
+import { RefObject } from "react"
 
 import { useCalcEffect } from "./useCalcEffect"
 

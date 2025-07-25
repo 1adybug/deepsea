@@ -1,5 +1,5 @@
-import { ReactNode } from "react"
 import { ColumnsType } from "antd/es/table"
+import { ReactNode } from "react"
 
 type _Column<T, K extends keyof T = keyof T> = Omit<ColumnsType<T>[0], "dataIndex" | "render"> &
     (

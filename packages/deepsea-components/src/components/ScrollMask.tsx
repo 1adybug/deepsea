@@ -1,5 +1,5 @@
-import { CSSProperties, ComponentProps, FC, useRef } from "react"
 import { clsx, isNonNullable } from "deepsea-tools"
+import { CSSProperties, ComponentProps, FC, useRef } from "react"
 import { useSize } from "soda-hooks"
 
 import styles from "./ScrollMask.module.css"

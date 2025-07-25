@@ -1,5 +1,5 @@
-import { FC } from "react"
 import { ScrollMask } from "deepsea-components"
+import { FC } from "react"
 
 const App: FC = () => {
     return (
