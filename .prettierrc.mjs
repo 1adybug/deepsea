@@ -40,11 +40,8 @@ const config = {
     tabWidth: 4,
     arrowParens: "avoid",
     printWidth: 160,
-    plugins: ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+    plugins: ["@ianvs/prettier-plugin-sort-imports"],
     importOrder: [
-        "^react(/.+)?$",
-        "^react-dom(/.+)?$",
-        "^react-native(/.+)?$",
         "<BUILTIN_MODULES>",
         "^@[^/]",
         "<THIRD_PARTY_MODULES>",

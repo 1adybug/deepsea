@@ -12,7 +12,8 @@
         "format": "prettier --config prettier.config.mjs --write . && prettier --config .prettierrc.mjs --write .",
         "sync": "node scripts/syncPackage.mjs",
         "postr": "npm run sync",
-        "build": "node scripts/build.mjs"
+        "build": "node scripts/build.mjs",
+        "fg": "npm run format && git add . && git commit -m \"✨feature: format\""
     },
     "keywords": [],
     "author": "",
