@@ -12,7 +12,7 @@ export function parseTime<T extends ParseMode = typeof CalendarDateTime>(ms: num
     if (type === ZonedDateTime) return fromAbsolute(ms, getLocalTimeZone()) as InstanceType<T>
     const date = new Date(ms)
     const year = date.getFullYear()
-    const month = date.getMonth()
+    const month = date.getMonth() + 1
     const day = date.getDate()
     const hour = date.getHours()
     const minute = date.getMinutes()
