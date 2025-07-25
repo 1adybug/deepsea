@@ -1,17 +1,16 @@
 "use client"
 
-import { DateValue, RangeCalendar, RangeCalendarProps, RangeValue } from "@heroui/react"
-import { isNonNullable } from "deepsea-tools"
-import { ReactNode, SetStateAction, useContext } from "react"
+import { ReactNode, useContext } from "react"
+import { DateValue, RangeCalendar, RangeCalendarProps } from "@heroui/react"
 import { Field, FieldComponentProps } from "soda-tanstack-form"
 import { StrictOmit } from "soda-type"
 
-import { getFieldProps } from "@/utils/getFieldProps"
-import { getTimeValue } from "@/utils/getTimeValue"
+import { EmptyValue, FormContext } from "@/components/FormProvider"
 
-import { DateMode, parseTime } from "../utils/parseTime"
-import { EmptyValue, FormContext, getEmptyValue } from "./FormProvider"
-import { TimeValueMode, TimeValueModeMap } from "./FormTimeInput"
+import { getFieldProps } from "@/utils/getFieldProps"
+import { DateMode } from "@/utils/parseTime"
+import { RangeDefaultTime, getFieldRangeValue, getOnRangeChange } from "@/utils/range"
+import { TimeValueMode, TimeValueModeMap } from "@/utils/time"
 
 export interface FormRangeCalendarProps<
     ValueMode extends TimeValueMode = "date",
@@ -23,52 +22,8 @@ export interface FormRangeCalendarProps<
     valueMode?: ValueMode
     emptyValue?: EmptyValue
     dateMode?: DateMode
+    defaultTime?: RangeDefaultTime | (() => RangeDefaultTime)
     component?: <T extends DateValue>(props: RangeCalendarProps<T>) => ReactNode
-}
-
-export function getRangeValue<T extends DateMode>(value: [Date, Date] | [number, number] | null | undefined, dateMode?: T): RangeValue<DateValue> | null {
-    return isNonNullable(value)
-        ? {
-              start: parseTime(value[0].valueOf(), dateMode),
-              end: parseTime(value[1].valueOf(), dateMode),
-          }
-        : null
-}
-
-export function getFieldRangeValue<T extends [Date, Date] | [number, number] | null | undefined, P extends DateMode>(field: Field<T>, dateMode?: P) {
-    return getRangeValue(field.state.value, dateMode)
-}
-
-export interface GetRangeUpdaterParams {
-    value: RangeValue<DateValue> | null
-    valueMode?: TimeValueMode
-    emptyValue?: EmptyValue
-}
-
-export function getRangeUpdater({ value, valueMode, emptyValue }: GetRangeUpdaterParams): SetStateAction<[Date, Date] | [number, number] | null | undefined> {
-    if (!isNonNullable(value)) return getEmptyValue(emptyValue)
-    if (valueMode === "timestamp") return [getTimeValue(value.start), getTimeValue(value.end)]
-    function updater(prev: [Date, Date] | [number, number] | null | undefined): [Date, Date] | [number, number] | null | undefined {
-        return prev?.[0] instanceof Date &&
-            prev?.[1] instanceof Date &&
-            prev[0].valueOf() === value!.start.valueOf() &&
-            prev[1].valueOf() === value!.end.valueOf()
-            ? prev
-            : [new Date(getTimeValue(value!.start)!), new Date(getTimeValue(value!.end)!)]
-    }
-    return updater
-}
-
-export interface GetOnRangeChangeParams<T extends [Date, Date] | [number, number] | null | undefined> {
-    field: Field<T>
-    valueMode?: TimeValueMode
-    emptyValue?: EmptyValue
-}
-
-export function getOnRangeChange<T extends [Date, Date] | [number, number] | null | undefined>({ field, valueMode, emptyValue }: GetOnRangeChangeParams<T>) {
-    return function onChange(value: RangeValue<DateValue> | null) {
-        field.handleChange(getRangeUpdater({ value, valueMode, emptyValue }) as SetStateAction<T>)
-    }
 }
 
 export function FormRangeCalendar<
@@ -82,6 +37,7 @@ export function FormRangeCalendar<
     valueMode,
     emptyValue,
     dateMode,
+    defaultTime,
     component: RangeCalendar2 = RangeCalendar,
     ...rest
 }: FormRangeCalendarProps<ValueMode, FieldValue>): ReactNode {
@@ -92,7 +48,7 @@ export function FormRangeCalendar<
     return (
         <RangeCalendar2
             value={getFieldRangeValue(field, dateMode)}
-            onChange={getOnRangeChange({ field, valueMode, emptyValue })}
+            onChange={getOnRangeChange({ field, valueMode, emptyValue, defaultTime })}
             {...getFieldProps(field)}
             {...rest}
         />

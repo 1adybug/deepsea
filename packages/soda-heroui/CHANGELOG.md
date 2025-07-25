@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.10.0
+
+### Minor Changes
+
+- 日期组件新增默认值
+
 ## 0.9.1
 
 ### Patch Changes
