@@ -11,7 +11,7 @@ export function getUniqueBy<Item>(
  */
 export function getUniqueBy(keyOrSelector: string | ((item: any, index: number, array: any[]) => any), fromEnd?: boolean) {
     const selector = typeof keyOrSelector === "string" ? (item: any, index: number, array: any[]) => item[keyOrSelector] : keyOrSelector
-    return function uniqueFilter(item: any, index: number, array: any[]) {
+    return function uniqueBy(item: any, index: number, array: any[]) {
         const value = selector(item, index, array)
         return fromEnd
             ? array.findLastIndex((item2, index2, array2) => selector(item2, index2, array2) === value) === index

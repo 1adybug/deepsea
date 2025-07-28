@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.39.1
+
+### Patch Changes
+
+- 优化 getUniqueBy 返回值函数的命名
+
 ## 5.39.0
 
 ### Minor Changes
