@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.39.0
+
+### Minor Changes
+
+- 新增 getUniqueBy 方法
+
 ## 5.38.2
 
 ### Patch Changes
