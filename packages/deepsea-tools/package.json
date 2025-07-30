@@ -1,6 +1,6 @@
 {
     "name": "deepsea-tools",
-    "version": "5.39.1",
+    "version": "5.40.0",
     "description": "格数科技自用工具包",
     "type": "module",
     "exports": {

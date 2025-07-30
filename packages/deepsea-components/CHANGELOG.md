@@ -1,5 +1,13 @@
 # deepsea-components
 
+## 5.15.20
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.40.0
+    - soda-hooks@6.12.3
+
 ## 5.15.19
 
 ### Patch Changes

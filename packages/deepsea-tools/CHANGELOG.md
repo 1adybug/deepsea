@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.40.0
+
+### Minor Changes
+
+- 新增 isNotEmpty 方法
+
 ## 5.39.1
 
 ### Patch Changes
