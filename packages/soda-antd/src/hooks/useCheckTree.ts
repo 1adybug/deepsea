@@ -62,10 +62,11 @@ function getSelectedKeysInRange(keys: Key[] | undefined, range: Set<Key>) {
 
 function getCheckedKeysInRange<T extends Key[] | undefined, P extends BasicTreeDataNode | TreeDataNode>(
     checkedKeys: T,
-    fiber: Fiber<P>,
+    fiber: Fiber<P> | null | undefined,
 ): T extends undefined ? undefined : CheckedKeys {
     type R = T extends undefined ? undefined : CheckedKeys
     if (isNullable(checkedKeys)) return undefined as R
+    if (!fiber) return { checked: [], halfChecked: [] } as unknown as R
     const checked = new Set(checkedKeys)
     const newChecked = new Set<Key>()
     const newHalfChecked = new Set<Key>()
@@ -115,13 +116,16 @@ export function useCheckTreeProps<T extends BasicTreeDataNode | TreeDataNode = T
 }: UseCheckTreeParams<T>): CheckTreeProps<T> {
     const [__checkedKeys, setCheckedKeys] = useInputState(() => _checkedKeys ?? _defaultCheckedKeys, [_checkedKeys])
     const filter = useMemo(() => _filter ?? (() => true), [_filter])
-    const { searchTree, addedFiberMap, fiber } = useSearchTree(treeData! as Node<T>[], filter)
-    const searchFiber = useMemo(() => treeToFiber(searchTree), [searchTree])
-    const range = useMemo(() => new Set(Array.from(addedFiberMap.keys()).map(item => item.key)), [addedFiberMap])
+    const searchResult = useSearchTree(treeData! as Node<T>[], filter)
+    const searchFiber = useMemo(() => treeToFiber(searchResult?.searchTree ?? []), [searchResult?.searchTree])
+    const range = useMemo(() => new Set(Array.from(searchResult?.addedFiberMap.keys() ?? []).map(item => item.key)), [searchResult?.addedFiberMap])
     const checkedKeys = useMemo(() => getCheckedKeysInRange(__checkedKeys?.checked, searchFiber), [__checkedKeys, searchFiber])
 
     function onCheck(checkedKeys: CheckedKeys | Key[], info: CheckInfo<T>) {
-        checkedKeys = getCheckedKeysInRange((checkedKeys as CheckedKeys).checked.concat(__checkedKeys?.checked.filter(item => !range.has(item)) ?? []), fiber)
+        checkedKeys = getCheckedKeysInRange(
+            (checkedKeys as CheckedKeys).checked.concat(__checkedKeys?.checked.filter(item => !range.has(item)) ?? []),
+            searchResult?.fiber,
+        )
         _onCheck?.(checkedKeys, info)
         setCheckedKeys(checkedKeys)
     }
@@ -135,7 +139,7 @@ export function useCheckTreeProps<T extends BasicTreeDataNode | TreeDataNode = T
     }
 
     return {
-        treeData: searchTree,
+        treeData: searchResult?.searchTree ?? [],
         defaultCheckedKeys: undefined,
         checkedKeys,
         onCheck,

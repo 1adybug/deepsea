@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.40.1
+
+### Patch Changes
+
+- 修复 tree 可能为空的错误
+
 ## 5.40.0
 
 ### Minor Changes

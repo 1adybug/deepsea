@@ -1,5 +1,13 @@
 # soda-tanstack-form
 
+## 0.10.4
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.40.1
+    - soda-hooks@6.12.4
+
 ## 0.10.3
 
 ### Patch Changes

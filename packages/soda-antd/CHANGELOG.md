@@ -1,5 +1,15 @@
 # soda-antd
 
+## 0.8.1
+
+### Patch Changes
+
+- 修复 tree 可能为空的错误
+- Updated dependencies
+    - deepsea-tools@5.40.1
+    - soda-hooks@6.12.4
+    - soda-react@0.0.19
+
 ## 0.8.0
 
 ### Minor Changes

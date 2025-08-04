@@ -1,5 +1,5 @@
-import { Fiber, Node, treeToFiber, walkThroughFiber } from "deepsea-tools"
 import { useMemo } from "react"
+import { Fiber, Node, treeToFiber, walkThroughFiber } from "deepsea-tools"
 
 export type SearchTreeResult<T> = {
     /** 原始树的 fiber */
@@ -18,19 +18,20 @@ export type SearchTreeResult<T> = {
  * @param callback 回调函数，最好使用 useCallback 包裹
  * @param transform 转换函数，最好使用 useCallback 包裹
  */
-export function useSearchTree<T>(treeOrFiber: Node<T>[] | Fiber<T>, callback: (data: T) => boolean): SearchTreeResult<T>
+export function useSearchTree<T>(treeOrFiber: Node<T>[] | Fiber<T>, callback: (data: T) => boolean): SearchTreeResult<T> | null
 export function useSearchTree<T, K>(
     treeOrFiber: Node<T>[] | Fiber<T>,
     callback: (data: T) => boolean,
     transform: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K,
-): SearchTreeResult<K>
+): SearchTreeResult<K> | null
 export function useSearchTree<T, K>(
     treeOrFiber: Node<T>[] | Fiber<T>,
     callback: (data: T) => boolean,
     transform?: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K,
 ) {
     const fiber = useMemo(() => (Array.isArray(treeOrFiber) ? treeToFiber(treeOrFiber) : treeOrFiber), [treeOrFiber])
-    const searchTreeResult: SearchTreeResult<T> = useMemo(() => {
+    const searchTreeResult: SearchTreeResult<T> | null = useMemo(() => {
+        if (!fiber) return null
         const searchTree: Node<T>[] = []
         /** fiber 与 node 的映射 */
         const addedFiberMap: Map<Fiber<T>, Node<T>> = new Map()
