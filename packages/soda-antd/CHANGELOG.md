@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.9.0
+
+### Minor Changes
+
+- useCheckTree 更名为 useFilterTree
+
 ## 0.8.3
 
 ### Patch Changes
