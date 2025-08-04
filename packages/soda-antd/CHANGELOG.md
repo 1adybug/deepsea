@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.8.0
+
+### Minor Changes
+
+- 新增 useCheckTree hook
+
 ## 0.7.20
 
 ### Patch Changes
