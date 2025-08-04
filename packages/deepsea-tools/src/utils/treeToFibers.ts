@@ -25,8 +25,8 @@ export type Fiber<T> = T & {
  * @param tree 要转换的树
  * @returns 如果树为空，则返回 null，否则返回转换后的 fiber
  */
-export function treeToFiber<T>(tree: Node<T>[]): Fiber<T> | null {
-    if (tree.length === 0) return null
+export function treeToFiber<T>(tree: Node<T>[] | null | undefined): Fiber<T> | null {
+    if (!tree || tree.length === 0) return null
     let first: Fiber<T>
     function createFiber(tree: Node<T>[], parent: Fiber<T> | null): void {
         let prev: Fiber<T> | null = null

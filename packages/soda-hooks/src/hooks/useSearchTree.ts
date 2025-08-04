@@ -18,14 +18,14 @@ export type SearchTreeResult<T> = {
  * @param callback 回调函数，最好使用 useCallback 包裹
  * @param transform 转换函数，最好使用 useCallback 包裹
  */
-export function useSearchTree<T>(treeOrFiber: Node<T>[] | Fiber<T>, callback: (data: T) => boolean): SearchTreeResult<T> | null
+export function useSearchTree<T>(treeOrFiber: Node<T>[] | Fiber<T> | null | undefined, callback: (data: T) => boolean): SearchTreeResult<T> | null
 export function useSearchTree<T, K>(
-    treeOrFiber: Node<T>[] | Fiber<T>,
+    treeOrFiber: Node<T>[] | Fiber<T> | null | undefined,
     callback: (data: T) => boolean,
     transform: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K,
 ): SearchTreeResult<K> | null
 export function useSearchTree<T, K>(
-    treeOrFiber: Node<T>[] | Fiber<T>,
+    treeOrFiber: Node<T>[] | Fiber<T> | null | undefined,
     callback: (data: T) => boolean,
     transform?: (data: T, isTrue: boolean, hasParentIsTrue: boolean) => K,
 ) {

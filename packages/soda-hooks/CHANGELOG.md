@@ -1,5 +1,13 @@
 # soda-hooks
 
+## 6.12.5
+
+### Patch Changes
+
+- 允许 tree 为空的情况
+- Updated dependencies
+    - deepsea-tools@5.40.2
+
 ## 6.12.4
 
 ### Patch Changes

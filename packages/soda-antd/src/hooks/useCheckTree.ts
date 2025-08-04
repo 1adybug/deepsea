@@ -34,8 +34,8 @@ export interface CheckInfo<TreeDataType extends BasicTreeDataNode = TreeDataNode
     halfCheckedKeys?: Key[]
 }
 
-export interface UseCheckTreeParams<T extends BasicTreeDataNode | TreeDataNode = TreeDataNode> {
-    treeData: T[]
+export interface UseFilterTreeParams<T extends BasicTreeDataNode | TreeDataNode = TreeDataNode> {
+    treeData?: T[]
     filter?: (data: T) => boolean
     defaultCheckedKeys?: CheckedKeys
     checkedKeys?: CheckedKeys
@@ -45,15 +45,15 @@ export interface UseCheckTreeParams<T extends BasicTreeDataNode | TreeDataNode =
     onSelect?: (selectedKeys: Key[], info: SelectInfo<T>) => void
 }
 
-export interface CheckTreeProps<T extends BasicTreeDataNode | TreeDataNode = TreeDataNode> {
-    treeData: T[]
-    defaultCheckedKeys: Key[] | undefined
+export interface FilterTreeProps<T extends BasicTreeDataNode | TreeDataNode = TreeDataNode> {
+    treeData?: T[]
+    defaultCheckedKeys: undefined
     checkedKeys: CheckedKeys | undefined
     onCheck: (checkedKeys: Key[] | CheckedKeys, info: CheckInfo<T>) => void
     checkStrictly: true
-    defaultSelectedKeys: Key[] | undefined
+    defaultSelectedKeys: undefined
     selectedKeys: Key[] | undefined
-    onSelect?: (selectedKeys: Key[], info: SelectInfo<T>) => void
+    onSelect: (selectedKeys: Key[], info: SelectInfo<T>) => void
 }
 
 function getSelectedKeysInRange(keys: Key[] | undefined, range: Set<Key>) {
@@ -109,7 +109,7 @@ export interface CheckedKeys {
     halfChecked: Key[]
 }
 
-export function useCheckTreeProps<T extends BasicTreeDataNode | TreeDataNode = TreeDataNode>({
+export function useFilterTreeProps<T extends BasicTreeDataNode | TreeDataNode = TreeDataNode>({
     treeData,
     defaultCheckedKeys: _defaultCheckedKeys,
     checkedKeys: _checkedKeys,
@@ -118,10 +118,11 @@ export function useCheckTreeProps<T extends BasicTreeDataNode | TreeDataNode = T
     defaultSelectedKeys: _defaultSelectedKeys,
     selectedKeys: _selectedKeys,
     onSelect: _onSelect,
-}: UseCheckTreeParams<T>): CheckTreeProps<T> {
+}: UseFilterTreeParams<T>): FilterTreeProps<T> {
     const [__checkedKeys, setCheckedKeys] = useInputState(() => _checkedKeys ?? _defaultCheckedKeys, [_checkedKeys])
+    const [__selectedKeys, setSelectedKeys] = useInputState(() => _selectedKeys ?? _defaultSelectedKeys, [_selectedKeys])
     const filter = useMemo(() => _filter ?? (() => true), [_filter])
-    const searchResult = useSearchTree(treeData! as Node<T>[], filter)
+    const searchResult = useSearchTree(treeData as Node<T>[], filter)
     const searchFiber = useMemo(() => treeToFiber(searchResult?.searchTree ?? []), [searchResult?.searchTree])
     const range = useMemo(() => new Set(Array.from(searchResult?.addedFiberMap.keys() ?? []).map(item => item.key)), [searchResult?.addedFiberMap])
     const checkedKeys = useMemo(() => getCheckedKeysInRange(__checkedKeys?.checked, searchFiber), [__checkedKeys, searchFiber])
@@ -149,12 +150,12 @@ export function useCheckTreeProps<T extends BasicTreeDataNode | TreeDataNode = T
         setCheckedKeys(newCheckedKeys)
     }
 
-    const defaultSelectedKeys = getSelectedKeysInRange(_defaultSelectedKeys, range)
-    const selectedKeys = getSelectedKeysInRange(_selectedKeys, range)
+    const selectedKeys = getSelectedKeysInRange(__selectedKeys, range)
 
-    const onSelect: NonNullable<typeof _onSelect> = (selectedKeys, info) => {
-        selectedKeys = getSelectedKeysInRange(selectedKeys, range) ?? []
+    function onSelect(selectedKeys: Key[], info: SelectInfo<T>) {
+        selectedKeys = selectedKeys.concat(__selectedKeys?.filter(item => !range.has(item)) ?? [])
         _onSelect?.(selectedKeys, info)
+        setSelectedKeys(selectedKeys)
     }
 
     return {
@@ -163,7 +164,7 @@ export function useCheckTreeProps<T extends BasicTreeDataNode | TreeDataNode = T
         checkedKeys,
         onCheck,
         checkStrictly: true,
-        defaultSelectedKeys,
+        defaultSelectedKeys: undefined,
         selectedKeys,
         onSelect,
     }

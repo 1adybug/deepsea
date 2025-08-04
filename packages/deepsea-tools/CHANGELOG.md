@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.40.2
+
+### Patch Changes
+
+- 允许 tree 为空的情况
+
 ## 5.40.1
 
 ### Patch Changes
