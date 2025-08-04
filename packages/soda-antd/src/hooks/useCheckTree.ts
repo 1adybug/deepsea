@@ -49,7 +49,7 @@ export interface CheckTreeProps<T extends BasicTreeDataNode | TreeDataNode = Tre
     treeData: T[]
     defaultCheckedKeys: Key[] | undefined
     checkedKeys: CheckedKeys | undefined
-    onCheck: (checkedKeys: CheckedKeys, info: CheckInfo<T>) => void
+    onCheck: (checkedKeys: Key[] | CheckedKeys, info: CheckInfo<T>) => void
     checkStrictly: true
     defaultSelectedKeys: Key[] | undefined
     selectedKeys: Key[] | undefined
@@ -72,10 +72,15 @@ function getCheckedKeysInRange<T extends Key[] | undefined, P extends BasicTreeD
     const newHalfChecked = new Set<Key>()
 
     function check(fiber: Fiber<P>) {
+        newHalfChecked.delete(fiber.key)
         newChecked.add(fiber.key)
-        if (!fiber.parent || !!fiber.sibling) return
-        let parent = fiber.parent
-        let child = parent.child
+        if (!fiber.parent) return
+        let parent = fiber.parent as Fiber<P> | null
+        while (parent) {
+            newHalfChecked.add(parent.key)
+            parent = parent.parent
+        }
+        let child = fiber.parent.child
         let parentChecked = true
         while (child) {
             if (!newChecked.has(child.key)) {
@@ -84,8 +89,8 @@ function getCheckedKeysInRange<T extends Key[] | undefined, P extends BasicTreeD
             }
             child = child.sibling
         }
-        if (parentChecked) check(parent)
-        else newHalfChecked.add(parent.key)
+        if (parentChecked) check(fiber.parent)
+        else newHalfChecked.add(fiber.parent.key)
     }
 
     walkThroughFiber(fiber, item => {
@@ -122,12 +127,26 @@ export function useCheckTreeProps<T extends BasicTreeDataNode | TreeDataNode = T
     const checkedKeys = useMemo(() => getCheckedKeysInRange(__checkedKeys?.checked, searchFiber), [__checkedKeys, searchFiber])
 
     function onCheck(checkedKeys: CheckedKeys | Key[], info: CheckInfo<T>) {
-        checkedKeys = getCheckedKeysInRange(
-            (checkedKeys as CheckedKeys).checked.concat(__checkedKeys?.checked.filter(item => !range.has(item)) ?? []),
-            searchResult?.fiber,
-        )
-        _onCheck?.(checkedKeys, info)
-        setCheckedKeys(checkedKeys)
+        const keys = new Set<Key>()
+
+        function getKeys(nodes: Node<T>[]) {
+            nodes.forEach(({ key, children }) => {
+                keys.add(key)
+                if (children) getKeys(children)
+            })
+        }
+
+        getKeys([info.node as Node<T>])
+
+        let newChecked = new Set(__checkedKeys?.checked ?? [])
+
+        if (info.checked) newChecked = newChecked.union(keys)
+        else newChecked = newChecked.difference(keys)
+
+        const newCheckedKeys = getCheckedKeysInRange(Array.from(newChecked), searchResult?.fiber)
+
+        _onCheck?.(newCheckedKeys, info)
+        setCheckedKeys(newCheckedKeys)
     }
 
     const defaultSelectedKeys = getSelectedKeysInRange(_defaultSelectedKeys, range)

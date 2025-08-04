@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.8.2
+
+### Patch Changes
+
+- 修复一些 bug
+
 ## 0.8.1
 
 ### Patch Changes
