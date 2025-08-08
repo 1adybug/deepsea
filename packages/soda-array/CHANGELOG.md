@@ -1,5 +1,11 @@
 # soda-array
 
+## 0.1.1
+
+### Patch Changes
+
+- 升级依赖
+
 ## 0.1.0
 
 ### Minor Changes

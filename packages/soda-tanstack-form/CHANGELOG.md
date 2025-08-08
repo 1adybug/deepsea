@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.2.5
+
+### Patch Changes
+
+- 升级依赖
+
 ## 0.2.4
 
 ### Patch Changes

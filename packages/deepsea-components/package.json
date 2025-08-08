@@ -1,6 +1,6 @@
 {
     "name": "deepsea-components",
-    "version": "5.15.23",
+    "version": "5.15.24",
     "description": "格数科技自用组件库",
     "type": "module",
     "exports": {
@@ -46,12 +46,12 @@
         "clipboard": "^2.0.11",
         "deepsea-tools": "workspace:*",
         "echarts": "^5.6.0",
-        "hls.js": "^1.6.7",
+        "hls.js": "^1.6.9",
         "smooth-scrollbar": "^8.8.4",
         "soda-hooks": "workspace:*"
     },
     "devDependencies": {
-        "typescript": "^5.8.3"
+        "typescript": "^5.9.2"
     },
     "peerDependencies": {
         "@types/node": ">=20",

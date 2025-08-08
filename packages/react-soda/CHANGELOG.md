@@ -1,5 +1,11 @@
 # react-soda
 
+## 5.2.1
+
+### Patch Changes
+
+- 升级依赖
+
 ## 5.2.0
 
 ### Minor Changes

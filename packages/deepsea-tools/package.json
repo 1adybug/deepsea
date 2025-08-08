@@ -1,6 +1,6 @@
 {
     "name": "deepsea-tools",
-    "version": "5.40.3",
+    "version": "5.40.4",
     "description": "格数科技自用工具包",
     "type": "module",
     "exports": {
@@ -55,6 +55,6 @@
     "devDependencies": {
         "@types/js-cookie": "^3.0.6",
         "@types/node": ">=20",
-        "typescript": "^5.8.3"
+        "typescript": "^5.9.2"
     }
 }

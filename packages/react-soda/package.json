@@ -1,6 +1,6 @@
 {
     "name": "react-soda",
-    "version": "5.2.0",
+    "version": "5.2.1",
     "description": "😉 Simpler and more effective state management for react.",
     "type": "module",
     "exports": {
@@ -49,7 +49,7 @@
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/react-soda",
     "dependencies": {},
     "devDependencies": {
-        "typescript": "^5.8.3"
+        "typescript": "^5.9.2"
     },
     "peerDependencies": {
         "@types/react": ">=18.3.18",
