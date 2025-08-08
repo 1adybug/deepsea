@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.2.4
+
+### Patch Changes
+
+- 迁移到新环境
+
 ## 0.2.3
 
 ### Patch Changes

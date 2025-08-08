@@ -1,7 +1,7 @@
-import { FieldApi } from "@tanstack/react-form"
 import { ComponentProps, FC, JSX, JSXElementConstructor, createElement } from "react"
+import { AnyFieldApi } from "@tanstack/react-form"
 
-export type UseFieldContext<TData> = () => FieldApi<any, string, TData, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any>
+export type UseFieldContext<TData> = () => AnyFieldApi
 
 export type FieldContext<TData> = ReturnType<UseFieldContext<TData>>
 

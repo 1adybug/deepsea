@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.40.3
+
+### Patch Changes
+
+- 迁移到新环境
+
 ## 5.40.2
 
 ### Patch Changes

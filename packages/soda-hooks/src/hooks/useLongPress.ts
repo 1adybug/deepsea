@@ -31,7 +31,7 @@ export function useLongPress<T extends HTMLElement = HTMLElement>(
         const element = ref.current
         if (!element) return
         const abortController = new AbortController()
-        let timeout: NodeJS.Timeout
+        let timeout: ReturnType<typeof setTimeout>
 
         // 按下按钮时开始计时
         element.addEventListener(

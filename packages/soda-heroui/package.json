@@ -1,6 +1,6 @@
 {
     "name": "soda-heroui",
-    "version": "0.10.5",
+    "version": "0.10.6",
     "description": "",
     "type": "module",
     "exports": {
@@ -60,6 +60,7 @@
         "typescript": "^5.8.3"
     },
     "peerDependencies": {
+        "@types/node": ">=20",
         "@heroui/react": ">=2",
         "@types/react": ">=18.3.18",
         "react": ">=18.3.1"

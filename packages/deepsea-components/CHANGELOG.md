@@ -1,5 +1,14 @@
 # deepsea-components
 
+## 5.15.23
+
+### Patch Changes
+
+- 迁移到新环境
+- Updated dependencies
+    - deepsea-tools@5.40.3
+    - soda-hooks@6.12.6
+
 ## 5.15.22
 
 ### Patch Changes
