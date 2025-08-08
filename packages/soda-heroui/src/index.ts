@@ -1,4 +1,5 @@
 export * from "@/components/AutoRefresh"
+export * from "@/components/EnumSelect"
 export * from "@/components/ErrorMessage"
 export * from "@/components/FormAutocomplete"
 export * from "@/components/FormCalendar"
