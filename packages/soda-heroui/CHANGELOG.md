@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.11.2
+
+### Patch Changes
+
+- 支持 outside-top，修复多选失效的问题
+
 ## 0.11.1
 
 ### Patch Changes
