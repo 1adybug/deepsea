@@ -10,21 +10,23 @@ import { StrictOmit } from "soda-type"
 import { getFieldProps } from "../utils/getFieldProps"
 import { EmptyValue, FormContext, getEmptyValue } from "./FormProvider"
 
+export type SelectionMode = "single" | "multiple"
+
 export interface FormSelectProps<
-    Multiple extends boolean = false,
-    Value extends (Multiple extends true ? Key[] : Key) | null | undefined = (Multiple extends true ? Key[] : Key) | null | undefined,
+    Mode extends SelectionMode = "single",
+    Value extends (Mode extends "multiple" ? Key[] : Key) | null | undefined = (Mode extends "multiple" ? Key[] : Key) | null | undefined,
     RenderItem extends object = object,
-> extends StrictOmit<FieldComponentProps<typeof Select<RenderItem>, Value>, "multiple"> {
-    multiple?: Multiple
+> extends StrictOmit<FieldComponentProps<typeof Select<RenderItem>, Value>, "selectionMode"> {
+    selectionMode?: Mode
     emptyValue?: EmptyValue
     component?: <RenderItem extends object>(props: SelectProps<RenderItem>) => ReactNode
 }
 
 export function FormSelect<
-    Multiple extends boolean = false,
-    Value extends (Multiple extends true ? Key[] : Key) | null | undefined = (Multiple extends true ? Key[] : Key) | null | undefined,
+    Mode extends SelectionMode = "single",
+    Value extends (Mode extends "multiple" ? Key[] : Key) | null | undefined = (Mode extends "multiple" ? Key[] : Key) | null | undefined,
     RenderItem extends object = object,
->({ field, multiple, emptyValue, component: Select2 = Select, ...rest }: FormSelectProps<Multiple, Value, RenderItem>): ReactNode {
+>({ field, multiple, emptyValue, component: Select2 = Select, ...rest }: FormSelectProps<Mode, Value, RenderItem>): ReactNode {
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue
 

@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.11.0
+
+### Minor Changes
+
+- 优化 FormSelect 参数，新增 EnumSelect 组件
+
 ## 0.10.6
 
 ### Patch Changes
