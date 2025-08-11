@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.9.3
+
+### Patch Changes
+
+- 优化 useFilterTree 性能
+
 ## 0.9.2
 
 ### Patch Changes
