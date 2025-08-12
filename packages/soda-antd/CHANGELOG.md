@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.9.4
+
+### Patch Changes
+
+- 移除无用的 log 语句
+
 ## 0.9.3
 
 ### Patch Changes

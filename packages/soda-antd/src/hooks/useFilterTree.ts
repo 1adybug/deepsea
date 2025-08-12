@@ -159,7 +159,6 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
                         rangeHalfChecked.add(node.key)
                     } else {
                         const count = checkedChildrenCount.get(node.key) ?? 0
-                        console.log(count)
                         if (count > 0) {
                             if (count === node.children.length) rangeChecked.add(node.key)
                             else rangeHalfChecked.add(node.key)
