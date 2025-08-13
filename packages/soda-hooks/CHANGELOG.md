@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.13.0
+
+### Minor Changes
+
+- 新增 useDragMove hook
+
 ## 6.12.7
 
 ### Patch Changes
