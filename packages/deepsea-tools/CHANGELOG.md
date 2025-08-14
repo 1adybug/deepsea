@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.40.5
+
+### Patch Changes
+
+- clsx 支持 classNames 对象的合并
+
 ## 5.40.4
 
 ### Patch Changes
