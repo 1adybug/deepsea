@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.13.3
+
+### Patch Changes
+
+- 优化 useDragMove 事件监听，优化 useScrollMemo 类型
+
 ## 6.13.2
 
 ### Patch Changes

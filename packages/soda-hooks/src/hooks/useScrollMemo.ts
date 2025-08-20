@@ -1,8 +1,8 @@
-import { MutableRefObject, useEffect } from "react"
+import { RefObject, useEffect } from "react"
 
 export interface ScrollMemoOptions {
     /** 需要监听的元素，可以是 ref */
-    target: HTMLElement | null | MutableRefObject<HTMLElement | null>
+    target: HTMLElement | null | RefObject<HTMLElement | null>
     /** 用于存储位置的存储器，默认是 sessionStorage */
     storage?: Storage
     /** 存储位置的 key */
