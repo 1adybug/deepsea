@@ -17,7 +17,7 @@ function isClassNames(value: any) {
  * @param inputs 类名或者 classNames 对象
  * @returns 合并后的类名或者 classNames 对象
  */
-export function clsx<T extends Record<string, string | undefined | null>>(...inputs: (T | undefined | null)[]): T
+export function clsx<T extends string>(...inputs: (Partial<Record<T, string | undefined | null>> | undefined | null)[]): Partial<Record<T, string>>
 export function clsx(...inputs: ClassValue[]): string
 export function clsx(...inputs: any[]) {
     if (inputs.every(item => isClassNames(item) || item === undefined || item === null)) {

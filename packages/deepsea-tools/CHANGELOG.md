@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.40.6
+
+### Patch Changes
+
+- 修复 clsx 在 classNames 合并时的类型问题
+
 ## 5.40.5
 
 ### Patch Changes
