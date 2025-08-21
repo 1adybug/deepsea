@@ -70,7 +70,6 @@ function getOrderMap<T>({ prev, orders, keys }: GetOrderMapParams<T>) {
     })
     orders = Array.from(orderSet)
     newKeys.forEach((key, index) => orderMap.set(key, orders[index]))
-    console.log(Object.fromEntries(orderMap.entries()))
     return orderMap
 }
 
@@ -193,13 +192,6 @@ interface DraggingItem {
     itemWidth: number
     itemHeight: number
     keyToOrder: DraggableGridKeyToOrder
-}
-
-let cache: any
-function log(value: any) {
-    if (equal(cache, value)) return
-    cache = value
-    console.log(value)
 }
 
 export function DraggableGrid<T>({
@@ -335,7 +327,6 @@ export function DraggableGrid<T>({
 
         const { deltaX, deltaY } = event
         const { key, orders, keyToOrder, startX, startY, columns, gapX, gapY, itemWidth, itemHeight } = dragging!
-        log(key)
         setDragging(prev => ({ ...prev!, deltaX, deltaY }))
         const x = startX + deltaX
         const y = startY + deltaY

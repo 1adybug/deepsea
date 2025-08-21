@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.16.1
+
+### Patch Changes
+
+- 移除多余的 log 语句
+
 ## 5.16.0
 
 ### Minor Changes
