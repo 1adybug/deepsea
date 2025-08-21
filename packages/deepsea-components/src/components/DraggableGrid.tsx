@@ -1,5 +1,5 @@
 import { CSSProperties, ComponentProps, FC, Key, ReactNode, useEffect, useMemo, useRef, useState } from "react"
-import { clsx, equal, getArray } from "deepsea-tools"
+import { clsx, getArray } from "deepsea-tools"
 import { DragMoveEvent, UseDragMoveParams, useDragMove } from "soda-hooks"
 
 import styles from "./DraggableGrid.module.css"
@@ -50,13 +50,13 @@ function isTheSameIterable<T>(a: Iterable<T>, b: Iterable<T>) {
     return aSet.difference(bSet).size === 0
 }
 
-interface GetOrderMapParams<T> {
+interface GetOrderMapParams {
     prev?: DraggableGridKeyToOrder
     orders: number[]
     keys: Key[]
 }
 
-function getOrderMap<T>({ prev, orders, keys }: GetOrderMapParams<T>) {
+function getOrderMap({ prev, orders, keys }: GetOrderMapParams) {
     const orderSet = new Set(orders)
     const orderMap = new Map<Key, number>()
     const newKeys = keys.filter(key => {
@@ -67,6 +67,7 @@ function getOrderMap<T>({ prev, orders, keys }: GetOrderMapParams<T>) {
             orderSet.delete(prevOrder)
             return false
         }
+        return true
     })
     orders = Array.from(orderSet)
     newKeys.forEach((key, index) => orderMap.set(key, orders[index]))
@@ -139,7 +140,7 @@ export type DraggableGridProps<T> = Omit<ComponentProps<"div">, "className" | "c
     /** 次序变化时回调 */
     onOrderMapChange?: (orderMap: DraggableGridKeyToOrder) => void
     /** 禁用的元素 */
-    isItemDisabled?: Key[] | ((item: T) => boolean)
+    isItemDisabled?: Key[] | ((item: T, key: Key) => boolean)
     /** 禁用的次序 */
     isOrderDisabled?: number[] | ((order: number) => boolean)
     /** 次序的优先级，可以通过此函数调整元素的优先放置的方向，左上，右上，左下，右下，中心，顺时针，逆时针等等 */
@@ -211,20 +212,18 @@ export function DraggableGrid<T>({
     onOrderMapChange,
     render,
     keyExtractor,
-    isItemDisabled,
+    isItemDisabled: _isItemDisabled,
     isOrderDisabled,
     orderPriority,
     ...rest
 }: DraggableGridProps<T>) {
-    const [itemToKey, keyToItem] = useMemo(() => {
-        const itemToKey = new Map<T, Key>()
+    const keyToItem = useMemo(() => {
         const keyToItem = new Map<Key, T>()
-        items.forEach((item, index) => {
+        items.forEach(item => {
             const key = keyExtractor ? keyExtractor(item) : (item as Key)
-            itemToKey.set(item, key)
             keyToItem.set(key, item)
         })
-        return [itemToKey, keyToItem] as const
+        return keyToItem
     }, [items, keyExtractor])
 
     /** 检查 items 中是否有重复的 key */
@@ -258,16 +257,16 @@ export function DraggableGrid<T>({
     })
 
     useEffect(() => {
-        if (!isTheSameArray(cache.orders, orders) || !isTheSameIterable(cache.keys, keyToItem.keys())) {
+        if (!isTheSameArray(dragging?.orders ?? cache.orders, orders) || !isTheSameIterable(dragging?.keyToOrder.keys() ?? cache.keys, keyToItem.keys())) {
             cache.orders = orders
-            cache.keys = Array.from(keyToItem.keys())
-            const newOrderMap = getOrderMap({ prev: keyToOrder, orders, keys: cache.keys })
+            cache.keys = Array.from((dragging?.keyToOrder ?? keyToItem).keys())
+            const newOrderMap = getOrderMap({ prev: dragging?.keyToOrder ?? keyToOrder, orders, keys: cache.keys })
             setKeyToOrder(newOrderMap)
             onOrderMapChange?.(newOrderMap)
             const newRenderKeys = new Set(newOrderMap.keys())
             setRenderKeys(prev => prev.intersection(newRenderKeys).union(newRenderKeys.difference(prev)))
         }
-    }, [dragging, orders, keyToItem, keyToOrder, onOrderMapChange])
+    }, [dragging, cache, orders, keyToItem, keyToOrder, onOrderMapChange])
 
     /** 渲染的元素的 key，不会随着 keyToOrder 的变化而变化 */
     const [renderKeys, setRenderKeys] = useState(() => new Set(keyToOrder.keys()))
@@ -293,7 +292,7 @@ export function DraggableGrid<T>({
                 onOrderMapChange?.(dragging.keyToOrder)
             }
         }
-    }, [orders, keyToItem, keyToOrder, onOrderMapChange])
+    }, [dragging, orders, columns, rows, gapX, gapY, itemWidth, itemHeight, keyToItem, keyToOrder, onOrderMapChange])
 
     /** 受控 */
     useEffect(() => {
@@ -309,8 +308,8 @@ export function DraggableGrid<T>({
             key,
             startX: position.x,
             startY: position.y,
-            deltaX: 0,
-            deltaY: 0,
+            deltaX: event.deltaX,
+            deltaY: event.deltaY,
             orders,
             columns,
             rows,
@@ -401,6 +400,12 @@ export function DraggableGrid<T>({
         setDragging(undefined)
     }
 
+    function isItemDisabled(key: Key) {
+        if (!_isItemDisabled) return false
+        if (Array.isArray(_isItemDisabled)) return _isItemDisabled.includes(key)
+        return _isItemDisabled(keyToItem.get(key)!, key)
+    }
+
     return (
         <div
             className={clsx(
@@ -451,9 +456,9 @@ export function DraggableGrid<T>({
                             typeof classNames?.item === "function" ? classNames.item({ order, isDragging: isDragging }) : classNames?.item,
                         )}
                         style={style}
-                        onDragMoveStart={!disabled ? event => onDragMoveStart(key, event) : undefined}
-                        onDragMove={!disabled ? onDragMove : undefined}
-                        onDragMoveEnd={!disabled ? onDragMoveEnd : undefined}
+                        onDragMoveStart={!disabled && !isItemDisabled(key) ? event => onDragMoveStart(key, event) : undefined}
+                        onDragMove={!disabled && !isItemDisabled(key) ? onDragMove : undefined}
+                        onDragMoveEnd={!disabled && !isItemDisabled(key) ? onDragMoveEnd : undefined}
                         children={children}
                     />
                 )

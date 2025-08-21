@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.16.2
+
+### Patch Changes
+
+- 修复新增 item 被过滤的问题
+
 ## 5.16.1
 
 ### Patch Changes
