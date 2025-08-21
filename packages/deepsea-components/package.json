@@ -1,6 +1,6 @@
 {
     "name": "deepsea-components",
-    "version": "5.15.28",
+    "version": "5.16.0",
     "description": "格数科技自用组件库",
     "type": "module",
     "exports": {

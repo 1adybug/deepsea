@@ -1,0 +1,19 @@
+.draggable-grid {
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+}
+
+.draggable-grid-item {
+    position: absolute;
+    width: var(--width);
+    height: var(--height);
+    left: 0;
+    top: 0;
+    z-index: var(--z-index);
+    transform: translate(var(--translate-x), var(--translate-y));
+    transition-property: var(--transition-property);
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    user-select: none;
+}
