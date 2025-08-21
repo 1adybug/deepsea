@@ -2,7 +2,7 @@ import { useRef } from "react"
 
 import { ElementInput, useDomEffect } from "./useDomEffect"
 
-export interface DragMoveEvent<T extends HTMLElement> extends MouseEvent {
+export interface DragMoveEvent<T extends HTMLElement = HTMLElement> extends MouseEvent {
     /** 目标元素 */
     dragTarget: T
     /** 从拖拽开始的总位移 X */
@@ -11,14 +11,17 @@ export interface DragMoveEvent<T extends HTMLElement> extends MouseEvent {
     deltaY: number
 }
 
-export interface UseDragMoveParams<T extends HTMLElement> {
-    element?: ElementInput<T>
+export interface DragMoveEvents<T extends HTMLElement = HTMLElement> {
     onDragMoveStart?(event: DragMoveEvent<T>): void
     onDragMove?(event: DragMoveEvent<T>): void
     onDragMoveEnd?(event: DragMoveEvent<T>): void
 }
 
-export function useDragMove<T extends HTMLElement>({ element, onDragMoveStart, onDragMove, onDragMoveEnd }: UseDragMoveParams<T>) {
+export interface UseDragMoveParams<T extends HTMLElement = HTMLElement> extends DragMoveEvents<T> {
+    element?: ElementInput<T>
+}
+
+export function useDragMove<T extends HTMLElement = HTMLElement>({ element, onDragMoveStart, onDragMove, onDragMoveEnd }: UseDragMoveParams<T>) {
     const cache = useRef({ onDragMoveStart, onDragMove, onDragMoveEnd }).current
     cache.onDragMoveStart = onDragMoveStart
     cache.onDragMove = onDragMove

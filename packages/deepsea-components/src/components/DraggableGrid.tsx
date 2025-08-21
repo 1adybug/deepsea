@@ -1,6 +1,6 @@
-import { CSSProperties, ComponentProps, FC, Key, ReactNode, useEffect, useMemo, useRef, useState } from "react"
-import { clsx, getArray } from "deepsea-tools"
-import { DragMoveEvent, UseDragMoveParams, useDragMove } from "soda-hooks"
+import { CSSProperties, ComponentProps, Key, ReactNode, useEffect, useMemo, useRef, useState } from "react"
+import { clsx, getArray, isNullable } from "deepsea-tools"
+import { DragMoveEvent, DragMoveEvents, useDragMove } from "soda-hooks"
 
 import styles from "./DraggableGrid.module.css"
 
@@ -101,51 +101,54 @@ function getOrderToKey(keyToOrder: DraggableGridKeyToOrder) {
     return new Map(Array.from(keyToOrder.entries()).map(([key, order]) => [order, key]))
 }
 
-export type DraggableGridProps<T> = Omit<ComponentProps<"div">, "className" | "children"> & {
-    /** 类名 */
-    className?: DraggableGridClassName
-    /** 类名 */
-    classNames?: DraggableGridClassNames
-    /** 样式 */
-    style?: DraggableGridStyle
-    /** 数据源 */
-    items?: T[]
-    /** 是否禁用拖拽 */
-    disabled?: boolean
-    /** 列数 */
-    columns: number
-    /** 行数 */
-    rows: number
-    /**
-     * 间距
-     * @default 0
-     */
-    gap?: number
-    /**
-     * 水平间距
-     * @default 0
-     */
-    gapX?: number
-    /**
-     * 垂直间距
-     * @default 0
-     */
-    gapY?: number
-    /** 元素宽度 */
-    itemWidth: number
-    /** 元素高度 */
-    itemHeight: number
-    /** 元素的 key 到次序的映射 */
-    orderMap?: DraggableGridKeyToOrder
-    /** 次序变化时回调 */
-    onOrderMapChange?: (orderMap: DraggableGridKeyToOrder) => void
-    /** 禁用的元素 */
-    isItemDisabled?: Key[] | ((item: T, key: Key) => boolean)
-    /** 禁用的次序 */
-    isOrderDisabled?: number[] | ((order: number) => boolean)
-    /** 次序的优先级，可以通过此函数调整元素的优先放置的方向，左上，右上，左下，右下，中心，顺时针，逆时针等等 */
-    orderPriority?: (a: number, b: number) => number
-} & (T extends ReactNode
+export type DraggableGridProps<T> = Omit<ComponentProps<"div">, "className" | "children"> &
+    DragMoveEvents<HTMLDivElement> & {
+        /** 类名 */
+        className?: DraggableGridClassName
+        /** 类名 */
+        classNames?: DraggableGridClassNames
+        /** 样式 */
+        style?: DraggableGridStyle
+        /** 数据源 */
+        items?: T[]
+        /** 是否禁用拖拽 */
+        disabled?: boolean
+        /** 列数 */
+        columns: number
+        /** 行数 */
+        rows: number
+        /**
+         * 间距
+         * @default 0
+         */
+        gap?: number
+        /**
+         * 水平间距
+         * @default 0
+         */
+        gapX?: number
+        /**
+         * 垂直间距
+         * @default 0
+         */
+        gapY?: number
+        /** 元素宽度 */
+        itemWidth: number
+        /** 元素高度 */
+        itemHeight: number
+        /** 元素的 key 到次序的映射 */
+        orderMap?: DraggableGridKeyToOrder
+        /** 次序变化时回调 */
+        onOrderMapChange?: (orderMap: DraggableGridKeyToOrder) => void
+        /** 禁用的元素 */
+        isItemDisabled?: Key[] | ((item: T, key: Key) => boolean)
+        /** 禁用的次序 */
+        isOrderDisabled?: number[] | ((order: number) => boolean)
+        /** 次序的优先级，可以通过此函数调整元素的优先放置的方向，左上，右上，左下，右下，中心，顺时针，逆时针等等 */
+        orderPriority?: (a: number, b: number) => number
+        /** 触发移动的元素 */
+        handle?: string | HTMLElement | ((item: T, key: Key, element: HTMLDivElement) => HTMLElement | undefined | null) | undefined | null
+    } & (T extends ReactNode
         ? {
               /** 渲染函数，当 T 为 ReactNode 时，render 为可选 */
               render?: (item: T, status: DraggableGridItemStatus) => ReactNode
@@ -164,13 +167,26 @@ export type DraggableGridProps<T> = Omit<ComponentProps<"div">, "className" | "c
               keyExtractor: (item: T) => Key
           })
 
-interface DraggableGridItemProps extends ComponentProps<"div">, Omit<UseDragMoveParams<HTMLDivElement>, "element"> {}
+interface DraggableGridItemProps<T> extends ComponentProps<"div">, DragMoveEvents<HTMLDivElement> {
+    item: T
+    itemKey: Key
+    /** 触发移动的元素 */
+    handle?: string | HTMLElement | ((item: T, key: Key, element: HTMLDivElement) => HTMLElement | undefined | null) | undefined | null
+}
 
-const DraggableGridItem: FC<DraggableGridItemProps> = ({ onDragMoveStart, onDragMove, onDragMoveEnd, ...rest }) => {
+function DraggableGridItem<T>({ item, itemKey, handle, onDragMoveStart, onDragMove, onDragMoveEnd, ...rest }: DraggableGridItemProps<T>) {
     const element = useRef<HTMLDivElement>(null)
 
     useDragMove({
-        element,
+        element: isNullable(handle)
+            ? element
+            : () =>
+                  element.current &&
+                  (typeof handle === "string"
+                      ? (element.current.querySelector(handle) as HTMLElement)
+                      : typeof handle === "function"
+                        ? handle(item, itemKey, element.current)
+                        : handle),
         onDragMoveStart,
         onDragMove,
         onDragMoveEnd,
@@ -215,6 +231,10 @@ export function DraggableGrid<T>({
     isItemDisabled: _isItemDisabled,
     isOrderDisabled,
     orderPriority,
+    handle,
+    onDragMoveStart: _onDragMoveStart,
+    onDragMove: _onDragMove,
+    onDragMoveEnd: _onDragMoveEnd,
     ...rest
 }: DraggableGridProps<T>) {
     const keyToItem = useMemo(() => {
@@ -302,6 +322,7 @@ export function DraggableGrid<T>({
     }, [orderMap, keyToOrder, onOrderMapChange])
 
     function onDragMoveStart(key: Key, event: DragMoveEvent<HTMLDivElement>) {
+        _onDragMoveStart?.(event)
         const position = getPosition({ order: keyToOrder.get(key)!, columns, gapX, gapY, itemWidth, itemHeight })
         recent.current = key
         setDragging({
@@ -322,6 +343,7 @@ export function DraggableGrid<T>({
     }
 
     function onDragMove(event: DragMoveEvent<HTMLDivElement>) {
+        _onDragMove?.(event)
         if (!dragging) return
 
         const { deltaX, deltaY } = event
@@ -395,7 +417,8 @@ export function DraggableGrid<T>({
         onOrderMapChange?.(newKeyToOrder)
     }
 
-    function onDragMoveEnd() {
+    function onDragMoveEnd(event: DragMoveEvent<HTMLDivElement>) {
+        _onDragMoveEnd?.(event)
         if (!dragging) return
         setDragging(undefined)
     }
@@ -451,6 +474,9 @@ export function DraggableGrid<T>({
                 return (
                     <DraggableGridItem
                         key={key}
+                        item={item}
+                        itemKey={key}
+                        handle={handle}
                         className={clsx(
                             styles.draggableGridItem,
                             typeof classNames?.item === "function" ? classNames.item({ order, isDragging: isDragging }) : classNames?.item,

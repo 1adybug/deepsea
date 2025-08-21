@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.41.0
+
+### Minor Changes
+
+- 移除 clsx 对 classNames 合并的支持，新增 clsm 对 classNames 合并的支持，支持设置触发拖动的元素，优化类型提示
+
 ## 5.40.6
 
 ### Patch Changes
