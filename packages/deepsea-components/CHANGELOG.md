@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.16.4
+
+### Patch Changes
+
+- 优化类型提示
+
 ## 5.16.3
 
 ### Patch Changes

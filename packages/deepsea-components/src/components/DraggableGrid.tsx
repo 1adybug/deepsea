@@ -4,6 +4,10 @@ import { DragMoveEvent, DragMoveEvents, useDragMove } from "soda-hooks"
 
 import styles from "./DraggableGrid.module.css"
 
+export type MustBeReactNode<T> = false extends (T extends ReactNode ? true : false) ? false : true
+
+export type MustBeReactKey<T> = false extends (T extends Key ? true : false) ? false : true
+
 export type DraggableGridClassName = string | ((status: ContainerStatus) => string)
 
 export type DraggableGridItemClassName = string | ((status: DraggableGridItemStatus) => string)
@@ -30,10 +34,10 @@ export interface DraggableGridItemStatus {
 }
 
 /** 元素的 key 到次序的映射 */
-export type DraggableGridKeyToOrder = Map<Key, number>
+export type DraggableGridKeyToOrder<K extends Key> = Map<K, number>
 
 /** 次序到元素的 key 的映射 */
-export type DraggableGridOrderToKey = Map<number, Key>
+export type DraggableGridOrderToKey<K extends Key> = Map<number, K>
 
 function isTheSameArray<T>(a: T[], b: T[]) {
     if (a.length !== b.length) return false
@@ -50,15 +54,15 @@ function isTheSameIterable<T>(a: Iterable<T>, b: Iterable<T>) {
     return aSet.difference(bSet).size === 0
 }
 
-interface GetOrderMapParams {
-    prev?: DraggableGridKeyToOrder
+interface GetOrderMapParams<K extends Key> {
+    prev?: DraggableGridKeyToOrder<K>
     orders: number[]
-    keys: Key[]
+    keys: K[]
 }
 
-function getOrderMap({ prev, orders, keys }: GetOrderMapParams) {
+function getOrderMap<K extends Key>({ prev, orders, keys }: GetOrderMapParams<K>) {
     const orderSet = new Set(orders)
-    const orderMap = new Map<Key, number>()
+    const orderMap = new Map<K, number>()
     const newKeys = keys.filter(key => {
         if (!prev) return true
         if (prev.has(key)) {
@@ -97,11 +101,11 @@ function getPosition({ order, columns, gapX, gapY, itemWidth, itemHeight }: GetP
     }
 }
 
-function getOrderToKey(keyToOrder: DraggableGridKeyToOrder) {
+function getOrderToKey<K extends Key>(keyToOrder: DraggableGridKeyToOrder<K>) {
     return new Map(Array.from(keyToOrder.entries()).map(([key, order]) => [order, key]))
 }
 
-export type DraggableGridProps<T> = Omit<ComponentProps<"div">, "className" | "children"> &
+export type DraggableGridProps<T, K extends Key = T extends Key ? T : never> = Omit<ComponentProps<"div">, "className" | "children"> &
     DragMoveEvents<HTMLDivElement> & {
         /** 类名 */
         className?: DraggableGridClassName
@@ -137,18 +141,18 @@ export type DraggableGridProps<T> = Omit<ComponentProps<"div">, "className" | "c
         /** 元素高度 */
         itemHeight: number
         /** 元素的 key 到次序的映射 */
-        orderMap?: DraggableGridKeyToOrder
+        orderMap?: DraggableGridKeyToOrder<K>
         /** 次序变化时回调 */
-        onOrderMapChange?: (orderMap: DraggableGridKeyToOrder) => void
+        onOrderMapChange?: (orderMap: DraggableGridKeyToOrder<K>) => void
         /** 禁用的元素 */
-        isItemDisabled?: Key[] | ((item: T, key: Key) => boolean)
+        isItemDisabled?: K[] | ((item: T, key: K) => boolean)
         /** 禁用的次序 */
         isOrderDisabled?: number[] | ((order: number) => boolean)
         /** 次序的优先级，可以通过此函数调整元素的优先放置的方向，左上，右上，左下，右下，中心，顺时针，逆时针等等 */
         orderPriority?: (a: number, b: number) => number
         /** 触发移动的元素 */
-        handle?: string | HTMLElement | ((item: T, key: Key, element: HTMLDivElement) => HTMLElement | undefined | null) | undefined | null
-    } & (T extends ReactNode
+        handle?: string | HTMLElement | ((item: T, key: K, element: HTMLDivElement) => HTMLElement | undefined | null) | undefined | null
+    } & (MustBeReactNode<T> extends true
         ? {
               /** 渲染函数，当 T 为 ReactNode 时，render 为可选 */
               render?: (item: T, status: DraggableGridItemStatus) => ReactNode
@@ -157,24 +161,32 @@ export type DraggableGridProps<T> = Omit<ComponentProps<"div">, "className" | "c
               /** 渲染函数，当 T 为 ReactNode 时，render 为可选 */
               render: (item: T, status: DraggableGridItemStatus) => ReactNode
           }) &
-    (T extends Key
+    (MustBeReactKey<T> extends true
         ? {
               /** 获取 key 的函数，当 T 为 Key 时，keyExtractor 为可选 */
-              keyExtractor?: (item: T) => Key
+              keyExtractor?: (item: T) => K
           }
         : {
               /** 获取 key 的函数，当 T 为 Key 时，keyExtractor 为可选 */
-              keyExtractor: (item: T) => Key
+              keyExtractor: (item: T) => K
           })
 
-interface DraggableGridItemProps<T> extends ComponentProps<"div">, DragMoveEvents<HTMLDivElement> {
+interface DraggableGridItemProps<T, K extends Key = T extends Key ? T : never> extends ComponentProps<"div">, DragMoveEvents<HTMLDivElement> {
     item: T
-    itemKey: Key
+    itemKey: K
     /** 触发移动的元素 */
-    handle?: string | HTMLElement | ((item: T, key: Key, element: HTMLDivElement) => HTMLElement | undefined | null) | undefined | null
+    handle?: string | HTMLElement | ((item: T, key: K, element: HTMLDivElement) => HTMLElement | undefined | null) | undefined | null
 }
 
-function DraggableGridItem<T>({ item, itemKey, handle, onDragMoveStart, onDragMove, onDragMoveEnd, ...rest }: DraggableGridItemProps<T>) {
+function DraggableGridItem<T, K extends Key = T extends Key ? T : never>({
+    item,
+    itemKey,
+    handle,
+    onDragMoveStart,
+    onDragMove,
+    onDragMoveEnd,
+    ...rest
+}: DraggableGridItemProps<T, K>) {
     const element = useRef<HTMLDivElement>(null)
 
     useDragMove({
@@ -195,8 +207,8 @@ function DraggableGridItem<T>({ item, itemKey, handle, onDragMoveStart, onDragMo
     return <div ref={element} {...rest} />
 }
 
-interface DraggingItem {
-    key: Key
+interface DraggingItem<K extends Key> {
+    key: K
     startX: number
     startY: number
     deltaX: number
@@ -208,10 +220,10 @@ interface DraggingItem {
     gapY: number
     itemWidth: number
     itemHeight: number
-    keyToOrder: DraggableGridKeyToOrder
+    keyToOrder: DraggableGridKeyToOrder<K>
 }
 
-export function DraggableGrid<T>({
+export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
     className,
     classNames,
     style,
@@ -236,11 +248,11 @@ export function DraggableGrid<T>({
     onDragMove: _onDragMove,
     onDragMoveEnd: _onDragMoveEnd,
     ...rest
-}: DraggableGridProps<T>) {
+}: DraggableGridProps<T, K>) {
     const keyToItem = useMemo(() => {
-        const keyToItem = new Map<Key, T>()
+        const keyToItem = new Map<K, T>()
         items.forEach(item => {
-            const key = keyExtractor ? keyExtractor(item) : (item as Key)
+            const key = keyExtractor ? keyExtractor(item) : (item as unknown as K)
             keyToItem.set(key, item)
         })
         return keyToItem
@@ -269,7 +281,7 @@ export function DraggableGrid<T>({
     })
 
     /** 拖拽中的元素 */
-    const [dragging, setDragging] = useState<DraggingItem | undefined>(undefined)
+    const [dragging, setDragging] = useState<DraggingItem<K> | undefined>(undefined)
 
     const { current: cache } = useRef({
         orders,
@@ -321,7 +333,7 @@ export function DraggableGrid<T>({
         else onOrderMapChange?.(keyToOrder)
     }, [orderMap, keyToOrder, onOrderMapChange])
 
-    function onDragMoveStart(key: Key, event: DragMoveEvent<HTMLDivElement>) {
+    function onDragMoveStart(key: K, event: DragMoveEvent<HTMLDivElement>) {
         _onDragMoveStart?.(event)
         const position = getPosition({ order: keyToOrder.get(key)!, columns, gapX, gapY, itemWidth, itemHeight })
         recent.current = key
@@ -423,7 +435,7 @@ export function DraggableGrid<T>({
         setDragging(undefined)
     }
 
-    function isItemDisabled(key: Key) {
+    function isItemDisabled(key: K) {
         if (!_isItemDisabled) return false
         if (Array.isArray(_isItemDisabled)) return _isItemDisabled.includes(key)
         return _isItemDisabled(keyToItem.get(key)!, key)
