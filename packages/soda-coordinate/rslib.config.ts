@@ -1,24 +1,3 @@
-import { defineConfig } from "@rslib/core"
+import { getRslibConfig } from "../../utils/getRslibConfig"
 
-export default defineConfig({
-    source: {
-        entry: {
-            index: ["./src/**"],
-        },
-    },
-    lib: [
-        {
-            bundle: false,
-            dts: true,
-            format: "esm",
-        },
-        {
-            bundle: false,
-            dts: true,
-            format: "cjs",
-        },
-    ],
-    output: {
-        target: "web",
-    },
-})
+export default getRslibConfig()
