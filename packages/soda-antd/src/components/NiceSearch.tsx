@@ -1,9 +1,8 @@
 "use client"
 
-import { Select } from "antd"
-import { DefaultOptionType } from "antd/es/select"
-import { satisfyKeyword } from "deepsea-tools"
 import { ComponentProps, ReactNode, useState } from "react"
+import { Select } from "antd"
+import { satisfyKeyword } from "deepsea-tools"
 import { useInputState } from "soda-hooks"
 
 type Key<Data> = keyof Data
@@ -18,14 +17,17 @@ type ValueType<Data, Field extends FieldType<Data> = FieldType<Data>> = Field ex
         ? ReturnType<Field>
         : never
 
-type FilterItem<Data, Value> = {
+export interface NiceSearchOption<Value> {
     label: string
     value: Value
+}
+
+interface FilterItem<Data, Value> extends NiceSearchOption<Value> {
     data: Data
 }
 
 export interface NiceSearchProps<Data, Field extends FieldType<Data> = FieldType<Data>, Value = ValueType<Data, Field>>
-    extends Omit<ComponentProps<typeof Select<Value>>, "value" | "onChange" | "options" | "mode" | "searchValue" | "onSearch"> {
+    extends Omit<ComponentProps<typeof Select<Value, NiceSearchOption<Value>>>, "value" | "onChange" | "options" | "mode" | "searchValue" | "onSearch"> {
     data?: Data[]
     mode?: "multiple" | "tags"
     labelField: Key<Data> | ((item: Data) => string)
@@ -67,13 +69,13 @@ export function NiceSearch<Data, Field extends FieldType<Data> = FieldType<Data>
     }
 
     return (
-        <Select<Value>
+        <Select<Value, NiceSearchOption<Value>>
             showSearch={showSearch}
             filterOption={filterOption}
             defaultActiveFirstOption={defaultActiveFirstOption}
             searchValue={keyword}
             onSearch={setKeyword}
-            options={options as DefaultOptionType[]}
+            options={options}
             value={value}
             onChange={onChange}
             {...rest}

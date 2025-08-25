@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.10.0
+
+### Minor Changes
+
+- 新增 EnumSelect 组件，优化 NiceSearch 组件类型
+
 ## 0.9.9
 
 ### Patch Changes
