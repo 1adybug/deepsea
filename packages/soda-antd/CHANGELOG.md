@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.11.1
+
+### Patch Changes
+
+- 优化 FormSubscribe 参数
+
 ## 0.11.0
 
 ### Minor Changes
