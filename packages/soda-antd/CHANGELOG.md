@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.11.2
+
+### Patch Changes
+
+- 修复 useWatch 初始化时没有被调用的问题
+
 ## 0.11.1
 
 ### Patch Changes
