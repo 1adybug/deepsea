@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.11.3
+
+### Patch Changes
+
+- 修复 EnumSelect 没有导出的问题
+
 ## 0.11.2
 
 ### Patch Changes
