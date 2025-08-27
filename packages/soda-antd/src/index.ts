@@ -1,4 +1,5 @@
 export * from "@/components/EnumSelect"
+export * from "@/components/FormSubscribe"
 export * from "@/components/NiceSearch"
 export * from "@/components/Theme"
 export * from "@/hooks/useFilterTree"

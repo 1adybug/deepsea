@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.11.0
+
+### Minor Changes
+
+- 新增 FormSubscribe 组件
+
 ## 0.10.0
 
 ### Minor Changes
