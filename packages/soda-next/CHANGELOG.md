@@ -1,5 +1,12 @@
 # soda-next
 
+## 0.6.28
+
+### Patch Changes
+
+- deepsea-tools@5.41.1
+- soda-hooks@6.13.5
+
 ## 0.6.27
 
 ### Patch Changes

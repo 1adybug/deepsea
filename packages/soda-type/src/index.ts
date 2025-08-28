@@ -143,3 +143,62 @@ export type StrictRequired<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T
 
 /** 严格只读 */
 export type StrictReadonly<T, K extends keyof T> = Readonly<Pick<T, K>> & Omit<T, K>
+
+type QueryParamsEntry<T, P = never, Z extends string = "At", K extends keyof T = keyof T> = K extends keyof T
+    ? IsRequired<T, K> extends true
+        ? K extends `${infer Prefix}${Z}`
+            ? {
+                  [Key in `${Prefix}After`]: IsNever<P> extends true ? T[K] : P
+              } & {
+                  [Key in `${Prefix}Before`]: IsNever<P> extends true ? T[K] : P
+              }
+            : { [Key in K]: T[Key] }
+        : K extends `${infer Prefix}${Z}`
+          ? {
+                [Key in `${Prefix}After`]?: IsNever<P> extends true ? T[K] : P
+            } & {
+                [Key in `${Prefix}Before`]?: IsNever<P> extends true ? T[K] : P
+            }
+          : { [Key in K]?: T[Key] }
+    : never
+
+type QueryParamsTuple<T, P = never, Z extends string = "At"> = UnionToTuple<QueryParamsEntry<T, P, Z>>
+
+type _TupleToObject<T, P extends {} = {}> = T extends [infer K, ...infer R] ? _TupleToObject<R, P & K> : P
+
+/** 将元祖中的对象合并成一个对象 */
+export type TupleToObject<T> = _TupleToObject<T>
+
+/**
+ * 自动将对象中的时间转换为范围查询参数
+ * @param T 对象类型
+ * @param P 时间戳类型，默认和对象中时间戳类型一致
+ * @param Z 时间戳属性的固定后缀，默认是 "At"
+ * @param K 需要选取的 key
+ */
+export type QueryParams<T, P = never, Z extends string = "At", K extends keyof T = keyof T> = TupleToObject<QueryParamsTuple<Pick<T, K>, P, Z>>
+
+type QueryFormDataEntry<T, P = never, Z extends string = "At", K extends keyof T = keyof T> = K extends keyof T
+    ? IsRequired<T, K> extends true
+        ? K extends `${infer Prefix}After`
+            ? { [Key in `${Prefix}${Z}`]: IsNever<P> extends true ? T[K] : P }
+            : K extends `${infer Prefix}Before`
+              ? { [Key in `${Prefix}${Z}`]: IsNever<P> extends true ? T[K] : P }
+              : { [Key in K]: T[Key] }
+        : K extends `${infer Prefix}After`
+          ? { [Key in `${Prefix}${Z}`]?: IsNever<P> extends true ? T[K] : P }
+          : K extends `${infer Prefix}Before`
+            ? { [Key in `${Prefix}${Z}`]?: IsNever<P> extends true ? T[K] : P }
+            : { [Key in K]?: T[Key] }
+    : never
+
+type QueryFormDataTuple<T, P = never, Z extends string = "At"> = UnionToTuple<QueryFormDataEntry<T, P, Z>>
+
+/**
+ * 自动将对象中的时间转换为范围查询表单数据
+ * @param T 对象类型
+ * @param P 时间戳类型，默认和对象中时间戳类型一致
+ * @param Z 时间戳属性的固定后缀，默认是 "At"
+ * @param K 需要选取的 key
+ */
+export type QueryFormData<T, P = never, Z extends string = "At", K extends keyof T = keyof T> = TupleToObject<QueryFormDataTuple<Pick<T, K>, P, Z>>

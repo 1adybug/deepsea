@@ -1,5 +1,11 @@
 # soda-react
 
+## 0.0.26
+
+### Patch Changes
+
+- deepsea-tools@5.41.1
+
 ## 0.0.25
 
 ### Patch Changes
