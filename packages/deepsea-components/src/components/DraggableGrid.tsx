@@ -105,6 +105,36 @@ function getOrderToKey<K extends Key>(keyToOrder: DraggableGridKeyToOrder<K>) {
     return new Map(Array.from(keyToOrder.entries()).map(([key, order]) => [order, key]))
 }
 
+export type DraggableGridPropsCore<T, K extends Key = T extends Key ? T : never> = {
+    /** 数据源 */
+    items?: T[]
+    /** 元素的 key 到次序的映射 */
+    orderMap?: DraggableGridKeyToOrder<K>
+    /** 次序变化时回调 */
+    onOrderMapChange?: (orderMap: DraggableGridKeyToOrder<K>) => void
+    /** 禁用的元素 */
+    isItemDisabled?: K[] | ((item: T, key: K) => boolean)
+    /** 触发移动的元素 */
+    handle?: string | HTMLElement | ((item: T, key: K, element: HTMLDivElement) => HTMLElement | undefined | null) | undefined | null
+} & (MustBeReactNode<T> extends true
+    ? {
+          /** 渲染函数，当 T 为 ReactNode 时，render 为可选 */
+          render?: (item: T, status: DraggableGridItemStatus) => ReactNode
+      }
+    : {
+          /** 渲染函数，当 T 为 ReactNode 时，render 为可选 */
+          render: (item: T, status: DraggableGridItemStatus) => ReactNode
+      }) &
+    (MustBeReactKey<T> extends true
+        ? {
+              /** 获取 key 的函数，当 T 为 Key 时，keyExtractor 为可选 */
+              keyExtractor?: (item: T) => K
+          }
+        : {
+              /** 获取 key 的函数，当 T 为 Key 时，keyExtractor 为可选 */
+              keyExtractor: (item: T) => K
+          })
+
 export type DraggableGridProps<T, K extends Key = T extends Key ? T : never> = Omit<ComponentProps<"div">, "className" | "children"> &
     DragMoveEvents<HTMLDivElement> & {
         /** 类名 */
@@ -113,8 +143,7 @@ export type DraggableGridProps<T, K extends Key = T extends Key ? T : never> = O
         classNames?: DraggableGridClassNames
         /** 样式 */
         style?: DraggableGridStyle
-        /** 数据源 */
-        items?: T[]
+
         /** 是否禁用拖拽 */
         disabled?: boolean
         /** 列数 */
@@ -140,36 +169,11 @@ export type DraggableGridProps<T, K extends Key = T extends Key ? T : never> = O
         itemWidth: number
         /** 元素高度 */
         itemHeight: number
-        /** 元素的 key 到次序的映射 */
-        orderMap?: DraggableGridKeyToOrder<K>
-        /** 次序变化时回调 */
-        onOrderMapChange?: (orderMap: DraggableGridKeyToOrder<K>) => void
-        /** 禁用的元素 */
-        isItemDisabled?: K[] | ((item: T, key: K) => boolean)
         /** 禁用的次序 */
         isOrderDisabled?: number[] | ((order: number) => boolean)
         /** 次序的优先级，可以通过此函数调整元素的优先放置的方向，左上，右上，左下，右下，中心，顺时针，逆时针等等 */
         orderPriority?: (a: number, b: number) => number
-        /** 触发移动的元素 */
-        handle?: string | HTMLElement | ((item: T, key: K, element: HTMLDivElement) => HTMLElement | undefined | null) | undefined | null
-    } & (MustBeReactNode<T> extends true
-        ? {
-              /** 渲染函数，当 T 为 ReactNode 时，render 为可选 */
-              render?: (item: T, status: DraggableGridItemStatus) => ReactNode
-          }
-        : {
-              /** 渲染函数，当 T 为 ReactNode 时，render 为可选 */
-              render: (item: T, status: DraggableGridItemStatus) => ReactNode
-          }) &
-    (MustBeReactKey<T> extends true
-        ? {
-              /** 获取 key 的函数，当 T 为 Key 时，keyExtractor 为可选 */
-              keyExtractor?: (item: T) => K
-          }
-        : {
-              /** 获取 key 的函数，当 T 为 Key 时，keyExtractor 为可选 */
-              keyExtractor: (item: T) => K
-          })
+    } & DraggableGridPropsCore<T, K>
 
 interface DraggableGridItemProps<T, K extends Key = T extends Key ? T : never> extends ComponentProps<"div">, DragMoveEvents<HTMLDivElement> {
     item: T

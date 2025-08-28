@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.16.5
+
+### Patch Changes
+
+- 优化 DraggableGrid 类型
+
 ## 5.16.4
 
 ### Patch Changes
