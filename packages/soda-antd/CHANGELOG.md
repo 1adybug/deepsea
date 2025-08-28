@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.11.4
+
+### Patch Changes
+
+- 新增 EditorProps
+
 ## 0.11.3
 
 ### Patch Changes

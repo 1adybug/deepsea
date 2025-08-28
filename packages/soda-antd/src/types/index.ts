@@ -1,5 +1,6 @@
+import { ComponentProps, ReactNode } from "react"
+import { Modal } from "antd"
 import { ColumnsType } from "antd/es/table"
-import { ReactNode } from "react"
 
 type _Column<T, K extends keyof T = keyof T> = Omit<ColumnsType<T>[0], "dataIndex" | "render"> &
     (
@@ -20,3 +21,8 @@ type _Column<T, K extends keyof T = keyof T> = Omit<ColumnsType<T>[0], "dataInde
 export type Column<T> = _Column<T>
 
 export type Columns<T> = Column<T>[]
+
+export interface EditorProps<Id = string> extends Omit<ComponentProps<typeof Modal>, "title" | "maskClosable" | "onOk" | "onCancel"> {
+    id?: Id
+    onOpenChange?: (open: boolean) => void
+}
