@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.14.3
+
+### Patch Changes
+
+- 新增 dependOnGet 参数
+
 ## 6.14.2
 
 ### Patch Changes
