@@ -26,5 +26,5 @@ export function transformState<T, P, X>([state, setState]: UseState<T, P>, { get
         setState(set(next))
     }, [])
 
-    return [newState, newSetState] as const
+    return [newState, newSetState, state, setState] as const
 }

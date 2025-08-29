@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.14.1
+
+### Patch Changes
+
+- 新增原始状态的导出
+
 ## 6.14.0
 
 ### Minor Changes
