@@ -280,7 +280,6 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
             const key = keyExtractor ? keyExtractor(item) : (item as unknown as K)
             keyToItem.set(key, item)
         })
-        console.log(keyToItem)
         return keyToItem
     }, [items, keyExtractor])
 
