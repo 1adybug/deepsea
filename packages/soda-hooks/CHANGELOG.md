@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.14.2
+
+### Patch Changes
+
+- 修复类型错误
+
 ## 6.14.1
 
 ### Patch Changes
