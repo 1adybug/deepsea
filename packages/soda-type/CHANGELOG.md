@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.5.0
+
+### Minor Changes
+
+- 新增 debugLog 和 StrKeyOf 方法，修复一些问题
+
 ## 6.4.0
 
 ### Minor Changes

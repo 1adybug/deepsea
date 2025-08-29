@@ -1,5 +1,14 @@
 # deepsea-components
 
+## 5.16.11
+
+### Patch Changes
+
+- 新增 debugLog 和 StrKeyOf 方法，修复一些问题
+- Updated dependencies
+    - deepsea-tools@5.42.0
+    - soda-hooks@6.14.4
+
 ## 5.16.10
 
 ### Patch Changes

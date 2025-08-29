@@ -1,5 +1,16 @@
 # deepsea-tools
 
+## 5.42.0
+
+### Minor Changes
+
+- 新增 debugLog 和 StrKeyOf 方法，修复一些问题
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-type@6.5.0
+
 ## 5.41.1
 
 ### Patch Changes

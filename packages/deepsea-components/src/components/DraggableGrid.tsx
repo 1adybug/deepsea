@@ -58,11 +58,32 @@ interface GetOrderMapParams<K extends Key> {
     prev?: DraggableGridKeyToOrder<K>
     orders: number[]
     keys: K[]
+    orderPriority: ((a: number, b: number) => number) | undefined
 }
 
-function getOrderMap<K extends Key>({ prev, orders, keys }: GetOrderMapParams<K>) {
+function getOrderMap<K extends Key>({ prev, orders, keys, orderPriority }: GetOrderMapParams<K>) {
     const orderSet = new Set(orders)
     const orderMap = new Map<K, number>()
+
+    // 如果 prev 存在，并且继承的 key 中存在溢出的 key
+    if (!!prev) {
+        const entries = Array.from(prev.entries()).toSorted((a, b) => (orderPriority ? orderPriority(b[1], a[1]) : b[1] - a[1]))
+        const newPrev = new Map<K, number>()
+        const newOrders = [...orders]
+        for (const [key, order] of entries) {
+            if (!keys.includes(key)) continue
+            const index = newOrders.indexOf(order)
+            if (index >= 0) {
+                newPrev.set(key, order)
+                newOrders.length = index
+            } else {
+                const newOrder = newOrders.pop()!
+                newPrev.set(key, newOrder)
+            }
+        }
+        prev = newPrev
+    }
+
     const newKeys = keys.filter(key => {
         if (!prev) return true
         if (prev.has(key)) {
@@ -259,6 +280,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
             const key = keyExtractor ? keyExtractor(item) : (item as unknown as K)
             keyToItem.set(key, item)
         })
+        console.log(keyToItem)
         return keyToItem
     }, [items, keyExtractor])
 
@@ -279,7 +301,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
     /** 元素的 key 到次序的映射 */
     const [keyToOrder, setKeyToOrder] = useState(() => {
         if (orderMap) return orderMap
-        const newOrderMap = getOrderMap({ prev: undefined, orders, keys: Array.from(keyToItem.keys()) })
+        const newOrderMap = getOrderMap({ prev: undefined, orders, keys: Array.from(keyToItem.keys()), orderPriority })
         onOrderMapChange?.(newOrderMap)
         return newOrderMap
     })
@@ -296,13 +318,13 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
         if (!isTheSameArray(dragging?.orders ?? cache.orders, orders) || !isTheSameIterable(dragging?.keyToOrder.keys() ?? cache.keys, keyToItem.keys())) {
             cache.orders = orders
             cache.keys = Array.from((dragging?.keyToOrder ?? keyToItem).keys())
-            const newOrderMap = getOrderMap({ prev: dragging?.keyToOrder ?? keyToOrder, orders, keys: cache.keys })
+            const newOrderMap = getOrderMap({ prev: dragging?.keyToOrder ?? keyToOrder, orders, keys: cache.keys, orderPriority })
             setKeyToOrder(newOrderMap)
             onOrderMapChange?.(newOrderMap)
             const newRenderKeys = new Set(newOrderMap.keys())
             setRenderKeys(prev => prev.intersection(newRenderKeys).union(newRenderKeys.difference(prev)))
         }
-    }, [dragging, cache, orders, keyToItem, keyToOrder, onOrderMapChange])
+    }, [dragging, cache, orders, keyToItem, keyToOrder, orderPriority, onOrderMapChange])
 
     /** 渲染的元素的 key，不会随着 keyToOrder 的变化而变化 */
     const [renderKeys, setRenderKeys] = useState(() => new Set(keyToOrder.keys()))
@@ -462,6 +484,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
             {...rest}
         >
             {Array.from(renderKeys).map(key => {
+                if (!keyToItem.has(key)) return undefined
                 const item = keyToItem.get(key)!
                 const order = keyToOrder.get(key)!
                 const isDragging = dragging?.key === key
@@ -485,6 +508,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
                               "--z-index": recent.current === key ? 999999 : keyToOrder.get(key),
                           }
                 ) as CSSProperties
+
                 const children = render ? render(item, { order, isDragging: isDragging }) : (item as ReactNode)
 
                 return (

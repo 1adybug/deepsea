@@ -204,3 +204,6 @@ type QueryFormDataTuple<T, P = never, Z extends string = "At"> = UnionToTuple<Qu
  * @param K 需要选取的 key
  */
 export type QueryFormData<T, P = never, Z extends string = "At", K extends keyof T = keyof T> = TupleToObject<QueryFormDataTuple<Pick<T, K>, P, Z>>
+
+/** 获取字符串类型的 key */
+export type StrKeyOf<T> = keyof T extends string ? keyof T : never
