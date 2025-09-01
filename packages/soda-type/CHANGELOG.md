@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.6.0
+
+### Minor Changes
+
+- 新增 GetIndices 泛型
+
 ## 6.5.0
 
 ### Minor Changes
