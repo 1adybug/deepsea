@@ -248,6 +248,20 @@ interface DraggingItem<K extends Key> {
     keyToOrder: DraggableGridKeyToOrder<K>
 }
 
+interface IsLegalOrderMapParams<K extends Key> {
+    orders: number[]
+    keys: Iterable<K>
+    orderMap: DraggableGridKeyToOrder<K>
+}
+
+/** 检查 orderMap 是否合法 */
+function isLegalOrderMap<K extends Key>({ orders, keys, orderMap }: IsLegalOrderMapParams<K>) {
+    if (!isTheSameIterable(orderMap.keys(), keys)) return false
+    const values = Array.from(orderMap.values())
+    if (values.some(value => !orders.includes(value))) return false
+    return values.length === new Set(values).size
+}
+
 export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
     className,
     classNames,
@@ -299,8 +313,8 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
 
     /** 元素的 key 到次序的映射 */
     const [keyToOrder, setKeyToOrder] = useState(() => {
-        if (orderMap) return orderMap
-        const newOrderMap = getOrderMap({ prev: undefined, orders, keys: Array.from(keyToItem.keys()), orderPriority })
+        if (orderMap && isLegalOrderMap({ orders, keys: keyToItem.keys(), orderMap })) return orderMap
+        const newOrderMap = getOrderMap({ prev: orderMap, orders, keys: Array.from(keyToItem.keys()), orderPriority })
         onOrderMapChange?.(newOrderMap)
         return newOrderMap
     })
@@ -354,7 +368,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
     /** 受控 */
     useEffect(() => {
         if (orderMap === keyToOrder) return
-        if (!!orderMap) setKeyToOrder(orderMap)
+        if (!!orderMap && isLegalOrderMap({ orders, keys: keyToItem.keys(), orderMap })) setKeyToOrder(orderMap)
         else onOrderMapChange?.(keyToOrder)
     }, [orderMap, keyToOrder, onOrderMapChange])
 
