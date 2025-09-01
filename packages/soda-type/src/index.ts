@@ -208,7 +208,13 @@ export type QueryFormData<T, P = never, Z extends string = "At", K extends keyof
 /** 获取字符串类型的 key */
 export type StrKeyOf<T> = keyof T extends string ? keyof T : never
 
-/** 获取数组中每个元素的索引 */
+/** 获取元祖中每个元素的索引 */
 export type GetIndices<T extends readonly unknown[], Result extends number[] = []> = T extends readonly [unknown, ...infer Rest]
     ? GetIndices<Rest, [...Result, Result["length"]]>
     : Result[number]
+
+type _GetIndex<T extends readonly unknown[], Value extends T[number], K extends GetIndices<T> = GetIndices<T>> =
+    K extends GetIndices<T> ? (Equal<T[K], Value> extends true ? K : never) : never
+
+/** 获取元祖中某个元素的索引 */
+export type GetIndex<T extends readonly unknown[], Value extends T[number]> = _GetIndex<T, Value>
