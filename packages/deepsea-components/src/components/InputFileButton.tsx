@@ -14,7 +14,17 @@ import {
     useState,
 } from "react"
 
-import { FileType, InputFile, InputFileBaseProps, InputFileDataType, InputFileDataTypeMap, InputFileExtraProps, ValueType, getFileData } from "./InputFile"
+import {
+    DataType,
+    FileType,
+    InputFile,
+    InputFileBaseProps,
+    InputFileDataType,
+    InputFileDataTypeMap,
+    InputFileExtraProps,
+    ValueType,
+    getFileData,
+} from "./InputFile"
 
 export type InputFileButtonProps<
     Multiple extends boolean = false,
@@ -48,6 +58,7 @@ export function InputFileButton<
         multiple,
         onValueChange,
         onFileChange,
+        onDataChange,
         clearAfterChange,
         ...rest
     } = props
@@ -80,10 +91,13 @@ export function InputFileButton<
                 }
                 onFileChange?.(files2 as FileType<Multiple>)
                 onValueChange?.(values as ValueType<Multiple, Type>)
+                onDataChange?.(files2.map((file, index) => ({ file, value: values[index] })) as DataType<Multiple, Type>)
             } else {
                 const file = files[0]
                 onFileChange?.(file as FileType<Multiple>)
-                onValueChange?.((await getFileData(file, type)) as ValueType<Multiple, Type>)
+                const value = (await getFileData(file, type)) as InputFileDataTypeMap[Type]
+                onValueChange?.(value as ValueType<Multiple, Type>)
+                onDataChange?.({ file, value } as DataType<Multiple, Type>)
             }
         } finally {
             setDisabled(false)
