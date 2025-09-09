@@ -1,5 +1,18 @@
 # deepsea-components-demo
 
+## 0.4.0
+
+### Minor Changes
+
+- 移除 react compiler
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-components@5.17.0
+    - soda-hooks@6.15.0
+    - soda-react-router@1.2.0
+
 ## 0.3.62
 
 ### Patch Changes

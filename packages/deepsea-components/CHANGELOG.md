@@ -1,5 +1,16 @@
 # deepsea-components
 
+## 5.17.0
+
+### Minor Changes
+
+- 移除 react compiler
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.15.0
+
 ## 5.16.16
 
 ### Patch Changes

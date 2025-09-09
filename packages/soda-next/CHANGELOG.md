@@ -1,5 +1,16 @@
 # soda-next
 
+## 0.7.0
+
+### Minor Changes
+
+- 移除 react compiler
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.15.0
+
 ## 0.6.35
 
 ### Patch Changes

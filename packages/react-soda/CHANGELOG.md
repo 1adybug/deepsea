@@ -1,5 +1,11 @@
 # react-soda
 
+## 5.3.0
+
+### Minor Changes
+
+- 移除 react compiler
+
 ## 5.2.1
 
 ### Patch Changes

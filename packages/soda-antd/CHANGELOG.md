@@ -1,5 +1,17 @@
 # soda-antd
 
+## 0.12.0
+
+### Minor Changes
+
+- 移除 react compiler
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.15.0
+    - soda-react@0.1.0
+
 ## 0.11.12
 
 ### Patch Changes

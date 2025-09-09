@@ -1,5 +1,11 @@
 # soda-react
 
+## 0.1.0
+
+### Minor Changes
+
+- 移除 react compiler
+
 ## 0.0.29
 
 ### Patch Changes
