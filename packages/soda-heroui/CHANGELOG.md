@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.11.16
+
+### Patch Changes
+
+- 移除 react compiler
+
 ## 0.11.15
 
 ### Patch Changes
