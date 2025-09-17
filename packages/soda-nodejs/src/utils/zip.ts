@@ -28,6 +28,10 @@ export type ZipOptions = {
      * 压缩文件时的工作目录
      */
     cwd?: string
+    /**
+     * 过滤
+     */
+    filter?: string | string[]
 }
 
 /**
@@ -41,12 +45,13 @@ export type ZipOptions = {
  * 4. 重启终端，输入 7z，如果出现 7z 的版本信息，则安装成功
  * 5. 如果没有出现版本信息，请重启电脑，或者检查 7z 的安装路径是否正确
  */
-export async function zip({ input, output, thread = "auto", level, password, cwd }: ZipOptions) {
+export async function zip({ input, output, thread = "auto", level, password, cwd, filter }: ZipOptions) {
     await which("7z")
+    filter = Array.isArray(filter) ? filter : typeof filter === "string" ? [filter] : []
     input = Array.isArray(input) ? input.join(" ") : input
     if (thread === "max") thread = cpus().length
     return await execAsync(
-        `7z a ${output} ${input} -mmt=${thread === "auto" ? "on" : thread}${typeof level === "number" ? ` -mx=${level}` : ""}${password ? ` -p${password}` : ""}`,
+        `7z a ${output} ${input} -mmt=${thread === "auto" ? "on" : thread}${typeof level === "number" ? ` -mx=${level}` : ""}${password ? ` -p${password}` : ""}${filter.length > 0 ? ` ${filter.map(item => `-x!${item}`).join(" ")}` : ""}`,
         { cwd },
     )
 }
