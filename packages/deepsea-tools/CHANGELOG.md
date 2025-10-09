@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.42.4
+
+### Patch Changes
+
+- 新增 cryptoRandomUUIDPolyfill
+
 ## 5.42.3
 
 ### Patch Changes

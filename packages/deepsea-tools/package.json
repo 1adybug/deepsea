@@ -1,6 +1,6 @@
 {
     "name": "deepsea-tools",
-    "version": "5.42.3",
+    "version": "5.42.4",
     "description": "格数科技自用工具包",
     "type": "module",
     "exports": {
@@ -50,6 +50,7 @@
         "robust-segment-intersect": "^1.0.1",
         "soda-type": "workspace:*",
         "tailwind-merge": "^3.3.1",
+        "uuid": "^13.0.0",
         "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
         "zod": "^4.1.12"
     },
