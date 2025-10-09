@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.17.3
+
+### Patch Changes
+
+- 优化 Title 的参数
+
 ## 5.17.2
 
 ### Patch Changes
