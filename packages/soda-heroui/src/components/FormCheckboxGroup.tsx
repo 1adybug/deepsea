@@ -1,7 +1,7 @@
 "use client"
 
-import { ComponentPropsWithoutRef, ReactNode } from "react"
 import { As, CheckboxGroup, CheckboxGroupProps, MergeWithAs } from "@heroui/react"
+import { ComponentPropsWithoutRef, ReactNode } from "react"
 import { Field } from "soda-tanstack-form"
 
 import { getFieldProps } from "../utils/getFieldProps"

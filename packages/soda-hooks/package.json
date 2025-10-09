@@ -1,6 +1,6 @@
 {
     "name": "soda-hooks",
-    "version": "6.15.0",
+    "version": "6.15.1",
     "description": "",
     "type": "module",
     "exports": {
@@ -46,7 +46,7 @@
         "soda-type": "workspace:*"
     },
     "devDependencies": {
-        "typescript": "^5.9.2"
+        "typescript": "^5.9.3"
     },
     "peerDependencies": {
         "@types/react": ">=18.3.18",

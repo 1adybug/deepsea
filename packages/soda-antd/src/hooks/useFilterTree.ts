@@ -242,7 +242,7 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
         else {
             const index = newSelectedKeys.indexOf(info.node.key)
             if (index !== -1) newSelectedKeys.splice(index, 1)
-        } 
+        }
         _onSelect?.(newSelectedKeys as K[], info)
         setTotalSelectedKeys(newSelectedKeys as K[])
     }

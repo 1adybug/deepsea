@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.8.5
+
+### Patch Changes
+
+- 升级依赖
+
 ## 0.8.4
 
 ### Patch Changes

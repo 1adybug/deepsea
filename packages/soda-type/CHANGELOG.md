@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.7.1
+
+### Patch Changes
+
+- 升级依赖
+
 ## 6.7.0
 
 ### Minor Changes

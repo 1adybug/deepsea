@@ -1,6 +1,6 @@
 {
     "name": "soda-next",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "description": "",
     "type": "module",
     "exports": {
@@ -46,7 +46,7 @@
         "soda-hooks": "workspace:*"
     },
     "devDependencies": {
-        "typescript": "^5.9.2"
+        "typescript": "^5.9.3"
     },
     "peerDependencies": {
         "@types/react": ">=18.3.18",

@@ -9,3 +9,7 @@ test.js
 test.mjs
 test.ts
 test
+bun.lockb
+bun.lock
+.yarnrc.yml
+.yarn

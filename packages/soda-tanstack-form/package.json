@@ -1,6 +1,6 @@
 {
     "name": "soda-tanstack-form",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "",
     "type": "module",
     "exports": {
@@ -43,7 +43,7 @@
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-tanstack-form",
     "dependencies": {},
     "devDependencies": {
-        "typescript": "^5.9.2"
+        "typescript": "^5.9.3"
     },
     "peerDependencies": {
         "@tanstack/react-form": "^1.1.2",

@@ -1,11 +1,11 @@
 // @ts-check
 
 import js from "@eslint/js"
-import { globalIgnores } from "eslint/config"
+import { defineConfig, globalIgnores } from "eslint/config"
 import globals from "globals"
 import tseslint from "typescript-eslint"
 
-export default tseslint.config([
+export default defineConfig([
     globalIgnores(["node_modules", "dist", "build", "public"]),
     {
         files: ["**/*.{js,mjs,ts}"],
@@ -19,12 +19,12 @@ export default tseslint.config([
             "no-empty": "off",
             "no-extra-boolean-cast": "off",
             "no-unused-vars": "off",
-            "react-refresh/only-export-components": "warn",
             "@typescript-eslint/no-unused-vars": [
                 "warn",
                 {
-                    ignoreRestSiblings: true,
                     args: "none",
+                    caughtErrors: "none",
+                    ignoreRestSiblings: true,
                 },
             ],
             "prefer-const": [

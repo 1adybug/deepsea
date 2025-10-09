@@ -1,5 +1,13 @@
 # soda-react-router
 
+## 1.2.1
+
+### Patch Changes
+
+- 升级依赖
+- Updated dependencies
+    - soda-hooks@6.15.1
+
 ## 1.2.0
 
 ### Minor Changes
