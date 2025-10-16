@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.17.4
+
+### Patch Changes
+
+- 优化使用
+
 ## 5.17.3
 
 ### Patch Changes

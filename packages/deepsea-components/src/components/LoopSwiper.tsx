@@ -1,19 +1,35 @@
 "use client"
 
+import { CSSProperties, ComponentProps, FC, useEffect, useImperativeHandle, useRef, useState } from "react"
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
-import { CSSProperties, HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
 
-export interface LoopSwiperProps extends HTMLAttributes<HTMLDivElement> {
+export interface LoopSwiperClassNames {
+    root?: string
+    container?: string
+    mirror?: string
+}
+
+export interface LoopSwiperProps extends ComponentProps<"div"> {
+    classNames?: LoopSwiperClassNames
     direction?: "horizontal" | "vertical"
     reverse?: boolean
     period: number
-    gap?: CSSProperties["gap"]
+    gap?: number
 }
 
 /** 循环播放组件 */
-export const LoopSwiper = forwardRef<HTMLDivElement, LoopSwiperProps>((props, ref) => {
-    const { className, style, children, direction, period, reverse, gap, ...rest } = props
+export const LoopSwiper: FC<LoopSwiperProps> = ({
+    ref,
+    className,
+    classNames: { root: rootClassName, container: containerClassName, mirror: mirrorClassName } = {},
+    children,
+    direction,
+    period,
+    reverse,
+    gap = 0,
+    ...rest
+}) => {
     const wrapper = useRef<HTMLDivElement>(null)
     const container = useRef<HTMLDivElement>(null)
     const [swiper, setSwiper] = useState(false)
@@ -63,6 +79,11 @@ export const LoopSwiper = forwardRef<HTMLDivElement, LoopSwiperProps>((props, re
             ref={wrapper}
             className={clsx(
                 css`
+                    display: flex;
+                    flex-direction: ${flexDirection};
+                    gap: ${gap}px;
+                    ${direction === "vertical" ? "overflow-y: hidden;" : "overflow-x: hidden;"}
+
                     @keyframes deepsea-horizontal-loop-swipe {
                         from {
                             transform: translateX(0);
@@ -71,6 +92,7 @@ export const LoopSwiper = forwardRef<HTMLDivElement, LoopSwiperProps>((props, re
                             transform: translateX(-100%);
                         }
                     }
+
                     @keyframes deepsea-reverse-horizontal-loop-swipe {
                         from {
                             transform: translateX(0);
@@ -79,6 +101,7 @@ export const LoopSwiper = forwardRef<HTMLDivElement, LoopSwiperProps>((props, re
                             transform: translateX(100%);
                         }
                     }
+
                     @keyframes deepsea-vertical-loop-swipe {
                         from {
                             transform: translateY(0);
@@ -87,6 +110,7 @@ export const LoopSwiper = forwardRef<HTMLDivElement, LoopSwiperProps>((props, re
                             transform: translateY(-100%);
                         }
                     }
+
                     @keyframes deepsea-reverse-vertical-loop-swipe {
                         from {
                             transform: translateY(0);
@@ -97,29 +121,43 @@ export const LoopSwiper = forwardRef<HTMLDivElement, LoopSwiperProps>((props, re
                     }
                 `,
                 className,
+                rootClassName,
             )}
-            style={{ display: "flex", flexDirection, gap, ...style }}
             {...rest}
         >
             <div
                 ref={container}
-                style={{ display: "flex", flexDirection, gap, animationName, animationTimingFunction, animationDuration, animationIterationCount }}
+                className={clsx(
+                    css`
+                        display: flex;
+                        flex-direction: ${flexDirection};
+                        gap: ${gap}px;
+                        animation-name: ${animationName};
+                        animation-timing-function: ${animationTimingFunction};
+                        animation-duration: ${animationDuration};
+                        animation-iteration-count: ${animationIterationCount};
+                    `,
+                    containerClassName,
+                )}
             >
                 {children}
             </div>
             <div
-                style={{
-                    display: swiper ? "flex" : "none",
-                    flexDirection,
-                    gap,
-                    animationName,
-                    animationTimingFunction,
-                    animationDuration,
-                    animationIterationCount,
-                }}
+                className={clsx(
+                    css`
+                        display: ${swiper ? "flex" : "none"};
+                        flex-direction: ${flexDirection};
+                        gap: ${gap}px;
+                        animation-name: ${animationName};
+                        animation-timing-function: ${animationTimingFunction};
+                        animation-duration: ${animationDuration};
+                        animation-iteration-count: ${animationIterationCount};
+                    `,
+                    mirrorClassName,
+                )}
             >
                 {children}
             </div>
         </div>
     )
-})
+}
