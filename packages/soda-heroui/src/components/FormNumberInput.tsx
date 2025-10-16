@@ -1,7 +1,7 @@
 "use client"
 
-import { As, MergeWithAs, NumberInput, NumberInputProps } from "@heroui/react"
 import { ComponentPropsWithoutRef, ReactNode } from "react"
+import { As, MergeWithAs, NumberInput, NumberInputProps } from "@heroui/react"
 import { Field } from "soda-tanstack-form"
 
 import { getFieldProps } from "../utils/getFieldProps"

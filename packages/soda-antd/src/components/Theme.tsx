@@ -1,5 +1,5 @@
-import { ConfigProvider } from "antd"
 import { ComponentProps, FC, ReactNode } from "react"
+import { ConfigProvider } from "antd"
 
 export type ComponentsConfig = NonNullable<NonNullable<ComponentProps<typeof ConfigProvider>["theme"]>["components"]>
 

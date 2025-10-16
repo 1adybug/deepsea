@@ -1,5 +1,5 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { Dispatch, SetStateAction, useCallback, useRef } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
 export type SetNextSearchParamsOptions = {
     /** 是否替换页面 */

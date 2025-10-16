@@ -1,7 +1,9 @@
 #!/usr/bin/env node
+
 import { execSync } from "child_process"
-import { readFile, readdir } from "fs/promises"
+import { readdir, readFile } from "fs/promises"
 import path from "path"
+import * as process from "process"
 import { fileURLToPath } from "url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -13,6 +15,7 @@ const packagesDir = path.resolve(rootDir, "packages")
  */
 async function getPackages() {
     const packages = {}
+
     const dirs = await readdir(packagesDir)
 
     // 排除playground
@@ -20,8 +23,11 @@ async function getPackages() {
 
     for (const dir of filteredDirs) {
         const packageJsonPath = path.join(packagesDir, dir, "package.json")
+
         try {
-            const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"))
+            const packageJson = JSON.parse(
+                await readFile(packageJsonPath, "utf8"),
+            )
             packages[packageJson.name] = {
                 dir,
                 name: packageJson.name,
@@ -73,6 +79,7 @@ async function buildPackage(packageName, packages) {
     try {
         // 进入包目录执行构建
         const packageDir = path.join(packagesDir, pkg.dir)
+
         execSync("npm run build", {
             cwd: packageDir,
             stdio: "inherit",

@@ -66,7 +66,10 @@ export default createPlugin({
         return "third-party"
     },
     sortGroup(a, b) {
-        return Number(a.isSideEffect) - Number(b.isSideEffect) || compareGroupName(a.name, b.name)
+        return (
+            Number(a.isSideEffect) - Number(b.isSideEffect) ||
+            compareGroupName(a.name, b.name)
+        )
     },
     separator: "",
     sortSideEffect: true,

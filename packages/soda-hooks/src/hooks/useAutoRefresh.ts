@@ -1,5 +1,5 @@
-import { isAbortError } from "deepsea-tools"
 import { useEffect, useRef } from "react"
+import { isAbortError } from "deepsea-tools"
 
 export interface AutoRefreshParams {
     interval?: number

@@ -1,7 +1,7 @@
 "use client"
 
-import { setFrameInterval } from "deepsea-tools"
 import { ForwardedRef, HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
+import { setFrameInterval } from "deepsea-tools"
 
 export interface TransitionNumProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     /** 当前数字 */

@@ -1,8 +1,8 @@
 "use client"
 
+import { FC } from "react"
 import { isBrowser } from "deepsea-tools"
 import { useRouter } from "next/navigation"
-import { FC } from "react"
 
 export interface NavigateProps {
     /** 跳转的地址 */

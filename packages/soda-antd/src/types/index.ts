@@ -1,6 +1,6 @@
+import { ComponentProps, ReactNode } from "react"
 import { Modal } from "antd"
 import { ColumnsType } from "antd/es/table"
-import { ComponentProps, ReactNode } from "react"
 
 type _Column<T, K extends keyof T = keyof T> = Omit<ColumnsType<T>[0], "dataIndex" | "render"> &
     (

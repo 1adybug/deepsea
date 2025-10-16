@@ -1,6 +1,6 @@
+import { ComponentProps, ReactNode } from "react"
 import { Select } from "antd"
 import { EnumOption, ValueOf, getEnumOptions } from "deepsea-tools"
-import { ComponentProps, ReactNode } from "react"
 
 export interface EnumSelectProps<T extends Record<string | number, string | number>>
     extends Omit<ComponentProps<typeof Select<ValueOf<T>, EnumOption<T>>>, "children" | "options"> {

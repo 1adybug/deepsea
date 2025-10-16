@@ -1,4 +1,5 @@
 import { readFile } from "fs/promises"
+
 import { RsbuildPlugins } from "@rsbuild/core"
 import { pluginReact } from "@rsbuild/plugin-react"
 import { defineConfig } from "@rslib/core"
@@ -6,7 +7,10 @@ import { defineConfig } from "@rslib/core"
 export async function getRslibConfig() {
     const text = await readFile("./package.json", "utf-8")
     const packageJson = JSON.parse(text)
-    const isReact = (packageJson.dependencies?.react ?? packageJson.devDependencies?.react ?? packageJson.peerDependencies?.react) !== undefined
+    const isReact =
+        (packageJson.dependencies?.react ??
+            packageJson.devDependencies?.react ??
+            packageJson.peerDependencies?.react) !== undefined
 
     const plugins: RsbuildPlugins = []
 

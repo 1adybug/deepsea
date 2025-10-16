@@ -1,4 +1,4 @@
-import { RsbuildConfig, defineConfig } from "@rsbuild/core"
+import { defineConfig, RsbuildConfig } from "@rsbuild/core"
 import { pluginReact } from "@rsbuild/plugin-react"
 import { pluginSvgr } from "@rsbuild/plugin-svgr"
 import { checkPort } from "get-port-please"
