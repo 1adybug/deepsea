@@ -15,6 +15,7 @@ export interface LoopSwiperProps extends ComponentProps<"div"> {
     direction?: "horizontal" | "vertical"
     reverse?: boolean
     period: number
+    pauseOnHover?: boolean
     gap?: number
 }
 
@@ -27,6 +28,7 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
     direction,
     period,
     reverse,
+    pauseOnHover = true,
     gap = 0,
     ...rest
 }) => {
@@ -58,6 +60,7 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
         let wrapperHeight = 0
         let containerWidth = 0
         let containerHeight = 0
+
         const observer = new ResizeObserver(entries => {
             entries.forEach(entry => {
                 if (entry.target === wrapperEle) {
@@ -68,8 +71,10 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                     containerHeight = entry.contentRect.height
                 }
             })
+
             setSwiper(directionRef.current === "vertical" ? containerHeight > wrapperHeight : containerWidth > wrapperWidth)
         })
+
         observer.observe(wrapperEle)
         observer.observe(containerEle)
     }, [])
@@ -89,7 +94,7 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                             transform: translateX(0);
                         }
                         to {
-                            transform: translateX(-100%);
+                            transform: translateX(calc(-100% - ${gap}px));
                         }
                     }
 
@@ -98,7 +103,7 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                             transform: translateX(0);
                         }
                         to {
-                            transform: translateX(100%);
+                            transform: translateX(calc(100% + ${gap}px));
                         }
                     }
 
@@ -107,7 +112,7 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                             transform: translateY(0);
                         }
                         to {
-                            transform: translateY(-100%);
+                            transform: translateY(calc(-100% - ${gap}px));
                         }
                     }
 
@@ -116,9 +121,15 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                             transform: translateY(0);
                         }
                         to {
-                            transform: translateY(100%);
+                            transform: translateY(calc(100% + ${gap}px));
                         }
                     }
+
+                    ${pauseOnHover
+                        ? `&:hover > * {
+                        animation-play-state: paused;
+                    }`
+                        : ""}
                 `,
                 className,
                 rootClassName,

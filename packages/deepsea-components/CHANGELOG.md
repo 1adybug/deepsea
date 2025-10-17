@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.17.5
+
+### Patch Changes
+
+- 修复周期结束瞬移的问题
+
 ## 5.17.4
 
 ### Patch Changes
