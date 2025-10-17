@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.17.6
+
+### Patch Changes
+
+- 优化组件使用
+
 ## 5.17.5
 
 ### Patch Changes
