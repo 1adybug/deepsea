@@ -84,11 +84,6 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
             ref={wrapper}
             className={clsx(
                 css`
-                    display: flex;
-                    flex-direction: ${flexDirection};
-                    gap: ${gap}px;
-                    ${direction === "vertical" ? "overflow-y: hidden;" : "overflow-x: hidden;"}
-
                     @keyframes deepsea-horizontal-loop-swipe {
                         from {
                             transform: translateX(0);
@@ -124,6 +119,12 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                             transform: translateY(calc(100% + ${gap}px));
                         }
                     }
+                `,
+                css`
+                    display: flex;
+                    flex-direction: ${flexDirection};
+                    gap: ${gap}px;
+                    ${direction === "vertical" ? "overflow-y: hidden;" : "overflow-x: hidden;"}
 
                     ${pauseOnHover
                         ? `&:hover > * {
@@ -141,6 +142,7 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                 className={clsx(
                     css`
                         display: flex;
+                        flex: none;
                         flex-direction: ${flexDirection};
                         gap: ${gap}px;
                         animation-name: ${animationName};
@@ -157,6 +159,7 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                 className={clsx(
                     css`
                         display: ${swiper ? "flex" : "none"};
+                        flex: none;
                         flex-direction: ${flexDirection};
                         gap: ${gap}px;
                         animation-name: ${animationName};

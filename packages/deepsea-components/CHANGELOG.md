@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.17.7
+
+### Patch Changes
+
+- 修复容器被压缩的问题
+
 ## 5.17.6
 
 ### Patch Changes
