@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.11.20
+
+### Patch Changes
+
+- 优化 CreateEnumSelect 组件
+
 ## 0.11.19
 
 ### Patch Changes
