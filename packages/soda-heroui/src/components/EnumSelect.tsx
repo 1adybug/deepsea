@@ -8,25 +8,27 @@ import { useInputState } from "soda-hooks"
 import { EmptyValue, FormContext, GetEmptyValue, getEmptyValue } from "./FormProvider"
 import { SelectionMode } from "./FormSelect"
 
+/** enumObject 的类型 */
+export type SelectOptions = Record<string, string | number> | ([ReactNode, string | number] | readonly [ReactNode, string | number])[]
+
 /** 获取枚举值的类型 */
-export type EnumValue<Options extends Record<string, string | number> | ([ReactNode, string | number] | readonly [ReactNode, string | number])[]> =
-    Options extends any[] ? Options[number][1] : ValueOf<Options>
+export type EnumValue<Options extends SelectOptions> = Options extends any[] ? Options[number][1] : ValueOf<Options>
 
 /** 获取选择器的值的类型 */
 export type SelectValue<
-    Options extends Record<string, string | number> | ([ReactNode, string | number] | readonly [ReactNode, string | number])[],
+    Options extends SelectOptions,
     Mode extends SelectionMode = "single",
     DisallowEmptySelection extends boolean = false,
     Empty extends EmptyValue = "null",
 > = Mode extends "multiple" ? EnumValue<Options>[] : EnumValue<Options> | (DisallowEmptySelection extends true ? never : GetEmptyValue<Empty>)
 
-export interface EnumOption<Options extends Record<string, string | number> | ([ReactNode, string | number] | readonly [ReactNode, string | number])[]> {
+export interface EnumOption<Options extends SelectOptions> {
     label: ReactNode
     value: EnumValue<Options>
 }
 
 export interface EnumSelectPropsBase<
-    Options extends Record<string, string | number> | ([ReactNode, string | number] | readonly [ReactNode, string | number])[],
+    Options extends SelectOptions,
     Mode extends SelectionMode = "single",
     DisallowEmptySelection extends boolean = false,
     Empty extends EmptyValue = "null",
@@ -44,7 +46,7 @@ export interface EnumSelectPropsBase<
 }
 
 export interface EnumSelectProps<
-    Options extends Record<string, string | number> | ([ReactNode, string | number] | readonly [ReactNode, string | number])[],
+    Options extends SelectOptions,
     Mode extends SelectionMode = "single",
     DisallowEmptySelection extends boolean = false,
     Empty extends EmptyValue = "null",
@@ -58,7 +60,7 @@ function render<Options extends Record<string, string | number> | ([ReactNode, s
 }
 
 export function EnumSelect<
-    Options extends Record<string, string | number> | ([ReactNode, string | number] | readonly [ReactNode, string | number])[],
+    Options extends SelectOptions,
     Mode extends SelectionMode = "single",
     DisallowEmptySelection extends boolean = false,
     Empty extends EmptyValue = "null",
@@ -105,9 +107,7 @@ export function EnumSelect<
     )
 }
 
-export function createEnumSelect<Options extends Record<string, string | number> | ([ReactNode, string | number] | readonly [ReactNode, string | number])[]>(
-    enumObject?: Options,
-): EnumSelectComponent<EnumValue<Options>> {
+export function createEnumSelect<Options extends SelectOptions>(enumObject?: Options): EnumSelectComponent<EnumValue<Options>> {
     return function EnumSelect2<Mode extends SelectionMode = "single", DisallowEmptySelection extends boolean = false, Empty extends EmptyValue = "null">(
         props: Omit<EnumSelectProps<Options, Mode, DisallowEmptySelection, Empty>, "enumObject">,
     ): ReactNode {
