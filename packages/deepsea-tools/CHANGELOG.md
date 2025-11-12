@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.43.0
+
+### Minor Changes
+
+- 新增 getEnumParser 方法
+
 ## 5.42.4
 
 ### Patch Changes
