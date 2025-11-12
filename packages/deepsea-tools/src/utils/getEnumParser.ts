@@ -5,9 +5,11 @@ import { isNullable } from "./isNullable"
 
 const __PARSER_MAP__: Map<unknown, Map<unknown, unknown>> = new Map()
 
+export function getEnumParser<T extends Record<string | number, string | number>>(obj: T): (input?: unknown) => ValueOf<T> | undefined
+export function getEnumParser<T extends Record<string | number, string | number>, K>(obj: T, defaultValue: K): (input?: unknown) => ValueOf<T> | K
 export function getEnumParser<T extends Record<string | number, string | number>, K = undefined>(
     obj: T,
-    defaultValue: K = undefined as K,
+    defaultValue?: K,
 ): (input?: unknown) => ValueOf<T> | K {
     let innerMap = __PARSER_MAP__.get(obj)
 
@@ -20,7 +22,7 @@ export function getEnumParser<T extends Record<string | number, string | number>
 
     if (!parser) {
         parser = function enumParser(input?: unknown): ValueOf<T> | K {
-            if (isNullable(input)) return defaultValue
+            if (isNullable(input)) return defaultValue as K
 
             const values = getEnumValues(obj)
             if (values.includes(input as ValueOf<T>)) return input as ValueOf<T>
@@ -31,7 +33,7 @@ export function getEnumParser<T extends Record<string | number, string | number>
             const str = String(input)
             if (values.includes(str as ValueOf<T>)) return str as ValueOf<T>
 
-            return defaultValue
+            return defaultValue as K
         }
 
         innerMap.set(defaultValue, parser)

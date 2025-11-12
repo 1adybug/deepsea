@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.43.1
+
+### Patch Changes
+
+- 优化类型
+
 ## 5.43.0
 
 ### Minor Changes
