@@ -1,6 +1,6 @@
 {
     "name": "deepsea-components",
-    "version": "5.17.9",
+    "version": "5.17.10",
     "description": "格数科技自用组件库",
     "type": "module",
     "exports": {
@@ -56,9 +56,9 @@
     },
     "peerDependencies": {
         "@types/node": ">=20",
-        "@types/react": ">=18.3.18",
-        "@types/react-dom": ">=18.3.5",
-        "react": ">=18.3.1",
-        "react-dom": ">=18.3.1"
+        "@types/react": ">=19.2.4",
+        "@types/react-dom": ">=19.2.3",
+        "react": ">=19.2.0",
+        "react-dom": ">=19.2.0"
     }
 }

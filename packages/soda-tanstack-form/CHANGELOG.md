@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.3.2
+
+### Patch Changes
+
+- 新增 useEventListener，升级 react 最低版本至 19.2.0
+
 ## 0.3.1
 
 ### Patch Changes

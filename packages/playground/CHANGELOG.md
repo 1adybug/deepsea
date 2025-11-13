@@ -1,5 +1,15 @@
 # deepsea-components-demo
 
+## 0.4.11
+
+### Patch Changes
+
+- 新增 useEventListener，升级 react 最低版本至 19.2.0
+- Updated dependencies
+    - soda-hooks@6.16.0
+    - deepsea-components@5.17.10
+    - soda-react-router@1.2.5
+
 ## 0.4.10
 
 ### Patch Changes

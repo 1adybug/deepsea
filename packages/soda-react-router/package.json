@@ -1,6 +1,6 @@
 {
     "name": "soda-react-router",
-    "version": "1.2.4",
+    "version": "1.2.5",
     "description": "",
     "type": "module",
     "exports": {
@@ -48,7 +48,7 @@
         "typescript": "^5.9.3"
     },
     "peerDependencies": {
-        "@types/react": ">=18.3.18",
+        "@types/react": ">=19.2.4",
         "react-router": "^7.2.0"
     }
 }

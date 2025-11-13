@@ -1,5 +1,11 @@
 # soda-react
 
+## 0.1.5
+
+### Patch Changes
+
+- 新增 useEventListener，升级 react 最低版本至 19.2.0
+
 ## 0.1.4
 
 ### Patch Changes

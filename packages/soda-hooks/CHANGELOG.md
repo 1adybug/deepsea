@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.16.0
+
+### Minor Changes
+
+- 新增 useEventListener，升级 react 最低版本至 19.2.0
+
 ## 6.15.4
 
 ### Patch Changes

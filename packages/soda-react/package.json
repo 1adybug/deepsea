@@ -1,6 +1,6 @@
 {
     "name": "soda-react",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "",
     "type": "module",
     "exports": {
@@ -51,9 +51,9 @@
         "prettier-plugin-organize-imports": "^4.3.0"
     },
     "peerDependencies": {
-        "@types/react": ">=18.3.18",
-        "@types/react-dom": ">=18.3.7",
-        "react": ">=18.3.1",
-        "react-dom": ">=18.3.1"
+        "@types/react": ">=19.2.4",
+        "@types/react-dom": ">=19.2.3",
+        "react": ">=19.2.0",
+        "react-dom": ">=19.2.0"
     }
 }
