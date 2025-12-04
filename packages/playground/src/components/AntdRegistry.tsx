@@ -1,7 +1,8 @@
+import { FC, ReactNode } from "react"
+
 import { StyleProvider } from "@ant-design/cssinjs"
 import { ConfigProvider } from "antd"
 import zhCN from "antd/locale/zh_CN"
-import { FC, ReactNode } from "react"
 
 export type AntdRegistryProps = {
     children?: ReactNode

@@ -20,10 +20,12 @@ export function assign(a: object, ...sources: object[]): any
 export function assign(a: object, ...sources: object[]): any {
     for (const b of sources) {
         const keys = getEnumerable(b)
+
         for (const key of keys) {
             const value = b[key]
             if (value !== undefined) a[key] = value
         }
     }
+
     return a
 }

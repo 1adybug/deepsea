@@ -16,9 +16,7 @@ async function main() {
         if (!stat2.isDirectory()) continue
         const dir3 = await readdir(join(dir, item))
         if (!dir3.includes("package.json")) continue
-        const packageJson = JSON.parse(
-            await readFile(join(dir, item, "package.json"), "utf-8"),
-        )
+        const packageJson = JSON.parse(await readFile(join(dir, item, "package.json"), "utf-8"))
         if (packageJson.private) continue
         packages2.push(packageJson.name)
     }

@@ -1,13 +1,16 @@
 "use client"
 
 import { Key, ReactNode } from "react"
+
 import { Autocomplete, AutocompleteProps } from "@heroui/react"
 import { FieldComponentProps } from "soda-tanstack-form"
 
 import { getFieldProps } from "../utils/getFieldProps"
 
-export interface FormAutocompleteProps<FieldValue extends string | null | undefined = string | null | undefined, RenderItem extends object = object>
-    extends FieldComponentProps<typeof Autocomplete<RenderItem>, FieldValue> {
+export interface FormAutocompleteProps<
+    FieldValue extends string | null | undefined = string | null | undefined,
+    RenderItem extends object = object,
+> extends FieldComponentProps<typeof Autocomplete<RenderItem>, FieldValue> {
     component?: <T extends object>(props: AutocompleteProps<T>) => ReactNode
 }
 

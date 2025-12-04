@@ -11,5 +11,6 @@ export function createUseIsActive(useLocation: UseLocation) {
         const location = useLocation()
         return isActiveHref(href, "href" in location ? location.href : location)
     }
+
     return useIsActive
 }

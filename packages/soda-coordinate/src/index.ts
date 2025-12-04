@@ -15,11 +15,13 @@ export class Coord implements CoordBase {
     type: CoordType
     longitude: number
     latitude: number
+
     constructor({ type, longitude, latitude }: CoordBase) {
         this.type = type
         this.longitude = longitude
         this.latitude = latitude
     }
+
     getWGS84(): Coord {
         switch (this.type) {
             case "GCJ02":
@@ -32,6 +34,7 @@ export class Coord implements CoordBase {
                 return this
         }
     }
+
     getGCJ02(): Coord {
         switch (this.type) {
             case "WGS84":
@@ -44,6 +47,7 @@ export class Coord implements CoordBase {
                 return this
         }
     }
+
     getBD09(): Coord {
         switch (this.type) {
             case "WGS84":
@@ -257,6 +261,7 @@ export function getDistance(coord1: [number, number], coord2: [number, number]):
     function toRadians(d: number) {
         return (d * Math.PI) / 180
     }
+
     const [lng1, lat1] = coord1
     if (Math.abs(lng1) > 180) throw new Error(`${lng1} 不是一个有效的经度值`)
     if (Math.abs(lat1) > 90) throw new Error(`${lat1} 不是一个有效的纬度值`)
@@ -290,16 +295,14 @@ export function canCoordsBePolygon(coords: [number, number][]): boolean {
     const { length } = coords
     if (length < 3) return false
     const lines = coords.map((coord, index) => [coord, coords[(index + 1) % length]])
+
     for (let i = 0; i < length; i++) {
         for (let j = i + 2; j < length; j++) {
-            if (i === 0 && j === length - 1) {
-                continue
-            }
-            if (ifTwoSegmentsIntersect(lines[i], lines[j])) {
-                return false
-            }
+            if (i === 0 && j === length - 1) continue
+            if (ifTwoSegmentsIntersect(lines[i], lines[j])) return false
         }
     }
+
     return true
 }
 
@@ -314,7 +317,9 @@ export function canCoordsBePolygon(coords: [number, number][]): boolean {
 export function getCoordsWithCertainDistance(coord: [number, number], coord2: [number, number], d: number, d2: number): [number, number][] {
     const [longitude, latitude] = coord
     const [longitude2, latitude2] = coord2
+
     const [m, n] = [latitude2 - latitude, longitude2 - longitude]
+
     const s = getDistance(coord, [longitude, latitude2]) / m
     const t = getDistance(coord, [longitude2, latitude]) / n
     const e = m * s

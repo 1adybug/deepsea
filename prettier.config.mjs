@@ -1,14 +1,17 @@
 // @ts-check
 
 /**
- * @type {import("prettier").Options}
+ * @type {import("@1adybug/prettier").Options}
  */
 const config = {
     semi: false,
     tabWidth: 4,
     arrowParens: "avoid",
     endOfLine: "lf",
-    plugins: ["./prettier-plugin-sort-imports.mjs"],
+    printWidth: 160,
+    plugins: ["@1adybug/prettier"],
+    controlStatementBraces: "add",
+    multiLineBraces: "add",
 }
 
 export default config

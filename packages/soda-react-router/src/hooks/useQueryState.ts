@@ -1,4 +1,5 @@
 import { SetStateAction } from "react"
+
 import { useSearchParams as _useSearchParams } from "react-router"
 import { QueryState, QueryStateOptions, QueryToStateFnMap, SetQueryState, useNativeQueryState } from "soda-hooks"
 
@@ -21,12 +22,14 @@ export function createUseQueryState(useSearchParams = _useSearchParams) {
     ): [QueryState<T, K, P>, SetQueryState<T, K, P>] {
         const { replace, scroll = false, ...rest } = options ?? {}
         const [searchParams, setSearchParams] = useSearchParams()
+
         function setSearch(action: SetStateAction<URLSearchParams>) {
             setSearchParams(action, {
                 replace,
                 preventScrollReset: !scroll,
             })
         }
+
         return useNativeQueryState({ ...rest, search: searchParams, setSearch })
     }
 }

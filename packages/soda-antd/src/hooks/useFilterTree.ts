@@ -1,6 +1,7 @@
 import { Key, useMemo } from "react"
+
 import { BasicDataNode, DataNode, EventDataNode } from "antd/es/tree"
-import { StrictOmit, isNonNullable, isNullable } from "deepsea-tools"
+import { isNonNullable, isNullable, StrictOmit } from "deepsea-tools"
 import { useInputState } from "soda-hooks"
 
 export interface BasicTreeDataNode<K extends Key = Key> extends BasicDataNode {
@@ -93,7 +94,9 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
         const rangeNodeMap = new Map<Key, T>()
         const parentMap = new Map<Key, Key | undefined>()
         const added = new Set<Key>()
+
         const rangeTree: T[] = []
+
         const trueNodes = new Set<Key>()
 
         function addNode(key: Key) {
@@ -101,6 +104,7 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
             added.add(key)
             const node = rangeNodeMap.get(key)!
             const parentKey = parentMap.get(key)
+
             if (parentKey) {
                 const parent = rangeNodeMap.get(parentKey)!
                 parent.children ??= []
@@ -108,6 +112,7 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
                 addNode(parentKey)
                 return
             }
+
             rangeTree.push(node)
         }
 
@@ -122,12 +127,14 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
             const { children, ...rest } = node
             nodeMap.set(node.key, node)
             rangeNodeMap.set(node.key, rest as T)
+
             if (filter!(node)) {
                 trueNodes.add(node.key)
                 addNode(node.key)
-            } else if (hasParentTrue(node.key)) {
-                addNode(node.key)
+            } else {
+                if (hasParentTrue(node.key)) addNode(node.key)
             }
+
             node.children?.forEach(item => {
                 parentMap.set(item.key, node.key)
                 runNode(item as T)
@@ -150,38 +157,43 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
 
         function runNode(node: BasicTreeDataNode, fromChild?: boolean) {
             if (fromChild || !node.children || node.children.length === 0) {
-                if ((!node.children || node.children.length === 0) && totalChecked.has(node.key)) {
-                    rangeChecked.add(node.key)
-                }
+                if ((!node.children || node.children.length === 0) && totalChecked.has(node.key)) rangeChecked.add(node.key)
+
                 if (!!node.children && node.children.length > 0) {
                     const halfCheckedCount = halfCheckedChildrenCount.get(node.key) ?? 0
-                    if (halfCheckedCount > 0) {
-                        rangeHalfChecked.add(node.key)
-                    } else {
+
+                    if (halfCheckedCount > 0) rangeHalfChecked.add(node.key)
+                    else {
                         const count = checkedChildrenCount.get(node.key) ?? 0
+
                         if (count > 0) {
                             if (count === node.children.length) rangeChecked.add(node.key)
                             else rangeHalfChecked.add(node.key)
                         }
                     }
                 }
+
                 const parentKey = parentMap.get(node.key)
+
                 if (isNonNullable(parentKey)) {
                     if (rangeChecked.has(node.key)) {
                         const count = checkedChildrenCount.get(parentKey) ?? 0
                         checkedChildrenCount.set(parentKey, count + 1)
                     }
+
                     if (rangeHalfChecked.has(node.key)) {
                         const count = halfCheckedChildrenCount.get(parentKey) ?? 0
                         halfCheckedChildrenCount.set(parentKey, count + 1)
                     }
                 }
+
                 if (isNullable(parentKey)) return
                 const parent = rangeNodeMap.get(parentKey)
                 if (!parent) return
                 if (node.key !== parent.children!.at(-1)!.key) return
                 return runNode(parent, true)
             }
+
             node.children.forEach(item => runNode(item))
         }
 
@@ -199,6 +211,7 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
             const node = nodeMap.get(key)!
             const rangeNode = rangeNodeMap.get(key)!
             if (node.children && node.children.length > 0) return rangeNode.children?.forEach(item => runRangeNode(item.key))
+
             if (info.checked) totalChecked.add(rangeNode.key)
             else totalChecked.delete(rangeNode.key)
         }
@@ -213,17 +226,21 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
                     if (node.children.length === checkedChildrenCount.get(node.key)) totalChecked.add(node.key)
                     else totalChecked.delete(node.key)
                 }
+
                 const parentKey = parentMap.get(node.key)
+
                 if (isNonNullable(parentKey) && totalChecked.has(node.key)) {
                     const count = checkedChildrenCount.get(parentKey) ?? 0
                     checkedChildrenCount.set(parentKey, count + 1)
                 }
+
                 if (isNullable(parentKey)) return
                 const parent = nodeMap.get(parentKey)
                 if (!parent) return
                 if (node.key !== parent.children!.at(-1)!.key) return
                 return runNode(parent, true)
             }
+
             node.children.forEach(item => runNode(item))
         }
 
@@ -238,11 +255,13 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
 
     function onSelect(selectedKeys: Key[], info: SelectInfo<T>) {
         const newSelectedKeys = [...totalSelectedKeys]
+
         if (info.selected) totalSelectedKeys.push(info.node.key)
         else {
             const index = newSelectedKeys.indexOf(info.node.key)
             if (index !== -1) newSelectedKeys.splice(index, 1)
         }
+
         _onSelect?.(newSelectedKeys as K[], info)
         setTotalSelectedKeys(newSelectedKeys as K[])
     }

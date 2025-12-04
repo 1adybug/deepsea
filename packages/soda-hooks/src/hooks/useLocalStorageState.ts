@@ -13,5 +13,6 @@ export function useLocalStorageState<Data>(
 ): [Data, Dispatch<SetStateAction<Data>>]
 export function useLocalStorageState<Data>(key: string, config?: Omit<StorageStateHookStringConfig | StorageStateHookDataConfig<Data>, "storage" | "key">) {
     const c = { key, storage: localStorage, ...config }
+
     return useStorageState(c as any)
 }

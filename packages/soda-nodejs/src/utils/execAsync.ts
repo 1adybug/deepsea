@@ -1,5 +1,6 @@
-import { ExecOptions, exec } from "child_process"
+import { exec, ExecOptions } from "child_process"
 import { ObjectEncodingOptions } from "fs"
+
 import iconv, { Options } from "iconv-lite"
 
 export type IconvDecodeOptions = {
@@ -21,15 +22,19 @@ export async function execAsync(
 ): Promise<string>
 export async function execAsync(command: string, options?: any) {
     const decode = options?.decode as IconvDecodeOptions | undefined
+
     if (typeof options === "object" && options !== null && options.decode) {
         const { decode, ...rest } = options as { decode: IconvDecodeOptions }
         options = rest
     }
+
     return await new Promise<string | Buffer>((resolve, reject) => {
         exec(command, options, (error, stdout, stderr) => {
             if (error) return reject(error)
+
             // if (stderr) console.warn(stderr)
             if (decode && stdout instanceof Buffer) return resolve(iconv.decode(stdout, decode.encoding, decode.options))
+
             resolve(stdout)
         })
     })

@@ -1,6 +1,7 @@
 "use client"
 
-import { TextareaHTMLAttributes, forwardRef, useImperativeHandle, useLayoutEffect, useRef, useState } from "react"
+import { forwardRef, TextareaHTMLAttributes, useImperativeHandle, useLayoutEffect, useRef, useState } from "react"
+
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
 
@@ -18,10 +19,12 @@ export const AutoSizeTextArea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttr
 
     useLayoutEffect(() => {
         const textarea = ele.current!
+
         function resizeTextarea() {
             setHeight("auto")
             setHeight(px(textarea.scrollHeight + textarea.offsetHeight - textarea.clientHeight))
         }
+
         resizeTextarea()
         textarea.addEventListener("input", resizeTextarea)
         textarea.addEventListener("change", resizeTextarea)

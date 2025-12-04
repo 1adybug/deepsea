@@ -6,6 +6,7 @@ import { useRef } from "react"
 export function useArraySignal<T>(data: T[], compareFn?: (a: T, b: T) => boolean) {
     const dataRef = useRef(data)
     const signal = useRef(Symbol("arraySignal"))
+
     if (
         data !== dataRef.current &&
         (dataRef.current.length !== data.length ||
@@ -14,5 +15,6 @@ export function useArraySignal<T>(data: T[], compareFn?: (a: T, b: T) => boolean
         signal.current = Symbol("arraySignal")
         dataRef.current = data
     }
+
     return signal.current
 }

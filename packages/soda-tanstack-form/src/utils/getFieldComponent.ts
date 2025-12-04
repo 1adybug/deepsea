@@ -1,4 +1,5 @@
-import { ComponentProps, FC, JSX, JSXElementConstructor, createElement } from "react"
+import { ComponentProps, createElement, FC, JSX, JSXElementConstructor } from "react"
+
 import { AnyFieldApi } from "@tanstack/react-form"
 
 export type UseFieldContext<TData> = () => AnyFieldApi
@@ -31,6 +32,7 @@ export function getFieldComponent<T extends keyof JSX.IntrinsicElements | JSXEle
         const field = useFieldContext()
         return createElement(Component, { ...props, field } as FieldComponentProps<T, Value>)
     }
+
     return FieldComponent
 }
 

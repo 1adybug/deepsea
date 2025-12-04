@@ -13,11 +13,16 @@ export function useInputState<T>(input: T | (() => T), deps?: any[]): [T, Dispat
     deps ??= [typeof input === "function" ? ((runned = true), (newState = (input as Function)())) : input]
     const prevDeps = useRef(deps)
     const [state, setState] = useState(input)
+
     if (!compareArray(prevDeps.current, deps)) {
         if (typeof input !== "function") newState = input
-        else if (!runned) newState = (input as Function)()
+        else {
+            if (!runned) newState = (input as Function)()
+        }
+
         if (!Object.is(newState!, state)) setState(newState!)
         prevDeps.current = deps
     }
+
     return [state, setState]
 }

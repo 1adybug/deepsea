@@ -8,18 +8,22 @@ export function setFrameTimeout(callback: () => void, frames: number): () => voi
     if (!Number.isInteger(frames) || frames < 0) throw new RangeError("帧数只支持 0 或者正整数")
     let current = 0
     let signal = 0
+
     function clearFrameTimeout() {
         cancelAnimationFrame(signal)
     }
+
     function run() {
         signal = requestAnimationFrame(() => {
             run()
+
             if (current++ >= frames) {
                 callback()
                 return
             }
         })
     }
+
     run()
     return clearFrameTimeout
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+
 import { TransitionNum, TransitionNumConfig } from "deepsea-tools"
 
 /**
@@ -9,20 +10,18 @@ export function useTransitionNum(config: TransitionNumConfig | number) {
     const { target, speed } = config
     const [num, setNum] = useState(target)
     const t = useRef<TransitionNum | undefined>(undefined)
+
     if (!t.current) {
         t.current = new TransitionNum(config)
+
         t.current.subscribe(function (this) {
-            if (this.target > this.current) {
-                setNum(Math.floor(this.current))
-            } else {
-                setNum(Math.ceil(this.current))
-            }
+            if (this.target > this.current) setNum(Math.floor(this.current))
+            else setNum(Math.ceil(this.current))
         })
     }
+
     t.current.target = target
     t.current.speed = speed
-    useEffect(() => {
-        return () => t.current?.destroy()
-    }, [])
+    useEffect(() => () => t.current?.destroy(), [])
     return num
 }

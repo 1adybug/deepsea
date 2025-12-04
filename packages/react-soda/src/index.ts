@@ -112,11 +112,10 @@ export function createStore<T>(init: T | (() => T), getServerSnapshot?: () => T)
         const prevState = nowState
         const nextState = typeof newState === "function" ? (newState as (prev: T) => Partial<T>)(prevState) : newState
         if (Object.is(prevState, nextState)) return
-        if (isPlainObject(prevState) && isPlainObject(nextState) && !replace) {
-            nowState = Object.assign({}, prevState, nextState)
-        } else {
-            nowState = nextState as T
-        }
+
+        if (isPlainObject(prevState) && isPlainObject(nextState) && !replace) nowState = Object.assign({}, prevState, nextState)
+        else nowState = nextState as T
+
         listeners.forEach(listener => listener(nowState, prevState))
     }
 
@@ -133,6 +132,7 @@ export function createStore<T>(init: T | (() => T), getServerSnapshot?: () => T)
         function getState() {
             return _getState(selector)
         }
+
         const state = useSyncExternalStore(
             subscribe,
             getState,
@@ -248,32 +248,41 @@ export function createPersistentStore<T>(
     const { name, stringify = JSON.stringify, parse = JSON.parse } = options
     const storage: StateStorage = typeof options.storage === "function" ? options.storage() : options.storage || globalThis.localStorage
     const storageKey = `react-soda-${name}`
+
     function getStorage() {
         return storage
     }
+
     function getName() {
         return name
     }
+
     function getStorageKey() {
         return storageKey
     }
+
     function getStringify() {
         return stringify
     }
+
     function getParse() {
         return parse
     }
+
     function removeStorage() {
         storage.removeItem(storageKey)
     }
+
     const strOrPromise = storage.getItem(storageKey)
     let changed = false
+
     if (strOrPromise instanceof Promise) {
         strOrPromise
             .then(str => {
                 if (changed || str === null) return
                 let data: T
                 let success = false
+
                 try {
                     data = parse(str)
                     success = true
@@ -281,36 +290,40 @@ export function createPersistentStore<T>(
                     storage.removeItem(storageKey)
                     console.error(error)
                 }
-                if (success) {
-                    useStore.setState(data!)
-                }
+
+                if (success) useStore.setState(data!)
             })
             .catch(error => {
                 console.error(error)
             })
-    } else if (strOrPromise !== null) {
-        let data: T
-        let success = false
-        try {
-            data = parse(strOrPromise)
-            success = true
-        } catch (error) {
-            storage.removeItem(storageKey)
-            console.error(error)
-        }
-        if (success) {
-            const useStore = createStore(data! as T, getServerSnapshot) as UsePersistentStore<T>
-            useStore.getStorage = getStorage
-            useStore.getName = getName
-            useStore.getStorageKey = getStorageKey
-            useStore.getStringify = getStringify
-            useStore.getParse = getParse
-            useStore.removeStorage = removeStorage
-            storage.setItem(storageKey, stringify(useStore.getState()))
-            useStore.subscribe(state => storage.setItem(storageKey, stringify(state)))
-            return useStore
+    } else {
+        if (strOrPromise !== null) {
+            let data: T
+            let success = false
+
+            try {
+                data = parse(strOrPromise)
+                success = true
+            } catch (error) {
+                storage.removeItem(storageKey)
+                console.error(error)
+            }
+
+            if (success) {
+                const useStore = createStore(data! as T, getServerSnapshot) as UsePersistentStore<T>
+                useStore.getStorage = getStorage
+                useStore.getName = getName
+                useStore.getStorageKey = getStorageKey
+                useStore.getStringify = getStringify
+                useStore.getParse = getParse
+                useStore.removeStorage = removeStorage
+                storage.setItem(storageKey, stringify(useStore.getState()))
+                useStore.subscribe(state => storage.setItem(storageKey, stringify(state)))
+                return useStore
+            }
         }
     }
+
     const useStore = createStore(init, getServerSnapshot) as UsePersistentStore<T>
     useStore.getStorage = getStorage
     useStore.getName = getName
@@ -319,10 +332,12 @@ export function createPersistentStore<T>(
     useStore.getParse = getParse
     useStore.removeStorage = removeStorage
     storage.setItem(storageKey, stringify(useStore.getState()))
+
     const unsubscribe = useStore.subscribe(() => {
         changed = true
         unsubscribe()
     })
+
     useStore.subscribe(state => storage.setItem(storageKey, stringify(state)))
     return useStore
 }

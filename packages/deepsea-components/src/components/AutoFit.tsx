@@ -1,6 +1,7 @@
 "use client"
 
-import { HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from "react"
+import { forwardRef, HTMLAttributes, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from "react"
+
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
 
@@ -39,33 +40,40 @@ export const AutoFit = forwardRef<HTMLDivElement, AutoFitProps>((props, ref) => 
     const [height, setHeight] = useState<string | undefined>(undefined)
 
     useImperativeHandle(ref, () => ele.current!, [ele.current])
+
     useLayoutEffect(() => {
         const element = ele.current
         const parent = element?.parentElement
         if (!element || !parent) return
+
         function listener(entries: ResizeObserverEntry[]) {
             const entry = entries[0]
             const { contentRect } = entry
+
             if (direction === "horizontal") {
                 const scale = contentRect.width / designWidth
                 setTransform(`scale(${scale})`)
                 setWidth(px(designWidth))
                 setHeight(px(contentRect.height / scale))
-            } else if (direction === "vertical") {
-                const scale = contentRect.height / designHeight
-                setTransform(`scale(${scale})`)
-                setWidth(px(contentRect.width / scale))
-                setHeight(px(designHeight))
             } else {
-                const scale = Math.min(contentRect.width / designWidth, contentRect.height / designHeight)
-                setTransform(
-                    `translateX(${(contentRect.width - designWidth * scale) / 2}px) translateY(${(contentRect.height - designHeight * scale) / 2}px) scale(${scale})`,
-                )
-                setWidth(px(designWidth))
-                setHeight(px(designHeight))
+                if (direction === "vertical") {
+                    const scale = contentRect.height / designHeight
+                    setTransform(`scale(${scale})`)
+                    setWidth(px(contentRect.width / scale))
+                    setHeight(px(designHeight))
+                } else {
+                    const scale = Math.min(contentRect.width / designWidth, contentRect.height / designHeight)
+                    setTransform(
+                        `translateX(${(contentRect.width - designWidth * scale) / 2}px) translateY(${(contentRect.height - designHeight * scale) / 2}px) scale(${scale})`,
+                    )
+                    setWidth(px(designWidth))
+                    setHeight(px(designHeight))
+                }
             }
+
             setShow(true)
         }
+
         const observer = new ResizeObserver(listener)
         observer.observe(parent)
         return () => observer.disconnect()
@@ -76,9 +84,7 @@ export const AutoFit = forwardRef<HTMLDivElement, AutoFitProps>((props, ref) => 
             const parent = ele.current?.parentElement
             if (!parent) return
             const style = getComputedStyle(parent)
-            if (style.position === "static") {
-                console.warn("AutoFit 组件的父元素的 position 属性不应该是 static")
-            }
+            if (style.position === "static") console.warn("AutoFit 组件的父元素的 position 属性不应该是 static")
         }, [ele.current?.parentElement])
     }
 

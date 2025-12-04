@@ -20,18 +20,23 @@ export function getWhere<T extends Record<string, any>, K extends StringKey<T> =
     exact: E = true as E,
 ) {
     type P = E extends true ? K : Exclude<StringKey<T>, K>
+
     return Object.entries(params).reduce(
         (acc, [key, value]) => {
             if (value === undefined) return acc
+
             if (Array.isArray(value) && value.every(item => item === undefined || typeof item === "number" || item instanceof Date))
                 acc[key as ArrayKey<T>] = { gte: value.at(0), lte: value.at(1) } as any
-            else if (keys.includes(key as K) === exact || typeof value !== "string") acc[key as keyof typeof acc] = value as any
             else {
-                const contains = Array.from(new Set(value.split(" ").filter(Boolean))).map(item => ({ [key]: { contains: item } }))
-                if (contains.length === 0) return acc
-                acc.AND ??= []
-                acc.AND.push(...(contains as any))
+                if (keys.includes(key as K) === exact || typeof value !== "string") acc[key as keyof typeof acc] = value as any
+                else {
+                    const contains = Array.from(new Set(value.split(" ").filter(Boolean))).map(item => ({ [key]: { contains: item } }))
+                    if (contains.length === 0) return acc
+                    acc.AND ??= []
+                    acc.AND.push(...(contains as any))
+                }
             }
+
             return acc
         },
         {} as unknown as Where<T, P>,

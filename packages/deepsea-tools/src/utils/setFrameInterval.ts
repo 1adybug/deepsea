@@ -8,17 +8,18 @@ export function setFrameInterval(callback: () => void, frames: number): () => vo
     if (!Number.isInteger(frames) || frames <= 0) throw new RangeError("帧数只支持正整数")
     let current = 0
     let signal = 0
+
     function clearFrameInterval() {
         cancelAnimationFrame(signal)
     }
+
     function run() {
         signal = requestAnimationFrame(() => {
             run()
-            if (current++ % frames === 0) {
-                callback()
-            }
+            if (current++ % frames === 0) callback()
         })
     }
+
     run()
     return clearFrameInterval
 }

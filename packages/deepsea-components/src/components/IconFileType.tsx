@@ -125,10 +125,7 @@ export const IconFileTypeText: FC<IconFileTypeTextProps> = ({
 )
 
 export interface IconFileTypeProps
-    extends IconFileTypePagePropsBase,
-        Omit<IconFileTypeDogEarPropsBase, "pageWidth">,
-        IconFileTypeTextPropsBase,
-        ComponentProps<"svg"> {}
+    extends IconFileTypePagePropsBase, Omit<IconFileTypeDogEarPropsBase, "pageWidth">, IconFileTypeTextPropsBase, ComponentProps<"svg"> {}
 
 export const IconFileType: FC<IconFileTypeProps> = ({
     pageColor,

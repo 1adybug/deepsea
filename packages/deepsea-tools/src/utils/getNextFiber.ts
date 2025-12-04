@@ -9,9 +9,11 @@ export function getNextFiber<T>(fiber: Fiber<T>): Fiber<T> | null {
     if (fiber.child) return fiber.child
     if (fiber.sibling) return fiber.sibling
     let parent = fiber.parent
+
     while (parent) {
         if (parent.sibling) return parent.sibling
         parent = parent.parent
     }
+
     return null
 }

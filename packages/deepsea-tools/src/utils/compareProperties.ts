@@ -7,7 +7,5 @@ import equal from "fast-deep-equal"
  */
 export function compareProperties<T extends Object>(a: T, b: T, ...keyList: (keyof T)[]): boolean {
     if (keyList.length === 0) throw new Error(`keyList 为空`)
-    return keyList.every(key => {
-        return equal(a[key], b[key])
-    })
+    return keyList.every(key => equal(a[key], b[key]))
 }

@@ -1,4 +1,5 @@
 import Cookies from "js-cookie"
+
 import type { CookieAttributes } from "node_modules/@types/js-cookie"
 
 export type { CookieAttributes } from "node_modules/@types/js-cookie"
@@ -32,5 +33,6 @@ export function createCookieStorage(): CookieStorage {
             Cookies.remove(key)
         },
     }
+
     return cookieStorage
 }

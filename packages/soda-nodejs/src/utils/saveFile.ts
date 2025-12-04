@@ -14,6 +14,7 @@ export type SaveFileOptions = {
 export async function saveFile({ input, output }: SaveFileOptions) {
     await new Promise<void>((resolve, reject) => {
         const writeAble = createWriteStream(output)
+
         Readable.fromWeb(input.stream() as any)
             .pipe(writeAble)
             .on("finish", resolve)

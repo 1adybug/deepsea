@@ -6,8 +6,10 @@
  */
 export function getProperties<T, K extends keyof T>(obj: T, ...keyList: K[]): Pick<T, K> {
     const result: any = {}
+
     keyList.forEach(key => {
         result[key] = obj[key]
     })
+
     return result
 }

@@ -35,11 +35,9 @@ export function useStorageState<Data>(config: StorageStateHookStringConfig | Sto
 
     useMemo(() => {
         const value = serializer ? serializer(state as any) : state
-        if (value === null) {
-            storage.removeItem(key)
-        } else {
-            storage.setItem(key, value as string)
-        }
+
+        if (value === null) storage.removeItem(key)
+        else storage.setItem(key, value as string)
     }, [state])
 
     return [state, setState]

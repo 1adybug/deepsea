@@ -35,6 +35,7 @@ export function useSize<T extends Element>(element: ElementInput<T>, { type = "b
         target => {
             if (!cache) setSize(undefined)
             if (!target) return
+
             const observer = new ResizeObserver(entries => {
                 const entry = entries[0]
                 setSize(
@@ -47,6 +48,7 @@ export function useSize<T extends Element>(element: ElementInput<T>, { type = "b
                           : { width: entry.contentBoxSize[0].blockSize, height: entry.contentBoxSize[0].inlineSize },
                 )
             })
+
             observer.observe(target)
             return () => observer.disconnect()
         },

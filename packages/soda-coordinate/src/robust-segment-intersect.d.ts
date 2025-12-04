@@ -1,5 +1,6 @@
 declare module "robust-segment-intersect" {
     export type Point = [number, number]
+
     /**
      * 判断两线段是否相交
      * @param a0 线段1的起点

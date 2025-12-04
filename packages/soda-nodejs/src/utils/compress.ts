@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync } from "fs"
 import { basename, dirname, resolve } from "path"
+
 import { create } from "tar"
 
 export interface CompressionParams {
@@ -21,6 +22,7 @@ export async function compress({ input, output }: CompressionParams) {
 
     // 确保输出目录存在
     const outputDir = dirname(output)
+
     if (!existsSync(outputDir)) mkdirSync(outputDir, { recursive: true })
 
     // 执行压缩

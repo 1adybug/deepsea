@@ -22,17 +22,23 @@ function targetIsMutableRefObject(target: ThirdPartyImageErrorHandlerTarget): ta
 export function useThirdPartyImageErrorHandler(options: ThirdPartyImageErrorHandlerOptions) {
     const { target = window, content, backgroundColor, fontSize, color, lineHeight, fontFamily } = options
     const [before, after] = typeof content === "string" ? [content, undefined] : content
+
     useEffect(() => {
         function listener(e: Event) {
             const { target } = e
+
             // 判断是否是图片元素的错误
             if (!(target instanceof HTMLImageElement)) return
+
             const url = new URL(target.src)
+
             // 判断是否是第三方的图片
             if (url.origin === location.origin) return
+
             // 添加 data-third-party-image-error 属性
             target.dataset.thirdPartyImageError = ""
         }
+
         const instance = targetIsMutableRefObject(target) ? target.current : target
         instance.addEventListener("error", listener, true)
         return () => instance.removeEventListener("error", listener, true)
@@ -40,9 +46,11 @@ export function useThirdPartyImageErrorHandler(options: ThirdPartyImageErrorHand
 
     useLayoutEffect(() => {
         const style = document.createElement("style")
+
         function isNonNull<T>(value: T | null | undefined): value is T {
             return value !== null && value !== undefined
         }
+
         style.innerHTML = `[data-third-party-image-error] {
     position: relative;
 }

@@ -1,6 +1,7 @@
 "use client"
 
-import { ForwardedRef, HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
+import { ForwardedRef, forwardRef, HTMLAttributes, useEffect, useImperativeHandle, useRef } from "react"
+
 import { setFrameInterval } from "deepsea-tools"
 
 export interface TransitionNumProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
@@ -21,9 +22,7 @@ export interface TransitionNumIns {
 /** 渐变数字组件 */
 export const TransitionNum = forwardRef<HTMLDivElement, TransitionNumProps>((props, ref) => {
     const { children: num, period, numToStr, ins, ...rest } = props
-    if (!Number.isInteger(num) || !Number.isInteger(period) || period <= 0) {
-        throw new RangeError("目标数字必须是整数，周期必须是正整数")
-    }
+    if (!Number.isInteger(num) || !Number.isInteger(period) || period <= 0) throw new RangeError("目标数字必须是整数，周期必须是正整数")
     const ele = useRef<HTMLDivElement>(null)
     const cache = useRef({ num, period, numToStr, show: num })
     cache.current = { ...cache.current, num, period, numToStr }
@@ -37,13 +36,16 @@ export const TransitionNum = forwardRef<HTMLDivElement, TransitionNumProps>((pro
         if (num === show) return
         const div = ele.current!
         const speed = (num - show) / period
+
         const cancel = setFrameInterval(() => {
             const { num, numToStr } = cache.current
             cache.current.show += speed
+
             if ((speed > 0 && cache.current.show > num) || (speed < 0 && cache.current.show < num)) {
                 cancel()
                 cache.current.show = num
             }
+
             div.innerText = (numToStr || String)(speed > 0 ? Math.floor(cache.current.show) : Math.ceil(cache.current.show))
         }, 1)
 

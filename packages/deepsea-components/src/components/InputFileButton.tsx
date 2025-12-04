@@ -3,12 +3,12 @@
 import {
     ComponentProps,
     ComponentRef,
+    createElement,
     DragEvent,
     Fragment,
     JSX,
     JSXElementConstructor,
     MouseEvent as ReactMouseEvent,
-    createElement,
     useImperativeHandle,
     useRef,
     useState,
@@ -17,13 +17,13 @@ import {
 import {
     DataType,
     FileType,
+    getFileData,
     InputFile,
     InputFileBaseProps,
     InputFileDataType,
     InputFileDataTypeMap,
     InputFileExtraProps,
     ValueType,
-    getFileData,
 } from "./InputFile"
 
 export type InputFileButtonProps<
@@ -81,14 +81,18 @@ export function InputFileButton<
         const { files } = e.dataTransfer
         if (!files || files.length === 0) return
         setDisabled(true)
+
         try {
             if (multiple) {
                 const files2: File[] = Array.from(files)
+
                 const values: InputFileDataTypeMap[Type][] = []
+
                 for (const file of files2) {
                     const value = (await getFileData(file, type)) as InputFileDataTypeMap[Type]
                     values.push(value)
                 }
+
                 onFileChange?.(files2 as FileType<Multiple>)
                 onValueChange?.(values as ValueType<Multiple, Type>)
                 onDataChange?.(files2.map((file, index) => ({ file, value: values[index] })) as DataType<Multiple, Type>)

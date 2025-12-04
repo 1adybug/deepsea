@@ -9,15 +9,13 @@ export function canCoordsBePolygon(coords: number[][]) {
     const { length } = coords
     if (length < 3) return false
     const lines = coords.map((coord, index) => [coord, coords[(index + 1) % length]])
+
     for (let i = 0; i < length; i++) {
         for (let j = i + 2; j < length; j++) {
-            if (i === 0 && j === length - 1) {
-                continue
-            }
-            if (ifTwoSegmentsIntersect(lines[i], lines[j])) {
-                return false
-            }
+            if (i === 0 && j === length - 1) continue
+            if (ifTwoSegmentsIntersect(lines[i], lines[j])) return false
         }
     }
+
     return true
 }

@@ -17,30 +17,34 @@ export interface ScrollMemoOptions {
 
 export function useScrollMemo(options: ScrollMemoOptions) {
     const { target, storage = sessionStorage, key, ready = true, delay, behavior } = options
+
     useEffect(() => {
         if (!ready) return
         if (target === null) return
         const element = target instanceof HTMLElement ? target : target.current
         if (element === null) return
         let timeout: any = undefined
+
         try {
             const value = storage.getItem(key)
             if (value === null) throw new Error()
             const { left, top } = JSON.parse(value)
+
             if (typeof left === "number" && typeof top === "number") {
-                if (typeof delay !== "number" || Number.isNaN(delay) || delay <= 0) {
-                    element.scrollTo({ left, top, behavior })
-                } else {
+                if (typeof delay !== "number" || Number.isNaN(delay) || delay <= 0) element.scrollTo({ left, top, behavior })
+                else {
                     timeout = setTimeout(() => {
                         element.scrollTo({ left, top, behavior })
                     }, delay)
                 }
             }
         } catch (error) {}
+
         function listener(e: Event) {
             const { scrollLeft, scrollTop } = e.target as HTMLElement
             storage.setItem(key, JSON.stringify({ left: scrollLeft, top: scrollTop }))
         }
+
         element.addEventListener("scroll", listener)
         return () => {
             clearTimeout(timeout)

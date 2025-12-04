@@ -1,6 +1,7 @@
 "use client"
 
 import { ComponentProps, ReactNode, useState } from "react"
+
 import { Select } from "antd"
 import { satisfyKeyword } from "deepsea-tools"
 import { useInputState } from "soda-hooks"
@@ -26,8 +27,10 @@ interface FilterItem<Data, Value> extends NiceSearchOption<Value> {
     data: Data
 }
 
-export interface NiceSearchProps<Data, Field extends FieldType<Data> = FieldType<Data>, Value = ValueType<Data, Field>>
-    extends Omit<ComponentProps<typeof Select<Value, NiceSearchOption<Value>>>, "value" | "onChange" | "options" | "mode" | "searchValue" | "onSearch"> {
+export interface NiceSearchProps<Data, Field extends FieldType<Data> = FieldType<Data>, Value = ValueType<Data, Field>> extends Omit<
+    ComponentProps<typeof Select<Value, NiceSearchOption<Value>>>,
+    "value" | "onChange" | "options" | "mode" | "searchValue" | "onSearch"
+> {
     data?: Data[]
     mode?: "multiple" | "tags"
     labelField: Key<Data> | ((item: Data) => string)

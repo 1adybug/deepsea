@@ -25,9 +25,7 @@ async function getPackages() {
         const packageJsonPath = path.join(packagesDir, dir, "package.json")
 
         try {
-            const packageJson = JSON.parse(
-                await readFile(packageJsonPath, "utf8"),
-            )
+            const packageJson = JSON.parse(await readFile(packageJsonPath, "utf8"))
             packages[packageJson.name] = {
                 dir,
                 name: packageJson.name,
@@ -44,9 +42,7 @@ async function getPackages() {
 
             // 只关注内部依赖(workspace:*)
             Object.entries(deps).forEach(([name, version]) => {
-                if (version.includes("workspace:")) {
-                    packages[packageJson.name].dependencies.push(name)
-                }
+                if (version.includes("workspace:")) packages[packageJson.name].dependencies.push(name)
             })
         } catch (error) {
             console.error(`读取 ${dir} 的 package.json 失败:`, error.message)
@@ -62,16 +58,12 @@ async function getPackages() {
 async function buildPackage(packageName, packages) {
     const pkg = packages[packageName]
 
-    if (pkg.isBuilt) {
-        return
-    }
+    if (pkg.isBuilt) return
 
     // 首先构建所有依赖
     for (const dep of pkg.dependencies) {
         // 如果依赖是内部包，则先构建它
-        if (packages[dep]) {
-            await buildPackage(dep, packages)
-        }
+        if (packages[dep]) await buildPackage(dep, packages)
     }
 
     console.log(`🔨 正在构建 ${pkg.name}...`)
@@ -109,9 +101,7 @@ async function build() {
         }
 
         // 构建所有包
-        for (const packageName of Object.keys(packages)) {
-            await buildPackage(packageName, packages)
-        }
+        for (const packageName of Object.keys(packages)) await buildPackage(packageName, packages)
 
         console.log("🎉 所有包构建完成!")
     } catch (error) {

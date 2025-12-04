@@ -1,6 +1,7 @@
 "use client"
 
 import { ComponentProps, FC, ReactNode, Ref, useEffect, useImperativeHandle, useLayoutEffect, useRef } from "react"
+
 import {
     AngleAxisComponentOption,
     AriaComponentOption,
@@ -14,18 +15,19 @@ import {
     ComposeOption,
     ContinousVisualMapComponentOption,
     CustomSeriesOption,
-    DataZoomComponentOption,
     DatasetComponentOption,
+    DataZoomComponentOption,
     ECharts,
     EChartsInitOpts,
     EffectScatterSeriesOption,
     FunnelSeriesOption,
     GaugeSeriesOption,
     GeoComponentOption,
-    GraphSeriesOption,
     GraphicComponentOption,
+    GraphSeriesOption,
     GridComponentOption,
     HeatmapSeriesOption,
+    init,
     InsideDataZoomComponentOption,
     LegendComponentOption,
     LineSeriesOption,
@@ -37,8 +39,8 @@ import {
     MatrixComponentOption,
     ParallelSeriesOption,
     PictorialBarSeriesOption,
-    PieSeriesOption,
     PiecewiseVisualMapComponentOption,
+    PieSeriesOption,
     PlainLegendComponentOption,
     PolarComponentOption,
     RadarComponentOption,
@@ -57,12 +59,11 @@ import {
     TitleComponentOption,
     ToolboxComponentOption,
     TooltipComponentOption,
-    TreeSeriesOption,
     TreemapSeriesOption,
+    TreeSeriesOption,
     VisualMapComponentOption,
     XAXisComponentOption,
     YAXisComponentOption,
-    init,
 } from "echarts"
 import { ECBasicOption } from "echarts/types/src/util/types.js"
 import hash from "stable-hash"

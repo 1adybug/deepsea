@@ -18,14 +18,17 @@ export function getPointToLineMinDistance(point: number[], line: number[][], get
                 const [[x1, y1], [x2, y2]] = item
                 if (x1 === x2 && y1 === y2) return method(point, [x1, y1])
                 if ((x0 === x1 && y0 === y1) || (x0 === x2 && y0 === y2)) return 0
+
                 if (x1 === x2) {
                     if ((y0 - y1) * (y0 - y2) < 0) return method(point, [x1, y0])
                     return Math.min(method(point, [x1, y1]), method(point, [x2, y2]))
                 }
+
                 if (y1 === y2) {
                     if ((x0 - x1) * (x0 - x2) < 0) return method(point, [x0, y1])
                     return Math.min(method(point, [x1, y1]), method(point, [x2, y2]))
                 }
+
                 const k = (y2 - y1) / (x2 - x1)
                 const x = (x0 / k + y0 + k * x1 - y1) / (k + 1 / k)
                 const y = (y1 / k + x0 + k * y0 - x1) / (k + 1 / k)

@@ -1,6 +1,6 @@
-import { CalendarDate, CalendarDateTime, Time, ZonedDateTime, fromAbsolute, getLocalTimeZone } from "@internationalized/date"
+import { CalendarDate, CalendarDateTime, fromAbsolute, getLocalTimeZone, Time, ZonedDateTime } from "@internationalized/date"
 
-export { CalendarDate, CalendarDateTime, Time, ZonedDateTime, fromAbsolute, getLocalTimeZone } from "@internationalized/date"
+export { CalendarDate, CalendarDateTime, fromAbsolute, getLocalTimeZone, Time, ZonedDateTime } from "@internationalized/date"
 
 export type ParseMode = typeof ZonedDateTime | typeof CalendarDate | typeof CalendarDateTime | typeof Time
 

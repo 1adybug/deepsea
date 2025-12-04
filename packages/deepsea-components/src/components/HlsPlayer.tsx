@@ -1,6 +1,7 @@
 "use client"
 
-import { MediaHTMLAttributes, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
+import { forwardRef, MediaHTMLAttributes, useEffect, useImperativeHandle, useRef } from "react"
+
 import Hls from "hls.js"
 
 export interface HlsPlayerProps extends Omit<MediaHTMLAttributes<HTMLVideoElement>, "src"> {
@@ -16,10 +17,12 @@ export const HlsPlayer = forwardRef<HTMLVideoElement, HlsPlayerProps>((props, re
     useEffect(() => {
         const { current: player } = video
         if (!player || !src) return
+
         if (player.canPlayType("application/vnd.apple.mpegurl")) {
             player.src = src
             return
         }
+
         if (Hls.isSupported()) {
             const hls = new Hls()
             hls.loadSource(src)

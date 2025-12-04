@@ -3,14 +3,13 @@ export function extendArrayPrototype() {
     if (!Array.prototype.hasOwnProperty("with")) {
         class A {
             static with<T>(this: T[], index: number, value: T): T[] {
-                if (!Number.isInteger(index) || index >= this.length || index < this.length * -1) {
-                    throw new RangeError(`Invalid index : ${index}`)
-                }
+                if (!Number.isInteger(index) || index >= this.length || index < this.length * -1) throw new RangeError(`Invalid index : ${index}`)
                 const $ = this.slice()
                 $[index >= 0 ? index : this.length + index] = value
                 return $
             }
         }
+
         Array.prototype.with = A.with
     }
 
@@ -20,6 +19,7 @@ export function extendArrayPrototype() {
             $.reverse()
             return $
         }
+
         Array.prototype.toReversed = toReversed
     }
 
@@ -29,6 +29,7 @@ export function extendArrayPrototype() {
             $.shift()
             return $
         }
+
         Array.prototype.toShifted = toShifted
     }
 
@@ -38,6 +39,7 @@ export function extendArrayPrototype() {
             $.pop()
             return $
         }
+
         Array.prototype.toPopped = toPopped
     }
 
@@ -47,31 +49,31 @@ export function extendArrayPrototype() {
             $.sort(compareFn)
             return $
         }
+
         Array.prototype.toSorted = toSorted
     }
 
     if (!Array.prototype.hasOwnProperty("toDeduplicated")) {
         function toDeduplicated<T>(this: T[], compareFn?: (a: T, b: T) => boolean): T[] {
             return this.reduce((prev: T[], item: T) => {
-                if (compareFn ? !prev.some(it => compareFn(it, item)) : !prev.includes(item)) {
-                    prev.push(item)
-                }
+                if (compareFn ? !prev.some(it => compareFn(it, item)) : !prev.includes(item)) prev.push(item)
                 return prev
             }, [])
         }
+
         Array.prototype.toDeduplicated = toDeduplicated
     }
 
     if (!Array.prototype.hasOwnProperty("toSpliced")) {
         function toSpliced<T>(this: T[], start: number, deleteCount?: number, ...items: T[]): T[] {
             const $ = this.slice()
-            if (deleteCount === undefined) {
-                $.splice(start)
-            } else {
-                $.splice(start, deleteCount, ...items)
-            }
+
+            if (deleteCount === undefined) $.splice(start)
+            else $.splice(start, deleteCount, ...items)
+
             return $
         }
+
         Array.prototype.toSpliced = toSpliced
     }
 
@@ -81,6 +83,7 @@ export function extendArrayPrototype() {
             $.push(...items)
             return $
         }
+
         Array.prototype.toPushed = toPushed
     }
 
@@ -90,6 +93,7 @@ export function extendArrayPrototype() {
             $.unshift(...items)
             return $
         }
+
         Array.prototype.toUnshifted = toUnshifted
     }
 
@@ -97,30 +101,26 @@ export function extendArrayPrototype() {
         function toExchange<T>(this: T[], a: number, b: number): T[] {
             return this.with(a, this[b]).with(b, this[a])
         }
+
         Array.prototype.toExchange = toExchange
     }
 
     if (!Array.prototype.hasOwnProperty("at")) {
         function at<T>(this: T[], index: number): T | undefined {
-            if (!Number.isInteger(index)) {
-                throw new RangeError(`Invalid index : ${index}`)
-            }
+            if (!Number.isInteger(index)) throw new RangeError(`Invalid index : ${index}`)
             return this[index >= 0 ? index : this.length + index]
         }
+
         Array.prototype.at = at
     }
 
     if (!Array.prototype.hasOwnProperty("chunk")) {
         Array.prototype.chunk = function chunk<T>(this: T[], size: number) {
-            if (!Number.isInteger(size) || size <= 0) {
-                throw new RangeError(`Invalid size : ${size}`)
-            }
+            if (!Number.isInteger(size) || size <= 0) throw new RangeError(`Invalid size : ${size}`)
             return this.reduce((prev: T[][], item: T, index: number) => {
-                if (index % size === 0) {
-                    prev.push([item])
-                } else {
-                    prev[prev.length - 1].push(item)
-                }
+                if (index % size === 0) prev.push([item])
+                else prev[prev.length - 1].push(item)
+
                 return prev
             }, [])
         }
@@ -154,9 +154,7 @@ export function extendArrayPrototype() {
         Array.prototype.union = function union<T>(this: T[], values: T[], compareFn?: (a: T, b: T) => boolean) {
             return this.concat(
                 values.reduce((prev: T[], item) => {
-                    if (compareFn ? !this.some(it => compareFn(it, item)) : !this.includes(item)) {
-                        prev.push(item)
-                    }
+                    if (compareFn ? !this.some(it => compareFn(it, item)) : !this.includes(item)) prev.push(item)
                     return prev
                 }, []),
             )
@@ -166,9 +164,7 @@ export function extendArrayPrototype() {
     if (!Array.prototype.hasOwnProperty("random")) {
         Array.prototype.random = function random<T>(this: Array<T>, start?: number, end?: number) {
             const arr = this.slice(start, end)
-            if (arr.length === 0) {
-                throw new Error("cant random an empty array")
-            }
+            if (arr.length === 0) throw new Error("cant random an empty array")
             return arr[Math.floor(Math.random() * arr.length)]
         }
     }

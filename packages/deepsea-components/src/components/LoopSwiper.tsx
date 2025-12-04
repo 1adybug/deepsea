@@ -1,6 +1,7 @@
 "use client"
 
-import { CSSProperties, ComponentProps, FC, useEffect, useImperativeHandle, useRef, useState } from "react"
+import { ComponentProps, CSSProperties, FC, useEffect, useImperativeHandle, useRef, useState } from "react"
+
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
 
@@ -66,9 +67,11 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                 if (entry.target === wrapperEle) {
                     wrapperWidth = entry.contentRect.width
                     wrapperHeight = entry.contentRect.height
-                } else if (entry.target === containerEle) {
-                    containerWidth = entry.contentRect.width
-                    containerHeight = entry.contentRect.height
+                } else {
+                    if (entry.target === containerEle) {
+                        containerWidth = entry.contentRect.width
+                        containerHeight = entry.contentRect.height
+                    }
                 }
             })
 
@@ -92,7 +95,6 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                             transform: translateX(calc(-100% - ${gap}px));
                         }
                     }
-
                     @keyframes deepsea-reverse-horizontal-loop-swipe {
                         from {
                             transform: translateX(0);
@@ -101,7 +103,6 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                             transform: translateX(calc(100% + ${gap}px));
                         }
                     }
-
                     @keyframes deepsea-vertical-loop-swipe {
                         from {
                             transform: translateY(0);
@@ -110,7 +111,6 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                             transform: translateY(calc(-100% - ${gap}px));
                         }
                     }
-
                     @keyframes deepsea-reverse-vertical-loop-swipe {
                         from {
                             transform: translateY(0);
@@ -124,12 +124,8 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                     display: flex;
                     flex-direction: ${flexDirection};
                     gap: ${gap}px;
-                    ${direction === "vertical" ? "overflow-y: hidden;" : "overflow-x: hidden;"}
-
-                    ${pauseOnHover
-                        ? `&:hover > * {
-                        animation-play-state: paused;
-                    }`
+                    ${direction === "vertical" ? "overflow-y: hidden;" : "overflow-x: hidden;"} ${pauseOnHover
+                        ? `&:hover > * { animation-play-state: paused; }`
                         : ""}
                 `,
                 className,

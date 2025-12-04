@@ -21,20 +21,13 @@ export function stringToNumber(value: string, option?: number | StringToNumberOp
 
     if (option !== undefined && option !== null) {
         if (typeof option === "number") {
-            if (isNaN(v)) {
-                return option
-            }
+            if (isNaN(v)) return option
             return v
         }
-        if (isNaN(v)) {
-            return option.default
-        }
-        if (option.min !== undefined && v < option.min) {
-            return option.min
-        }
-        if (option.max !== undefined && v > option.max) {
-            return option.max
-        }
+
+        if (isNaN(v)) return option.default
+        if (option.min !== undefined && v < option.min) return option.min
+        if (option.max !== undefined && v > option.max) return option.max
     }
 
     return v

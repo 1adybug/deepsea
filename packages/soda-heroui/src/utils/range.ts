@@ -1,4 +1,5 @@
 import { SetStateAction } from "react"
+
 import { DateValue, RangeValue } from "@heroui/react"
 import { isNonNullable } from "deepsea-tools"
 import { Field } from "soda-tanstack-form"
@@ -50,6 +51,7 @@ export function getRangeUpdater({
     defaultTime = typeof defaultTime === "function" ? defaultTime() : defaultTime
     const { start, end } = isNonNullable(defaultTime) && isRangeDefaultTime(defaultTime) ? defaultTime : { start: defaultTime, end: defaultTime }
     if (valueMode === "timestamp") return [getTimeValue(value.start, start), getTimeValue(value.end, end)]
+
     function updater(prev: [Date, Date] | [number, number] | null | undefined): [Date, Date] | [number, number] | null | undefined {
         return prev?.[0] instanceof Date &&
             prev?.[1] instanceof Date &&
@@ -58,6 +60,7 @@ export function getRangeUpdater({
             ? prev
             : [new Date(getTimeValue(value!.start, start)!), new Date(getTimeValue(value!.end, end)!)]
     }
+
     return updater
 }
 

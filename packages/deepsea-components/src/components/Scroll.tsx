@@ -1,14 +1,16 @@
 "use client"
 
-import { CSSProperties, ForwardedRef, HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef } from "react"
+import { CSSProperties, ForwardedRef, forwardRef, HTMLAttributes, useEffect, useImperativeHandle, useLayoutEffect, useRef } from "react"
+
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
 import Scrollbar from "smooth-scrollbar"
-import type { ScrollListener, ScrollbarOptions } from "smooth-scrollbar/interfaces"
+import type { ScrollbarOptions, ScrollListener } from "smooth-scrollbar/interfaces"
 
 import { px, transformCSSVariable } from "@/utils"
 
 export { default as Scrollbar } from "smooth-scrollbar"
+
 export * from "smooth-scrollbar/interfaces"
 
 export interface ScrollOptions extends Partial<ScrollbarOptions> {

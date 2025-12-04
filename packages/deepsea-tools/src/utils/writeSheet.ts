@@ -29,9 +29,11 @@ const defaultSheetName = "__DEFAULT_SHEET_NAME__"
 export function writeSheet({ data, path, jsonToSheetOptions }: WriteSheetParams) {
     data = Array.isArray(data) ? { [defaultSheetName]: data } : data
     const workBook = utils.book_new()
+
     Object.entries(data).forEach(([key, value]) => {
         const workSheet = utils.json_to_sheet(value, jsonToSheetOptions)
         utils.book_append_sheet(workBook, workSheet, key === defaultSheetName ? undefined : key)
     })
+
     writeFile(workBook, path.replace(/^(.+?)\.xlsx?$/i, "$1.xlsx"))
 }

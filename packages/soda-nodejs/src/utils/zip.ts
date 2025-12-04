@@ -1,4 +1,5 @@
 import { cpus } from "os"
+
 import which from "which"
 
 import { execAsync } from "./execAsync"

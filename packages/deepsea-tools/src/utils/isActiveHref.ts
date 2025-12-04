@@ -12,6 +12,7 @@ export function isActiveHref(standard: string | ActivePath, current: string | Ac
             standard = new URL(standard as string, location.origin)
         }
     }
+
     if (typeof current === "string") {
         try {
             current = new URL(current)
@@ -19,6 +20,7 @@ export function isActiveHref(standard: string | ActivePath, current: string | Ac
             current = new URL(current as string, location.origin)
         }
     }
+
     const standardOrigin = (standard as URL).origin ?? location.origin
     const currentOrigin = (current as URL).origin ?? location.origin
     if (standardOrigin !== currentOrigin) return false

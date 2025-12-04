@@ -8,8 +8,6 @@ import equal from "fast-deep-equal"
  */
 export function getPropertiesIsModified<T>(a: T, b: T): (...keyList: (keyof T)[]) => boolean {
     return function (...keyList: (keyof T)[]) {
-        return keyList.some(key => {
-            return !equal(a[key], b[key])
-        })
+        return keyList.some(key => !equal(a[key], b[key]))
     }
 }

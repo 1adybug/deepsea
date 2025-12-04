@@ -28,16 +28,20 @@ export type Fiber<T> = T & {
 export function treeToFiber<T>(tree: Node<T>[] | null | undefined): Fiber<T> | null {
     if (!tree || tree.length === 0) return null
     let first: Fiber<T>
+
     function createFiber(tree: Node<T>[], parent: Fiber<T> | null): void {
         let prev: Fiber<T> | null = null
+
         tree.forEach(item => {
             const { children, ...others } = item
+
             const fiber: Fiber<T> = {
                 ...(others as T),
                 parent,
                 child: null,
                 sibling: null,
             }
+
             first ??= fiber
             if (parent && !parent.child) parent.child = fiber
             if (prev) prev.sibling = fiber
@@ -45,6 +49,7 @@ export function treeToFiber<T>(tree: Node<T>[] | null | undefined): Fiber<T> | n
             if (children) createFiber(children, fiber)
         })
     }
+
     createFiber(tree, null)
     return first!
 }

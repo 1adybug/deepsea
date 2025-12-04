@@ -1,11 +1,12 @@
 "use client"
 
 import { ComponentProps, ReactNode, useCallback, useContext, useMemo } from "react"
+
 import { Select, SelectItem, SharedSelection } from "@heroui/react"
-import { ValueOf, getEnumOptions, intParser, isNonNullable } from "deepsea-tools"
+import { getEnumOptions, intParser, isNonNullable, ValueOf } from "deepsea-tools"
 import { useInputState } from "soda-hooks"
 
-import { EmptyValue, FormContext, GetEmptyValue, getEmptyValue } from "./FormProvider"
+import { EmptyValue, FormContext, getEmptyValue, GetEmptyValue } from "./FormProvider"
 import { SelectionMode } from "./FormSelect"
 
 /** enumObject 的类型 */
@@ -34,9 +35,9 @@ export interface EnumSelectPropsBase<
     Empty extends EmptyValue = "null",
     Value = SelectValue<Options, Mode, DisallowEmptySelection, Empty>,
 > extends Omit<
-        ComponentProps<typeof Select<EnumOption<Options>>>,
-        "items" | "selectionMode" | "disallowEmptySelection" | "children" | "selectedKeys" | "onSelectionChange" | "value" | "onValueChange"
-    > {
+    ComponentProps<typeof Select<EnumOption<Options>>>,
+    "items" | "selectionMode" | "disallowEmptySelection" | "children" | "selectedKeys" | "onSelectionChange" | "value" | "onValueChange"
+> {
     enumObject?: Options
     selectionMode?: Mode
     disallowEmptySelection?: DisallowEmptySelection

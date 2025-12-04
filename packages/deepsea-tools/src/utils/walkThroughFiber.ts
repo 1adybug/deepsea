@@ -9,6 +9,7 @@ import { Fiber } from "./treeToFibers"
  */
 export function walkThroughFiber<T>(fiber: Fiber<T>, callback: (fiber: Fiber<T>) => void): void {
     if (fiber.parent) throw new Error(`The fiber is not the root`)
+
     while (fiber) {
         callback(fiber)
         fiber = getNextFiber(fiber)!

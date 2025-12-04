@@ -1,6 +1,7 @@
 "use client"
 
 import { CSSProperties, HTMLAttributes, Key, ReactNode, Ref, useEffect, useImperativeHandle, useRef, useState } from "react"
+
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
 import { useSize } from "soda-hooks"
@@ -159,6 +160,7 @@ export function ManualFlow<T>(props: ManualFlowProps<T>) {
         function task() {
             setGapAndCount(getGapCountAndSize(width, itemWidth, minColumnGap, maxColumnGap))
         }
+
         if (throttle === 0) return task()
         const timeout = setTimeout(task, throttle || 200)
         return () => clearTimeout(timeout)

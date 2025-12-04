@@ -9,9 +9,11 @@ export function getHeaders(str: string): Headers {
     const headers = new Headers()
     const match = str.match(reg)
     if (!match) throw new Error("headers 格式错误")
+
     Array.from(match).forEach(item => {
         const match2 = item.match(reg2)!
         headers.set(match2[1], match2[2])
     })
+
     return headers
 }

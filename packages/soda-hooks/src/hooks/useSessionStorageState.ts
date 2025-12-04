@@ -13,5 +13,6 @@ export function useSessionStorageState<Data>(
 ): [Data, Dispatch<SetStateAction<Data>>]
 export function useSessionStorageState<Data>(key: string, config?: Omit<StorageStateHookStringConfig | StorageStateHookDataConfig<Data>, "storage" | "key">) {
     const c = { key, storage: sessionStorage, ...config }
+
     return useStorageState(c as any)
 }

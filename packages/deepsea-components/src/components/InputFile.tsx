@@ -14,6 +14,7 @@ export type InputFileDataType = keyof InputFileDataTypeMap
 
 export async function getFileData<T extends InputFileDataType>(file: File, type: T): Promise<InputFileDataTypeMap[T]> {
     const fileReader = new FileReader()
+
     switch (type) {
         case "arrayBuffer":
             fileReader.readAsArrayBuffer(file)
@@ -30,6 +31,7 @@ export async function getFileData<T extends InputFileDataType>(file: File, type:
         default:
             return file as any
     }
+
     return new Promise(resolve => {
         fileReader.addEventListener("load", () => {
             resolve(fileReader.result as any)
@@ -40,6 +42,7 @@ export async function getFileData<T extends InputFileDataType>(file: File, type:
 export interface InputFileBaseProps extends Omit<ComponentProps<"input">, "multiple" | "type"> {}
 
 export type FileType<Multiple extends boolean> = Multiple extends true ? File[] : File
+
 export type ValueType<Multiple extends boolean, Type extends InputFileDataType> = Multiple extends true
     ? InputFileDataTypeMap[Type][]
     : InputFileDataTypeMap[Type]
@@ -62,8 +65,7 @@ export interface InputFileExtraProps<Multiple extends boolean = false, Type exte
 }
 
 export interface InputFileProps<Multiple extends boolean = false, Type extends InputFileDataType = "file">
-    extends InputFileBaseProps,
-        InputFileExtraProps<Multiple, Type> {}
+    extends InputFileBaseProps, InputFileExtraProps<Multiple, Type> {}
 
 /** 专用于读取文件的组件 */
 export function InputFile<Multiple extends boolean = false, Type extends InputFileDataType = "file">(props: InputFileProps<Multiple, Type>): ReactNode {
@@ -86,14 +88,18 @@ export function InputFile<Multiple extends boolean = false, Type extends InputFi
         const { files } = input
         if (!files || files.length === 0) return
         setDisabled(true)
+
         try {
             if (multiple) {
                 const files2: File[] = Array.from(files)
+
                 const values: InputFileDataTypeMap[Type][] = []
+
                 for (const file of files2) {
                     const value = (await getFileData(file, type)) as InputFileDataTypeMap[Type]
                     values.push(value)
                 }
+
                 onFileChange?.(files2 as FileType<Multiple>)
                 onValueChange?.(values as ValueType<Multiple, Type>)
                 onDataChange?.(files2.map((file, index) => ({ file, value: values[index] })) as DataType<Multiple, Type>)

@@ -1,4 +1,5 @@
-import { CSSProperties, ComponentProps, Key, ReactNode, useEffect, useMemo, useRef, useState } from "react"
+import { ComponentProps, CSSProperties, Key, ReactNode, useEffect, useMemo, useRef, useState } from "react"
+
 import { clsx, getArray, isNullable } from "deepsea-tools"
 import { DragMoveEvent, DragMoveEvents, useDragMove } from "soda-hooks"
 
@@ -41,9 +42,11 @@ export type DraggableGridOrderToKey<K extends Key> = Map<number, K>
 
 function isTheSameArray<T>(a: T[], b: T[]) {
     if (a.length !== b.length) return false
+
     for (let i = 0; i < a.length; i++) {
         if (a[i] !== b[i]) return false
     }
+
     return true
 }
 
@@ -69,10 +72,13 @@ function getOrderMap<K extends Key>({ prev, orders, keys, orderPriority }: GetOr
     if (!!prev) {
         const entries = Array.from(prev.entries()).toSorted((a, b) => (orderPriority ? orderPriority(b[1], a[1]) : b[1] - a[1]))
         const newPrev = new Map<K, number>()
+
         const newOrders = [...orders]
+
         for (const [key, order] of entries) {
             if (!keys.includes(key)) continue
             const index = newOrders.indexOf(order)
+
             if (index >= 0) {
                 newPrev.set(key, order)
                 newOrders.length = index
@@ -81,19 +87,23 @@ function getOrderMap<K extends Key>({ prev, orders, keys, orderPriority }: GetOr
                 newPrev.set(key, newOrder)
             }
         }
+
         prev = newPrev
     }
 
     const newKeys = keys.filter(key => {
         if (!prev) return true
+
         if (prev.has(key)) {
             const prevOrder = prev.get(key)!
             orderMap.set(key, prevOrder)
             orderSet.delete(prevOrder)
             return false
         }
+
         return true
     })
+
     orders = Array.from(orderSet)
     newKeys.forEach((key, index) => orderMap.set(key, orders[index]))
     return orderMap
@@ -290,10 +300,12 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
 }: DraggableGridProps<T, K>) {
     const keyToItem = useMemo(() => {
         const keyToItem = new Map<K, T>()
+
         items.forEach(item => {
             const key = keyExtractor ? keyExtractor(item) : (item as unknown as K)
             keyToItem.set(key, item)
         })
+
         return keyToItem
     }, [items, keyExtractor])
 
@@ -358,6 +370,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
                 !isTheSameIterable(dragging.keyToOrder.keys(), keyToItem.keys()))
         ) {
             setDragging(undefined)
+
             if (isTheSameArray(dragging.orders, orders) && isTheSameIterable(dragging.keyToOrder.keys(), keyToItem.keys())) {
                 setKeyToOrder(dragging.keyToOrder)
                 onOrderMapChange?.(dragging.keyToOrder)
@@ -368,6 +381,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
     /** 受控 */
     useEffect(() => {
         if (orderMap === keyToOrder) return
+
         if (!!orderMap && isLegalOrderMap({ orders, keys: keyToItem.keys(), orderMap })) setKeyToOrder(orderMap)
         else onOrderMapChange?.(keyToOrder)
     }, [orderMap, keyToOrder, onOrderMapChange])
@@ -376,6 +390,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
         _onDragMoveStart?.(event)
         const position = getPosition({ order: keyToOrder.get(key)!, columns, gapX, gapY, itemWidth, itemHeight })
         recent.current = key
+
         setDragging({
             key,
             startX: position.x,
@@ -426,6 +441,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
 
         /** 以元素开始移动前的次序为基准，计算元素当前最近的位置 */
         const newKeyToOrder = new Map(keyToOrder)
+
         newKeyToOrder.set(key, nearestOrder)
 
         const orderToKey = getOrderToKey(keyToOrder)

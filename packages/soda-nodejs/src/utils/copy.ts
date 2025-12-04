@@ -16,16 +16,20 @@ export async function copy({ input, output, mode }: CopyOptions) {
         for (const item of input) await copy({ input: item, output, mode })
         return
     }
+
     if (!existsSync(output)) await mkdir(output, { recursive: true })
     const status = await stat(input)
     const { base } = parse(input)
+
     if (status.isFile()) {
         await copyFile(input, join(output, base), mode)
         return
     }
+
     if (status.isDirectory()) {
         await mkdir(join(output, base), { recursive: true })
         const entries = await readdir(input, { withFileTypes: true })
+
         for (const entry of entries) {
             await copy({
                 input: join(input, entry.name),

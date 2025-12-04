@@ -8,9 +8,11 @@ import { RefObject, useRef } from "react"
 export function useCalcRef<T>(fn: () => T): RefObject<T> {
     const done = useRef(false)
     const ref = useRef<T | undefined>(undefined)
+
     if (!done.current) {
         done.current = true
         ref.current = fn()
     }
+
     return ref as RefObject<T>
 }

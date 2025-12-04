@@ -55,18 +55,23 @@ export function createFnWithMiddleware<T extends AnyFunction = AnyFunction>(
         async function execute(index: number) {
             const middleware = allMiddlewares[index]
             let executed = false
+
             async function next() {
                 if (executed) {
                     console.error("The next function can only be called once.")
                     return
                 }
+
                 executed = true
+
                 if (index < allMiddlewares.length - 1) {
                     await execute(index + 1)
                     return
                 }
+
                 context.result = await context.fn(...context.args)
             }
+
             await middleware(context, next)
             if (!executed) await next()
         }

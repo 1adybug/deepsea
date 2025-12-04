@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react"
-import { Button, PressEvent, addToast } from "@heroui/react"
+
+import { addToast, Button, PressEvent } from "@heroui/react"
 import { useAutoRefresh } from "soda-hooks"
 import { FirstParameter } from "soda-type"
 
@@ -29,8 +30,7 @@ export const AutoRefresh: FC<AutoRefreshProps> = ({ children, onRefresh, ...rest
                 </Button>
             ),
             ...rest,
-        }),
-    )
+        }))
 
     return children
 }

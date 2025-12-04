@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+
 import { WriteableWorkSheetCellData } from "deepsea-tools"
 import { renderToText, renderToWorkSheetCell } from "soda-react"
 
@@ -20,6 +21,5 @@ export function getWorkSheet<T>({ data, columns }: GetWorkSheetParams<T>) {
             )
             acc[key] = value as WriteableWorkSheetCellData
             return acc
-        }, {}),
-    )
+        }, {}))
 }

@@ -18,6 +18,7 @@ export function addBetterToast({ key, loading, onClose, classNames, ...rest }: A
     key ??= nanoid()
     classNames = { ...classNames }
     classNames.closeButton = clsx(classNames.closeButton, `toast-${key}-close-button`)
+
     if (loading) {
         const { promise, resolve } = Promise.withResolvers<void>()
 

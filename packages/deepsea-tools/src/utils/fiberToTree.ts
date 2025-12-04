@@ -8,12 +8,15 @@ import { walkThroughFiber } from "./walkThroughFiber"
  */
 export function fiberToTree<T>(fiber: Fiber<T>): Node<T>[] {
     const tree: Node<T>[] = []
+
     /** fiber 与 node 的映射 */
     const map: Map<Fiber<T>, Node<T>> = new Map()
+
     walkThroughFiber(fiber, item => {
         const { parent, child, sibling, ...others } = item
         const node = others as Node<T>
         map.set(item, node)
+
         if (!parent) tree.push(node)
         else {
             const parentNode = map.get(parent)!

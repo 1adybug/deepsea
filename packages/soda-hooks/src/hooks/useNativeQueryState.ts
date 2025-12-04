@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef } from "react"
+
 import { Equal } from "soda-type"
 
 import { compareArray } from "@/utils/compareArray"
@@ -61,88 +62,108 @@ export function useNativeQueryState<T extends string = never, K extends QueryToS
             window.history.replaceState(null, "", url.toString())
         }
     const totalKeys = (keys as string[]).concat(Object.keys(parse))
+
     const search = (exact ? totalKeys : Array.from(searchParams.keys())).reduce((prev: Record<string, string[]>, key) => {
         prev[key] = searchParams.getAll(key)
         return prev
     }, {})
+
     const cache = useRef({ searchParams, setSearchParams, search, parse, stringify, exact, deps })
     cache.current.searchParams = searchParams
     cache.current.setSearchParams = setSearchParams
-    if (!compareSearch(cache.current.search, search) || !compareArray(cache.current.deps, deps)) {
+    if (!compareSearch(cache.current.search, search) || !compareArray(cache.current.deps, deps))
         cache.current = { searchParams, setSearchParams, search, parse, stringify, exact, deps }
-    }
-    const queryState: QueryState<T, K, P> = useMemo(() => {
-        return Object.entries(search).reduce((prev: Record<string, any>, [key, values]) => {
-            const value = values[0] ?? undefined
-            const parser = (parse as any)[key]
-            prev[key] = parser ? parser(value, values) : value
-            return prev
-        }, {}) as any
-    }, [cache.current])
+
+    const queryState: QueryState<T, K, P> = useMemo(
+        () =>
+            Object.entries(search).reduce((prev: Record<string, any>, [key, values]) => {
+                const value = values[0] ?? undefined
+                const parser = (parse as any)[key]
+                prev[key] = parser ? parser(value, values) : value
+                return prev
+            }, {}) as any,
+        [cache.current],
+    )
+
     const queryStateRef = useRef(queryState)
     queryStateRef.current = queryState
+
     const setQueryState: SetQueryState<T, K, P> = useCallback(state => {
         const newState = typeof state === "function" ? state(queryStateRef.current) : state
         queryStateRef.current = newState as QueryState<T, K, P>
         const { searchParams, setSearchParams, search, stringify } = cache.current
         let newSearchParams: URLSearchParams
+
         if (exact) {
             newSearchParams = new URLSearchParams(searchParams)
+
             Object.keys(search).forEach(key => {
                 const value = newState[key as keyof typeof newState]
                 const stringifier = (stringify as any)[key]
+
                 if (!stringifier) {
                     if (value === undefined || value === null) {
                         newSearchParams.delete(key)
                         return
                     }
+
                     if (Array.isArray(value)) {
                         newSearchParams.delete(key)
                         value.forEach((item: any) => newSearchParams.append(key, String(item)))
                         return
                     }
+
                     newSearchParams.set(key, String(value))
                     return
                 }
+
                 const newValue = stringifier(value)
+
                 if (newValue === undefined || newValue === null) {
                     newSearchParams.delete(key)
                     return
                 }
+
                 if (Array.isArray(newValue)) {
                     newSearchParams.delete(key)
                     newValue.forEach(item => newSearchParams.append(key, String(item)))
                     return
                 }
+
                 newSearchParams.set(key, String(newValue))
             })
         } else {
             newSearchParams = new URLSearchParams()
+
             Object.entries(newState).forEach(([key, value]) => {
                 const stringifier = (stringify as any)[key]
+
                 if (!stringifier) {
-                    if (value === undefined || value === null) {
-                        return
-                    }
+                    if (value === undefined || value === null) return
+
                     if (Array.isArray(value)) {
                         value.forEach(item => newSearchParams.append(key, String(item)))
                         return
                     }
+
                     newSearchParams.set(key, String(value))
                     return
                 }
+
                 const newValue = stringifier(value)
-                if (newValue === undefined || newValue === null) {
-                    return
-                }
+                if (newValue === undefined || newValue === null) return
+
                 if (Array.isArray(newValue)) {
                     newValue.forEach(item => newSearchParams.append(key, String(item)))
                     return
                 }
+
                 newSearchParams.set(key, String(newValue))
             })
         }
+
         setSearchParams(newSearchParams)
     }, [])
+
     return [queryState, setQueryState]
 }

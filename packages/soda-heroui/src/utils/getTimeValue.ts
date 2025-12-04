@@ -15,6 +15,7 @@ export function getTimeValue<T extends CalendarDateTime | ZonedDateTime | Time |
     defaultTime?: DefaultTime | (() => DefaultTime),
 ): T extends null | undefined ? undefined : number {
     type ReturnValue = T extends null | undefined ? undefined : number
+
     if (time === undefined || time === null) return undefined as ReturnValue
     const newTime = time as CalendarDateTime
     const now = new Date()

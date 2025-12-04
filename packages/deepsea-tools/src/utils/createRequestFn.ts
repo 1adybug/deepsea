@@ -1,5 +1,5 @@
 import { assignFnName } from "./assignFnName"
-import { Middleware, createFnWithMiddleware } from "./createFnWithMiddleware"
+import { createFnWithMiddleware, Middleware } from "./createFnWithMiddleware"
 
 export interface ResponseData<Data = unknown> {
     /** 是否成功 */
@@ -37,6 +37,7 @@ export function createRequestFn<Fn extends OriginalRequestFn>(fn: Fn): RequestFn
         if (!result.success) throw result.message instanceof Error ? result.message : new Error(result.message)
         return result.data
     }
+
     assignFnName(request, fn)
     const newRequest = createFnWithMiddleware(request, { global: globalRequestFnMiddlewares }) as RequestFn<Fn>
     Object.defineProperty(newRequest, requestFnSymbol, { value: true })
@@ -44,6 +45,7 @@ export function createRequestFn<Fn extends OriginalRequestFn>(fn: Fn): RequestFn
         async function requestWithPreset() {
             return await newRequest(...args)
         }
+
         assignFnName(requestWithPreset, fn)
         return requestWithPreset
     }

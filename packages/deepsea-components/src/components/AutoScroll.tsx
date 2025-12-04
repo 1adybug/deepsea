@@ -1,6 +1,7 @@
 "use client"
 
-import { CSSProperties, MouseEvent as ReactMouseEvent, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
+import { CSSProperties, forwardRef, MouseEvent as ReactMouseEvent, useEffect, useImperativeHandle, useRef } from "react"
+
 import { css } from "@emotion/css"
 import { clsx, getArray } from "deepsea-tools"
 import Scrollbar from "smooth-scrollbar"
@@ -93,6 +94,7 @@ export const AutoScroll = forwardRef<HTMLDivElement, AutoScrollProps>((props, re
         const range = getArray(count, index => (itemHeight + gap) * (index + 1) - (index === count - 1 ? gap : 0))
         const scrollHeight = range[range.length - 1]
         if (height >= scrollHeight) return
+
         function scroll(target: number) {
             clearTimeout(timeout.current)
             timeout.current = setTimeout(() => {
@@ -100,13 +102,16 @@ export const AutoScroll = forwardRef<HTMLDivElement, AutoScrollProps>((props, re
                 bar.current?.scrollTo(0, target, animation)
             }, duration)
         }
+
         scroll(range[0])
+
         function listener(status: ScrollStatus) {
             const { y } = status.offset
             const scrollToBottom = Math.abs(y + height - scrollHeight) / itemHeight <= 0.05
             const target = scrollToBottom ? 0 : range.find(item => item > y)!
             scroll(target)
         }
+
         bar.current?.addListener(listener)
         return () => {
             clearTimeout(timeout.current)

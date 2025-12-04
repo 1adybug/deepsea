@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react"
+
 import { isAbortError } from "deepsea-tools"
 
 export interface AutoRefreshParams {
@@ -14,6 +15,7 @@ export function useAutoRefresh(callback: () => void, { interval = 10000, url = "
 
     useEffect(() => {
         let url2: URL
+
         try {
             url2 = new URL(url)
         } catch (error) {

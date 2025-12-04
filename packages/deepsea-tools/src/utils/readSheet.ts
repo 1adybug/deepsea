@@ -1,4 +1,4 @@
-import { ParsingOptions, Sheet2JSONOpts, read, utils } from "xlsx"
+import { ParsingOptions, read, Sheet2JSONOpts, utils } from "xlsx"
 
 export type { ParsingOptions, Sheet2JSONOpts } from "xlsx"
 
@@ -51,9 +51,11 @@ export function readSheet<Sheet = WorkSheetData>(bufferOrParams: ArrayBuffer | R
     const { buffer, parsingOptions, sheetToJsonOptions } =
         bufferOrParams instanceof ArrayBuffer ? ({ buffer: bufferOrParams } as ReadSheetParams) : bufferOrParams
     const wb = read(buffer, { cellDates: true, ...parsingOptions })
+
     const result = wb.SheetNames.reduce((acc, item) => {
         acc[item] = utils.sheet_to_json(wb.Sheets[item], sheetToJsonOptions) as any
         return acc
     }, {} as WorkBookData<Sheet>)
+
     return result
 }

@@ -16,9 +16,7 @@ export async function getExports() {
             const status2 = await stat(join(folder, file))
             if (!status2.isFile()) continue
             if (!file.endsWith(".ts") && !file.endsWith(".tsx")) continue
-            exports.push(
-                `export * from "@/${item}/${file.replace(/\.tsx?$/, "")}"`,
-            )
+            exports.push(`export * from "@/${item}/${file.replace(/\.tsx?$/, "")}"`)
         }
     }
 

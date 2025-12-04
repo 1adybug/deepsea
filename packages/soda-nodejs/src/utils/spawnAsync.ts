@@ -2,12 +2,12 @@ import {
     ChildProcess,
     ChildProcessByStdio,
     ChildProcessWithoutNullStreams,
+    spawn,
     SpawnOptions,
-    SpawnOptionsWithStdioTuple,
     SpawnOptionsWithoutStdio,
+    SpawnOptionsWithStdioTuple,
     StdioNull,
     StdioPipe,
-    spawn,
 } from "child_process"
 import { Readable, Writable } from "stream"
 
@@ -46,6 +46,7 @@ export function setDefaultOptions(options: Options | ((prev: Options) => Options
         defaultOptions = options(defaultOptions)
         return
     }
+
     defaultOptions = options
     return defaultOptions
 }
@@ -140,13 +141,17 @@ export function spawnAsync(command: string, args?: any, options?: any): Promise<
     const promise = new Promise<any>((resolve, reject) => {
         if (Array.isArray(args)) options = { ...defaultOptions, ...options }
         else args = { ...defaultOptions, ...args }
+
         child = spawn(command, args, options)
+
         child.on("exit", (code: number) => {
             if (code === 0) return resolve(child)
+
             if (Array.isArray(args)) {
                 const args2 = args.map((item: string) => item.trim()).filter(Boolean)
                 if (args2.length > 0) command = `${command} ${args2.join(" ")}`
             }
+
             reject(new Error(`spawn "${command}" failed with code ${code}`))
             return
         })
