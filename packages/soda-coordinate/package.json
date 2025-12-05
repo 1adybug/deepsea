@@ -1,6 +1,6 @@
 {
     "name": "soda-coordinate",
-    "version": "5.3.3",
+    "version": "5.3.4",
     "description": "coordinate tools",
     "type": "module",
     "exports": {

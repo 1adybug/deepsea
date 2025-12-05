@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.8.7
+
+### Patch Changes
+
+- update dependencies
+
 ## 0.8.6
 
 ### Patch Changes

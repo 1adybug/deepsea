@@ -40,7 +40,8 @@
     },
     "pnpm": {
         "overrides": {
-            "@internationalized/date": "catalog:"
+            "@internationalized/date": "catalog:",
+            "tailwindcss": "catalog:"
         }
     }
 }
