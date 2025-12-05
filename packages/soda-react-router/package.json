@@ -1,6 +1,6 @@
 {
     "name": "soda-react-router",
-    "version": "1.2.5",
+    "version": "1.2.6",
     "description": "",
     "type": "module",
     "exports": {
@@ -45,10 +45,10 @@
         "soda-hooks": "workspace:*"
     },
     "devDependencies": {
-        "typescript": "^5.9.3"
+        "typescript": "catalog:"
     },
     "peerDependencies": {
-        "@types/react": ">=19.2.4",
+        "@types/react": "catalog:",
         "react-router": "^7.2.0"
     }
 }

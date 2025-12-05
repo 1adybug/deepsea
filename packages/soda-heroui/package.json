@@ -1,6 +1,6 @@
 {
     "name": "soda-heroui",
-    "version": "0.11.24",
+    "version": "0.11.25",
     "description": "",
     "type": "module",
     "exports": {
@@ -44,8 +44,8 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-heroui",
     "dependencies": {
-        "@internationalized/date": "^3.10.0",
-        "@tanstack/react-form": "^1.23.6",
+        "@internationalized/date": "catalog:",
+        "@tanstack/react-form": "^1.27.1",
         "deepsea-tools": "workspace:*",
         "soda-hooks": "workspace:*",
         "soda-tanstack-form": "workspace:*",
@@ -54,15 +54,23 @@
     "devDependencies": {
         "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
         "@react-types/shared": "^3.32.1",
-        "glob": "^11.0.3",
-        "prettier": "^3.6.2",
+        "glob": "^11.1.0",
+        "prettier": "^3.7.4",
         "prettier-plugin-organize-imports": "^4.3.0",
-        "typescript": "^5.9.3"
+        "typescript": "catalog:"
     },
     "peerDependencies": {
-        "@types/node": ">=20",
         "@heroui/react": ">=2",
-        "@types/react": ">=19.2.4",
-        "react": ">=19.2.0"
+        "@types/node": "catalog:",
+        "@types/react": "catalog:",
+        "react": "catalog:"
+    },
+    "overrides": {
+        "@internationalized/date": "catalog:"
+    },
+    "pnpm": {
+        "overrides": {
+            "@internationalized/date": "catalog:"
+        }
     }
 }
