@@ -1,5 +1,11 @@
 # soda-antd
 
+## 0.13.1
+
+### Patch Changes
+
+- 移除无用方法
+
 ## 0.13.0
 
 ### Minor Changes
