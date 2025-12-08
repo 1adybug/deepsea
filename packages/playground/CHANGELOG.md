@@ -1,5 +1,11 @@
 # deepsea-components-demo
 
+## 0.4.14
+
+### Patch Changes
+
+- 新增多个工具，移除无效依赖
+
 ## 0.4.13
 
 ### Patch Changes

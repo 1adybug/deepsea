@@ -1,5 +1,11 @@
 # soda-react
 
+## 0.1.8
+
+### Patch Changes
+
+- 新增多个工具，移除无效依赖
+
 ## 0.1.7
 
 ### Patch Changes

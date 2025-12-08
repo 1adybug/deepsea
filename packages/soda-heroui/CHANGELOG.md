@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.11.27
+
+### Patch Changes
+
+- 新增多个工具，移除无效依赖
+
 ## 0.11.26
 
 ### Patch Changes

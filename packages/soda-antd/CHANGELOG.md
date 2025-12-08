@@ -1,5 +1,16 @@
 # soda-antd
 
+## 0.13.0
+
+### Minor Changes
+
+- 新增多个工具，移除无效依赖
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-react@0.1.8
+
 ## 0.12.7
 
 ### Patch Changes
