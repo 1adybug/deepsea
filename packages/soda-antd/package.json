@@ -1,6 +1,6 @@
 {
     "name": "soda-antd",
-    "version": "0.13.1",
+    "version": "1.0.0",
     "description": "soda-antd",
     "type": "module",
     "exports": {
@@ -54,7 +54,7 @@
     "peerDependencies": {
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
-        "antd": "^5.24.2",
+        "antd": ">=6.1.0",
         "react": "catalog:",
         "react-dom": "catalog:"
     }

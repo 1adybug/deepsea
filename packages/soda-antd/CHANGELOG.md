@@ -1,5 +1,11 @@
 # soda-antd
 
+## 1.0.0
+
+### Major Changes
+
+- Ant Design 升级至 6
+
 ## 0.13.1
 
 ### Patch Changes
