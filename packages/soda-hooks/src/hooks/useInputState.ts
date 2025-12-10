@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react"
 
+import { AnyFunction } from "deepsea-tools"
+
 import { compareArray } from "@/utils/compareArray"
 
 /**
@@ -10,14 +12,14 @@ import { compareArray } from "@/utils/compareArray"
 export function useInputState<T>(input: T | (() => T), deps?: any[]): [T, Dispatch<SetStateAction<T>>] {
     let newState: T
     let runned = false
-    deps ??= [typeof input === "function" ? ((runned = true), (newState = (input as Function)())) : input]
+    deps ??= [typeof input === "function" ? ((runned = true), (newState = (input as AnyFunction)())) : input]
     const prevDeps = useRef(deps)
     const [state, setState] = useState(input)
 
     if (!compareArray(prevDeps.current, deps)) {
         if (typeof input !== "function") newState = input
         else {
-            if (!runned) newState = (input as Function)()
+            if (!runned) newState = (input as AnyFunction)()
         }
 
         if (!Object.is(newState!, state)) setState(newState!)

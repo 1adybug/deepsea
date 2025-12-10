@@ -2,20 +2,20 @@ import { ComponentProps, createElement, FC, JSX, JSXElementConstructor } from "r
 
 import { AnyFieldApi } from "@tanstack/react-form"
 
-export type UseFieldContext<TData> = () => AnyFieldApi
+export type UseFieldContext = () => AnyFieldApi
 
-export type FieldContext<TData> = ReturnType<UseFieldContext<TData>>
+export type FieldContext = ReturnType<UseFieldContext>
 
-export interface FieldMeta<TData> {
-    errors: FieldContext<TData>["state"]["meta"]["errors"]
+export interface FieldMeta {
+    errors: FieldContext["state"]["meta"]["errors"]
 }
 
 export interface FieldState<TData> {
     value: TData
-    meta: FieldMeta<TData>
+    meta: FieldMeta
 }
 
-export interface Field<TData> extends Pick<FieldContext<TData>, "handleChange" | "handleBlur"> {
+export interface Field<TData> extends Pick<FieldContext, "handleChange" | "handleBlur"> {
     name?: string
     state: FieldState<TData>
 }
@@ -26,7 +26,7 @@ export type FieldComponentProps<T extends keyof JSX.IntrinsicElements | JSXEleme
 
 export function getFieldComponent<T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>, Value>(
     Component: JSXElementConstructor<FieldComponentProps<T, Value>>,
-    useFieldContext: UseFieldContext<Value>,
+    useFieldContext: UseFieldContext,
 ) {
     const FieldComponent: FC<Omit<FieldComponentProps<T, Value>, "field">> = props => {
         const field = useFieldContext()
@@ -42,7 +42,7 @@ export type FieldComponentMap<T extends Record<string, FC<FieldComponentProps<ke
 
 export function getFieldComponents<T extends Record<string, FC<FieldComponentProps<keyof JSX.IntrinsicElements | JSXElementConstructor<any>, any>>>>(
     map: T,
-    useFieldContext: UseFieldContext<any>,
+    useFieldContext: UseFieldContext,
 ) {
     return Object.fromEntries(Object.entries(map).map(([key, value]) => [key, getFieldComponent(value, useFieldContext)])) as FieldComponentMap<T>
 }

@@ -1,3 +1,5 @@
+import { AnyFunction } from "./createFnWithMiddleware"
+
 /**
  * 获得一个函数循环出来的数组
  * @param {number} length - 数组的长度
@@ -7,7 +9,7 @@
  */
 export function getArray(length: number): number[]
 export function getArray<T>(length: number, fun: (index: number) => T): T[]
-export function getArray<T>(length: number, item: T): (T extends Function ? never : T)[]
+export function getArray<T>(length: number, item: T): (T extends AnyFunction ? never : T)[]
 export function getArray<T>(length: number, fun?: any): (T | number)[] {
     return Array(length)
         .fill(0)

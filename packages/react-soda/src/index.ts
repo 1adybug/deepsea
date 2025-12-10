@@ -1,5 +1,7 @@
 import { useSyncExternalStore } from "react"
 
+export type AnyFunction = (...args: any[]) => any
+
 export type Listener<T> =
     /**
      * @param state Current state.
@@ -12,7 +14,7 @@ export type Listener<T> =
      */
     (state: T, prev: T) => void
 
-export type IsPlainObject<T> = T extends Record<string, any> ? (T extends any[] ? false : T extends Function ? false : true) : false
+export type IsPlainObject<T> = T extends Record<string, any> ? (T extends any[] ? false : T extends AnyFunction ? false : true) : false
 
 export type NewState<T> = IsPlainObject<T> extends true ? Partial<T> | ((prev: T) => Partial<T>) : T | ((prev: T) => T)
 

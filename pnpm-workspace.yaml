@@ -3,7 +3,7 @@ packages:
 
 catalog:
     "@internationalized/date": ">=3.10.0"
-    "@types/node": ">=24.10.1"
+    "@types/node": ^24.10.2
     "@types/react": ">=19.2.7"
     "@types/react-dom": ">=19.2.3"
     next: ">=16.0.7"

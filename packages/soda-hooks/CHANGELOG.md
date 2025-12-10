@@ -1,5 +1,13 @@
 # soda-hooks
 
+## 6.16.3
+
+### Patch Changes
+
+- 优化代码
+- Updated dependencies
+    - deepsea-tools@5.43.4
+
 ## 6.16.2
 
 ### Patch Changes

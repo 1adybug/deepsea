@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { SetStateAction, useCallback, useMemo, useRef } from "react"
 
 type UseState<T, P extends (...args: any[]) => any> = [T, P]

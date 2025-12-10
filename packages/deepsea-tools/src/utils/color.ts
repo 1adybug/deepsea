@@ -9,6 +9,7 @@ const colorReg4 = /^rgb\( *(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]) *, *(\d|[1-9]\d|
 const colorReg5 =
     /^rgba\( *(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]) *, *(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]) *, *(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5]) *, *(0|0?\.\d+|1(\.0+)?) *\)$/
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface Color {
     setR(this: Color, r: number): Color
     setG(this: Color, g: number): Color
@@ -19,6 +20,7 @@ export interface Color {
 
 export type ColorType = "HEX" | "HEXA" | "RGB" | "RGBA"
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class Color {
     r: number
     g: number

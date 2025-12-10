@@ -54,34 +54,34 @@ export const Scroll = forwardRef<HTMLDivElement, ScrollProps>((props, ref) => {
         return () => bar.current?.removeListener(onScrollbar)
     }, [onScrollbar])
 
+    const style2 = css`
+        .scrollbar-track.scrollbar-track-x {
+            ${thumbWidth !== undefined ? "height: var(--thumb-width);" : ""}
+            ${trackColor !== undefined ? "background-color: var(--track-color);" : ""}
+        }
+
+        .scrollbar-thumb.scrollbar-thumb-x {
+            ${thumbWidth !== undefined ? "height: var(--thumb-width);" : ""}
+            ${thumbRadius !== undefined ? "border-radius: var(--thumb-radius);" : ""} 
+            ${thumbColor !== undefined ? "background-color: var(--thumb-color);" : ""}
+        }
+
+        .scrollbar-track.scrollbar-track-y {
+            ${thumbWidth !== undefined ? "width: var(--thumb-width);" : ""}
+            ${trackColor !== undefined ? "background-color: var(--track-color);" : ""}
+        }
+
+        .scrollbar-thumb.scrollbar-thumb-y {
+            ${thumbWidth !== undefined ? "width: var(--thumb-width);" : ""}
+            ${thumbRadius !== undefined ? "border-radius: var(--thumb-radius);" : ""} 
+            ${thumbColor !== undefined ? "background-color: var(--thumb-color);" : ""}
+        }
+    `
+
     return (
         <div
             ref={ele}
-            className={clsx(
-                css`
-                    .scrollbar-track.scrollbar-track-x {
-                        ${thumbWidth !== undefined ? "height: var(--thumb-width);" : ""} ${trackColor !== undefined
-                            ? "background-color: var(--track-color);"
-                            : ""}
-                    }
-                    .scrollbar-thumb.scrollbar-thumb-x {
-                        ${thumbWidth !== undefined ? "height: var(--thumb-width);" : ""} ${thumbRadius !== undefined
-                            ? "border-radius: var(--thumb-radius);"
-                            : ""} ${thumbColor !== undefined ? "background-color: var(--thumb-color);" : ""}
-                    }
-                    .scrollbar-track.scrollbar-track-y {
-                        ${thumbWidth !== undefined ? "width: var(--thumb-width);" : ""} ${trackColor !== undefined
-                            ? "background-color: var(--track-color);"
-                            : ""}
-                    }
-                    .scrollbar-thumb.scrollbar-thumb-y {
-                        ${thumbWidth !== undefined ? "width: var(--thumb-width);" : ""} ${thumbRadius !== undefined
-                            ? "border-radius: var(--thumb-radius);"
-                            : ""} ${thumbColor !== undefined ? "background-color: var(--thumb-color);" : ""}
-                    }
-                `,
-                className,
-            )}
+            className={clsx(style2, className)}
             style={transformCSSVariable(
                 {
                     thumbWidth: px(thumbWidth),

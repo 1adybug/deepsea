@@ -7,7 +7,7 @@ export interface Size {
     height: number
 }
 
-export interface UseSizeOptions<T> {
+export interface UseSizeOptions {
     /**
      * 尺寸类型，默认为 border
      */
@@ -28,7 +28,7 @@ export interface UseSizeOptions<T> {
  * @param options 选项
  * @returns 尺寸
  */
-export function useSize<T extends Element>(element: ElementInput<T>, { type = "border", direction = "horizontal", cache = false }: UseSizeOptions<T> = {}) {
+export function useSize<T extends Element>(element: ElementInput<T>, { type = "border", direction = "horizontal", cache = false }: UseSizeOptions = {}) {
     const [size, setSize] = useState<Size | undefined>(undefined)
 
     useDomEffect(

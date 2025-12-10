@@ -1,6 +1,6 @@
 {
     "name": "react-soda",
-    "version": "5.3.4",
+    "version": "5.3.5",
     "description": "😉 Simpler and more effective state management for react.",
     "type": "module",
     "exports": {

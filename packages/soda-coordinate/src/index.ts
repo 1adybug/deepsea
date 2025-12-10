@@ -24,12 +24,14 @@ export class Coord implements CoordBase {
 
     getWGS84(): Coord {
         switch (this.type) {
-            case "GCJ02":
+            case "GCJ02": {
                 const [longitude, latitude] = GCJ02ToWGS84([this.longitude, this.latitude])
                 return new Coord({ type: "WGS84", longitude, latitude })
-            case "BD09":
+            }
+            case "BD09": {
                 const [longitude1, latitude1] = BD09ToWGS84([this.longitude, this.latitude])
                 return new Coord({ type: "WGS84", longitude: longitude1, latitude: latitude1 })
+            }
             default:
                 return this
         }
@@ -37,12 +39,14 @@ export class Coord implements CoordBase {
 
     getGCJ02(): Coord {
         switch (this.type) {
-            case "WGS84":
+            case "WGS84": {
                 const [longitude, latitude] = WGS84ToGCJ02([this.longitude, this.latitude])
                 return new Coord({ type: "GCJ02", longitude, latitude })
-            case "BD09":
+            }
+            case "BD09": {
                 const [longitude1, latitude1] = BD09ToGCJ02([this.longitude, this.latitude])
                 return new Coord({ type: "GCJ02", longitude: longitude1, latitude: latitude1 })
+            }
             default:
                 return this
         }
@@ -50,21 +54,23 @@ export class Coord implements CoordBase {
 
     getBD09(): Coord {
         switch (this.type) {
-            case "WGS84":
+            case "WGS84": {
                 const [longitude, latitude] = WGS84ToBD09([this.longitude, this.latitude])
                 return new Coord({ type: "BD09", longitude, latitude })
-            case "GCJ02":
+            }
+            case "GCJ02": {
                 const [longitude1, latitude1] = GCJ02ToBD09([this.longitude, this.latitude])
                 return new Coord({ type: "BD09", longitude: longitude1, latitude: latitude1 })
+            }
             default:
                 return this
         }
     }
 }
 
-const x_PI = (3.14159265358979324 * 3000.0) / 180.0
-const PI = 3.1415926535897932384626
-const ee = 0.00669342162296594323
+const PI = 3.141592653589793
+const x_PI = (PI * 3000.0) / 180.0
+const ee = 0.006693421622965943
 
 /** 地球半径 ，单位米*/
 export const EarthRadius = 6378245.0

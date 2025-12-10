@@ -5,6 +5,6 @@
  */
 export function getEnumerable<T extends {}>(obj: T): (keyof T)[] {
     const keys = Object.keys(obj)
-    const symbols = Object.getOwnPropertySymbols(obj).filter(symbol => obj.propertyIsEnumerable(symbol))
+    const symbols = Object.getOwnPropertySymbols(obj).filter(symbol => Object.prototype.propertyIsEnumerable.call(obj, symbol))
     return [...keys, ...symbols] as (keyof T)[]
 }

@@ -6,7 +6,7 @@ import globals from "globals"
 import tseslint from "typescript-eslint"
 
 export default defineConfig([
-    globalIgnores(["node_modules", "dist", "build", "public"]),
+    globalIgnores(["**/node_modules", "**/dist", "**/build", "**/public"]),
     {
         files: ["**/*.{js,mjs,ts}"],
         extends: [js.configs.recommended, tseslint.configs.recommended],
@@ -16,6 +16,7 @@ export default defineConfig([
         },
         rules: {
             "@typescript-eslint/no-empty-object-type": "off",
+            "@typescript-eslint/no-explicit-any": "off",
             "no-empty": "off",
             "no-extra-boolean-cast": "off",
             "no-unused-vars": "off",

@@ -1,5 +1,11 @@
 # soda-array
 
+## 0.1.5
+
+### Patch Changes
+
+- 优化代码
+
 ## 0.1.4
 
 ### Patch Changes

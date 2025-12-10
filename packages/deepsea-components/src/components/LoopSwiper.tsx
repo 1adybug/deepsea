@@ -17,6 +17,7 @@ export interface LoopSwiperProps extends ComponentProps<"div"> {
     reverse?: boolean
     period: number
     pauseOnHover?: boolean
+    paused?: boolean
     gap?: number
 }
 
@@ -30,6 +31,7 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
     period,
     reverse,
     pauseOnHover = true,
+    paused,
     gap = 0,
     ...rest
 }) => {
@@ -82,6 +84,15 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
         observer.observe(containerEle)
     }, [])
 
+    const style = css`
+        display: flex;
+        flex-direction: ${flexDirection};
+        gap: ${gap}px;
+        ${direction === "vertical" ? "overflow-y: hidden;" : "overflow-x: hidden;"}
+        ${pauseOnHover ? `&:hover > * { animation-play-state: paused; }` : ""}
+        ${paused ? "& > * { animation-play-state: paused; }" : ""}
+    `
+
     return (
         <div
             ref={wrapper}
@@ -120,16 +131,9 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
                         }
                     }
                 `,
-                css`
-                    display: flex;
-                    flex-direction: ${flexDirection};
-                    gap: ${gap}px;
-                    ${direction === "vertical" ? "overflow-y: hidden;" : "overflow-x: hidden;"} ${pauseOnHover
-                        ? `&:hover > * { animation-play-state: paused; }`
-                        : ""}
-                `,
-                className,
+                style,
                 rootClassName,
+                className,
             )}
             {...rest}
         >

@@ -7,3 +7,7 @@ generated
 .vscode
 .generated
 packages/**/src/index.ts
+!packages/react-soda/src/index.ts
+!packages/soda-array/src/index.ts
+!packages/soda-coordinate/src/index.ts
+!packages/soda-type/src/index.ts
