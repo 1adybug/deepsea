@@ -1,6 +1,6 @@
 "use client"
 
-import { CSSProperties, forwardRef, MouseEvent as ReactMouseEvent, useEffect, useImperativeHandle, useRef } from "react"
+import { CSSProperties, FC, MouseEvent as ReactMouseEvent, useEffect, useEffectEvent, useImperativeHandle, useRef } from "react"
 
 import { css } from "@emotion/css"
 import { clsx, getArray } from "deepsea-tools"
@@ -16,8 +16,8 @@ export interface AutoScrollProps extends ScrollProps {
     /** 轮播元素的个数 */
     count: number
 
-    /** 轮播元素的高度 */
-    itemHeight: number
+    /** 轮播元素的尺寸（垂直滚动时为高度，水平滚动时为宽度） */
+    itemSize: number
 
     /**
      * 轮播动画的时间，单位毫秒
@@ -44,6 +44,12 @@ export interface AutoScrollProps extends ScrollProps {
     containerStyle?: CSSProperties
 
     /**
+     * 滚动方向
+     * @default vertical
+     */
+    direction?: "vertical" | "horizontal"
+
+    /**
      * 在鼠标移入时是否继续播放
      * @default false
      */
@@ -56,30 +62,31 @@ export interface AutoScrollProps extends ScrollProps {
     paused?: boolean
 }
 
-export const AutoScroll = forwardRef<HTMLDivElement, AutoScrollProps>((props, ref) => {
-    const {
-        count,
-        itemHeight,
-        animation = 1000,
-        duration = 3000,
-        onMouseEnter,
-        onMouseLeave,
-        gap = 0,
-        containerClassName,
-        containerStyle,
-        children,
-        playOnMouseEnter,
-        scrollbar,
-        paused,
-        ...rest
-    } = props
+export const AutoScroll: FC<AutoScrollProps> = ({
+    ref,
+    count,
+    itemSize,
+    animation = 1000,
+    duration = 3000,
+    onMouseEnter,
+    onMouseLeave,
+    gap = 0,
+    containerClassName,
+    containerStyle,
+    children,
+    playOnMouseEnter,
+    scrollbar,
+    paused,
+    direction = "vertical",
+    ...rest
+}) => {
+    const isVertical = direction === "vertical"
     const bar = useRef<Scrollbar | null>(null)
     const timeout = useRef<NodeJS.Timeout | undefined>(undefined)
     const ele = useRef<HTMLDivElement>(null)
     const size = useSize(ele)
     const pausedRef = useRef(false)
-    const pausedProps = useRef(paused)
-    pausedProps.current = paused
+    const getPaused = useEffectEvent(() => paused)
 
     useImperativeHandle(ref, () => ele.current!, [])
     useImperativeHandle(scrollbar, () => bar.current!, [])
@@ -90,35 +97,39 @@ export const AutoScroll = forwardRef<HTMLDivElement, AutoScrollProps>((props, re
 
     useEffect(() => {
         if (!size || count === 0) return
-        const { height } = size
-        const range = getArray(count, index => (itemHeight + gap) * (index + 1) - (index === count - 1 ? gap : 0))
-        const scrollHeight = range[range.length - 1]
-        if (height >= scrollHeight) return
+        const containerSize = isVertical ? size.height : size.width
+        if (itemSize === 0 || containerSize === 0) return
+        const range = getArray(count, index => (itemSize + gap) * (index + 1) - (index === count - 1 ? gap : 0))
+        const scrollLength = range.at(-1)!
+
+        // 如果容器大小大于滚动长度，则不进行滚动
+        if (containerSize >= scrollLength) return
 
         function scroll(target: number) {
             clearTimeout(timeout.current)
             timeout.current = setTimeout(() => {
-                if (pausedRef.current || pausedProps.current) return scroll(target)
-                bar.current?.scrollTo(0, target, animation)
+                if (pausedRef.current || getPaused()) return scroll(target)
+                bar.current?.scrollTo(isVertical ? 0 : target, isVertical ? target : 0, animation)
             }, duration)
         }
 
         scroll(range[0])
 
         function listener(status: ScrollStatus) {
-            const { y } = status.offset
-            const scrollToBottom = Math.abs(y + height - scrollHeight) / itemHeight <= 0.05
-            const target = scrollToBottom ? 0 : range.find(item => item > y)!
+            const offset = isVertical ? status.offset.y : status.offset.x
+            const scrollToEnd = Math.abs(offset + containerSize - scrollLength) / itemSize <= 0.05
+            const target = scrollToEnd ? 0 : range.find(item => item > offset)!
             scroll(target)
         }
 
         bar.current?.addListener(listener)
+
         return () => {
             clearTimeout(timeout.current)
             bar.current?.removeListener(listener)
             bar.current?.scrollTo(0, 0)
         }
-    }, [size, count, itemHeight, gap, duration, animation])
+    }, [size, count, itemSize, gap, duration, animation, isVertical])
 
     function onContainerMouseEnter(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) {
         if (playOnMouseEnter) return
@@ -132,24 +143,24 @@ export const AutoScroll = forwardRef<HTMLDivElement, AutoScrollProps>((props, re
         onMouseLeave?.(e)
     }
 
+    const containerStyle2 = css`
+        display: flex;
+        flex-direction: var(--flex-direction, column);
+        gap: var(--gap, 0);
+
+        & > * {
+            flex: none;
+        }
+    `
+
     return (
         <Scroll ref={ele} scrollbar={bar} onMouseEnter={onContainerMouseEnter} onMouseLeave={onContainerMouseLeave} {...rest}>
             <div
-                className={clsx(
-                    css`
-                        display: flex;
-                        flex-direction: column;
-                        gap: var(--gap, 0);
-                        & > * {
-                            flex: none;
-                        }
-                    `,
-                    containerClassName,
-                )}
-                style={transformCSSVariable({ gap: px(gap) }, containerStyle)}
+                className={clsx(containerStyle2, containerClassName)}
+                style={transformCSSVariable({ gap: px(gap), flexDirection: isVertical ? "column" : "row" }, containerStyle)}
             >
                 {children}
             </div>
         </Scroll>
     )
-})
+}

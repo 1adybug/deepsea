@@ -1,6 +1,6 @@
 "use client"
 
-import { CSSProperties, ForwardedRef, forwardRef, HTMLAttributes, useEffect, useImperativeHandle, useLayoutEffect, useRef } from "react"
+import { ComponentProps, CSSProperties, FC, ForwardedRef, useEffect, useEffectEvent, useImperativeHandle, useLayoutEffect, useRef } from "react"
 
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
@@ -24,7 +24,7 @@ export interface ScrollOptions extends Partial<ScrollbarOptions> {
     trackColor?: CSSProperties["backgroundColor"]
 }
 
-export interface ScrollProps extends HTMLAttributes<HTMLDivElement> {
+export interface ScrollProps extends ComponentProps<"div"> {
     /** 滚动的配置 */
     options?: ScrollOptions
     /** 滚动条实例 */
@@ -33,9 +33,16 @@ export interface ScrollProps extends HTMLAttributes<HTMLDivElement> {
     onScrollbar?: ScrollListener
 }
 
-export const Scroll = forwardRef<HTMLDivElement, ScrollProps>((props, ref) => {
-    const { children, options, className, style, scrollbar, onScrollbar, ...rest } = props
-    const { thumbWidth, thumbRadius, thumbColor, trackColor, ...scrollbarOptions } = options || {}
+export const Scroll: FC<ScrollProps> = ({
+    ref,
+    children,
+    options: { thumbWidth, thumbRadius, thumbColor, trackColor, ...scrollbarOptions } = {},
+    className,
+    scrollbar,
+    onScrollbar,
+    style,
+    ...rest
+}) => {
     const ele = useRef<HTMLDivElement>(null)
     const bar = useRef<Scrollbar | null>(null)
 
@@ -48,11 +55,12 @@ export const Scroll = forwardRef<HTMLDivElement, ScrollProps>((props, ref) => {
 
     useImperativeHandle(scrollbar, () => bar.current!, [])
 
+    const onScrollbarListener = useEffectEvent(onScrollbar ?? (() => void 0))
+
     useEffect(() => {
-        if (!onScrollbar) return
-        bar.current?.addListener(onScrollbar)
-        return () => bar.current?.removeListener(onScrollbar)
-    }, [onScrollbar])
+        bar.current?.addListener(onScrollbarListener)
+        return () => bar.current?.removeListener(onScrollbarListener)
+    }, [])
 
     const style2 = css`
         .scrollbar-track.scrollbar-track-x {
@@ -96,4 +104,4 @@ export const Scroll = forwardRef<HTMLDivElement, ScrollProps>((props, ref) => {
             {children}
         </div>
     )
-})
+}

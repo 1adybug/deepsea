@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.17.14
+
+### Patch Changes
+
+- 优化类型，支持横向滚动
+
 ## 5.17.13
 
 ### Patch Changes
