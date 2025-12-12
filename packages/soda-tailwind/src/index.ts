@@ -4,15 +4,15 @@ export function soda() {
     return plugin(
         ({ addUtilities }) => {
             addUtilities({
-                "justify-text": {
+                ".justify-text": {
                     "text-align": "justify",
                     "text-align-last": "justify",
                 },
-                "fill-x": {
+                ".fill-x": {
                     flex: "1 1 auto",
                     "min-width": "0",
                 },
-                "fill-y": {
+                ".fill-y": {
                     flex: "1 1 auto",
                     "min-height": "0",
                 },
