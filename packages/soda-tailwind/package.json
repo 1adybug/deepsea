@@ -1,0 +1,50 @@
+{
+    "name": "soda-tailwind",
+    "version": "0.0.1",
+    "description": "",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "dev": "rslib build --watch",
+        "build": "rslib build",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [],
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "files": [
+        "compiled",
+        "dist",
+        "src",
+        "tsconfig.json"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.com/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-tailwind",
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "catalog:",
+        "typescript": "catalog:"
+    },
+    "peerDependencies": {
+        "tailwindcss": "catalog:"
+    }
+}
