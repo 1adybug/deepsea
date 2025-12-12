@@ -1,7 +1,7 @@
 {
     "name": "soda-tailwind",
-    "version": "0.0.1",
-    "description": "",
+    "version": "0.0.2",
+    "description": "tailwindcss plugin",
     "type": "module",
     "exports": {
         ".": {
