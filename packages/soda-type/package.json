@@ -1,6 +1,6 @@
 {
     "name": "soda-type",
-    "version": "6.7.3",
+    "version": "6.7.4",
     "description": "",
     "type": "module",
     "exports": {
@@ -17,8 +17,7 @@
     "scripts": {
         "dev": "rslib build --watch",
         "build": "rslib build",
-        "prepublishOnly": "npm run build",
-        "lint": "prettier --write ."
+        "prepublishOnly": "npm run build"
     },
     "keywords": [],
     "authors": [

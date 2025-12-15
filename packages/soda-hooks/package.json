@@ -1,6 +1,6 @@
 {
     "name": "soda-hooks",
-    "version": "6.16.3",
+    "version": "6.16.4",
     "description": "",
     "type": "module",
     "exports": {
@@ -18,8 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build",
-        "lint": "prettier --write ."
+        "prepublishOnly": "npm run build"
     },
     "keywords": [],
     "authors": [

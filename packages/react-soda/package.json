@@ -1,6 +1,6 @@
 {
     "name": "react-soda",
-    "version": "5.3.5",
+    "version": "5.3.6",
     "description": "😉 Simpler and more effective state management for react.",
     "type": "module",
     "exports": {
@@ -17,8 +17,7 @@
     "scripts": {
         "dev": "rslib build --watch",
         "build": "rslib build",
-        "prepublishOnly": "npm run build",
-        "lint": "prettier --write ."
+        "prepublishOnly": "npm run build"
     },
     "keywords": [
         "react",

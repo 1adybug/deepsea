@@ -1,6 +1,6 @@
 {
     "name": "deepsea-tools",
-    "version": "5.43.4",
+    "version": "5.43.5",
     "description": "格数科技自用工具包",
     "type": "module",
     "exports": {
@@ -18,8 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build",
-        "lint": "prettier --write ."
+        "prepublishOnly": "npm run build"
     },
     "keywords": [],
     "authors": [

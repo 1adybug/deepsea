@@ -1,5 +1,13 @@
 # deepsea-tools
 
+## 5.43.5
+
+### Patch Changes
+
+- 升级依赖
+- Updated dependencies
+    - soda-type@6.7.4
+
 ## 5.43.4
 
 ### Patch Changes

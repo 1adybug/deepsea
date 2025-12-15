@@ -1,5 +1,14 @@
 # soda-next
 
+## 0.7.9
+
+### Patch Changes
+
+- 升级依赖
+- Updated dependencies
+    - deepsea-tools@5.43.5
+    - soda-hooks@6.16.4
+
 ## 0.7.8
 
 ### Patch Changes

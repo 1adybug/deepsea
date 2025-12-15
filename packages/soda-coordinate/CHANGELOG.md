@@ -1,5 +1,11 @@
 # soda-coordinate
 
+## 5.3.6
+
+### Patch Changes
+
+- 升级依赖
+
 ## 5.3.5
 
 ### Patch Changes

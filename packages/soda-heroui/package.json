@@ -1,6 +1,6 @@
 {
     "name": "soda-heroui",
-    "version": "0.11.28",
+    "version": "0.11.29",
     "description": "",
     "type": "module",
     "exports": {
@@ -18,10 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build",
-        "lint": "prettier --write .",
-        "format": "prettier --config prettier.config.mjs --write . && prettier --config .prettierrc.mjs --write .",
-        "fg": "npm run format && git add . && git commit -m \"✨feature: format\""
+        "prepublishOnly": "npm run build"
     },
     "keywords": [],
     "authors": [

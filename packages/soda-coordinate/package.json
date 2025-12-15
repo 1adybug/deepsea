@@ -1,6 +1,6 @@
 {
     "name": "soda-coordinate",
-    "version": "5.3.5",
+    "version": "5.3.6",
     "description": "coordinate tools",
     "type": "module",
     "exports": {
@@ -18,8 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "postbuild": "bun scripts/addReference.ts",
-        "prepublishOnly": "npm run build",
-        "lint": "prettier --write ."
+        "prepublishOnly": "npm run build"
     },
     "keywords": [],
     "authors": [

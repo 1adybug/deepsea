@@ -1,23 +1,25 @@
 {
-    "name": "soda-next",
-    "version": "0.7.9",
+    "name": "sdrr",
+    "version": "0.0.1",
     "description": "",
     "type": "module",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js",
-            "require": "./dist/index.cjs"
+            "require": "./dist/index.js"
         }
     },
-    "main": "./dist/index.cjs",
+    "bin": {
+        "sdrr": "./dist/index.js"
+    },
+    "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "sideEffects": false,
     "scripts": {
         "dev": "rslib build --watch",
         "build": "rslib build",
-        "prebuild": "bun scripts/export.ts",
         "prepublishOnly": "npm run build"
     },
     "keywords": [],
@@ -39,17 +41,13 @@
         "type": "git",
         "url": "git+https://github.com/1adybug/deepsea.git"
     },
-    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-next",
-    "dependencies": {
-        "deepsea-tools": "workspace:*",
-        "soda-hooks": "workspace:*"
-    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/sdrr",
     "devDependencies": {
+        "@types/node": "catalog:",
         "typescript": "catalog:"
     },
-    "peerDependencies": {
-        "@types/react": "catalog:",
-        "next": "catalog:",
-        "react": "catalog:"
+    "dependencies": {
+        "chokidar": "^5.0.0",
+        "commander": "^14.0.2"
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "soda-antd",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "soda-antd",
     "type": "module",
     "exports": {
@@ -18,8 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build",
-        "format": "prettier --config prettier.config.mjs --write . && prettier --config .prettierrc.mjs --write ."
+        "prepublishOnly": "npm run build"
     },
     "keywords": [],
     "authors": [

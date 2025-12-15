@@ -1,6 +1,6 @@
 {
     "name": "soda-array",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "",
     "type": "module",
     "exports": {
@@ -17,8 +17,7 @@
     "scripts": {
         "dev": "rslib build --watch",
         "build": "rslib build",
-        "prepublishOnly": "npm run build",
-        "lint": "prettier --write ."
+        "prepublishOnly": "npm run build"
     },
     "keywords": [],
     "authors": [

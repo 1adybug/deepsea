@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.7.4
+
+### Patch Changes
+
+- 升级依赖
+
 ## 6.7.3
 
 ### Patch Changes
