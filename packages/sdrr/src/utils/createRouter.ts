@@ -4,28 +4,18 @@ import { join, parse } from "path"
 async function writeVscodeSettings() {
     await mkdir(".vscode", { recursive: true })
 
-    const content = await readdir(".vscode")
+    let data: Record<string, any>
 
-    if (!content.includes("settings.json")) {
-        await writeFile(
-            ".vscode/settings.json",
-            JSON.stringify(
-                {
-                    "files.exclude": {
-                        "components/Router.tsx": true,
-                    },
-                },
-                null,
-                4,
-            ),
-        )
-    } else {
+    try {
         const json = await readFile(".vscode/settings.json", "utf-8")
-        const data = JSON.parse(json)
-        data["files.exclude"] ??= {}
-        data["files.exclude"]["components/Router.tsx"] = true
-        await writeFile(".vscode/settings.json", JSON.stringify(data, null, 4))
+        data = JSON.parse(json)
+    } catch (error) {
+        data = {}
     }
+
+    data["files.exclude"] ??= {}
+    data["files.exclude"]["components/Router.tsx"] = true
+    await writeFile(".vscode/settings.json", JSON.stringify(data, null, 4))
 }
 
 let written = false
@@ -140,6 +130,7 @@ export async function createRouter() {
 
     async function pickPreferredRouteFile(dirs: string[], candidates: string[]) {
         const meaningful: string[] = []
+
         for (const item of candidates) {
             if (await hasMeaningfulContent(join(...dirs, item))) meaningful.push(item)
         }
@@ -229,17 +220,11 @@ export async function createRouter() {
 
         if (segment.kind === "static") return segment.name
 
-        if (segment.kind === "parallel") {
-            throw new Error(`不支持 Next.js 的并行路由目录：${last}（@slot）。react-router 没有命名 slot/outlet 的等价能力。`)
-        }
+        if (segment.kind === "parallel") throw new Error(`不支持 Next.js 的并行路由目录：${last}（@slot）。react-router 没有命名 slot/outlet 的等价能力。`)
 
-        if (segment.kind === "intercepting") {
-            throw new Error(`不支持 Next.js 的拦截路由目录：${last}（(.)/(..)/(...)）。`)
-        }
+        if (segment.kind === "intercepting") throw new Error(`不支持 Next.js 的拦截路由目录：${last}（(.)/(..)/(...)）。`)
 
-        if (segment.kind === "catchAll" || segment.kind === "optionalCatchAll") {
-            throw new Error("catch-all 段的 path 由专用逻辑生成，不应调用 getRoutePath()")
-        }
+        if (segment.kind === "catchAll" || segment.kind === "optionalCatchAll") throw new Error("catch-all 段的 path 由专用逻辑生成，不应调用 getRoutePath()")
 
         return last
     }
@@ -263,10 +248,12 @@ export async function createRouter() {
         const segment = dirs.length === 1 ? ({ kind: "root" } as const) : parseSegmentName(last)
 
         const dirNames: string[] = []
+
         const fileNames: string[] = []
 
         for (const item of content) {
             const stats = await stat(join(currentDir, item))
+
             if (stats.isDirectory()) dirNames.push(item)
             else fileNames.push(item)
         }
@@ -274,6 +261,7 @@ export async function createRouter() {
         dirNames.sort((a, b) => {
             const sa = parseSegmentName(a)
             const sb = parseSegmentName(b)
+
             const order: Record<Segment["kind"], number> = {
                 root: 0,
                 group: 1,
@@ -348,18 +336,12 @@ export async function createRouter() {
         }
 
         function assertNoChildrenForSplat() {
-            if (children.length > 0) {
-                throw new Error(`Next.js 的 catch-all/optional catch-all 段不允许再有子路由目录：${currentDir}`)
-            }
+            if (children.length > 0) throw new Error(`Next.js 的 catch-all/optional catch-all 段不允许再有子路由目录：${currentDir}`)
         }
 
-        if (segment.kind === "parallel") {
-            throw new Error(`不支持 Next.js 的并行路由目录：${last}（@slot）。react-router 没有命名 slot/outlet 的等价能力。`)
-        }
+        if (segment.kind === "parallel") throw new Error(`不支持 Next.js 的并行路由目录：${last}（@slot）。react-router 没有命名 slot/outlet 的等价能力。`)
 
-        if (segment.kind === "intercepting") {
-            throw new Error(`不支持 Next.js 的拦截路由目录：${last}（(.)/(..)/(...)）。`)
-        }
+        if (segment.kind === "intercepting") throw new Error(`不支持 Next.js 的拦截路由目录：${last}（(.)/(..)/(...)）。`)
 
         if (segment.kind === "catchAll") {
             assertNoChildrenForSplat()
@@ -408,6 +390,7 @@ export async function createRouter() {
         }
 
         const path = getRoutePath(dirs)
+
         const node: Router = {
             path,
             Component: layout?.Component,
@@ -415,6 +398,7 @@ export async function createRouter() {
         }
 
         const nodeChildren: Router[] = []
+
         if (page) nodeChildren.push({ index: true, ...page })
         nodeChildren.push(...children)
         if (notFound) nodeChildren.push({ path: "*", Component: notFound.Component })

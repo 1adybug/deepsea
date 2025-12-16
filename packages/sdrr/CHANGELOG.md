@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.2
+
+### Patch Changes
+
+- 优化 VSCode 设置文件的写入逻辑，简化错误处理
+
 ## 0.0.1
 
 ### Patch Changes
