@@ -1,6 +1,6 @@
 {
     "name": "sdrr",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "",
     "type": "module",
     "exports": {
@@ -42,12 +42,13 @@
         "url": "git+https://github.com/1adybug/deepsea.git"
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/sdrr",
+    "dependencies": {
+        "chokidar": "^5.0.0",
+        "commander": "^14.0.2",
+        "deepsea-tools": "workspace:*"
+    },
     "devDependencies": {
         "@types/node": "catalog:",
         "typescript": "catalog:"
-    },
-    "dependencies": {
-        "chokidar": "^5.0.0",
-        "commander": "^14.0.2"
     }
 }

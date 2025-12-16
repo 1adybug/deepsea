@@ -1,5 +1,14 @@
 # soda-antd
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.44.0
+    - soda-hooks@6.16.5
+    - soda-react@0.1.11
+
 ## 1.0.2
 
 ### Patch Changes

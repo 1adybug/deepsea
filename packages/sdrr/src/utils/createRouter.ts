@@ -1,31 +1,7 @@
-import { mkdir, readdir, readFile, stat, writeFile } from "fs/promises"
+import { readdir, readFile, stat, writeFile } from "fs/promises"
 import { join, parse } from "path"
 
-async function writeVscodeSettings() {
-    await mkdir(".vscode", { recursive: true })
-
-    let data: Record<string, any>
-
-    try {
-        const json = await readFile(".vscode/settings.json", "utf-8")
-        data = JSON.parse(json)
-    } catch (error) {
-        data = {}
-    }
-
-    data["files.exclude"] ??= {}
-    data["files.exclude"]["components/Router.tsx"] = true
-    await writeFile(".vscode/settings.json", JSON.stringify(data, null, 4))
-}
-
-let written = false
-
 export async function createRouter() {
-    if (!written) {
-        await writeVscodeSettings()
-        written = true
-    }
-
     const importStatements: string[] = []
 
     const lazyDeclarations: string[] = []

@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.44.0
+
+### Minor Changes
+
+- 添加 merge 工具函数，更新 sdrr 依赖，简化 build 逻辑并新增 dev 命令
+
 ## 5.43.5
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # soda-node
 
+## 0.1.0
+
+### Minor Changes
+
+- 添加 merge 工具函数，更新 sdrr 依赖，简化 build 逻辑并新增 dev 命令
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.44.0
+
 ## 0.0.2
 
 ### Patch Changes
