@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.45.0
+
+### Minor Changes
+
+- 支持更多泛型调用
+
 ## 5.44.0
 
 ### Minor Changes
