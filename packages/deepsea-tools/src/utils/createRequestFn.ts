@@ -14,7 +14,7 @@ export interface ResponseData<Data = unknown> {
 
 export type WithPromise<T> = T | Promise<T>
 
-export type OriginalRequestFn<Params extends any[] = any[]> = (...args: Params) => WithPromise<ResponseData<any> | undefined | void>
+export type OriginalRequestFn = (...args: unknown[]) => WithPromise<ResponseData<any> | undefined | void>
 
 export type RequestFnReturnType<Fn extends OriginalRequestFn> = Awaited<ReturnType<Fn>> extends ResponseData<infer T> ? T : undefined
 
@@ -32,33 +32,31 @@ export function isRequestFn(fn: unknown): fn is RequestFn<OriginalRequestFn> {
 
 const globalRequestFnMiddlewares: Middleware[] = []
 
-export interface CreateResponseFnParams<Params extends [arg?: unknown]> {
-    fn: OriginalRequestFn<Params>
-    schema?: Params extends [] ? undefined : $ZodType<Params[0]>
+export interface CreateResponseFnParams<Fn extends OriginalRequestFn> {
+    fn: Fn
+    schema?: Parameters<Fn> extends [] ? undefined : $ZodType<Parameters<Fn>[0]>
     name?: string
 }
 
 export function createRequestFn<Fn extends OriginalRequestFn>(fn: Fn): RequestFn<Fn>
-export function createRequestFn<Params extends [arg?: unknown]>(params: CreateResponseFnParams<Params>): RequestFn<OriginalRequestFn<Params>>
-export function createRequestFn(fnOrParams: any): any {
-    const { fn, schema, name } = (typeof fnOrParams === "function" ? { fn: fnOrParams } : fnOrParams) as CreateResponseFnParams<[arg: any]>
+export function createRequestFn<Fn extends OriginalRequestFn>(params: CreateResponseFnParams<Fn>): RequestFn<Fn>
+export function createRequestFn<Fn2 extends OriginalRequestFn>(fnOrParams: Fn2 | CreateResponseFnParams<Fn2>): RequestFn<Fn2> {
+    const { fn, schema, name } = (typeof fnOrParams === "function" ? { fn: fnOrParams } : fnOrParams) as CreateResponseFnParams<Fn2>
 
-    type Fn = typeof fn
-
-    async function request(...args: Parameters<Fn>): Promise<RequestFnReturnType<Fn>> {
-        if (schema) args = [parse(schema, args.at(0))]
+    async function request(...args: Parameters<Fn2>): Promise<RequestFnReturnType<Fn2>> {
+        if (schema) args = [parse(schema, args.at(0))] as Parameters<Fn2>
         const result = await fn(...args)
-        if (result === undefined) return undefined as RequestFnReturnType<Fn>
+        if (result === undefined) return undefined as RequestFnReturnType<Fn2>
         if (!result.success) throw result.message instanceof Error ? result.message : new Error(result.message)
         return result.data
     }
 
     assignFnName(request, name ?? fn)
 
-    const newRequest = createFnWithMiddleware(request, { global: globalRequestFnMiddlewares }) as RequestFn<Fn>
+    const newRequest = createFnWithMiddleware(request, { global: globalRequestFnMiddlewares }) as RequestFn<Fn2>
 
     Object.defineProperty(newRequest, requestFnSymbol, { value: true })
-    newRequest.preset = function preset(...args: Parameters<Fn>): () => Promise<RequestFnReturnType<Fn>> {
+    newRequest.preset = function preset(...args: Parameters<Fn2>): () => Promise<RequestFnReturnType<Fn2>> {
         async function requestWithPreset() {
             return await newRequest(...args)
         }
