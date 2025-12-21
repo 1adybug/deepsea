@@ -1,5 +1,12 @@
 # deepsea-components-demo
 
+## 0.4.21
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-nodejs@0.8.9
+
 ## 0.4.20
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.8.9
+
+### Patch Changes
+
+- 修复类型错误
+
 ## 0.8.8
 
 ### Patch Changes
