@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.45.2
+
+### Patch Changes
+
+- 修复函数参数类型错误
+
 ## 5.45.1
 
 ### Patch Changes

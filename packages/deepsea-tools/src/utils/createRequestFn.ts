@@ -14,7 +14,7 @@ export interface ResponseData<Data = unknown> {
 
 export type WithPromise<T> = T | Promise<T>
 
-export type OriginalRequestFn = (...args: unknown[]) => WithPromise<ResponseData<any> | undefined | void>
+export type OriginalRequestFn = (...args: any[]) => WithPromise<ResponseData<any> | undefined | void>
 
 export type RequestFnReturnType<Fn extends OriginalRequestFn> = Awaited<ReturnType<Fn>> extends ResponseData<infer T> ? T : undefined
 
