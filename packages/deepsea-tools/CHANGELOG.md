@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.46.0
+
+### Minor Changes
+
+- 新增 booleanParser 和 dateParser
+
 ## 5.45.2
 
 ### Patch Changes
