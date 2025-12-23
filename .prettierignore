@@ -13,3 +13,4 @@ packages/**/src/index.ts
 !packages/soda-coordinate/src/index.ts
 !packages/soda-type/src/index.ts
 !packages/soda-tailwind/src/index.ts
+!packages/sdnext/src/index.ts

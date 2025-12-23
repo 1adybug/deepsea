@@ -1,0 +1,59 @@
+{
+    "name": "sdnext",
+    "version": "0.0.1",
+    "description": "",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        }
+    },
+    "bin": {
+        "sdnext": "./dist/index.js"
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "dev": "rslib build --watch",
+        "build": "rslib build",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [],
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "files": [
+        "compiled",
+        "dist",
+        "src",
+        "tsconfig.json"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.com/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/sdnext",
+    "dependencies": {
+        "@bartheleway/inquirer-table-multiple": "^1.0.1",
+        "@inquirer/prompts": "^8.1.0",
+        "chalk": "^5.6.2",
+        "chokidar": "^5.0.0",
+        "commander": "^14.0.2",
+        "deepsea-tools": "workspace:*",
+        "enquirer": "^2.4.1",
+        "string-width": "^8.1.0"
+    },
+    "devDependencies": {
+        "@types/node": "catalog:",
+        "typescript": "catalog:"
+    }
+}
