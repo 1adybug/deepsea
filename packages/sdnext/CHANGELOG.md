@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.3
+
+### Patch Changes
+
+- 移除告警提示，新增跳过选项
+
 ## 0.0.2
 
 ### Patch Changes

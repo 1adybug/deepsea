@@ -212,11 +212,15 @@ export async function hook(options: Record<string, string>, { args }: Command) {
     const oldEntires = entires.filter(([path, { overwrite }]) => !overwrite)
 
     for await (const [path, { overwrite, type, ...map }] of newEntires) {
-        const answer = await select<HookType>({
+        type OperationType = HookType | "skip"
+
+        const answer = await select<OperationType>({
             message: path,
-            choices: ["mutation", "query", "get"],
+            choices: ["mutation", "query", "get", "skip"],
             default: type,
         })
+
+        if (answer === "skip") continue
 
         const { dir, base } = parse(path)
         await mkdir(join("hooks", dir), { recursive: true })
