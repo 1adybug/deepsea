@@ -12,19 +12,19 @@
 
 ### 对比表（Next.js 16 App Router vs sdrr）
 
-| Next.js 16（App Router）约定 | sdrr 行为（react-router 映射） | 备注 |
-| --- | --- | --- |
-| `app/` 作为路由根 | 扫描当前工作目录下的 `app/` 并生成 `components/Router.tsx` | 在 monorepo 里通常先 `cd` 到应用包根目录再执行 |
-| `page.(ts/tsx/js/jsx)` | 生成 `index: true` 的子路由组件（目录级页面） | 同名文件选择：`.lazy` 优先，其次 `tsx > jsx > ts > js` |
-| `layout.(ts/tsx/js/jsx)` | 生成父 route 的 `Component`（布局组件） | 典型 layout 需要渲染 `<Outlet />` |
-| 路由分组 `(group)` | 生成 `path` 为空的“pathless route” | 不会出现在 URL 中 |
-| 动态段 `[id]` | 映射为 `:id` | 与 Next 的动态段语义对齐 |
-| catch-all `[...slug]` | 映射为 `:slug/*`（内部用两层 route 生成） | `slug` 是第一个段；剩余段在 `params["*"]` |
-| optional catch-all `[[...slug]]` | 同时生成 `/`（index）与 `:slug/*` 两种匹配 | 与 Next 的“可选”语义对齐 |
-| `error.(ts/tsx/js/jsx)` | 映射为 route 的 `ErrorBoundary` | Next 的 `error.js` 是错误边界概念，近似映射 |
-| `not-found.(ts/tsx/js/jsx)` | 生成 `path: "*"` 的兜底子路由 | 用于该布局/段下的 404 兜底 |
-| `@slot`（并行路由） | 不支持，直接抛错 | `react-router` 缺少命名 slot/outlet 的等价能力 |
-| `(.)/(..)/(...)`（拦截路由） | 不支持，直接抛错 | `react-router` 无等价语义 |
+| Next.js 16（App Router）约定     | sdrr 行为（react-router 映射）                             | 备注                                                   |
+| -------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------ |
+| `app/` 作为路由根                | 扫描当前工作目录下的 `app/` 并生成 `components/Router.tsx` | 在 monorepo 里通常先 `cd` 到应用包根目录再执行         |
+| `page.(ts/tsx/js/jsx)`           | 生成 `index: true` 的子路由组件（目录级页面）              | 同名文件选择：`.lazy` 优先，其次 `tsx > jsx > ts > js` |
+| `layout.(ts/tsx/js/jsx)`         | 生成父 route 的 `Component`（布局组件）                    | 典型 layout 需要渲染 `<Outlet />`                      |
+| 路由分组 `(group)`               | 生成 `path` 为空的“pathless route”                         | 不会出现在 URL 中                                      |
+| 动态段 `[id]`                    | 映射为 `:id`                                               | 与 Next 的动态段语义对齐                               |
+| catch-all `[...slug]`            | 映射为 `:slug/*`（内部用两层 route 生成）                  | `slug` 是第一个段；剩余段在 `params["*"]`              |
+| optional catch-all `[[...slug]]` | 同时生成 `/`（index）与 `:slug/*` 两种匹配                 | 与 Next 的“可选”语义对齐                               |
+| `error.(ts/tsx/js/jsx)`          | 映射为 route 的 `ErrorBoundary`                            | Next 的 `error.js` 是错误边界概念，近似映射            |
+| `not-found.(ts/tsx/js/jsx)`      | 生成 `path: "*"` 的兜底子路由                              | 用于该布局/段下的 404 兜底                             |
+| `@slot`（并行路由）              | 不支持，直接抛错                                           | `react-router` 缺少命名 slot/outlet 的等价能力         |
+| `(.)/(..)/(...)`（拦截路由）     | 不支持，直接抛错                                           | `react-router` 无等价语义                              |
 
 ## 前置要求
 
@@ -182,14 +182,14 @@ sdrr build pnpm dev --watch
 同一目录下：
 
 - 同时存在 `layout.*` 和 `page.*`
-  - 该目录会生成一个带 `path` 的布局 route
-  - `page.*` 会作为该布局的 `index: true` 子路由
-  - 子目录路由会作为该布局的 children
+    - 该目录会生成一个带 `path` 的布局 route
+    - `page.*` 会作为该布局的 `index: true` 子路由
+    - 子目录路由会作为该布局的 children
 - 只有 `page.*`
-  - 如果该目录下没有子目录路由：会生成一个普通 route
-  - 如果该目录下还有子目录路由：会生成一个父 route（`path` 为目录名），并将 `page.*` 作为其 `index: true` 子路由，同时把子目录路由挂到该父 route 的 `children` 下（从而支持如 `/user/a` 这类嵌套路由）
+    - 如果该目录下没有子目录路由：会生成一个普通 route
+    - 如果该目录下还有子目录路由：会生成一个父 route（`path` 为目录名），并将 `page.*` 作为其 `index: true` 子路由，同时把子目录路由挂到该父 route 的 `children` 下（从而支持如 `/user/a` 这类嵌套路由）
 - 只有 `layout.*`
-  - 会生成一个“无 path 的布局包装层”（pathless route），更适合放在分组目录 `(xxx)` 下用于包裹子路由
+    - 会生成一个“无 path 的布局包装层”（pathless route），更适合放在分组目录 `(xxx)` 下用于包裹子路由
 
 ### 一个更完整的目录示例
 
@@ -293,8 +293,8 @@ export default function App() {
     "scripts": {
         "router:gen": "sdrr build",
         "dev": "sdrr build vite dev -w",
-        "build": "sdrr build vite build"
-    }
+        "build": "sdrr build vite build",
+    },
 }
 ```
 
