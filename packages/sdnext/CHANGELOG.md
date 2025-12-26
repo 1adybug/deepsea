@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.4
+
+### Patch Changes
+
+- 移除错误的 README
+
 ## 0.0.3
 
 ### Patch Changes

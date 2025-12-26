@@ -12,7 +12,7 @@ export async function build(options: Record<string, string>, { args }: Command) 
 
     if (args.length === 0) return
 
-    spawn(args.at(0)!, args.slice(1), {
+    spawn(args.join(" "), {
         stdio: "inherit",
         shell: true,
     })

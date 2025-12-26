@@ -16,7 +16,7 @@ export async function dev(options: Record<string, string>, { args }: Command) {
 
     const child = spawn(process.execPath, [watchPath])
 
-    const child2 = spawn(args.at(0)!, args.slice(1), {
+    const child2 = spawn(args.join(" "), {
         stdio: "inherit",
         shell: true,
     })

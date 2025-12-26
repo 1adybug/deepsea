@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.1.5
+
+### Patch Changes
+
+- 移除告警提示
+
 ## 0.1.4
 
 ### Patch Changes
