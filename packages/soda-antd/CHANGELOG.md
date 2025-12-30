@@ -1,5 +1,11 @@
 # soda-antd
 
+## 1.0.8
+
+### Patch Changes
+
+- schemaToRule 改为返回单个 Rule
+
 ## 1.0.7
 
 ### Patch Changes
