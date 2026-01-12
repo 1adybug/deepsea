@@ -1,5 +1,11 @@
 # soda-antd
 
+## 1.0.10
+
+### Patch Changes
+
+- 修复 loading 属性没有传递的问题
+
 ## 1.0.9
 
 ### Patch Changes

@@ -137,6 +137,7 @@ export function NiceSearch<Data, Field extends FieldType<Data> = FieldType<Data>
             value={value as Value}
             onChange={onChange as (value: Value) => void}
             mode={multiple ? "multiple" : undefined}
+            loading={loading}
             {...rest}
         />
     )
