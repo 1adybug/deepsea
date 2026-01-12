@@ -1,5 +1,11 @@
 # soda-antd
 
+## 1.0.9
+
+### Patch Changes
+
+- 优化 NiceSearch 使用方式
+
 ## 1.0.8
 
 ### Patch Changes
