@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.12.2
+
+### Patch Changes
+
+- 修复 field 属性类型错误
+
 ## 0.12.1
 
 ### Patch Changes
