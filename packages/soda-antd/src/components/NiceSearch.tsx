@@ -21,7 +21,7 @@ export interface NiceSearchOption<Value> {
     value: Value
 }
 
-interface FilterItem<Data, Value> extends NiceSearchOption<Value> {
+export interface NiceSearchFilterItem<Data, Value> extends NiceSearchOption<Value> {
     data: Data
 }
 
@@ -43,11 +43,12 @@ export interface NiceSearchProps<
     multiple?: Multiple
     labelField: Key<Data> | ((item: Data) => string)
     valueField: Field
-    filter?: (item: FilterItem<Data, Value>, keyword: string) => boolean
+    filter?: (item: NiceSearchFilterItem<Data, Value>, keyword: string) => boolean
     value?: (Multiple extends true ? Value[] : Value) | undefined
     onChange?: (value: (Multiple extends true ? Value[] : Value) | undefined) => void
     showSearch?: NiceSearchSearchConfig<Value> | boolean
     allowUnavailableValue?: boolean
+    /** @deprecated */
     mode?: undefined
 }
 
@@ -88,7 +89,7 @@ export function NiceSearch<Data, Field extends FieldType<Data> = FieldType<Data>
                             data: item,
                             label: typeof labelField === "function" ? labelField(item) : item[labelField],
                             value: valueField === null ? item : typeof valueField === "function" ? valueField(item) : item[valueField as keyof Data],
-                        }) as FilterItem<Data, Value>,
+                        }) as NiceSearchFilterItem<Data, Value>,
                 )
                 .filter(item => (filter ? filter(item, keyword) : satisfyKeyword(item.label, keyword)))
                 .map(({ label, value }) => ({ label, value })),
@@ -116,7 +117,7 @@ export function NiceSearch<Data, Field extends FieldType<Data> = FieldType<Data>
         if (!multiple && options.every(item => item.value !== value)) onChangeLatest(undefined)
 
         // 如果是多选模式，且存在值不在选项中，重置值
-        if (multiple && (value as Value[]).some(item => options.every(option => option.value !== item)))
+        if (multiple && (value as Value[])?.some(item => options.every(option => option.value !== item)))
             onChangeLatest((value as Value[]).filter(item => options.some(option => option.value === item)) as State)
     }, [multiple, value, options, loading, allowUnavailableValue])
 

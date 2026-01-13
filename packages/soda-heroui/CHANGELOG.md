@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.12.3
+
+### Patch Changes
+
+- 优化类型
+
 ## 0.12.2
 
 ### Patch Changes
