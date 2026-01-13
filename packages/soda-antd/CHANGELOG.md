@@ -1,5 +1,11 @@
 # soda-antd
 
+## 1.0.12
+
+### Patch Changes
+
+- 修复缺失的 createEnumSelect 方法
+
 ## 1.0.11
 
 ### Patch Changes

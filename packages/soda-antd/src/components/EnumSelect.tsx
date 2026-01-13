@@ -100,3 +100,15 @@ export function EnumSelect<Options extends SelectOptions, Multiple extends boole
         />
     )
 }
+
+export type EnumSelectComponent<Options extends SelectOptions> = <Multiple extends boolean = false, AllowClear extends boolean = false>(
+    props: StrictOmit<EnumSelectProps<Options, Multiple, AllowClear>, "enumObject">,
+) => ReactNode
+
+export function createEnumSelect<Options extends SelectOptions>(enumObject?: Options): EnumSelectComponent<Options> {
+    return function EnumSelect2<Multiple extends boolean = false, AllowClear extends boolean = false>(
+        props: StrictOmit<EnumSelectProps<Options, Multiple, AllowClear>, "enumObject">,
+    ): ReactNode {
+        return <EnumSelect<Options, Multiple, AllowClear> enumObject={enumObject} {...props} />
+    }
+}
