@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.12.0
+
+### Minor Changes
+
+- 新增 createFieldEnumSelect
+
 ## 0.11.34
 
 ### Patch Changes

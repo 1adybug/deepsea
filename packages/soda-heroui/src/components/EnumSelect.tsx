@@ -1,10 +1,13 @@
 "use client"
 
-import { ComponentProps, ReactNode, useCallback, useContext, useMemo } from "react"
+import { ComponentProps, ReactElement, ReactNode, useCallback, useContext, useMemo } from "react"
 
-import { Select, SelectItem, SharedSelection } from "@heroui/react"
+import { Select, SelectItem, SelectProps, SharedSelection } from "@heroui/react"
 import { getEnumOptions, intParser, isNonNullable, ValueOf } from "deepsea-tools"
 import { useInputState } from "soda-hooks"
+import { Field } from "soda-tanstack-form"
+
+import { getFieldProps } from "@/utils/getFieldProps"
 
 import { EmptyValue, FormContext, getEmptyValue, GetEmptyValue } from "./FormProvider"
 import { SelectionMode } from "./FormSelect"
@@ -44,6 +47,7 @@ export interface EnumSelectPropsBase<
     value?: Value
     onValueChange?: (value: Value) => void
     emptyValue?: Empty
+    component?: <T extends object>(props: SelectProps<T>) => ReactElement
 }
 
 export interface EnumSelectProps<
@@ -65,7 +69,15 @@ export function EnumSelect<
     Mode extends SelectionMode = "single",
     DisallowEmptySelection extends boolean = false,
     Empty extends EmptyValue = "null",
->({ enumObject, selectionMode, value: _value, onValueChange, emptyValue, ...rest }: EnumSelectProps<Options, Mode, DisallowEmptySelection, Empty>): ReactNode {
+>({
+    enumObject,
+    selectionMode,
+    value: _value,
+    onValueChange,
+    emptyValue,
+    component: Select2 = Select,
+    ...rest
+}: EnumSelectProps<Options, Mode, DisallowEmptySelection, Empty>): ReactNode {
     const context = useContext(FormContext)
     emptyValue ??= context.emptyValue as Empty
 
@@ -96,7 +108,7 @@ export function EnumSelect<
     )
 
     return (
-        <Select
+        <Select2
             items={items}
             selectionMode={selectionMode}
             selectedKeys={isNumberEnum ? selectedKeys.map(String) : selectedKeys}
@@ -104,7 +116,7 @@ export function EnumSelect<
             {...rest}
         >
             {render}
-        </Select>
+        </Select2>
     )
 }
 
@@ -123,3 +135,29 @@ export type EnumSelectComponent<Value extends string | number> = <
 >(
     props: Omit<EnumSelectProps<[ReactNode, Value][], Mode, DisallowEmptySelection, Empty>, "enumObject">,
 ) => ReactNode
+
+export interface FieldEnumSelectProps<
+    Options extends SelectOptions,
+    Mode extends SelectionMode = "single",
+    DisallowEmptySelection extends boolean = false,
+    Empty extends EmptyValue = "null",
+> extends Omit<EnumSelectProps<Options, Mode, DisallowEmptySelection, Empty>, "enumObject"> {
+    field: Field<EnumValue<Options>>
+}
+
+export type FieldEnumSelectComponent<Value extends string | number> = <
+    Mode extends SelectionMode = "single",
+    DisallowEmptySelection extends boolean = false,
+    Empty extends EmptyValue = "null",
+>(
+    props: FieldEnumSelectProps<[ReactNode, Value][], Mode, DisallowEmptySelection, Empty>,
+) => ReactNode
+
+export function createFieldEnumSelect<Options extends SelectOptions>(enumObject?: Options): FieldEnumSelectComponent<EnumValue<Options>> {
+    return function EnumSelect2<Mode extends SelectionMode = "single", DisallowEmptySelection extends boolean = false, Empty extends EmptyValue = "null">({
+        field,
+        ...rest
+    }: FieldEnumSelectProps<Options, Mode, DisallowEmptySelection, Empty>): ReactNode {
+        return <EnumSelect<Options, Mode, DisallowEmptySelection, Empty> enumObject={enumObject} {...getFieldProps(field)} {...rest} />
+    } as unknown as FieldEnumSelectComponent<EnumValue<Options>>
+}
