@@ -142,7 +142,7 @@ export interface FieldEnumSelectProps<
     DisallowEmptySelection extends boolean = false,
     Empty extends EmptyValue = "null",
 > extends Omit<EnumSelectProps<Options, Mode, DisallowEmptySelection, Empty>, "enumObject"> {
-    field: Field<EnumValue<Options>>
+    field: Field<(Mode extends "multiple" ? EnumValue<Options>[] : EnumValue<Options>) | DisallowEmptySelection extends true ? never : GetEmptyValue<Empty>>
 }
 
 export type FieldEnumSelectComponent<Value extends string | number> = <
