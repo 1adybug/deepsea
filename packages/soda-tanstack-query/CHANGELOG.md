@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.3
+
+### Patch Changes
+
+- 支持创建时传递 select 参数
+
 ## 0.0.2
 
 ### Patch Changes
