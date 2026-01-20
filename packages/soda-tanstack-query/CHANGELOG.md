@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.4
+
+### Patch Changes
+
+- 移除意外导出的内部类型
+
 ## 0.0.3
 
 ### Patch Changes

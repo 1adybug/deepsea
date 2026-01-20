@@ -79,7 +79,7 @@ export type UseQuery<TFn extends (param: any) => any, TInitSelectData = Awaited<
     IsParamRequired<TFn> extends true ? UseQueryWithParams<TFn, TInitSelectData> : UseQueryWithOptionalParams<TFn, TInitSelectData>
 
 /** 传递了初始化参数的 createUseQuery 参数 */
-export interface _CreateUseQueryDefinedInitialDataParams<
+interface _CreateUseQueryDefinedInitialDataParams<
     TFn extends (param: any) => any,
     TInitSelectData = Awaited<ReturnType<TFn>>,
     TParams = Parameters<TFn>[0],
@@ -139,7 +139,7 @@ export type UseQueryDefinedInitialData<TFn extends (params?: any) => any, TInitS
         : UseQueryDefinedInitialDataWithOptionalParams<TFn, TInitSelectData>
 
 /** 未传递初始化参数的 createUseQuery 参数 */
-export interface _CreateUseQueryUndefinedInitialDataParams<
+interface _CreateUseQueryUndefinedInitialDataParams<
     TFn extends (param: any) => any,
     TInitSelectData = Awaited<ReturnType<TFn>>,
     TParams = Parameters<TFn>[0],
@@ -198,7 +198,7 @@ export type UseQueryUndefinedInitialData<TFn extends (params?: any) => any, TIni
         ? UseQueryUndefinedInitialDataWithParams<TFn, TInitSelectData>
         : UseQueryUndefinedInitialDataWithOptionalParams<TFn, TInitSelectData>
 
-export interface _CreateUseQueryParams<
+interface _CreateUseQueryParams<
     TFn extends (param: any) => any,
     TInitSelectData = Awaited<ReturnType<TFn>>,
     TParams = Parameters<TFn>[0],
