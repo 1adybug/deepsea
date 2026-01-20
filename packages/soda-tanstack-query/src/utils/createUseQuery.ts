@@ -7,6 +7,7 @@ import {
     UseQueryOptions,
     UseQueryResult,
 } from "@tanstack/react-query"
+import { StrictPartial } from "soda-type"
 
 /** 判断函数的参数是否为必需的 */
 export type IsParamRequired<TFn extends (params: any) => any> = Parameters<TFn> extends [param: any] ? true : false
@@ -76,7 +77,7 @@ export interface CreateUseQueryDefinedInitialDataParams<TFn extends (param: any)
 interface _UseQueryDefinedInitialDataWithParams<TFn extends (params: any) => any, TParams = Parameters<TFn>[0], TResponse = Awaited<ReturnType<TFn>>> {
     <TData = TResponse>(
         params: TParams,
-        options?: Omit<DefinedInitialDataOptions<TResponse, Error, TData, [string, TParams]>, "queryKey" | "queryFn">,
+        options?: StrictPartial<Omit<DefinedInitialDataOptions<TResponse, Error, TData, [string, TParams]>, "queryKey" | "queryFn">, "initialData">,
         client?: QueryClient,
     ): DefinedUseQueryResult<NoInfer<TData>, Error>
 }
@@ -87,7 +88,7 @@ export interface UseQueryDefinedInitialDataWithParams<TFn extends (params: any) 
 interface _UseQueryDefinedInitialDataWithOptionalParams<TFn extends (params?: any) => any, TParams = Parameters<TFn>[0], TResponse = Awaited<ReturnType<TFn>>> {
     <TData = TResponse>(
         params?: TParams,
-        options?: Omit<DefinedInitialDataOptions<TResponse, Error, TData, [string, TParams]>, "queryKey" | "queryFn">,
+        options?: StrictPartial<Omit<DefinedInitialDataOptions<TResponse, Error, TData, [string, TParams]>, "queryKey" | "queryFn">, "initialData">,
         client?: QueryClient,
     ): DefinedUseQueryResult<NoInfer<TData>, Error>
 }
