@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.6
+
+### Patch Changes
+
+- 恢复被删除的 get 类型 hook
+
 ## 0.0.5
 
 ### Patch Changes

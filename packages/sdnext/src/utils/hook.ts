@@ -4,17 +4,19 @@ import { join, parse, relative } from "path"
 import { checkbox, select } from "@inquirer/prompts"
 import { Command } from "commander"
 
-export type HookType = "query" | "mutation"
+export type HookType = "get" | "query" | "mutation"
 
 export type HookContentMap = Record<HookType, string>
 
 function getHookTypeFromName(name: string): HookType {
-    if (/^(get|query)[^a-z]/.test(name)) return "query"
+    if (/^get[^a-z]/.test(name)) return "get"
+    if (/^query[^a-z]/.test(name)) return "query"
     return "mutation"
 }
 
 function getHookTypeFromContent(content: string): HookType | undefined {
     if (content.includes("useMutation")) return "mutation"
+    if (content.includes("IdOrParams")) return "get"
     if (content.includes("useQuery")) return "query"
     return undefined
 }
@@ -51,9 +53,7 @@ export const ${name}Client = createRequestFn(${
     fn: ${name}Action,
     schema: ${match[1]},
 }`
-            : `{
-    fn: ${name}Action,
-}`
+            : `${name}Action`
     })
 
 export interface Use${upName}Params<TOnMutateResult = unknown> extends Omit<
@@ -81,7 +81,7 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
 }
 `
 
-    const queryHook = `import { createRequestFn } from "deepsea-tools"
+    const getHook = `import { createRequestFn, isNonNullable } from "deepsea-tools"
 import { createUseQuery } from "soda-tanstack-query"
 
 import { ${name}Action } from "@/actions/${join(dir, name)}"
@@ -103,6 +103,36 @@ export const ${name}Client = createRequestFn(${
 }`
     })
 
+export const ${name}ClientOptional = (id?: ${hasSchema ? `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())} | ` : ""}undefined) => (isNonNullable(id) ? ${name}Client(id) : null)
+
+export const use${upName} = createUseQuery({
+    queryFn: ${name}Client,
+    queryKey: "${key}",
+})
+`
+
+    const queryHook = `import { createRequestFn } from "deepsea-tools"
+import { createUseQuery } from "soda-tanstack-query"
+
+import { ${name}Action } from "@/actions/${join(dir, name)}"
+${
+    hasSchema
+        ? `
+${match[0]}
+`
+        : ""
+}
+export const ${name}Client = createRequestFn(${
+        hasSchema
+            ? `{
+    fn: ${name}Action,
+    schema: ${match[1]},
+}`
+            : `{
+    fn: ${name}Action,
+}`
+    })
+
 export const use${upName} = createUseQuery({
     queryFn: ${name}Client,
     queryKey: "${key}",
@@ -110,6 +140,7 @@ export const use${upName} = createUseQuery({
 `
 
     const map: HookContentMap = {
+        get: getHook,
         query: queryHook,
         mutation: mutationHook,
     }
@@ -179,7 +210,7 @@ export async function hook(options: Record<string, string>, { args }: Command) {
 
         const answer = await select<OperationType>({
             message: path,
-            choices: ["mutation", "query", "skip"],
+            choices: ["mutation", "query", "get", "skip"],
             default: type,
         })
 
