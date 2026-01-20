@@ -4,19 +4,17 @@ import { join, parse, relative } from "path"
 import { checkbox, select } from "@inquirer/prompts"
 import { Command } from "commander"
 
-export type HookType = "get" | "query" | "mutation"
+export type HookType = "query" | "mutation"
 
 export type HookContentMap = Record<HookType, string>
 
 function getHookTypeFromName(name: string): HookType {
-    if (/^get[^a-z]/.test(name)) return "get"
-    if (/^query[^a-z]/.test(name)) return "query"
+    if (/^(get|query)[^a-z]/.test(name)) return "query"
     return "mutation"
 }
 
 function getHookTypeFromContent(content: string): HookType | undefined {
     if (content.includes("useMutation")) return "mutation"
-    if (content.includes("IdOrParams")) return "get"
     if (content.includes("useQuery")) return "query"
     return undefined
 }
@@ -53,7 +51,9 @@ export const ${name}Client = createRequestFn(${
     fn: ${name}Action,
     schema: ${match[1]},
 }`
-            : `${name}Action`
+            : `{
+    fn: ${name}Action,
+}`
     })
 
 export interface Use${upName}Params<TOnMutateResult = unknown> extends Omit<
@@ -81,8 +81,8 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
 }
 `
 
-    const getHook = `import { useQuery } from "@tanstack/react-query"
-import { createRequestFn, isNonNullable } from "deepsea-tools"
+    const queryHook = `import { createRequestFn } from "deepsea-tools"
+import { createUseQuery } from "soda-tanstack-query"
 
 import { ${name}Action } from "@/actions/${join(dir, name)}"
 ${
@@ -98,55 +98,18 @@ export const ${name}Client = createRequestFn(${
     fn: ${name}Action,
     schema: ${match[1]},
 }`
-            : `${name}Action`
-    })
-
-export interface Use${upName}Params {
-    id?: ${hasSchema ? `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())} | ` : ""}undefined
-    enabled?: boolean
-}
-
-export function use${upName}(idOrParams?: Use${upName}Params | ${hasSchema ? `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())} | ` : ""}undefined) {
-    const { id, enabled = true } = typeof idOrParams === "object" ? idOrParams : { id: idOrParams, enabled: true }
-
-    return useQuery({
-        queryKey: ["${key}", id],
-        queryFn: () => (isNonNullable(id) ? ${name}Client(id) : null),
-        enabled,
-    })
-}
-`
-
-    const queryHook = `import { useQuery } from "@tanstack/react-query"
-import { createRequestFn } from "deepsea-tools"
-
-import { ${name}Action } from "@/actions/${join(dir, name)}"
-${
-    hasSchema
-        ? `
-${match[0].replace(match[1], `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())}, ${match[1]}`)}
-`
-        : ""
-}
-export const ${name}Client = createRequestFn(${
-        hasSchema
-            ? `{
+            : `{
     fn: ${name}Action,
-    schema: ${match[1]},
 }`
-            : `${name}Action`
     })
 
-export function use${upName}(${hasSchema ? `params: ${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())} = {}` : ""}) {
-    return useQuery({
-        queryKey: ["${key}", params],
-        queryFn: () => ${name}Client(params),
-    })
-}
+export const use${upName} = createUseQuery({
+    queryFn: ${name}Client,
+    queryKey: "${key}",
+})
 `
 
     const map: HookContentMap = {
-        get: getHook,
         query: queryHook,
         mutation: mutationHook,
     }
@@ -216,7 +179,7 @@ export async function hook(options: Record<string, string>, { args }: Command) {
 
         const answer = await select<OperationType>({
             message: path,
-            choices: ["mutation", "query", "get", "skip"],
+            choices: ["mutation", "query", "skip"],
             default: type,
         })
 

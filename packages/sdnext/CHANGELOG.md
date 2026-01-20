@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.5
+
+### Patch Changes
+
+- 使用 soda-tanstack-query 实现 query 类型的 hook
+
 ## 0.0.4
 
 ### Patch Changes
