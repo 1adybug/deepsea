@@ -103,10 +103,12 @@ export const ${name}Client = createRequestFn(${
 }`
     })
 
-export const ${name}ClientOptional = (id?: ${hasSchema ? `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())} | ` : ""}undefined) => (isNonNullable(id) ? ${name}Client(id) : null)
+export function ${name}ClientOptional(id?: ${hasSchema ? `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())} | ` : ""}undefined) {
+    return isNonNullable(id) ? ${name}Client(id) : null
+}
 
 export const use${upName} = createUseQuery({
-    queryFn: ${name}Client,
+    queryFn: ${name}ClientOptional,
     queryKey: "${key}",
 })
 `

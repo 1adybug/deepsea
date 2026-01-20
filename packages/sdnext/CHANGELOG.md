@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.7
+
+### Patch Changes
+
+- 修复 get 函数错误的问题
+
 ## 0.0.6
 
 ### Patch Changes
