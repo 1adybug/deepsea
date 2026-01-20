@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.5
+
+### Patch Changes
+
+- 修复文本错误
+
 ## 0.0.4
 
 ### Patch Changes

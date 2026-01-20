@@ -12,7 +12,7 @@ import { StrictPartial } from "soda-type"
 /** 判断函数的参数是否为必需的 */
 export type IsParamRequired<TFn extends (params: any) => any> = Parameters<TFn> extends [param: any] ? true : false
 
-// 要在第一个加一个重载，因为 options 是可选的，如果不加这个重载，类型会任务是 DefinedInitialDataOptions，造成返回类型必定不为 undefined
+// 要在第一个加一个重载，因为 options 是可选的，如果不加这个重载，options 类型会匹配到 DefinedInitialDataOptions，会误认为 initialData 被传递了，造成返回类型必定不为 undefined
 
 /** 参数必须的 useQuery */
 interface _UseQueryWithParams<
