@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.11
+
+### Patch Changes
+
+- 修复没有添加空行的问题
+
 ## 0.0.10
 
 ### Patch Changes

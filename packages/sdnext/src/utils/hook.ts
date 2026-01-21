@@ -91,6 +91,7 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
                 content: "中...",
                 duration: 0,
             })
+
             return onMutate?.(variables, context) as TOnMutateResult | Promise<TOnMutateResult>
         },
         onSuccess(data, variables, onMutateResult, context) {
