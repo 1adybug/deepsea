@@ -5,7 +5,7 @@ import { cwd } from "process"
 import { checkbox, select } from "@inquirer/prompts"
 import { Command } from "commander"
 
-import { readSdNextSetting } from "./readSdNextSetting"
+import { readSdNextSetting, SdNextSetting } from "./readSdNextSetting"
 import { writeSdNextSetting } from "./writeSdNextSetting"
 
 export type HookType = "get" | "query" | "mutation"
@@ -20,7 +20,17 @@ function getHookTypeFromName(name: string): HookType {
     return "mutation"
 }
 
-function getHookTypeFromContent(content: string): HookType | undefined {
+let setting: SdNextSetting = {}
+
+async function getSetting() {
+    setting = await readSdNextSetting()
+    return setting
+}
+
+async function getHookTypeFromContent(path: string, content: string): Promise<HookType | undefined> {
+    const setting = await getSetting()
+    const type = setting.hook?.[path]
+    if (type !== undefined && type !== "skip") return type
     if (content.includes("useMutation")) return "mutation"
     if (content.includes("IdOrParams")) return "get"
     if (content.includes("useQuery")) return "query"
@@ -43,6 +53,7 @@ export async function createHook(path: string, hookMap: Record<string, HookData>
     const key = name.replace(/[A-Z]/g, char => `-${char.toLowerCase()}`)
 
     const mutationHook = `import { useId } from "react"
+
 import { useMutation, UseMutationOptions } from "@tanstack/react-query"
 import { createRequestFn } from "deepsea-tools"
 
@@ -173,11 +184,9 @@ export const use${upName} = createUseQuery({
         mutation: mutationHook,
     }
 
-    const hookPath = join(
-        "hooks",
-        dir,
-        base.replace(/^./, char => `use${char.toUpperCase()}`),
-    )
+    const hookName = base.replace(/^./, char => `use${char.toUpperCase()}`)
+
+    const hookPath = join("hooks", dir, hookName)
 
     let hookType = getHookTypeFromName(name)
     let overwrite = true
@@ -185,7 +194,7 @@ export const use${upName} = createUseQuery({
     try {
         const current = await readFile(hookPath, "utf-8")
         if (current.trim()) overwrite = false
-        const contentType = getHookTypeFromContent(current)
+        const contentType = await getHookTypeFromContent(join(cwd(), hookPath), current)
         if (contentType) hookType = contentType
         if (map[hookType] === current) return
     } catch (error) {
@@ -235,18 +244,19 @@ export async function hook(options: Record<string, string>, { args }: Command) {
 
     const root = cwd()
 
-    const setting = await readSdNextSetting()
+    const setting = await getSetting()
 
     for await (const [path, { overwrite, type, ...map }] of newEntires) {
+        const resolved = join(root, "hooks", path)
+
         const answer = await select<OperationType>({
             message: path,
             choices: ["mutation", "query", "get", "skip"],
-            default: setting.hook?.[root]?.[path] ?? type,
+            default: setting.hook?.[resolved] ?? type,
         })
 
         setting.hook ??= {}
-        setting.hook[root] ??= {}
-        setting.hook[root][path] = answer
+        setting.hook[resolved] = answer
 
         if (answer === "skip") continue
 
@@ -269,7 +279,7 @@ export async function hook(options: Record<string, string>, { args }: Command) {
         choices: oldEntires.map(([key]) => key),
     })
 
-    for await (const [path, { overwrite, type, ...map }] of oldEntires) {
+    for (const [path, { overwrite, type, ...map }] of oldEntires) {
         if (!overwrites.includes(path)) continue
 
         const { dir, base } = parse(path)

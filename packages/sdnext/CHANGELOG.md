@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.9
+
+### Patch Changes
+
+- 优化代码
+
 ## 0.0.8
 
 ### Patch Changes

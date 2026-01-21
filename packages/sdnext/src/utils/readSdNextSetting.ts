@@ -6,7 +6,7 @@ import { join } from "node:path"
 import { OperationType } from "./hook"
 
 export interface SdNextSetting {
-    hook?: Record<string, Record<string, OperationType>>
+    hook?: Record<string, OperationType>
 }
 
 export async function readSdNextSetting(): Promise<SdNextSetting> {
