@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.10
+
+### Patch Changes
+
+- 修复 key 截取过多的问题
+
 ## 0.0.9
 
 ### Patch Changes

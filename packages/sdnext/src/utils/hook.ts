@@ -94,8 +94,8 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
             return onMutate?.(variables, context) as TOnMutateResult | Promise<TOnMutateResult>
         },
         onSuccess(data, variables, onMutateResult, context) {
-            context.client.invalidateQueries({ queryKey: ["query-${key.replace(/^.+-/, "")}"] })
-            context.client.invalidateQueries({ queryKey: ["get-${key.replace(/^.+-/, "")}", data.id] })
+            context.client.invalidateQueries({ queryKey: ["query-${key.replace(/^.+?-/, "")}"] })
+            context.client.invalidateQueries({ queryKey: ["get-${key.replace(/^.+?-/, "")}", data.id] })
 
             message.open({
                 key,
