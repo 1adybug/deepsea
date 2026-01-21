@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.8
+
+### Patch Changes
+
+- 添加提醒和缓存功能
+
 ## 0.0.7
 
 ### Patch Changes

@@ -1,10 +1,16 @@
 import { mkdir, readdir, readFile, stat, writeFile } from "fs/promises"
 import { join, parse, relative } from "path"
+import { cwd } from "process"
 
 import { checkbox, select } from "@inquirer/prompts"
 import { Command } from "commander"
 
+import { readSdNextSetting } from "./readSdNextSetting"
+import { writeSdNextSetting } from "./writeSdNextSetting"
+
 export type HookType = "get" | "query" | "mutation"
+
+export type OperationType = HookType | "skip"
 
 export type HookContentMap = Record<HookType, string>
 
@@ -36,7 +42,8 @@ export async function createHook(path: string, hookMap: Record<string, HookData>
     const upName = name.replace(/^./, char => char.toUpperCase())
     const key = name.replace(/[A-Z]/g, char => `-${char.toLowerCase()}`)
 
-    const mutationHook = `import { useMutation, UseMutationOptions } from "@tanstack/react-query"
+    const mutationHook = `import { useId } from "react"
+import { useMutation, UseMutationOptions } from "@tanstack/react-query"
 import { createRequestFn } from "deepsea-tools"
 
 import { ${name}Action } from "@/actions/${join(dir, name)}"
@@ -62,15 +69,34 @@ export interface Use${upName}Params<TOnMutateResult = unknown> extends Omit<
 > {}
 
 export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, onError, onSettled, ...rest }: Use${upName}Params<TOnMutateResult> = {}) {
+    const key = useId()
+
     return useMutation({
         mutationFn: ${name}Client,
         onMutate(variables, context) {
+            message.open({
+                key,
+                type: "loading",
+                content: "中...",
+                duration: 0,
+            })
             return onMutate?.(variables, context) as TOnMutateResult | Promise<TOnMutateResult>
         },
         onSuccess(data, variables, onMutateResult, context) {
+            context.client.invalidateQueries({ queryKey: ["query-${key.replace(/^.+-/, "")}"] })
+            context.client.invalidateQueries({ queryKey: ["get-${key.replace(/^.+-/, "")}", data.id] })
+
+            message.open({
+                key,
+                type: "success",
+                content: "成功",
+            })
+
             return onSuccess?.(data, variables, onMutateResult, context)
         },
         onError(error, variables, onMutateResult, context) {
+            message.destroy(key)
+
             return onError?.(error, variables, onMutateResult, context)
         },
         onSettled(data, error, variables, onMutateResult, context) {
@@ -207,14 +233,20 @@ export async function hook(options: Record<string, string>, { args }: Command) {
 
     const oldEntires = entires.filter(([path, { overwrite }]) => !overwrite)
 
-    for await (const [path, { overwrite, type, ...map }] of newEntires) {
-        type OperationType = HookType | "skip"
+    const root = cwd()
 
+    const setting = await readSdNextSetting()
+
+    for await (const [path, { overwrite, type, ...map }] of newEntires) {
         const answer = await select<OperationType>({
             message: path,
             choices: ["mutation", "query", "get", "skip"],
-            default: type,
+            default: setting.hook?.[root]?.[path] ?? type,
         })
+
+        setting.hook ??= {}
+        setting.hook[root] ??= {}
+        setting.hook[root][path] = answer
 
         if (answer === "skip") continue
 
@@ -229,6 +261,8 @@ export async function hook(options: Record<string, string>, { args }: Command) {
             map[answer],
         )
     }
+
+    await writeSdNextSetting(setting)
 
     const overwrites = await checkbox<string>({
         message: "Please check the hooks you want to overwrite",
