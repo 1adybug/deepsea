@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.47.0
+
+### Minor Changes
+
+- 新增 isZodError 方法，新增默认连接符说明
+
 ## 5.46.1
 
 ### Patch Changes

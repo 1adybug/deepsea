@@ -1,5 +1,15 @@
 # soda-antd
 
+## 1.0.14
+
+### Patch Changes
+
+- 新增 isZodError 方法，新增默认连接符说明
+- Updated dependencies
+    - deepsea-tools@5.47.0
+    - soda-hooks@6.16.11
+    - soda-react@0.1.17
+
 ## 1.0.13
 
 ### Patch Changes

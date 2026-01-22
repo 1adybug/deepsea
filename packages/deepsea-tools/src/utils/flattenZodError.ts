@@ -1,6 +1,8 @@
 import { z } from "zod"
 import { $ZodError } from "zod/v4/core"
 
+import { isZodError } from "./isZodError"
+
 export interface FlattenZodErrorParams<WithPath extends boolean = false, IsUnique extends boolean = true> {
     error: $ZodError
     withPath?: WithPath
@@ -15,10 +17,6 @@ export interface FlattenZodErrorResultWithPath<IsUnique extends boolean = true> 
 export type FlattenZodErrorResult<WithPath extends boolean = false, IsUnique extends boolean = true> = WithPath extends true
     ? FlattenZodErrorResultWithPath<IsUnique>
     : string[]
-
-function isZodError(errorOrParams: $ZodError | FlattenZodErrorParams<boolean, boolean>): errorOrParams is $ZodError {
-    return errorOrParams instanceof Error
-}
 
 export function flattenZodError(error: $ZodError): string[]
 export function flattenZodError<WithPath extends boolean = false, IsUnique extends boolean = true>(

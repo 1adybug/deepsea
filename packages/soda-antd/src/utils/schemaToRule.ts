@@ -4,7 +4,7 @@ import { $ZodError, $ZodType, safeParse } from "zod/v4/core"
 
 export interface schemaToRuleParams<T> {
     schema: $ZodType<T>
-    /** 错误信息分隔符 */
+    /** 错误信息分隔符，默认为 " / " */
     separator?: string
     /** 错误信息字符串化 */
     stringify?: (errors: $ZodError<T>) => string
