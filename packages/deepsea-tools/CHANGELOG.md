@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.47.1
+
+### Patch Changes
+
+- 修复 ZodError 还有可能是 $ZodError 的可能
+
 ## 5.47.0
 
 ### Minor Changes
