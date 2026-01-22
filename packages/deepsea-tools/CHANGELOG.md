@@ -1,5 +1,13 @@
 # deepsea-tools
 
+## 5.46.1
+
+### Patch Changes
+
+- 优化 FlattenZodError 使用方式，将 schema 错误的连接符改为 / ，将 IsParamRequired 移动到 soda-type 中
+- Updated dependencies
+    - soda-type@6.7.5
+
 ## 5.46.0
 
 ### Minor Changes

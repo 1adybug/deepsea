@@ -218,3 +218,6 @@ type _GetIndex<T extends readonly unknown[], Value extends T[number], K extends 
 
 /** 获取元祖中某个元素的索引 */
 export type GetIndex<T extends readonly unknown[], Value extends T[number]> = _GetIndex<T, Value>
+
+/** 判断单个参数的函数的参数是否为必需的 */
+export type IsParamRequired<TFn extends (params: any) => any> = Parameters<TFn> extends [param: any] ? true : false

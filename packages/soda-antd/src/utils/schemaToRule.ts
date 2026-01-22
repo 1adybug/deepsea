@@ -21,7 +21,7 @@ export function schemaToRule<T>(schemaOrParams: $ZodType<T> | schemaToRuleParams
             const { success, error } = safeParse(schema, value)
             if (success) return Promise.resolve()
             if (stringify) return Promise.reject(stringify(error))
-            return Promise.reject(flattenZodError(error).join(separator ?? "，"))
+            return Promise.reject(flattenZodError(error).join(separator ?? " / "))
         },
     }
 }

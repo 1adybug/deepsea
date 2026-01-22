@@ -1,5 +1,15 @@
 # soda-antd
 
+## 1.0.13
+
+### Patch Changes
+
+- 优化 FlattenZodError 使用方式，将 schema 错误的连接符改为 / ，将 IsParamRequired 移动到 soda-type 中
+- Updated dependencies
+    - deepsea-tools@5.46.1
+    - soda-hooks@6.16.10
+    - soda-react@0.1.16
+
 ## 1.0.12
 
 ### Patch Changes

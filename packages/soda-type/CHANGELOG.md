@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.7.5
+
+### Patch Changes
+
+- 优化 FlattenZodError 使用方式，将 schema 错误的连接符改为 / ，将 IsParamRequired 移动到 soda-type 中
+
 ## 6.7.4
 
 ### Patch Changes
