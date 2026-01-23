@@ -71,7 +71,9 @@ export const ${name}Client = createRequestFn(${
     fn: ${name}Action,
     schema: ${match[1]},
 }`
-            : `${name}Action`
+            : `{
+    fn: ${name}Action,
+}`
     })
 
 export interface Use${upName}Params<TOnMutateResult = unknown> extends Omit<

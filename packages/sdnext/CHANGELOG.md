@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.15
+
+### Patch Changes
+
+- 统一 mutation 和 query 的 createRequestFn 的写法
+
 ## 0.0.14
 
 ### Patch Changes
