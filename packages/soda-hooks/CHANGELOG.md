@@ -1,5 +1,13 @@
 # soda-hooks
 
+## 6.16.13
+
+### Patch Changes
+
+- 优化 useStorageState 实现
+- Updated dependencies
+    - deepsea-tools@5.47.2
+
 ## 6.16.12
 
 ### Patch Changes

@@ -1,44 +1,43 @@
-import { Dispatch, SetStateAction, useMemo, useState } from "react"
+import { SetStateAction, useCallback, useSyncExternalStore } from "react"
 
-export interface Storage {
-    getItem(key: string): string | null
-    setItem(key: string, value: string): any
-    removeItem(key: string): any
-}
+import { createObservableStorage } from "deepsea-tools"
 
-export interface StorageStateHookStringConfig {
+export interface UseStorageStateParams {
     key: string
     storage: Storage
-    parser?: (value: string | null) => string | null
-    serializer?: (value: string | null) => string | null
+    subscribe: (onStoreChange: () => void) => () => void
+    getServerSnapshot?: () => string | null
 }
 
-export interface StorageStateHookDataConfig<Data> {
-    key: string
-    storage: Storage
-    parser: (value: string | null) => Data
-    serializer: (value: Data) => string | null
+export function useStorageState({ key, storage, subscribe, getServerSnapshot }: UseStorageStateParams) {
+    const getSnapshot = useCallback(() => storage.getItem(key), [storage, key])
+    getServerSnapshot ??= () => null
+
+    const state = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+
+    const setState = useCallback(
+        function setState(action: SetStateAction<string | null>) {
+            const prev = storage.getItem(key)
+            const next = typeof action === "function" ? action(prev) : action
+            if (prev === next) return
+
+            if (next === null) storage.removeItem(key)
+            else storage.setItem(key, next)
+        },
+        [storage, key],
+    )
+
+    return [state, setState] as const
 }
 
-/**
- * 用于存储状态到 storage 中，当 storage 中的值发生变化时，state 也会发生变化
- */
-export function useStorageState(config: StorageStateHookStringConfig): [string | null, Dispatch<SetStateAction<string | null>>]
-export function useStorageState<Data>(config: StorageStateHookDataConfig<Data>): [Data, Dispatch<SetStateAction<Data>>]
-export function useStorageState<Data>(config: StorageStateHookStringConfig | StorageStateHookDataConfig<Data>) {
-    const { key, storage, parser, serializer } = config
+export function createUseStorageState(storage: Storage) {
+    storage = createObservableStorage(storage)
 
-    const [state, setState] = useState(() => {
-        const value = storage.getItem(key)
-        return parser ? parser(value) : value
-    })
+    function useStorageState2(params: UseStorageStateParams) {
+        return useStorageState({ ...params, storage })
+    }
 
-    useMemo(() => {
-        const value = serializer ? serializer(state as any) : state
+    useStorageState2.storage = storage
 
-        if (value === null) storage.removeItem(key)
-        else storage.setItem(key, value as string)
-    }, [state])
-
-    return [state, setState]
+    return useStorageState2
 }

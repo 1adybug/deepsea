@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.47.2
+
+### Patch Changes
+
+- 优化 useStorageState 实现
+
 ## 5.47.1
 
 ### Patch Changes
