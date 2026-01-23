@@ -31,13 +31,25 @@ export function useStorageState({ key, storage, subscribe, getServerSnapshot }: 
 }
 
 export function createUseStorageState(storage: Storage) {
-    storage = createObservableStorage(storage)
+    const observableStorage = createObservableStorage(storage)
 
-    function useStorageState2(params: UseStorageStateParams) {
-        return useStorageState({ ...params, storage })
+    function subscribe(onStoreChange: () => void) {
+        function listener(event: StorageEvent) {
+            if (event.storageArea === storage) onStoreChange()
+        }
+
+        globalThis.addEventListener("storage", listener)
+
+        return function unsubscribe() {
+            globalThis.removeEventListener("storage", listener)
+        }
     }
 
-    useStorageState2.storage = storage
+    function useStorageState2(key: string, params?: Omit<UseStorageStateParams, "key" | "storage" | "subscribe">) {
+        return useStorageState({ ...params, key, storage: observableStorage, subscribe })
+    }
+
+    useStorageState2.storage = observableStorage
 
     return useStorageState2
 }

@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.16.15
+
+### Patch Changes
+
+- 优化 createUseStorageState 使用方式
+
 ## 6.16.14
 
 ### Patch Changes
