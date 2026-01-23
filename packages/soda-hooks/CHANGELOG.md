@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.16.14
+
+### Patch Changes
+
+- 修复错误导致的类型问题
+
 ## 6.16.13
 
 ### Patch Changes

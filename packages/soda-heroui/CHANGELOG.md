@@ -1,5 +1,12 @@
 # soda-tanstack-form
 
+## 0.12.8
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.16.14
+
 ## 0.12.7
 
 ### Patch Changes

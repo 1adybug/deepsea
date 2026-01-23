@@ -12,5 +12,5 @@
             "@/*": ["src/*"]
         }
     },
-    "include": ["src", "../deepsea-tools/src/utils/createObservableStorage.ts"]
+    "include": ["src"]
 }
