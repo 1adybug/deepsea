@@ -1,6 +1,6 @@
 {
     "name": "sdrr",
-    "version": "0.1.9",
+    "version": "0.1.10",
     "description": "",
     "type": "module",
     "exports": {
@@ -43,6 +43,7 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/sdrr",
     "dependencies": {
+        "@inquirer/prompts": "^8.1.0",
         "chokidar": "^5.0.0",
         "commander": "^14.0.2",
         "deepsea-tools": "workspace:*"

@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.17
+
+### Patch Changes
+
+- 优化 hook 相关
+
 ## 0.0.16
 
 ### Patch Changes

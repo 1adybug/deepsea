@@ -5,8 +5,8 @@ import { cwd } from "process"
 import { checkbox, select } from "@inquirer/prompts"
 import { Command } from "commander"
 
-import { readSdNextSetting, SdNextSetting } from "./readSdNextSetting"
-import { writeSdNextSetting } from "./writeSdNextSetting"
+import { readSdrrSetting, SdrrSetting } from "./readSdrrSetting"
+import { writeSdrrSetting } from "./writeSdrrSetting"
 
 export type HookType = "get" | "query" | "mutation"
 
@@ -20,10 +20,10 @@ function getHookTypeFromName(name: string): HookType {
     return "mutation"
 }
 
-let setting: SdNextSetting = {}
+let setting: SdrrSetting = {}
 
 async function getSetting() {
-    setting = await readSdNextSetting()
+    setting = await readSdrrSetting()
     return setting
 }
 
@@ -43,41 +43,20 @@ export interface HookData extends HookContentMap {
 }
 
 export async function createHook(path: string, hookMap: Record<string, HookData>) {
-    path = relative("actions", path).replace(/\\/g, "/")
+    path = relative("apis", path).replace(/\\/g, "/")
     const { dir, name, ext, base } = parse(path)
     if (ext !== ".ts" && ext !== ".tsx" && ext !== ".js" && ext !== ".jsx") return
-    const actionContent = await readFile(join("actions", path), "utf-8")
-    const match = actionContent.match(/^import { (.+Schema) } from "@\/schemas\/.+"$/m)
-    const hasSchema = !!match
     const upName = name.replace(/^./, char => char.toUpperCase())
     const key = name.replace(/[A-Z]/g, char => `-${char.toLowerCase()}`)
 
     const mutationHook = `import { useId } from "react"
 
 import { useMutation, UseMutationOptions } from "@tanstack/react-query"
-import { createRequestFn } from "deepsea-tools"
 
-import { ${name}Action } from "@/actions/${join(dir, name)}"
-${
-    hasSchema
-        ? `
-${match[0]}
-`
-        : ""
-}
-export const ${name}Client = createRequestFn(${
-        hasSchema
-            ? `{
-    fn: ${name}Action,
-    schema: ${match[1]},
-}`
-            : `{
-    fn: ${name}Action,
-}`
-    })
+import { ${name} } from "@/apis/${join(dir, name)}"
 
 export interface Use${upName}Params<TOnMutateResult = unknown> extends Omit<
-    UseMutationOptions<Awaited<ReturnType<typeof ${name}Client>>, Error, Parameters<typeof ${name}Client>[0], TOnMutateResult>,
+    UseMutationOptions<Awaited<ReturnType<typeof ${name}>>, Error, Parameters<typeof ${name}>[0], TOnMutateResult>,
     "mutationFn"
 > {}
 
@@ -85,7 +64,7 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
     const key = useId()
 
     return useMutation({
-        mutationFn: ${name}Client,
+        mutationFn: ${name},
         onMutate(variables, context) {
             message.open({
                 key,
@@ -121,63 +100,28 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
 }
 `
 
-    const getHook = `import { createRequestFn, isNonNullable } from "deepsea-tools"
+    const getHook = `import { isNonNullable } from "deepsea-tools"
 import { createUseQuery } from "soda-tanstack-query"
 
-import { ${name}Action } from "@/actions/${join(dir, name)}"
-${
-    hasSchema
-        ? `
-${match[0].replace(match[1], `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())}, ${match[1]}`)}
-`
-        : ""
-}
-export const ${name}Client = createRequestFn(${
-        hasSchema
-            ? `{
-    fn: ${name}Action,
-    schema: ${match[1]},
-}`
-            : `{
-    fn: ${name}Action,
-}`
-    })
+import { ${name} } from "@/apis/${join(dir, name)}"
 
-export function ${name}ClientOptional(id?: ${hasSchema ? `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())} | ` : ""}undefined | null) {
-    return isNonNullable(id) ? ${name}Client(id) : null
+export function ${name}Optional(id?: string | undefined | null) {
+    return isNonNullable(id) ? ${name}(id) : null
 }
 
 export const use${upName} = createUseQuery({
     queryKey: "${key}",
-    queryFn: ${name}ClientOptional,
+    queryFn: ${name}Optional,
 })
 `
 
-    const queryHook = `import { createRequestFn } from "deepsea-tools"
-import { createUseQuery } from "soda-tanstack-query"
+    const queryHook = `import { createUseQuery } from "soda-tanstack-query"
 
-import { ${name}Action } from "@/actions/${join(dir, name)}"
-${
-    hasSchema
-        ? `
-${match[0]}
-`
-        : ""
-}
-export const ${name}Client = createRequestFn(${
-        hasSchema
-            ? `{
-    fn: ${name}Action,
-    schema: ${match[1]},
-}`
-            : `{
-    fn: ${name}Action,
-}`
-    })
+import { ${name} } from "@/apis/${join(dir, name)}"
 
 export const use${upName} = createUseQuery({
     queryKey: "${key}",
-    queryFn: ${name}Client,
+    queryFn: ${name},
 })
 `
 
@@ -211,28 +155,28 @@ export const use${upName} = createUseQuery({
     }
 }
 
-export async function createActionFromFolder() {
+export async function createHookFromFolder() {
     const map: Record<string, HookData> = {}
 
-    async function _createActionFromFolder(dir: string) {
+    async function _createHookFromFolder(dir: string) {
         const content = await readdir(dir)
 
         for (const item of content) {
             const path = join(dir, item)
             const stats = await stat(path)
 
-            if (stats.isDirectory()) await _createActionFromFolder(path)
+            if (stats.isDirectory()) await _createHookFromFolder(path)
             if (stats.isFile()) await createHook(path, map)
         }
     }
 
-    await _createActionFromFolder("actions")
+    await _createHookFromFolder("apis")
 
     return map
 }
 
 export async function hook(options: Record<string, string>, { args }: Command) {
-    const map = await createActionFromFolder()
+    const map = await createHookFromFolder()
 
     const entires = Object.entries(map)
 
@@ -275,7 +219,7 @@ export async function hook(options: Record<string, string>, { args }: Command) {
         )
     }
 
-    await writeSdNextSetting(setting)
+    await writeSdrrSetting(setting)
 
     const overwrites = await checkbox<string>({
         message: "Please check the hooks you want to overwrite",
