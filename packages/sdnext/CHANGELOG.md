@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.18
+
+### Patch Changes
+
+- deepsea-tools@5.47.3
+
 ## 0.0.17
 
 ### Patch Changes

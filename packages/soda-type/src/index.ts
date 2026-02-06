@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 /** 判断两个类型是否全等 */
 export type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? true : false
 
@@ -221,3 +219,8 @@ export type GetIndex<T extends readonly unknown[], Value extends T[number]> = _G
 
 /** 判断单个参数的函数的参数是否为必需的 */
 export type IsParamRequired<TFn extends (params: any) => any> = Parameters<TFn> extends [param: any] ? true : false
+
+/** 合并类型 */
+export type Assign<A, B> = {
+    [K in keyof A | keyof B]: K extends keyof B ? B[K] : K extends keyof A ? A[K] : never
+}

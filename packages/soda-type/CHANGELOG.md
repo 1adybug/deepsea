@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.7.6
+
+### Patch Changes
+
+- 新增 Assign 工具类型，新增 refine 方法允许再次定义 hook
+
 ## 6.7.5
 
 ### Patch Changes
