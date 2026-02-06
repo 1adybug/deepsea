@@ -2,7 +2,7 @@ import { getEnumerable } from "./getEnumerable"
 
 export type Combine<A, B> = B extends undefined ? A : B
 
-export type Assign<A extends {}, B extends {}> = {
+export type CombineAssign<A extends {}, B extends {}> = {
     [K in keyof A | keyof B]: K extends keyof A ? (K extends keyof B ? Combine<A[K], B[K]> : A[K]) : K extends keyof B ? B[K] : never
 }
 
@@ -13,9 +13,9 @@ export type Assign<A extends {}, B extends {}> = {
  * @returns 合并后的对象
  */
 export function assign<A extends {}>(a: A): A
-export function assign<A extends {}, B extends {}>(a: A, b: B): Assign<A, B>
-export function assign<A extends {}, B extends {}, C extends {}>(a: A, b: B, c: C): Assign<Assign<A, B>, C>
-export function assign<A extends {}, B extends {}, C extends {}, D extends {}>(a: A, b: B, c: C, d: D): Assign<Assign<Assign<A, B>, C>, D>
+export function assign<A extends {}, B extends {}>(a: A, b: B): CombineAssign<A, B>
+export function assign<A extends {}, B extends {}, C extends {}>(a: A, b: B, c: C): CombineAssign<CombineAssign<A, B>, C>
+export function assign<A extends {}, B extends {}, C extends {}, D extends {}>(a: A, b: B, c: C, d: D): CombineAssign<CombineAssign<CombineAssign<A, B>, C>, D>
 export function assign(a: object, ...sources: object[]): any
 export function assign(a: object, ...sources: object[]): any {
     for (const b of sources) {

@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.47.4
+
+### Patch Changes
+
+- 修复与 soda-type 类型冲突的问题
+
 ## 5.47.3
 
 ### Patch Changes
