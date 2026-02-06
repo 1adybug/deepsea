@@ -3,7 +3,7 @@ import {
     DefinedUseQueryResult,
     QueryClient,
     UndefinedInitialDataOptions,
-    useQuery,
+    useQuery as _useQuery,
     UseQueryOptions,
     UseQueryResult,
 } from "@tanstack/react-query"
@@ -281,8 +281,8 @@ export function createUseQuery<TFn extends (param: any) => any, TInitSelectData 
 ): any {
     const { queryFn, queryKey, ...rest } = params
 
-    const useRequest: any = function useRequest(params2: any, options?: any, client2: QueryClient | undefined = client) {
-        return useQuery(
+    const useQuery: any = function useRequest(params2: any, options?: any, client2: QueryClient | undefined = client) {
+        return _useQuery(
             {
                 queryKey: [queryKey, params2],
                 queryFn: () => queryFn(params2),
@@ -293,11 +293,13 @@ export function createUseQuery<TFn extends (param: any) => any, TInitSelectData 
         )
     }
 
-    useRequest.refine = function refine(params2: any, client2?: any) {
+    useQuery.refine = function refine(params2: any, client2?: any) {
         params2 = typeof params2 === "function" ? params2(params, client) : params2
         client2 = typeof client2 === "function" ? client2(params, client) : client2
         return createUseQuery({ ...params, ...params2 }, client2 ?? client)
     }
+
+    return useQuery
 }
 
 export type GetHookFromParams<Params> =

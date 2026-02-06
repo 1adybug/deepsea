@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.8
+
+### Patch Changes
+
+- 修复 useQuery 没有被返回的问题
+
 ## 0.0.7
 
 ### Patch Changes
