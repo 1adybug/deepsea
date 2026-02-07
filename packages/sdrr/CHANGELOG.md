@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.1.13
+
+### Patch Changes
+
+- 新增 hook 命令
+
 ## 0.1.12
 
 ### Patch Changes

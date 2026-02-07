@@ -7,6 +7,7 @@ import { Command } from "commander"
 
 import { build } from "./utils/build"
 import { dev } from "./utils/dev"
+import { hook } from "./utils/hook"
 
 const program = new Command()
 
@@ -19,5 +20,7 @@ program.name("soda react router").version(packgeJson.version)
 program.command("build").allowUnknownOption(true).allowExcessArguments(true).action(build)
 
 program.command("dev").allowUnknownOption(true).allowExcessArguments(true).action(dev)
+
+program.command("hook").action(hook)
 
 program.parse()
