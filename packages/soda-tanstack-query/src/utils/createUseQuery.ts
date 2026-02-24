@@ -1,9 +1,9 @@
 import {
+    useQuery as _useQuery,
     DefinedInitialDataOptions,
     DefinedUseQueryResult,
     QueryClient,
     UndefinedInitialDataOptions,
-    useQuery as _useQuery,
     UseQueryOptions,
     UseQueryResult,
 } from "@tanstack/react-query"
@@ -261,6 +261,12 @@ export interface CreateUseQueryParams<TFn extends (param: any) => any, TInitSele
     TInitSelectData
 > {}
 
+let __useQuery = _useQuery
+
+export function setUseQuery(useQuery: typeof _useQuery) {
+    __useQuery = useQuery
+}
+
 // 根据是否传递初始化参数，选择不同的 createUseQuery，目前存在一个问题，UndefinedInitialDataOptions 和 UseQueryOptions 是完全一致的，所以匹配不到第三种可能，但这是 @tanstack/react-query 的问题
 export function createUseQuery<TFn extends (param: any) => any, TInitSelectData = Awaited<ReturnType<TFn>>>(
     params: CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>,
@@ -282,7 +288,7 @@ export function createUseQuery<TFn extends (param: any) => any, TInitSelectData 
     const { queryFn, queryKey, ...rest } = params
 
     const useQuery: any = function useRequest(params2: any, options?: any, client2: QueryClient | undefined = client) {
-        return _useQuery(
+        return __useQuery(
             {
                 queryKey: [queryKey, params2],
                 queryFn: () => queryFn(params2),

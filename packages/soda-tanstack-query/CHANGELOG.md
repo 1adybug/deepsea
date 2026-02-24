@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.9
+
+### Patch Changes
+
+- 修复 @tanstack/react-query 版本不一致的问题
+
 ## 0.0.8
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
     "name": "soda-tanstack-query",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "",
     "type": "module",
     "exports": {
@@ -41,11 +41,11 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-tanstack-query",
     "dependencies": {
-        "@tanstack/react-query": "^5.90.19"
+        "@tanstack/react-query": "^5.90.21"
     },
     "devDependencies": {
-        "typescript": "catalog:",
-        "soda-type": "workspace:"
+        "soda-type": "workspace:",
+        "typescript": "catalog:"
     },
     "peerDependencies": {
         "@types/react": "catalog:",
