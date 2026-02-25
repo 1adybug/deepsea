@@ -46,8 +46,8 @@ export async function createHook(path: string, hookMap: Record<string, HookData>
     path = relative("actions", path).replace(/\\/g, "/")
     const { dir, name, ext, base } = parse(path)
     if (ext !== ".ts" && ext !== ".tsx" && ext !== ".js" && ext !== ".jsx") return
-    const actionContent = await readFile(join("actions", path), "utf-8")
-    const match = actionContent.match(/^import { (.+Schema) } from "@\/schemas\/.+"$/m)
+    const serverContent = await readFile(join("shared", path), "utf-8")
+    const match = serverContent.match(new RegExp(`export async function ${name}\\(.+?: (.+?)Params\\)`, "s"))
     const hasSchema = !!match
     const upName = name.replace(/^./, char => char.toUpperCase())
     const key = name.replace(/[A-Z]/g, char => `-${char.toLowerCase()}`)

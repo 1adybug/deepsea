@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.20
+
+### Patch Changes
+
+- 适配最新的 createResponseFn 的调用方式
+
 ## 0.0.19
 
 ### Patch Changes
