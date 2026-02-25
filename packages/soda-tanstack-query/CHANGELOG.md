@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.10
+
+### Patch Changes
+
+- @tanstack/react-query 移到 peerDependencies 中
+
 ## 0.0.9
 
 ### Patch Changes
