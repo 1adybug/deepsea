@@ -3,60 +3,71 @@ import { $ZodType, parse } from "zod/v4/core"
 import { assignFnName } from "./assignFnName"
 import { createFnWithMiddleware, Middleware } from "./createFnWithMiddleware"
 
-export interface ResponseData<Data = unknown> {
+export interface ResponseData<TData = unknown> {
     /** 是否成功 */
     success: boolean
     /** 数据 */
-    data?: Data
+    data?: TData
     /** 消息 */
     message?: string | Error
 }
 
-export type WithPromise<T> = T | Promise<T>
+export type WithPromise<TData> = TData | Promise<TData>
 
-export type OriginalRequestFn = (...args: any[]) => WithPromise<ResponseData<any> | undefined | void>
+export interface OriginalRequestFn<TParams extends [arg?: unknown] = [arg: unknown], TData = never> {
+    (...args: TParams): WithPromise<ResponseData<TData> | undefined | void>
+    schema?: TParams extends [] ? undefined : $ZodType<TParams[0]>
+}
 
-export type RequestFnReturnType<Fn extends OriginalRequestFn> = Awaited<ReturnType<Fn>> extends ResponseData<infer T> ? T : undefined
+export type RequestFnReturnType<TParams extends [arg?: unknown] = [arg: unknown], TData = never> =
+    Awaited<ReturnType<OriginalRequestFn<TParams, TData>>> extends ResponseData<infer T> ? T : undefined
 
-export interface RequestFn<Fn extends OriginalRequestFn> {
-    (...args: Parameters<Fn>): Promise<RequestFnReturnType<Fn>>
-    use(middleware: Middleware<(...args: Parameters<Fn>) => Promise<RequestFnReturnType<Fn>>>): this
-    preset(...args: Parameters<Fn>): () => Promise<RequestFnReturnType<Fn>>
+export interface RequestFn<TParams extends [arg?: unknown] = [arg: unknown], TData = never> {
+    (...args: TParams): Promise<RequestFnReturnType<TParams, TData>>
+    use(middleware: Middleware<(...args: TParams) => Promise<RequestFnReturnType<TParams, TData>>>): this
+    preset(...args: TParams): () => Promise<RequestFnReturnType<TParams, TData>>
 }
 
 const requestFnSymbol = Symbol("requestFn")
 
-export function isRequestFn(fn: unknown): fn is RequestFn<OriginalRequestFn> {
+export function isRequestFn(fn: unknown): fn is RequestFn {
     return typeof fn === "function" && (fn as any)[requestFnSymbol] === true
 }
 
 const globalRequestFnMiddlewares: Middleware[] = []
 
-export interface CreateResponseFnParams<Fn extends OriginalRequestFn> {
-    fn: Fn
-    schema?: Parameters<Fn> extends [] ? undefined : $ZodType<Parameters<Fn>[0]>
+export interface CreateResponseFnParams<TParams extends [arg?: unknown] = [arg: unknown], TData = never> {
+    fn: OriginalRequestFn<TParams, TData>
+    schema?: TParams extends [] ? undefined : $ZodType<TParams[0]>
     name?: string
 }
 
-export function createRequestFn<Fn extends OriginalRequestFn>(fn: Fn): RequestFn<Fn>
-export function createRequestFn<Fn extends OriginalRequestFn>(params: CreateResponseFnParams<Fn>): RequestFn<Fn>
-export function createRequestFn<Fn2 extends OriginalRequestFn>(fnOrParams: Fn2 | CreateResponseFnParams<Fn2>): RequestFn<Fn2> {
-    const { fn, schema, name } = (typeof fnOrParams === "function" ? { fn: fnOrParams } : fnOrParams) as CreateResponseFnParams<Fn2>
+export function createRequestFn<TParams extends [arg?: unknown] = [arg: unknown], TData = never>(
+    fn: OriginalRequestFn<TParams, TData>,
+): RequestFn<TParams, TData>
+export function createRequestFn<TParams extends [arg?: unknown] = [arg: unknown], TData = never>(
+    params: CreateResponseFnParams<TParams, TData>,
+): RequestFn<TParams, TData>
+export function createRequestFn<TParams extends [arg?: unknown] = [arg: unknown], TData = never>(
+    fnOrParams: OriginalRequestFn<TParams, TData> | CreateResponseFnParams<TParams, TData>,
+): RequestFn<TParams, TData> {
+    let { fn, schema, name } = (typeof fnOrParams === "function" ? { fn: fnOrParams } : fnOrParams) as CreateResponseFnParams<TParams, TData>
+    if (!schema) schema = fn.schema
 
-    async function request(...args: Parameters<Fn2>): Promise<RequestFnReturnType<Fn2>> {
-        if (schema) args = [parse(schema, args.at(0))] as Parameters<Fn2>
+    async function request(...args: TParams): Promise<RequestFnReturnType<TParams, TData>> {
+        if (schema) args = [parse(schema, args.at(0))] as any as TParams
         const result = await fn(...args)
-        if (result === undefined) return undefined as RequestFnReturnType<Fn2>
+        if (result === undefined) return undefined as RequestFnReturnType<TParams, TData>
         if (!result.success) throw result.message instanceof Error ? result.message : new Error(result.message)
-        return result.data
+        return result.data as RequestFnReturnType<TParams, TData>
     }
 
     assignFnName(request, name ?? fn)
 
-    const newRequest = createFnWithMiddleware(request, { global: globalRequestFnMiddlewares }) as RequestFn<Fn2>
+    const newRequest = createFnWithMiddleware(request, { global: globalRequestFnMiddlewares }) as RequestFn<TParams, TData>
 
     Object.defineProperty(newRequest, requestFnSymbol, { value: true })
-    newRequest.preset = function preset(...args: Parameters<Fn2>): () => Promise<RequestFnReturnType<Fn2>> {
+    newRequest.preset = function preset(...args: TParams): () => Promise<RequestFnReturnType<TParams, TData>> {
         async function requestWithPreset() {
             return await newRequest(...args)
         }

@@ -1,5 +1,13 @@
 # soda-node
 
+## 0.0.21
+
+### Patch Changes
+
+- 优化 createRequestFn 相关
+- Updated dependencies
+    - deepsea-tools@5.47.5
+
 ## 0.0.20
 
 ### Patch Changes

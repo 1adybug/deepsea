@@ -58,23 +58,8 @@ import { useMutation, UseMutationOptions } from "@tanstack/react-query"
 import { createRequestFn } from "deepsea-tools"
 
 import { ${name}Action } from "@/actions/${join(dir, name)}"
-${
-    hasSchema
-        ? `
-${match[0]}
-`
-        : ""
-}
-export const ${name}Client = createRequestFn(${
-        hasSchema
-            ? `{
-    fn: ${name}Action,
-    schema: ${match[1]},
-}`
-            : `{
-    fn: ${name}Action,
-}`
-    })
+
+export const ${name}Client = createRequestFn(${name}Action)
 
 export interface Use${upName}Params<TOnMutateResult = unknown> extends Omit<
     UseMutationOptions<Awaited<ReturnType<typeof ${name}Client>>, Error, Parameters<typeof ${name}Client>[0], TOnMutateResult>,
@@ -125,23 +110,8 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
 import { createUseQuery } from "soda-tanstack-query"
 
 import { ${name}Action } from "@/actions/${join(dir, name)}"
-${
-    hasSchema
-        ? `
-${match[0].replace(match[1], `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())}, ${match[1]}`)}
-`
-        : ""
-}
-export const ${name}Client = createRequestFn(${
-        hasSchema
-            ? `{
-    fn: ${name}Action,
-    schema: ${match[1]},
-}`
-            : `{
-    fn: ${name}Action,
-}`
-    })
+
+export const ${name}Client = createRequestFn(${name}Action)
 
 export function ${name}ClientOptional(id?: ${hasSchema ? `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())} | ` : ""}undefined | null) {
     return isNonNullable(id) ? ${name}Client(id) : null
@@ -157,23 +127,8 @@ export const use${upName} = createUseQuery({
 import { createUseQuery } from "soda-tanstack-query"
 
 import { ${name}Action } from "@/actions/${join(dir, name)}"
-${
-    hasSchema
-        ? `
-${match[0]}
-`
-        : ""
-}
-export const ${name}Client = createRequestFn(${
-        hasSchema
-            ? `{
-    fn: ${name}Action,
-    schema: ${match[1]},
-}`
-            : `{
-    fn: ${name}Action,
-}`
-    })
+
+export const ${name}Client = createRequestFn(${name}Action)
 
 export const use${upName} = createUseQuery({
     queryKey: "${key}",
