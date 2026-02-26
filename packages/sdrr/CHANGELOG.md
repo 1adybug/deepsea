@@ -1,5 +1,12 @@
 # soda-node
 
+## 0.1.15
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.6
+
 ## 0.1.14
 
 ### Patch Changes

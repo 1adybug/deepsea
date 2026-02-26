@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.47.6
+
+### Patch Changes
+
+- 修复 createRequestFn 类型错误
+
 ## 5.47.5
 
 ### Patch Changes
