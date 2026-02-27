@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.11
+
+### Patch Changes
+
+- 修复 refine 类型错误
+
 ## 0.0.10
 
 ### Patch Changes

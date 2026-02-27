@@ -76,15 +76,15 @@ type _UseQuery<TFn extends (param: any) => any, TInitSelectData = Awaited<Return
     IsParamRequired<TFn> extends true ? UseQueryWithParams<TFn, TInitSelectData> : UseQueryWithOptionalParams<TFn, TInitSelectData>
 
 export type UseQuery<TFn extends (param: any) => any, TInitSelectData = Awaited<ReturnType<TFn>>> = _UseQuery<TFn, TInitSelectData> & {
-    refine<TRefineParams extends StrictPartial<CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, "queryKey" | "queryFn">>(
+    refine<TRefineParams extends StrictPartial<CreateUseQueryDefinedInitialDataParams<TFn, unknown>, "queryKey" | "queryFn">>(
         params: TRefineParams | ((params: CreateUseQueryParams<TFn, TInitSelectData>, client?: QueryClient) => TRefineParams),
         client?: QueryClient | ((params: CreateUseQueryParams<TFn, TInitSelectData>, client?: QueryClient) => QueryClient | undefined),
     ): GetHookFromParams<Assign<CreateUseQueryParams<TFn, TInitSelectData>, TRefineParams>>
-    refine<TRefineParams extends StrictPartial<CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, "queryKey" | "queryFn">>(
+    refine<TRefineParams extends StrictPartial<CreateUseQueryUndefinedInitialDataParams<TFn, unknown>, "queryKey" | "queryFn">>(
         params: TRefineParams | ((params: CreateUseQueryParams<TFn, TInitSelectData>, client?: QueryClient) => TRefineParams),
         client?: QueryClient | ((params: CreateUseQueryParams<TFn, TInitSelectData>, client?: QueryClient) => QueryClient | undefined),
     ): GetHookFromParams<Assign<CreateUseQueryParams<TFn, TInitSelectData>, TRefineParams>>
-    refine<TRefineParams extends StrictPartial<CreateUseQueryParams<TFn, TInitSelectData>, "queryKey" | "queryFn">>(
+    refine<TRefineParams extends StrictPartial<CreateUseQueryParams<TFn, unknown>, "queryKey" | "queryFn">>(
         params: TRefineParams | ((params: CreateUseQueryParams<TFn, TInitSelectData>, client?: QueryClient) => TRefineParams),
         client?: QueryClient | ((params: CreateUseQueryParams<TFn, TInitSelectData>, client?: QueryClient) => QueryClient | undefined),
     ): GetHookFromParams<Assign<CreateUseQueryParams<TFn, TInitSelectData>, TRefineParams>>
@@ -154,15 +154,15 @@ export type UseQueryDefinedInitialData<TFn extends (params?: any) => any, TInitS
     TFn,
     TInitSelectData
 > & {
-    refine<TRefineParams extends StrictPartial<CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, "queryKey" | "queryFn">>(
+    refine<TRefineParams extends StrictPartial<CreateUseQueryDefinedInitialDataParams<TFn, unknown>, "queryKey" | "queryFn">>(
         params: TRefineParams | ((params: CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => TRefineParams),
         client?: QueryClient | ((params: CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => QueryClient | undefined),
     ): GetHookFromParams<Assign<CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, TRefineParams>>
-    refine<TRefineParams extends StrictPartial<CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, "queryKey" | "queryFn">>(
+    refine<TRefineParams extends StrictPartial<CreateUseQueryUndefinedInitialDataParams<TFn, unknown>, "queryKey" | "queryFn">>(
         params: TRefineParams | ((params: CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => TRefineParams),
         client?: QueryClient | ((params: CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => QueryClient | undefined),
     ): GetHookFromParams<Assign<CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, TRefineParams>>
-    refine<TRefineParams extends StrictPartial<CreateUseQueryParams<TFn, TInitSelectData>, "queryKey" | "queryFn">>(
+    refine<TRefineParams extends StrictPartial<CreateUseQueryParams<TFn, unknown>, "queryKey" | "queryFn">>(
         params: TRefineParams | ((params: CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => TRefineParams),
         client?: QueryClient | ((params: CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => QueryClient | undefined),
     ): GetHookFromParams<Assign<CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, TRefineParams>>
@@ -232,15 +232,15 @@ export type UseQueryUndefinedInitialData<TFn extends (params?: any) => any, TIni
     TFn,
     TInitSelectData
 > & {
-    refine<TRefineParams extends StrictPartial<CreateUseQueryDefinedInitialDataParams<TFn, TInitSelectData>, "queryKey" | "queryFn">>(
+    refine<TRefineParams extends StrictPartial<CreateUseQueryDefinedInitialDataParams<TFn, unknown>, "queryKey" | "queryFn">>(
         params: TRefineParams | ((params: CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => TRefineParams),
         client?: QueryClient | ((params: CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => QueryClient | undefined),
     ): GetHookFromParams<Assign<CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, TRefineParams>>
-    refine<TRefineParams extends StrictPartial<CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, "queryKey" | "queryFn">>(
+    refine<TRefineParams extends StrictPartial<CreateUseQueryUndefinedInitialDataParams<TFn, unknown>, "queryKey" | "queryFn">>(
         params: TRefineParams | ((params: CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => TRefineParams),
         client?: QueryClient | ((params: CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => QueryClient | undefined),
     ): GetHookFromParams<Assign<CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, TRefineParams>>
-    refine<TRefineParams extends StrictPartial<CreateUseQueryParams<TFn, TInitSelectData>, "queryKey" | "queryFn">>(
+    refine<TRefineParams extends StrictPartial<CreateUseQueryParams<TFn, unknown>, "queryKey" | "queryFn">>(
         params: TRefineParams | ((params: CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => TRefineParams),
         client?: QueryClient | ((params: CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, client?: QueryClient) => QueryClient | undefined),
     ): GetHookFromParams<Assign<CreateUseQueryUndefinedInitialDataParams<TFn, TInitSelectData>, TRefineParams>>
