@@ -59,6 +59,8 @@ export interface CreateFnWithMiddlewareOptions<TFn extends AnyFunction = AnyFunc
  *
  * 可以通过 `TContext` 为 `context` 扩展额外字段的类型声明。
  * 这些字段默认不是预先初始化的，需要由中间件自行赋值。
+ * 如果只想指定 `TContext` 并保留 `TFn` 自动推导，请使用
+ * `createFnWithMiddleware.withContext<TContext>()(fn)`。
  *
  * @example
  * const fn = createFnWithMiddleware(async (id: number) => ({ id }))
@@ -127,4 +129,13 @@ export function createFnWithMiddleware<TFn extends AnyFunction = AnyFunction, TC
 createFnWithMiddleware.use = function use(middleware: Middleware) {
     globalMiddlewares.push(middleware)
     return createFnWithMiddleware
+}
+
+createFnWithMiddleware.withContext = function withContext<TContext extends AnyContext = {}>() {
+    return function createFnWithMiddlewareWithContext<TFn extends AnyFunction>(
+        fn: TFn,
+        options: CreateFnWithMiddlewareOptions<TFn, TContext> = {},
+    ): FnWithMiddleware<TFn, TContext> {
+        return createFnWithMiddleware<TFn, TContext>(fn, options)
+    }
 }

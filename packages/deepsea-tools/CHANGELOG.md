@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.47.8
+
+### Patch Changes
+
+- 修复 createFnWithMiddleware 中间件语义并补充 withContext 类型入口
+
 ## 5.47.7
 
 ### Patch Changes
