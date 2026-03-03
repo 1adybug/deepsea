@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.47.7
+
+### Patch Changes
+
+- 修复 createFnWithMiddleware 洋葱模型与 TContext 类型设计
+
 ## 5.47.6
 
 ### Patch Changes
