@@ -1,4 +1,3 @@
-import { existsSync } from "node:fs"
 import { readFile } from "node:fs/promises"
 import { homedir } from "node:os"
 import { join } from "node:path"
@@ -13,10 +12,21 @@ export async function readSdNextSetting(): Promise<SdNextSetting> {
     const userDir = homedir()
     const settingPath = join(userDir, ".sdnext.json")
 
-    if (existsSync(settingPath)) {
-        const setting = JSON.parse(await readFile(settingPath, "utf-8"))
+    try {
+        const setting = JSON.parse(await readFile(settingPath, "utf-8")) as SdNextSetting
         return setting
-    }
+    } catch (error) {
+        if (isNodeError(error) && error.code === "ENOENT") return {}
 
-    return {}
+        console.warn(`Failed to read ${settingPath}, fallback to default setting.`)
+        return {}
+    }
+}
+
+export interface NodeError {
+    code?: string
+}
+
+function isNodeError(error: unknown): error is NodeError {
+    return typeof error === "object" && error !== null
 }

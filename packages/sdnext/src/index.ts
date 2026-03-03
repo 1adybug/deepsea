@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-import { readFileSync } from "fs"
+import { readFile } from "fs/promises"
 import { join } from "path"
+import { fileURLToPath } from "url"
 
 import { Command } from "commander"
 
@@ -11,11 +12,11 @@ import { hook } from "./utils/hook"
 
 const program = new Command()
 
-const path = process.platform === "win32" ? import.meta.resolve("../").replace(/^file:\/\/\//, "") : import.meta.resolve("../").replace(/^file:\/\//, "")
+const path = fileURLToPath(new URL("../", import.meta.url))
 
-const packgeJson = JSON.parse(readFileSync(join(path, "package.json"), "utf-8"))
+const packageJson = JSON.parse(await readFile(join(path, "package.json"), "utf-8"))
 
-program.name("soda next").version(packgeJson.version)
+program.name("soda next").version(packageJson.version)
 
 program.command("build").allowUnknownOption(true).allowExcessArguments(true).action(build)
 

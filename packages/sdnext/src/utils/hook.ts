@@ -1,4 +1,4 @@
-import { mkdir, readdir, readFile, stat, writeFile } from "fs/promises"
+import { readdir, readFile, stat } from "fs/promises"
 import { join, parse, relative } from "path"
 import { cwd } from "process"
 
@@ -6,6 +6,7 @@ import { checkbox, select } from "@inquirer/prompts"
 import { Command } from "commander"
 
 import { readSdNextSetting, SdNextSetting } from "./readSdNextSetting"
+import { isScriptModule, normalizePathSeparator, writeGeneratedFile } from "./sharedArtifact"
 import { writeSdNextSetting } from "./writeSdNextSetting"
 
 export type HookType = "get" | "query" | "mutation"
@@ -32,37 +33,41 @@ async function getHookTypeFromContent(path: string, content: string): Promise<Ho
     const type = setting.hook?.[path]
     if (type !== undefined && type !== "skip") return type
     if (content.includes("useMutation")) return "mutation"
-    if (content.includes("IdOrParams")) return "get"
+    if (content.includes("ClientOptional")) return "get"
     if (content.includes("useQuery")) return "query"
     return undefined
 }
 
 export interface HookData extends HookContentMap {
+    hookPath: string
     overwrite: boolean
     type: HookType
 }
 
 export async function createHook(path: string, hookMap: Record<string, HookData>) {
     path = relative("actions", path).replace(/\\/g, "/")
-    const { dir, name, ext, base } = parse(path)
-    if (ext !== ".ts" && ext !== ".tsx" && ext !== ".js" && ext !== ".jsx") return
-    const serverContent = await readFile(join("shared", path), "utf-8")
-    const match = serverContent.match(new RegExp(`export async function ${name}\\(.+?: (.+?)Params\\)`, "s"))
-    const hasSchema = !!match
+    const { dir, name, base } = parse(path)
+    if (!isScriptModule(path)) return
     const upName = name.replace(/^./, char => char.toUpperCase())
     const key = name.replace(/[A-Z]/g, char => `-${char.toLowerCase()}`)
+    const actionImportPath = normalizePathSeparator(join(dir, name))
+    const hookName = base.replace(/^./, char => `use${char.toUpperCase()}`)
+    const hookPath = join("hooks", dir, hookName)
+    const clientInputType = `${upName}ClientInput`
 
     const mutationHook = `import { useId } from "react"
 
 import { useMutation, UseMutationOptions } from "@tanstack/react-query"
 import { createRequestFn } from "deepsea-tools"
 
-import { ${name}Action } from "@/actions/${join(dir, name)}"
+import { ${name}Action } from "@/actions/${actionImportPath}"
 
 export const ${name}Client = createRequestFn(${name}Action)
 
+export type ${clientInputType} = Parameters<typeof ${name}Client> extends [] ? void : Parameters<typeof ${name}Client>[0]
+
 export interface Use${upName}Params<TOnMutateResult = unknown> extends Omit<
-    UseMutationOptions<Awaited<ReturnType<typeof ${name}Client>>, Error, Parameters<typeof ${name}Client>[0], TOnMutateResult>,
+    UseMutationOptions<Awaited<ReturnType<typeof ${name}Client>>, Error, ${clientInputType}, TOnMutateResult>,
     "mutationFn"
 > {}
 
@@ -109,11 +114,13 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
     const getHook = `import { createRequestFn, isNonNullable } from "deepsea-tools"
 import { createUseQuery } from "soda-tanstack-query"
 
-import { ${name}Action } from "@/actions/${join(dir, name)}"
+import { ${name}Action } from "@/actions/${actionImportPath}"
 
 export const ${name}Client = createRequestFn(${name}Action)
 
-export function ${name}ClientOptional(id?: ${hasSchema ? `${match[1].replace(/Schema$/, "Params").replace(/^./, char => char.toUpperCase())} | ` : ""}undefined | null) {
+export type ${clientInputType} = Parameters<typeof ${name}Client> extends [] ? undefined : Parameters<typeof ${name}Client>[0]
+
+export function ${name}ClientOptional(id?: ${clientInputType} | null) {
     return isNonNullable(id) ? ${name}Client(id) : null
 }
 
@@ -126,7 +133,7 @@ export const use${upName} = createUseQuery({
     const queryHook = `import { createRequestFn } from "deepsea-tools"
 import { createUseQuery } from "soda-tanstack-query"
 
-import { ${name}Action } from "@/actions/${join(dir, name)}"
+import { ${name}Action } from "@/actions/${actionImportPath}"
 
 export const ${name}Client = createRequestFn(${name}Action)
 
@@ -142,10 +149,6 @@ export const use${upName} = createUseQuery({
         mutation: mutationHook,
     }
 
-    const hookName = base.replace(/^./, char => `use${char.toUpperCase()}`)
-
-    const hookPath = join("hooks", dir, hookName)
-
     let hookType = getHookTypeFromName(name)
     let overwrite = true
 
@@ -160,34 +163,40 @@ export const use${upName} = createUseQuery({
     }
 
     hookMap[path] = {
+        hookPath,
         overwrite,
         type: hookType,
         ...map,
     }
 }
 
-export async function createActionFromFolder() {
+export async function createHookFromFolder() {
     const map: Record<string, HookData> = {}
 
-    async function _createActionFromFolder(dir: string) {
+    async function _createHookFromFolder(dir: string) {
         const content = await readdir(dir)
 
         for (const item of content) {
             const path = join(dir, item)
             const stats = await stat(path)
 
-            if (stats.isDirectory()) await _createActionFromFolder(path)
+            if (stats.isDirectory()) await _createHookFromFolder(path)
             if (stats.isFile()) await createHook(path, map)
         }
     }
 
-    await _createActionFromFolder("actions")
+    try {
+        await _createHookFromFolder("actions")
+    } catch (error) {
+        if (isNodeError(error) && error.code === "ENOENT") return map
+        throw error
+    }
 
     return map
 }
 
 export async function hook(options: Record<string, string>, { args }: Command) {
-    const map = await createActionFromFolder()
+    const map = await createHookFromFolder()
 
     const entires = Object.entries(map)
 
@@ -204,8 +213,8 @@ export async function hook(options: Record<string, string>, { args }: Command) {
 
     const setting = await getSetting()
 
-    for await (const [path, { overwrite, type, ...map }] of newEntires) {
-        const resolved = join(root, "hooks", path)
+    for (const [path, { hookPath, overwrite, type, ...map }] of newEntires) {
+        const resolved = join(root, hookPath)
 
         const answer = await select<OperationType>({
             message: path,
@@ -218,16 +227,10 @@ export async function hook(options: Record<string, string>, { args }: Command) {
 
         if (answer === "skip") continue
 
-        const { dir, base } = parse(path)
-        await mkdir(join("hooks", dir), { recursive: true })
-        await writeFile(
-            join(
-                "hooks",
-                dir,
-                base.replace(/^./, char => `use${char.toUpperCase()}`),
-            ),
-            map[answer],
-        )
+        await writeGeneratedFile({
+            path: hookPath,
+            content: map[answer],
+        })
     }
 
     await writeSdNextSetting(setting)
@@ -237,18 +240,20 @@ export async function hook(options: Record<string, string>, { args }: Command) {
         choices: oldEntires.map(([key]) => key),
     })
 
-    for (const [path, { overwrite, type, ...map }] of oldEntires) {
+    for (const [path, { hookPath, overwrite, type, ...map }] of oldEntires) {
         if (!overwrites.includes(path)) continue
 
-        const { dir, base } = parse(path)
-        await mkdir(join("hooks", dir), { recursive: true })
-        await writeFile(
-            join(
-                "hooks",
-                dir,
-                base.replace(/^./, char => `use${char.toUpperCase()}`),
-            ),
-            map[type],
-        )
+        await writeGeneratedFile({
+            path: hookPath,
+            content: map[type],
+        })
     }
+}
+
+export interface NodeError {
+    code?: string
+}
+
+function isNodeError(error: unknown): error is NodeError {
+    return typeof error === "object" && error !== null
 }

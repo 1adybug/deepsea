@@ -1,11 +1,11 @@
-import { spawn } from "child_process"
 import { readdir, stat } from "fs/promises"
 import { join } from "path"
 
 import { Command } from "commander"
 
-import { createAction } from "./createAction"
-import { excludeActions } from "./excludeActions"
+import { excludeGeneratedFiles } from "./excludeGeneratedFiles"
+import { runCommand } from "./runCommand"
+import { syncSharedArtifacts } from "./syncSharedArtifacts"
 
 export async function buildFolder(dir: string) {
     const content = await readdir(dir)
@@ -15,19 +15,16 @@ export async function buildFolder(dir: string) {
         const stats = await stat(path)
 
         if (stats.isDirectory()) await buildFolder(path)
-        else await createAction(path)
+        else await syncSharedArtifacts(path)
     }
 }
 
 export async function build(options: Record<string, string>, { args }: Command) {
-    await excludeActions()
+    await excludeGeneratedFiles()
 
     await buildFolder("shared")
 
     if (args.length === 0) return
 
-    spawn(args.join(" "), {
-        stdio: "inherit",
-        shell: true,
-    })
+    process.exitCode = await runCommand({ args })
 }

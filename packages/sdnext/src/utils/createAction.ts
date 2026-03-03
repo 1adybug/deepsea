@@ -1,28 +1,21 @@
-import { mkdir, readFile, writeFile } from "fs/promises"
-import { join, parse, relative } from "path"
+import { join } from "path"
+
+import { getSharedModuleInfo, isScriptModule, writeGeneratedFile } from "./sharedArtifact"
 
 export async function createAction(path: string) {
-    path = relative("shared", path).replace(/\\/g, "/")
-    const { dir, name, ext } = parse(path)
-    if (ext !== ".ts" && ext !== ".tsx" && ext !== ".js" && ext !== ".jsx") return
+    const info = getSharedModuleInfo(path)
 
-    const content = `"use server"
+    if (!isScriptModule(info.relativePath)) return
+
+    await writeGeneratedFile({
+        path: join("actions", info.relativePath),
+        content: `"use server"
 
 import { createResponseFn } from "@/server/createResponseFn"
 
-import { ${name} } from "@/shared/${join(dir, name)}"
+import { ${info.name} } from "@/shared/${info.importPath}"
 
-export const ${name}Action = createResponseFn(${name})
+export const ${info.name}Action = createResponseFn(${info.name})
 `
-
-    const actionPath = join("actions", path)
-
-    try {
-        const current = await readFile(actionPath, "utf-8")
-        if (current === content) return
-    } catch (error) {}
-
-    await mkdir(join("actions", dir), { recursive: true })
-
-    await writeFile(actionPath, content)
+    })
 }

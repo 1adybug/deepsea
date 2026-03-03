@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.25
+
+### Patch Changes
+
+- 优化 sdnext 生成器并补充 route 与 hook 相关能力
+
 ## 0.0.24
 
 ### Patch Changes
