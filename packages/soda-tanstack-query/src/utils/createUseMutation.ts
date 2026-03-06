@@ -64,7 +64,7 @@ export function createUseMutation<TMutationFn extends MutationFn>(
 }
 
 export function withUseMutationDefaults<TMutationFn extends MutationFn>(
-    defaultOptions: Omit<CreateUseMutationOptions<TMutationFn>, "mutationFn"> | (() => Omit<CreateUseMutationOptions<TMutationFn>, "mutationFn">),
+    defaultOptions: Omit<CreateUseMutationOptions<TMutationFn>, "mutationFn"> | (() => Omit<CreateUseMutationOptions<TMutationFn>, "mutationFn">) = {},
 ) {
     return function bindMutation(mutationFn: TMutationFn, queryClient?: QueryClient) {
         return createUseMutation(() => {

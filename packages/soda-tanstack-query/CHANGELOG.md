@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.13
+
+### Patch Changes
+
+- 允许选项为空
+
 ## 0.0.12
 
 ### Patch Changes
