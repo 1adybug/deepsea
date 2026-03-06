@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.26
+
+### Patch Changes
+
+- 适配最新的模板
+
 ## 0.0.25
 
 ### Patch Changes

@@ -3,7 +3,6 @@ import { join } from "path"
 
 import { Command } from "commander"
 
-import { excludeGeneratedFiles } from "./excludeGeneratedFiles"
 import { runCommand } from "./runCommand"
 import { syncSharedArtifacts } from "./syncSharedArtifacts"
 
@@ -20,8 +19,6 @@ export async function buildFolder(dir: string) {
 }
 
 export async function build(options: Record<string, string>, { args }: Command) {
-    await excludeGeneratedFiles()
-
     await buildFolder("shared")
 
     if (args.length === 0) return

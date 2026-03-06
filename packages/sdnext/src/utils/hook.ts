@@ -33,6 +33,7 @@ async function getHookTypeFromContent(path: string, content: string): Promise<Ho
     const type = setting.hook?.[path]
     if (type !== undefined && type !== "skip") return type
     if (content.includes("useMutation")) return "mutation"
+    if (content.includes("createUse") && content.includes("@/presets/")) return "mutation"
     if (content.includes("ClientOptional")) return "get"
     if (content.includes("useQuery")) return "query"
     return undefined
@@ -40,8 +41,31 @@ async function getHookTypeFromContent(path: string, content: string): Promise<Ho
 
 export interface HookData extends HookContentMap {
     hookPath: string
+    mutationPreset: string
+    mutationPresetPath: string
     overwrite: boolean
     type: HookType
+}
+
+export interface GeneratedFileState {
+    content: string
+    overwrite: boolean
+}
+
+async function getGeneratedFileState(path: string): Promise<GeneratedFileState> {
+    try {
+        const content = await readFile(path, "utf-8")
+
+        return {
+            content,
+            overwrite: !content.trim(),
+        }
+    } catch (error) {
+        return {
+            content: "",
+            overwrite: true,
+        }
+    }
 }
 
 export async function createHook(path: string, hookMap: Record<string, HookData>) {
@@ -53,29 +77,32 @@ export async function createHook(path: string, hookMap: Record<string, HookData>
     const actionImportPath = normalizePathSeparator(join(dir, name))
     const hookName = base.replace(/^./, char => `use${char.toUpperCase()}`)
     const hookPath = join("hooks", dir, hookName)
+    const mutationPresetName = `createUse${upName}.ts`
+    const mutationPresetPath = join("presets", dir, mutationPresetName)
+    const mutationPresetImportPath = normalizePathSeparator(join(dir, `createUse${upName}`))
     const clientInputType = `${upName}ClientInput`
 
-    const mutationHook = `import { useId } from "react"
-
-import { useMutation, UseMutationOptions } from "@tanstack/react-query"
-import { createRequestFn } from "deepsea-tools"
+    const mutationHook = `import { createRequestFn } from "deepsea-tools"
 
 import { ${name}Action } from "@/actions/${actionImportPath}"
 
+import { createUse${upName} } from "@/presets/${mutationPresetImportPath}"
+
 export const ${name}Client = createRequestFn(${name}Action)
 
-export type ${clientInputType} = Parameters<typeof ${name}Client> extends [] ? void : Parameters<typeof ${name}Client>[0]
+export const use${upName} = createUse${upName}(${name}Client)
+`
 
-export interface Use${upName}Params<TOnMutateResult = unknown> extends Omit<
-    UseMutationOptions<Awaited<ReturnType<typeof ${name}Client>>, Error, ${clientInputType}, TOnMutateResult>,
-    "mutationFn"
-> {}
+    const mutationPreset = `import { useId } from "react"
 
-export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, onError, onSettled, ...rest }: Use${upName}Params<TOnMutateResult> = {}) {
+import { withUseMutationDefaults } from "soda-tanstack-query"
+
+import { ${name} } from "@/shared/${actionImportPath}"
+
+export const createUse${upName} = withUseMutationDefaults<typeof ${name}>(() => {
     const key = useId()
 
-    return useMutation({
-        mutationFn: ${name}Client,
+    return {
         onMutate(variables, context) {
             message.open({
                 key,
@@ -83,8 +110,6 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
                 content: "中...",
                 duration: 0,
             })
-
-            return onMutate?.(variables, context) as TOnMutateResult | Promise<TOnMutateResult>
         },
         onSuccess(data, variables, onMutateResult, context) {
             context.client.invalidateQueries({ queryKey: ["query-${key.replace(/^.+?-/, "")}"] })
@@ -95,20 +120,13 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
                 type: "success",
                 content: "成功",
             })
-
-            return onSuccess?.(data, variables, onMutateResult, context)
         },
         onError(error, variables, onMutateResult, context) {
             message.destroy(key)
-
-            return onError?.(error, variables, onMutateResult, context)
         },
-        onSettled(data, error, variables, onMutateResult, context) {
-            return onSettled?.(data, error, variables, onMutateResult, context)
-        },
-        ...rest,
-    })
-}
+        onSettled(data, error, variables, onMutateResult, context) {},
+    }
+})
 `
 
     const getHook = `import { createRequestFn, isNonNullable } from "deepsea-tools"
@@ -150,21 +168,35 @@ export const use${upName} = createUseQuery({
     }
 
     let hookType = getHookTypeFromName(name)
-    let overwrite = true
+    const hookState = await getGeneratedFileState(hookPath)
 
-    try {
-        const current = await readFile(hookPath, "utf-8")
-        if (current.trim()) overwrite = false
-        const contentType = await getHookTypeFromContent(join(cwd(), hookPath), current)
-        if (contentType) hookType = contentType
-        if (map[hookType] === current) return
-    } catch (error) {
-        overwrite = true
+    const contentType = await getHookTypeFromContent(join(cwd(), hookPath), hookState.content)
+    if (contentType) hookType = contentType
+
+    if (hookType === "mutation") {
+        const mutationPresetState = await getGeneratedFileState(mutationPresetPath)
+
+        if (map[hookType] === hookState.content && mutationPreset === mutationPresetState.content) return
+
+        hookMap[path] = {
+            hookPath,
+            mutationPreset,
+            mutationPresetPath,
+            overwrite: hookState.overwrite && mutationPresetState.overwrite,
+            type: hookType,
+            ...map,
+        }
+
+        return
     }
+
+    if (map[hookType] === hookState.content) return
 
     hookMap[path] = {
         hookPath,
-        overwrite,
+        mutationPreset,
+        mutationPresetPath,
+        overwrite: hookState.overwrite,
         type: hookType,
         ...map,
     }
@@ -213,7 +245,7 @@ export async function hook(options: Record<string, string>, { args }: Command) {
 
     const setting = await getSetting()
 
-    for (const [path, { hookPath, overwrite, type, ...map }] of newEntires) {
+    for (const [path, { hookPath, mutationPresetPath, mutationPreset, overwrite, type, ...map }] of newEntires) {
         const resolved = join(root, hookPath)
 
         const answer = await select<OperationType>({
@@ -231,6 +263,13 @@ export async function hook(options: Record<string, string>, { args }: Command) {
             path: hookPath,
             content: map[answer],
         })
+
+        if (answer !== "mutation") continue
+
+        await writeGeneratedFile({
+            path: mutationPresetPath,
+            content: mutationPreset,
+        })
     }
 
     await writeSdNextSetting(setting)
@@ -240,12 +279,19 @@ export async function hook(options: Record<string, string>, { args }: Command) {
         choices: oldEntires.map(([key]) => key),
     })
 
-    for (const [path, { hookPath, overwrite, type, ...map }] of oldEntires) {
+    for (const [path, { hookPath, mutationPresetPath, mutationPreset, overwrite, type, ...map }] of oldEntires) {
         if (!overwrites.includes(path)) continue
 
         await writeGeneratedFile({
             path: hookPath,
             content: map[type],
+        })
+
+        if (type !== "mutation") continue
+
+        await writeGeneratedFile({
+            path: mutationPresetPath,
+            content: mutationPreset,
         })
     }
 }

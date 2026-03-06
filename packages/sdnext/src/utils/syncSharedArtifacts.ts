@@ -2,7 +2,7 @@ import { join } from "path"
 
 import { createAction } from "./createAction"
 import { createRoute } from "./createRoute"
-import { getSharedModuleInfo, isScriptModule, normalizeSharedPath, removeGeneratedFile, toKebabCase } from "./sharedArtifact"
+import { getSharedModuleInfo, isScriptModule, normalizeSharedPath, removeGeneratedFile } from "./sharedArtifact"
 
 export async function syncSharedArtifacts(path: string) {
     const info = getSharedModuleInfo(path)
@@ -23,10 +23,7 @@ export async function removeSharedArtifacts(path: string) {
         stopPath: "actions",
     })
 
-    await removeGeneratedFile({
-        path: join("app", "api", "actions", info.dir, toKebabCase(info.name)),
-        stopPath: join("app", "api", "actions"),
-    })
+    await createRoute()
 }
 
 export async function removeSharedArtifactDirectory(path: string) {
@@ -37,8 +34,5 @@ export async function removeSharedArtifactDirectory(path: string) {
         stopPath: "actions",
     })
 
-    await removeGeneratedFile({
-        path: join("app", "api", "actions", relativePath),
-        stopPath: join("app", "api", "actions"),
-    })
+    await createRoute()
 }

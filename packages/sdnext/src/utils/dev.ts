@@ -4,12 +4,9 @@ import { fileURLToPath } from "url"
 import { Command } from "commander"
 
 import { buildFolder } from "./build"
-import { excludeGeneratedFiles } from "./excludeGeneratedFiles"
 import { spawnCommand } from "./runCommand"
 
 export async function dev(options: Record<string, string>, { args }: Command) {
-    await excludeGeneratedFiles()
-
     await buildFolder("shared")
 
     if (args.length === 0) return
