@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.12
+
+### Patch Changes
+
+- 新增 createUseMutation
+
 ## 0.0.11
 
 ### Patch Changes
