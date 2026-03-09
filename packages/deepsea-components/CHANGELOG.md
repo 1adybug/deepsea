@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.17.33
+
+### Patch Changes
+
+- 修复不规范的 m3u8 在高版本浏览器上报错的问题
+
 ## 5.17.32
 
 ### Patch Changes
