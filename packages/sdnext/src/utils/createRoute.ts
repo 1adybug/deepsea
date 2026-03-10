@@ -1,6 +1,7 @@
 import { readdir } from "fs/promises"
 import { join } from "path"
 
+import { resolveProjectImportPath } from "./resolveProjectImportPath"
 import { getSharedModuleInfo, isScriptModule, writeGeneratedFile } from "./sharedArtifact"
 
 export async function createRoute(path?: string) {
@@ -10,10 +11,11 @@ export async function createRoute(path?: string) {
     }
 
     const modules = await getSharedModules("shared")
+    const routePath = join("app", "api", "action", "[...action]", "route.ts")
 
     await writeGeneratedFile({
-        path: join("app", "api", "action", "[...action]", "route.ts"),
-        content: getRouteFileContent(modules),
+        path: routePath,
+        content: await getRouteFileContent(modules, routePath),
     })
 }
 
@@ -55,13 +57,17 @@ export interface GetRouteFileContentParamsItem {
     name: string
 }
 
-function getRouteFileContent(items: GetRouteFileContentParamsItem[]) {
-    const importLines = items.map(item => `import { ${item.name} } from "@/shared/${item.importPath}"`).join("\n")
+async function getRouteFileContent(items: GetRouteFileContentParamsItem[], routePath: string) {
+    const createRouteFnImportPath = await resolveProjectImportPath(routePath, "server/createResponseFn")
+    const importLines = (await Promise.all(items.map(async (item) => {
+        const importPath = await resolveProjectImportPath(routePath, `shared/${item.importPath}`)
+        return `import { ${item.name} } from "${importPath}"`
+    }))).join("\n")
     const registerLines = items.map(item => `registerRoute(${item.name})`).join("\n")
 
     return `import { NextRequest, NextResponse } from "next/server"
 
-import { createRouteFn, OriginalResponseFn, RouteBodyType, RouteHandler } from "@/server/createResponseFn"
+import { createRouteFn, OriginalResponseFn, RouteBodyType, RouteHandler } from "${createRouteFnImportPath}"
 ${importLines ? `\n${importLines}\n` : ""}
 const routeMap = new Map<string, RouteHandler>()
 

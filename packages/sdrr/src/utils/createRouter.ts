@@ -1,12 +1,15 @@
 import { readdir, readFile, stat, writeFile } from "fs/promises"
 import { join, parse } from "path"
 
+import { resolveProjectImportPath } from "./resolveProjectImportPath"
+
 export async function createRouter() {
     const importStatements: string[] = []
 
     const lazyDeclarations: string[] = []
 
     let useLazyImport = false
+    const routerOutputPath = join("components", "Router.tsx")
 
     type Segment =
         | { kind: "root" }
@@ -161,17 +164,19 @@ export async function createRouter() {
         const loader = hasLoaderFile ? getRouteExportName("loader") : undefined
         const shouldRevalidate = hasShouldRevalidateFile ? getRouteExportName("shouldRevalidate") : undefined
 
-        const baseImportPath = `@/${dirs.map(item => `${item}/`).join("")}`
-        const componentModulePath = `${baseImportPath}${item}`
+        const componentModulePath = await resolveProjectImportPath(routerOutputPath, join(...dirs, item))
+        const actionModulePath = await resolveProjectImportPath(routerOutputPath, join(...dirs, "action.ts"))
+        const loaderModulePath = await resolveProjectImportPath(routerOutputPath, join(...dirs, "loader.ts"))
+        const shouldRevalidateModulePath = await resolveProjectImportPath(routerOutputPath, join(...dirs, "shouldRevalidate.ts"))
 
         if (isLazyComponent(item)) {
             useLazyImport = true
             lazyDeclarations.push(`const ${Component} = lazy(() => import("${componentModulePath}"))`)
         } else importStatements.push(`import ${Component} from "${componentModulePath}"`)
 
-        if (action) importStatements.push(`import { action as ${action} } from "${baseImportPath}action.ts"`)
-        if (loader) importStatements.push(`import { loader as ${loader} } from "${baseImportPath}loader.ts"`)
-        if (shouldRevalidate) importStatements.push(`import { shouldRevalidate as ${shouldRevalidate} } from "${baseImportPath}shouldRevalidate.ts"`)
+        if (action) importStatements.push(`import { action as ${action} } from "${actionModulePath}"`)
+        if (loader) importStatements.push(`import { loader as ${loader} } from "${loaderModulePath}"`)
+        if (shouldRevalidate) importStatements.push(`import { shouldRevalidate as ${shouldRevalidate} } from "${shouldRevalidateModulePath}"`)
 
         function getHashName(name: string) {
             return `$$${name}$$`
@@ -410,5 +415,5 @@ const Router: FC = () => <RouterProvider router={router} />
 export default Router
 `
 
-    await writeFile("components/Router.tsx", component)
+    await writeFile(routerOutputPath, component)
 }

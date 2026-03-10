@@ -1,11 +1,11 @@
 import { exec, ExecOptions } from "child_process"
 import { ObjectEncodingOptions } from "fs"
 
-import iconv, { DecodeOptions } from "iconv-lite"
+import iconv, { Options as IconvOptions } from "iconv-lite"
 
 export type IconvDecodeOptions = {
     encoding: string
-    options?: DecodeOptions
+    options?: IconvOptions
 }
 
 export async function execAsync(command: string): Promise<string>

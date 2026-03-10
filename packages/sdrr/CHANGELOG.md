@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.1.18
+
+### Patch Changes
+
+- 动态读取根目录别名
+
 ## 0.1.17
 
 ### Patch Changes

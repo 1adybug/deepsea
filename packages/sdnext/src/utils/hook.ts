@@ -6,6 +6,7 @@ import { checkbox, select } from "@inquirer/prompts"
 import { Command } from "commander"
 
 import { readSdNextSetting, SdNextSetting } from "./readSdNextSetting"
+import { resolveProjectImportPath } from "./resolveProjectImportPath"
 import { isScriptModule, normalizePathSeparator, writeGeneratedFile } from "./sharedArtifact"
 import { writeSdNextSetting } from "./writeSdNextSetting"
 
@@ -33,7 +34,7 @@ async function getHookTypeFromContent(path: string, content: string): Promise<Ho
     const type = setting.hook?.[path]
     if (type !== undefined && type !== "skip") return type
     if (content.includes("useMutation")) return "mutation"
-    if (content.includes("createUse") && content.includes("@/presets/")) return "mutation"
+    if (content.includes("createUse") && /from\s+["'][^"']*\/presets\//.test(content)) return "mutation"
     if (content.includes("ClientOptional")) return "get"
     if (content.includes("useQuery")) return "query"
     return undefined
@@ -81,12 +82,16 @@ export async function createHook(path: string, hookMap: Record<string, HookData>
     const mutationPresetPath = join("presets", dir, mutationPresetName)
     const mutationPresetImportPath = normalizePathSeparator(join(dir, `createUse${upName}`))
     const clientInputType = `${upName}ClientInput`
+    const actionPath = normalizePathSeparator(join("actions", actionImportPath))
+    const hookActionImportPath = await resolveProjectImportPath(hookPath, actionPath)
+    const hookPresetImportPath = await resolveProjectImportPath(hookPath, normalizePathSeparator(join("presets", mutationPresetImportPath)))
+    const mutationPresetSharedImportPath = await resolveProjectImportPath(mutationPresetPath, normalizePathSeparator(join("shared", actionImportPath)))
 
     const mutationHook = `import { createRequestFn } from "deepsea-tools"
 
-import { ${name}Action } from "@/actions/${actionImportPath}"
+import { ${name}Action } from "${hookActionImportPath}"
 
-import { createUse${upName} } from "@/presets/${mutationPresetImportPath}"
+import { createUse${upName} } from "${hookPresetImportPath}"
 
 export const ${name}Client = createRequestFn(${name}Action)
 
@@ -97,7 +102,7 @@ export const use${upName} = createUse${upName}(${name}Client)
 
 import { withUseMutationDefaults } from "soda-tanstack-query"
 
-import { ${name} } from "@/shared/${actionImportPath}"
+import { ${name} } from "${mutationPresetSharedImportPath}"
 
 export const createUse${upName} = withUseMutationDefaults<typeof ${name}>(() => {
     const key = useId()
@@ -132,7 +137,7 @@ export const createUse${upName} = withUseMutationDefaults<typeof ${name}>(() => 
     const getHook = `import { createRequestFn, isNonNullable } from "deepsea-tools"
 import { createUseQuery } from "soda-tanstack-query"
 
-import { ${name}Action } from "@/actions/${actionImportPath}"
+import { ${name}Action } from "${hookActionImportPath}"
 
 export const ${name}Client = createRequestFn(${name}Action)
 
@@ -151,7 +156,7 @@ export const use${upName} = createUseQuery({
     const queryHook = `import { createRequestFn } from "deepsea-tools"
 import { createUseQuery } from "soda-tanstack-query"
 
-import { ${name}Action } from "@/actions/${actionImportPath}"
+import { ${name}Action } from "${hookActionImportPath}"
 
 export const ${name}Client = createRequestFn(${name}Action)
 

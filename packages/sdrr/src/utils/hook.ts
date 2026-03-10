@@ -6,6 +6,7 @@ import { checkbox, select } from "@inquirer/prompts"
 import { Command } from "commander"
 
 import { readSdrrSetting, SdrrSetting } from "./readSdrrSetting"
+import { resolveProjectImportPath } from "./resolveProjectImportPath"
 import { writeSdrrSetting } from "./writeSdrrSetting"
 
 export type HookType = "get" | "query" | "mutation"
@@ -48,12 +49,15 @@ export async function createHook(path: string, hookMap: Record<string, HookData>
     if (ext !== ".ts" && ext !== ".tsx" && ext !== ".js" && ext !== ".jsx") return
     const upName = name.replace(/^./, char => char.toUpperCase())
     const key = name.replace(/[A-Z]/g, char => `-${char.toLowerCase()}`)
+    const hookName = base.replace(/^./, char => `use${char.toUpperCase()}`)
+    const hookPath = join("hooks", dir, hookName)
+    const apiImportPath = await resolveProjectImportPath(hookPath, join("apis", dir, name))
 
     const mutationHook = `import { useId } from "react"
 
 import { useMutation, UseMutationOptions } from "@tanstack/react-query"
 
-import { ${name} } from "@/apis/${join(dir, name)}"
+import { ${name} } from "${apiImportPath}"
 
 export interface Use${upName}Params<TOnMutateResult = unknown> extends Omit<
     UseMutationOptions<Awaited<ReturnType<typeof ${name}>>, Error, Parameters<typeof ${name}>[0], TOnMutateResult>,
@@ -103,7 +107,7 @@ export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, o
     const getHook = `import { isNonNullable } from "deepsea-tools"
 import { createUseQuery } from "soda-tanstack-query"
 
-import { ${name} } from "@/apis/${join(dir, name)}"
+import { ${name} } from "${apiImportPath}"
 
 export function ${name}Optional(id?: string | undefined | null) {
     return isNonNullable(id) ? ${name}(id) : null
@@ -117,7 +121,7 @@ export const use${upName} = createUseQuery({
 
     const queryHook = `import { createUseQuery } from "soda-tanstack-query"
 
-import { ${name} } from "@/apis/${join(dir, name)}"
+import { ${name} } from "${apiImportPath}"
 
 export const use${upName} = createUseQuery({
     queryKey: "${key}",
@@ -130,10 +134,6 @@ export const use${upName} = createUseQuery({
         query: queryHook,
         mutation: mutationHook,
     }
-
-    const hookName = base.replace(/^./, char => `use${char.toUpperCase()}`)
-
-    const hookPath = join("hooks", dir, hookName)
 
     let hookType = getHookTypeFromName(name)
     let overwrite = true
