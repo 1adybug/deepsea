@@ -1,9 +1,8 @@
-import { spawn } from "child_process"
-
 import { Command } from "commander"
 
 import { createRouter } from "./createRouter"
 import { excludeRouter } from "./excludeRouter"
+import { runCommand } from "./runCommand"
 
 export async function build(options: Record<string, string>, { args }: Command) {
     await excludeRouter()
@@ -12,8 +11,5 @@ export async function build(options: Record<string, string>, { args }: Command) 
 
     if (args.length === 0) return
 
-    spawn(args.join(" "), {
-        stdio: "inherit",
-        shell: true,
-    })
+    process.exitCode = await runCommand({ args })
 }

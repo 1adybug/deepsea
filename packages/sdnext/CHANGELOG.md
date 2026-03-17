@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.0.28
+
+### Patch Changes
+
+- 修复执行命令警告的问题
+
 ## 0.0.27
 
 ### Patch Changes

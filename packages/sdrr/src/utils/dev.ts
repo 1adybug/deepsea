@@ -4,6 +4,7 @@ import { Command } from "commander"
 
 import { createRouter } from "./createRouter"
 import { excludeRouter } from "./excludeRouter"
+import { spawnCommand } from "./runCommand"
 
 export async function dev(options: Record<string, string>, { args }: Command) {
     await excludeRouter()
@@ -16,10 +17,7 @@ export async function dev(options: Record<string, string>, { args }: Command) {
 
     const child = spawn(process.execPath, [watchPath])
 
-    const child2 = spawn(args.join(" "), {
-        stdio: "inherit",
-        shell: true,
-    })
+    const child2 = spawnCommand({ args })
 
     child.on("close", () => child2.kill())
 
