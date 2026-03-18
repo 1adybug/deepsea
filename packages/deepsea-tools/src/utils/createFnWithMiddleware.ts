@@ -96,18 +96,15 @@ export function createFnWithMiddleware<TFn extends AnyFunction = AnyFunction, TC
 
             const middleware = allMiddlewares[index]
             let executed = false
-            let nextPromise: Promise<void> | undefined
 
             async function next() {
                 if (executed) throw new Error("The next function can only be called once.")
 
                 executed = true
-                nextPromise = execute(index + 1)
-                return await nextPromise
+                await execute(index + 1)
             }
 
             await middleware(context, next)
-            if (nextPromise) await nextPromise
         }
 
         await execute(0)

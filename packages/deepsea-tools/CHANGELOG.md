@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.47.9
+
+### Patch Changes
+
+- 修复 createFnWithMiddleware 中间件已捕获异常仍被继续抛出的问题
+
 ## 5.47.8
 
 ### Patch Changes
