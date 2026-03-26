@@ -1,5 +1,13 @@
-import dayjs, { ConfigType } from "dayjs"
+import dayjs, { type ConfigType } from "dayjs"
 
-export function formatTime(time?: ConfigType, template?: string) {
-    return dayjs(time).format(template ?? "YYYY-MM-DD HH:mm:ss")
+export const DEFAULT_TIME_FORMAT = "YYYY-MM-DD HH:mm:ss"
+
+let dayjsFactory = dayjs
+
+export function setFormatTimeDayjs(nextDayjs: typeof dayjs) {
+    dayjsFactory = nextDayjs
+}
+
+export function formatTime(input?: ConfigType, format: string = DEFAULT_TIME_FORMAT) {
+    return dayjsFactory(input).format(format)
 }

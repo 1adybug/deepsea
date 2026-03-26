@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.47.10
+
+### Patch Changes
+
+- 修复 dayjs 不一致的问题
+
 ## 5.47.9
 
 ### Patch Changes
