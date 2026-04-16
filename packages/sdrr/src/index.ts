@@ -1,26 +1,7 @@
-#!/usr/bin/env node
+export type { ResolvedSdrrOptions, SdrrOptions } from "./utils/resolveSdrrOptions"
+export type { WatchSdrrHooks, WatchSdrrOptions } from "./utils/watchSdrr"
 
-import { readFileSync } from "fs"
-import { join } from "path"
-
-import { Command } from "commander"
-
-import { build } from "./utils/build"
-import { dev } from "./utils/dev"
-import { hook } from "./utils/hook"
-
-const program = new Command()
-
-const path = process.platform === "win32" ? import.meta.resolve("../").replace(/^file:\/\/\//, "") : import.meta.resolve("../").replace(/^file:\/\//, "")
-
-const packgeJson = JSON.parse(readFileSync(join(path, "package.json"), "utf-8"))
-
-program.name("soda react router").version(packgeJson.version)
-
-program.command("build").allowUnknownOption(true).allowExcessArguments(true).action(build)
-
-program.command("dev").allowUnknownOption(true).allowExcessArguments(true).action(dev)
-
-program.command("hook").action(hook)
-
-program.parse()
+export { createRouter } from "./utils/createRouter"
+export { resolveSdrrOptions } from "./utils/resolveSdrrOptions"
+export { syncRouter } from "./utils/syncRouter"
+export { watchSdrr } from "./utils/watchSdrr"

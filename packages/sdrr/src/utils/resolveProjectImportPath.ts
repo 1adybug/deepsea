@@ -6,13 +6,11 @@ import { cwd } from "node:process"
 
 const require = createRequire(import.meta.url)
 
-const projectRoot = cwd()
+const rootAliasPromiseMap = new Map<string, Promise<string | undefined>>()
 
-let rootAliasPromise: Promise<string | undefined> | undefined
-
-export async function resolveProjectImportPath(fromPath: string, targetPath: string) {
+export async function resolveProjectImportPath(fromPath: string, targetPath: string, projectRoot = cwd()) {
     const normalizedTargetPath = normalizePathSeparator(targetPath).replace(/^\.?\//, "")
-    const rootAlias = await getProjectRootAlias()
+    const rootAlias = await getProjectRootAlias(projectRoot)
 
     if (rootAlias) return `${rootAlias}/${normalizedTargetPath}`
 
@@ -28,16 +26,23 @@ function getRelativeImportPath(fromPath: string, targetPath: string) {
     return importPath
 }
 
-async function getProjectRootAlias() {
-    rootAliasPromise ??= resolveProjectRootAlias()
-    return rootAliasPromise
+async function getProjectRootAlias(projectRoot: string) {
+    const normalizedProjectRoot = normalize(projectRoot)
+
+    let rootAliasPromise = rootAliasPromiseMap.get(normalizedProjectRoot)
+    if (!rootAliasPromise) {
+        rootAliasPromise = resolveProjectRootAlias(normalizedProjectRoot)
+        rootAliasPromiseMap.set(normalizedProjectRoot, rootAliasPromise)
+    }
+
+    return await rootAliasPromise
 }
 
-async function resolveProjectRootAlias() {
+async function resolveProjectRootAlias(projectRoot: string) {
     const configPath = await findProjectConfigPath(projectRoot)
     if (!configPath) return undefined
 
-    return readRootAliasFromConfig(configPath, new Set())
+    return readRootAliasFromConfig(configPath, new Set(), projectRoot)
 }
 
 async function findProjectConfigPath(path: string) {
@@ -50,7 +55,7 @@ async function findProjectConfigPath(path: string) {
     return undefined
 }
 
-async function readRootAliasFromConfig(configPath: string, seen: Set<string>): Promise<string | undefined> {
+async function readRootAliasFromConfig(configPath: string, seen: Set<string>, projectRoot: string): Promise<string | undefined> {
     const normalizedPath = normalize(configPath)
     if (seen.has(normalizedPath)) return undefined
     seen.add(normalizedPath)
@@ -72,7 +77,7 @@ async function readRootAliasFromConfig(configPath: string, seen: Set<string>): P
     const extendsPath = await resolveExtendsPath(extendsValue, configDir)
     if (!extendsPath) return undefined
 
-    return readRootAliasFromConfig(extendsPath, seen)
+    return readRootAliasFromConfig(extendsPath, seen, projectRoot)
 }
 
 function getBaseDir(configDir: string, baseUrl: unknown) {

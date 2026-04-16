@@ -1,6 +1,6 @@
 # sdrr
 
-`sdrr` 是一个命令行工具：根据你项目里的 `app/` 目录结构（`layout.*` / `page.*` 等约定），自动生成 `components/Router.tsx`，用来创建 `react-router` 的 `createBrowserRouter` 配置。
+`sdrr` 提供三种集成方式：命令行、`Vite` 插件、`Rsbuild` 插件。它们共享同一套核心能力：根据你项目里的 `app/` 目录结构（`layout.*` / `page.*` 等约定），自动生成 `components/Router.tsx`，用来创建 `react-router` 的 `createBrowserRouter` 配置。
 
 它适合“文件即路由”的开发方式：你只维护 `app/` 里的页面与布局文件，路由表由 `sdrr` 自动更新。
 
@@ -108,9 +108,64 @@ export default function App() {
 }
 ```
 
+## 插件用法
+
+如果你不想单独在 npm scripts 里调用 `sdrr build`，也可以直接接到构建工具里。
+
+### Vite
+
+```ts
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+
+import { sdrrVitePlugin } from "sdrr/vite"
+
+export default defineConfig({
+    plugins: [react(), sdrrVitePlugin()],
+})
+```
+
+### Rsbuild
+
+```ts
+import { defineConfig } from "@rsbuild/core"
+import { pluginReact } from "@rsbuild/plugin-react"
+
+import { sdrrRsbuildPlugin } from "sdrr/rsbuild"
+
+export default defineConfig({
+    plugins: [pluginReact(), sdrrRsbuildPlugin()],
+})
+```
+
+### 插件默认行为
+
+- build 前会先生成一次 `components/Router.tsx`
+- dev 时会监听 `app/` 目录，路由结构变化后自动重生成
+- 只有生成内容真的发生变化时才会改写 `components/Router.tsx`，尽量不干扰正常的 HMR / 增量编译
+- CLI 默认会同步更新 `.vscode/settings.json` 的 `files.exclude`；插件默认**不会**改 VS Code 配置
+
+### 可选参数
+
+`sdrrVitePlugin()` 和 `sdrrRsbuildPlugin()` 都支持同一组参数：
+
+```ts
+{
+    root?: string
+    appDir?: string
+    routerOutputPath?: string
+    updateVsCodeSettings?: boolean
+}
+```
+
+- `root`：项目根目录，默认是当前工作目录
+- `appDir`：路由目录，默认是 `app`
+- `routerOutputPath`：生成文件路径，默认是 `components/Router.tsx`
+- `updateVsCodeSettings`：是否同步写入 `.vscode/settings.json`
+
 ## 命令行用法
 
-`sdrr` 目前提供一个子命令：`build`。
+如果你更喜欢显式地把“生成路由”串进脚本，也可以继续使用 CLI。
 
 ### `sdrr build [command...]`
 

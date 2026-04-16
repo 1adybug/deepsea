@@ -1,12 +1,6 @@
-import { watch } from "chokidar"
+import { watchSdrr } from "./watchSdrr"
 
-import { createRouter } from "./createRouter"
-
-const watcher = watch("app", {
-    awaitWriteFinish: true,
-    persistent: true,
+watchSdrr({
+    syncOnStart: false,
+    updateVsCodeSettings: true,
 })
-
-watcher.on("ready", createRouter)
-
-watcher.on("all", createRouter)

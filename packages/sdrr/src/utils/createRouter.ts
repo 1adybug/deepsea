@@ -2,14 +2,16 @@ import { readdir, readFile, stat, writeFile } from "fs/promises"
 import { join, parse } from "path"
 
 import { resolveProjectImportPath } from "./resolveProjectImportPath"
+import { resolveSdrrOptions, resolveSdrrPath, type SdrrOptions } from "./resolveSdrrOptions"
 
-export async function createRouter() {
+export async function createRouter(options: SdrrOptions = {}) {
+    const resolved = resolveSdrrOptions(options)
     const importStatements: string[] = []
 
     const lazyDeclarations: string[] = []
 
     let useLazyImport = false
-    const routerOutputPath = join("components", "Router.tsx")
+    const routerOutputPath = resolved.routerOutputPath
 
     type Segment =
         | { kind: "root" }
@@ -53,10 +55,10 @@ export async function createRouter() {
         return withoutLeading || "X"
     }
 
-    function getSegmentImportPrefix(dirs: string[]) {
-        if (dirs.length === 1) return "Root"
+    function getSegmentImportPrefix(routeSegments: string[]) {
+        if (routeSegments.length === 0) return "Root"
 
-        const last = dirs.at(-1)!
+        const last = routeSegments.at(-1)!
         const segment = parseSegmentName(last)
 
         if (segment.kind === "group") return normalizeIdentifierPart(segment.name)
@@ -107,11 +109,11 @@ export async function createRouter() {
         return a.localeCompare(b)
     }
 
-    async function pickPreferredRouteFile(dirs: string[], candidates: string[]) {
+    async function pickPreferredRouteFile(currentProjectDir: string, candidates: string[]) {
         const meaningful: string[] = []
 
         for (const item of candidates) {
-            if (await hasMeaningfulContent(join(...dirs, item))) meaningful.push(item)
+            if (await hasMeaningfulContent(joinProjectPath(currentProjectDir, item))) meaningful.push(item)
         }
 
         return meaningful.sort(compareRouteFiles).at(0)
@@ -131,9 +133,9 @@ export async function createRouter() {
 
     async function hasMeaningfulContent(path: string) {
         try {
-            const stats = await stat(path)
+            const stats = await stat(resolveSdrrPath(resolved, path))
             if (!stats.isFile()) return false
-            const content = await readFile(path, "utf-8")
+            const content = await readFile(resolveSdrrPath(resolved, path), "utf-8")
             return content.trim().length > 0
         } catch {
             return false
@@ -141,15 +143,16 @@ export async function createRouter() {
     }
 
     interface GetRouteParams {
-        dirs: string[]
+        currentProjectDir: string
+        routeSegments: string[]
         item: string
         hasActionFile: boolean
         hasLoaderFile: boolean
         hasShouldRevalidateFile: boolean
     }
 
-    async function getRoute({ dirs, item, hasActionFile, hasLoaderFile, hasShouldRevalidateFile }: GetRouteParams): Promise<Router> {
-        const prefix = getSegmentImportPrefix(dirs)
+    async function getRoute({ currentProjectDir, routeSegments, item, hasActionFile, hasLoaderFile, hasShouldRevalidateFile }: GetRouteParams): Promise<Router> {
+        const prefix = getSegmentImportPrefix(routeSegments)
         const { name: parsedName } = parse(item)
         const name = normalizeIdentifierPart(parsedName.replace(/\.lazy$/, ""))
 
@@ -164,10 +167,10 @@ export async function createRouter() {
         const loader = hasLoaderFile ? getRouteExportName("loader") : undefined
         const shouldRevalidate = hasShouldRevalidateFile ? getRouteExportName("shouldRevalidate") : undefined
 
-        const componentModulePath = await resolveProjectImportPath(routerOutputPath, join(...dirs, item))
-        const actionModulePath = await resolveProjectImportPath(routerOutputPath, join(...dirs, "action.ts"))
-        const loaderModulePath = await resolveProjectImportPath(routerOutputPath, join(...dirs, "loader.ts"))
-        const shouldRevalidateModulePath = await resolveProjectImportPath(routerOutputPath, join(...dirs, "shouldRevalidate.ts"))
+        const componentModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, item), resolved.root)
+        const actionModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, "action.ts"), resolved.root)
+        const loaderModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, "loader.ts"), resolved.root)
+        const shouldRevalidateModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, "shouldRevalidate.ts"), resolved.root)
 
         if (isLazyComponent(item)) {
             useLazyImport = true
@@ -190,10 +193,10 @@ export async function createRouter() {
         }
     }
 
-    function getRoutePath(dirs: string[]) {
-        if (dirs.length === 1) return "/"
+    function getRoutePath(routeSegments: string[]) {
+        if (routeSegments.length === 0) return "/"
 
-        const last = dirs.at(-1)!
+        const last = routeSegments.at(-1)!
         const segment = parseSegmentName(last)
 
         if (segment.kind === "group") return undefined
@@ -221,12 +224,16 @@ export async function createRouter() {
         children?: Router[]
     }
 
-    async function createRouter(...dirs: string[]): Promise<Router | undefined> {
-        const currentDir = join(...dirs)
+    function joinProjectPath(...parts: string[]) {
+        return join(...parts).replace(/\\/g, "/")
+    }
+
+    async function createRouteTree(currentProjectDir: string, routeSegments: string[]): Promise<Router | undefined> {
+        const currentDir = resolveSdrrPath(resolved, currentProjectDir)
         const content = await readdir(currentDir)
 
-        const last = dirs.at(-1)!
-        const segment = dirs.length === 1 ? ({ kind: "root" } as const) : parseSegmentName(last)
+        const last = routeSegments.at(-1)
+        const segment = routeSegments.length === 0 ? ({ kind: "root" } as const) : parseSegmentName(last!)
 
         const dirNames: string[] = []
 
@@ -259,19 +266,20 @@ export async function createRouter() {
             return a.localeCompare(b)
         })
 
-        const layoutItem = await pickPreferredRouteFile(dirs, fileNames.filter(isLayout))
-        const pageItem = await pickPreferredRouteFile(dirs, fileNames.filter(isPage))
-        const errorItem = await pickPreferredRouteFile(dirs, fileNames.filter(isErrorBoundary))
-        const notFoundItem = await pickPreferredRouteFile(dirs, fileNames.filter(isNotFound))
+        const layoutItem = await pickPreferredRouteFile(currentProjectDir, fileNames.filter(isLayout))
+        const pageItem = await pickPreferredRouteFile(currentProjectDir, fileNames.filter(isPage))
+        const errorItem = await pickPreferredRouteFile(currentProjectDir, fileNames.filter(isErrorBoundary))
+        const notFoundItem = await pickPreferredRouteFile(currentProjectDir, fileNames.filter(isNotFound))
 
         const hasPage = !!pageItem
-        const hasActionFile = hasPage && (await hasMeaningfulContent(join(...dirs, "action.ts")))
-        const hasLoaderFile = hasPage && (await hasMeaningfulContent(join(...dirs, "loader.ts")))
-        const hasShouldRevalidateFile = hasPage && (await hasMeaningfulContent(join(...dirs, "shouldRevalidate.ts")))
+        const hasActionFile = hasPage && (await hasMeaningfulContent(joinProjectPath(currentProjectDir, "action.ts")))
+        const hasLoaderFile = hasPage && (await hasMeaningfulContent(joinProjectPath(currentProjectDir, "loader.ts")))
+        const hasShouldRevalidateFile = hasPage && (await hasMeaningfulContent(joinProjectPath(currentProjectDir, "shouldRevalidate.ts")))
 
         const layout = layoutItem
             ? await getRoute({
-                  dirs,
+                  currentProjectDir,
+                  routeSegments,
                   item: layoutItem,
                   hasActionFile: false,
                   hasLoaderFile: false,
@@ -281,7 +289,8 @@ export async function createRouter() {
 
         const page = pageItem
             ? await getRoute({
-                  dirs,
+                  currentProjectDir,
+                  routeSegments,
                   item: pageItem,
                   hasActionFile,
                   hasLoaderFile,
@@ -291,7 +300,8 @@ export async function createRouter() {
 
         const errorBoundary = errorItem
             ? await getRoute({
-                  dirs,
+                  currentProjectDir,
+                  routeSegments,
                   item: errorItem,
                   hasActionFile: false,
                   hasLoaderFile: false,
@@ -301,7 +311,8 @@ export async function createRouter() {
 
         const notFound = notFoundItem
             ? await getRoute({
-                  dirs,
+                  currentProjectDir,
+                  routeSegments,
                   item: notFoundItem,
                   hasActionFile: false,
                   hasLoaderFile: false,
@@ -312,7 +323,7 @@ export async function createRouter() {
         const children: Router[] = []
 
         for (const item of dirNames) {
-            const child = await createRouter(...dirs, item)
+            const child = await createRouteTree(joinProjectPath(currentProjectDir, item), [...routeSegments, item])
             if (child) children.push(child)
         }
 
@@ -370,7 +381,7 @@ export async function createRouter() {
             return node
         }
 
-        const path = getRoutePath(dirs)
+        const path = getRoutePath(routeSegments)
 
         const node: Router = {
             path,
@@ -391,7 +402,7 @@ export async function createRouter() {
         return node
     }
 
-    const router = await createRouter("app")
+    const router = await createRouteTree(resolved.appDir, [])
     if (!router) throw new Error("未在 app 目录中找到任何可生成的路由文件。")
 
     const str = JSON.stringify(router, null, 4)
@@ -415,5 +426,14 @@ const Router: FC = () => <RouterProvider router={router} />
 export default Router
 `
 
-    await writeFile(routerOutputPath, component)
+    const routerOutputAbsPath = resolveSdrrPath(resolved, routerOutputPath)
+
+    try {
+        const current = await readFile(routerOutputAbsPath, "utf-8")
+        if (current === component) return false
+    } catch (error) {}
+
+    await writeFile(routerOutputAbsPath, component)
+
+    return true
 }
