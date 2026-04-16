@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.2.0
+
+### Minor Changes
+
+- feat(sdrr): add vite and rsbuild plugins for auto-generated routes
+
 ## 0.1.21
 
 ### Patch Changes

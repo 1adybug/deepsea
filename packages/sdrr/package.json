@@ -1,6 +1,6 @@
 {
     "name": "sdrr",
-    "version": "0.1.21",
+    "version": "0.2.0",
     "description": "",
     "type": "module",
     "exports": {
@@ -8,10 +8,20 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js",
             "require": "./dist/index.js"
+        },
+        "./vite": {
+            "types": "./dist/vite.d.ts",
+            "import": "./dist/vite.js",
+            "require": "./dist/vite.js"
+        },
+        "./rsbuild": {
+            "types": "./dist/rsbuild.d.ts",
+            "import": "./dist/rsbuild.js",
+            "require": "./dist/rsbuild.js"
         }
     },
     "bin": {
-        "sdrr": "./dist/index.js"
+        "sdrr": "./dist/cli.js"
     },
     "main": "./dist/index.js",
     "module": "./dist/index.js",
@@ -47,6 +57,18 @@
         "chokidar": "^5.0.0",
         "commander": "^14.0.2",
         "deepsea-tools": "workspace:*"
+    },
+    "peerDependencies": {
+        "@rsbuild/core": "^1.0.0",
+        "vite": "^5.0.0 || ^6.0.0 || ^7.0.0"
+    },
+    "peerDependenciesMeta": {
+        "@rsbuild/core": {
+            "optional": true
+        },
+        "vite": {
+            "optional": true
+        }
     },
     "devDependencies": {
         "@types/node": "catalog:",
