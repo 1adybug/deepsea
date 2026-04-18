@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.14
+
+### Patch Changes
+
+- 修复类型推导失效的问题
+
 ## 0.0.13
 
 ### Patch Changes
