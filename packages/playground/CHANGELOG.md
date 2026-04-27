@@ -1,5 +1,12 @@
 # deepsea-components-demo
 
+## 0.4.40
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-array@0.1.7
+
 ## 0.4.39
 
 ### Patch Changes

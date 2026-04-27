@@ -1,5 +1,11 @@
 # soda-array
 
+## 0.1.7
+
+### Patch Changes
+
+- 修复类型文件没有被使用的问题
+
 ## 0.1.6
 
 ### Patch Changes
