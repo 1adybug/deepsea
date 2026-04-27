@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.17.36
+
+### Patch Changes
+
+- fix(deepsea-components): 修复 ReadSheet 组件类型问题
+
 ## 5.17.35
 
 ### Patch Changes
