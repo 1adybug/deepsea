@@ -1,5 +1,11 @@
 # soda-array
 
+## 0.1.8
+
+### Patch Changes
+
+- fix(soda-array): 导出 types 子路径以支持 reference types
+
 ## 0.1.7
 
 ### Patch Changes
