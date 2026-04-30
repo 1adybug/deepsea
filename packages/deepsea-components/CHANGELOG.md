@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.18.0
+
+### Minor Changes
+
+- feat(deepsea-components): 新增 RtspPlayer 组件
+
 ## 5.17.36
 
 ### Patch Changes
