@@ -1,5 +1,14 @@
 # deepsea-components
 
+## 5.18.1
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+- Updated dependencies
+    - deepsea-tools@5.47.11
+    - soda-hooks@6.16.24
+
 ## 5.18.0
 
 ### Minor Changes

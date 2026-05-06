@@ -1,5 +1,11 @@
 # soda-array
 
+## 0.1.9
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+
 ## 0.1.8
 
 ### Patch Changes

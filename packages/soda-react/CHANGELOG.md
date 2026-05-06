@@ -1,5 +1,13 @@
 # soda-react
 
+## 0.1.28
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+- Updated dependencies
+    - deepsea-tools@5.47.11
+
 ## 0.1.27
 
 ### Patch Changes

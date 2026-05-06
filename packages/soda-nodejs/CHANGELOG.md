@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.8.11
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+
 ## 0.8.10
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.3.7
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+
 ## 0.3.6
 
 ### Patch Changes

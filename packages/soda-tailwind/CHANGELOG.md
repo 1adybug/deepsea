@@ -1,5 +1,11 @@
 # soda-tailwind
 
+## 0.0.4
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+
 ## 0.0.3
 
 ### Patch Changes

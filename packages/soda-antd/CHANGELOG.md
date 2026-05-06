@@ -1,5 +1,15 @@
 # soda-antd
 
+## 1.0.27
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+- Updated dependencies
+    - deepsea-tools@5.47.11
+    - soda-hooks@6.16.24
+    - soda-react@0.1.28
+
 ## 1.0.26
 
 ### Patch Changes

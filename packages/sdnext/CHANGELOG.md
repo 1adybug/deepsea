@@ -1,5 +1,13 @@
 # soda-node
 
+## 0.0.31
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+- Updated dependencies
+    - deepsea-tools@5.47.11
+
 ## 0.0.30
 
 ### Patch Changes

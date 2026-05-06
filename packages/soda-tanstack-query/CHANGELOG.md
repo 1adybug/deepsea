@@ -1,5 +1,11 @@
 # soda-tanstack-query
 
+## 0.0.15
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+
 ## 0.0.14
 
 ### Patch Changes
