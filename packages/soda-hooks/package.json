@@ -1,6 +1,6 @@
 {
     "name": "soda-hooks",
-    "version": "6.16.24",
+    "version": "6.17.0",
     "description": "",
     "type": "module",
     "exports": {
@@ -41,6 +41,7 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-hooks",
     "dependencies": {
+        "bowser": "^2.14.1",
         "deepsea-tools": "workspace:*",
         "soda-type": "workspace:*"
     },

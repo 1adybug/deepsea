@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.17.0
+
+### Minor Changes
+
+- feat(soda-hooks): 新增浏览器检测相关 hook
+
 ## 6.16.24
 
 ### Patch Changes
