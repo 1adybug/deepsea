@@ -1,5 +1,23 @@
 # soda-array
 
+## 0.1.9
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+
+## 0.1.8
+
+### Patch Changes
+
+- fix(soda-array): 导出 types 子路径以支持 reference types
+
+## 0.1.7
+
+### Patch Changes
+
+- 修复类型文件没有被使用的问题
+
 ## 0.1.6
 
 ### Patch Changes

@@ -1,5 +1,33 @@
 # deepsea-components
 
+## 5.18.2
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.17.0
+
+## 5.18.1
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+- Updated dependencies
+    - deepsea-tools@5.47.11
+    - soda-hooks@6.16.24
+
+## 5.18.0
+
+### Minor Changes
+
+- feat(deepsea-components): 新增 RtspPlayer 组件
+
+## 5.17.36
+
+### Patch Changes
+
+- fix(deepsea-components): 修复 ReadSheet 组件类型问题
+
 ## 5.17.35
 
 ### Patch Changes

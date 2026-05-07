@@ -2,12 +2,12 @@ import { DefaultError, QueryClient, useMutation, UseMutationOptions, UseMutation
 
 type MutationFn = (param: any) => any
 
-export type CreateUseMutationOptions<TMutationFn extends MutationFn> = UseMutationOptions<
-    Awaited<ReturnType<TMutationFn>>,
-    unknown,
-    Parameters<TMutationFn>[0],
-    unknown
->
+export type CreateUseMutationOptions<TMutationFn extends MutationFn> = Omit<
+    UseMutationOptions<Awaited<ReturnType<TMutationFn>>, unknown, Parameters<TMutationFn>[0], unknown>,
+    "mutationFn"
+> & {
+    mutationFn: TMutationFn
+}
 
 export type UseConfiguredMutation<TMutationFn extends MutationFn> = <TError = DefaultError, TOnMutateResult = unknown>(
     options?: Omit<UseMutationOptions<Awaited<ReturnType<TMutationFn>>, TError, Parameters<TMutationFn>[0], TOnMutateResult>, "mutationFn">,

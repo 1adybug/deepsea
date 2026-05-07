@@ -1,5 +1,13 @@
 # deepsea-tools
 
+## 5.47.11
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+- Updated dependencies
+    - soda-type@6.7.7
+
 ## 5.47.10
 
 ### Patch Changes

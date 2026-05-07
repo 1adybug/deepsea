@@ -1,5 +1,20 @@
 # soda-react-router
 
+## 1.2.30
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.17.0
+
+## 1.2.29
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+- Updated dependencies
+    - soda-hooks@6.16.24
+
 ## 1.2.28
 
 ### Patch Changes

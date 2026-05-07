@@ -1,6 +1,6 @@
 {
     "name": "deepsea-tools",
-    "version": "5.47.10",
+    "version": "5.47.11",
     "description": "格数科技自用工具包",
     "type": "module",
     "exports": {
@@ -58,6 +58,6 @@
     },
     "peerDependencies": {
         "dayjs": "^1.11.19",
-        "zod": "^4.1.13"
+        "zod": "^4.4.3"
     }
 }

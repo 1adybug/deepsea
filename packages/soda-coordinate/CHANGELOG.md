@@ -1,5 +1,11 @@
 # soda-coordinate
 
+## 5.3.7
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+
 ## 5.3.6
 
 ### Patch Changes

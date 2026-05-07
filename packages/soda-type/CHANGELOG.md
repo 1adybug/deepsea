@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.7.7
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+
 ## 6.7.6
 
 ### Patch Changes

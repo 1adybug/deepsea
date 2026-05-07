@@ -1,8 +1,6 @@
 import Cookies from "js-cookie"
 
-import type { CookieAttributes } from "node_modules/@types/js-cookie"
-
-export type { CookieAttributes } from "node_modules/@types/js-cookie"
+export type CookieAttributes = NonNullable<Parameters<typeof Cookies.set>[2]>
 
 export interface CookieStorage extends Storage {
     setItem(key: string, value: string, options?: CookieAttributes): void

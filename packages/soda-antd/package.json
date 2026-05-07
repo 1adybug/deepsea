@@ -1,6 +1,6 @@
 {
     "name": "soda-antd",
-    "version": "1.0.26",
+    "version": "1.0.28",
     "description": "soda-antd",
     "type": "module",
     "exports": {
@@ -44,8 +44,7 @@
         "dayjs": "^1.11.19",
         "deepsea-tools": "workspace:*",
         "soda-hooks": "workspace:*",
-        "soda-react": "workspace:*",
-        "zod": "^4.2.1"
+        "soda-react": "workspace:*"
     },
     "devDependencies": {
         "typescript": "catalog:"
@@ -55,6 +54,7 @@
         "@types/react-dom": "catalog:",
         "antd": ">=6.1.0",
         "react": "catalog:",
-        "react-dom": "catalog:"
+        "react-dom": "catalog:",
+        "zod": "^4.4.3"
     }
 }

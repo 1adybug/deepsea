@@ -1,5 +1,20 @@
 # soda-hooks
 
+## 6.17.0
+
+### Minor Changes
+
+- feat(soda-hooks): 新增浏览器检测相关 hook
+
+## 6.16.24
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+- Updated dependencies
+    - deepsea-tools@5.47.11
+    - soda-type@6.7.7
+
 ## 6.16.23
 
 ### Patch Changes
