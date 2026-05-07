@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.8.12
+
+### Patch Changes
+
+- fix(soda-nodejs): 修复 iconv-lite 类型导出问题
+
 ## 0.8.11
 
 ### Patch Changes
