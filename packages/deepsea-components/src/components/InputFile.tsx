@@ -12,30 +12,42 @@ export interface InputFileDataTypeMap {
 
 export type InputFileDataType = keyof InputFileDataTypeMap
 
-export async function getFileData<T extends InputFileDataType>(file: File, type: T): Promise<InputFileDataTypeMap[T]> {
+export function getFileData<T extends InputFileDataType>(file: File, type: T): Promise<InputFileDataTypeMap[T]> {
+    if (type === "file") return Promise.resolve(file as InputFileDataTypeMap[T])
+
     const fileReader = new FileReader()
 
-    switch (type) {
-        case "arrayBuffer":
-            fileReader.readAsArrayBuffer(file)
-            break
-        case "binary":
-            fileReader.readAsBinaryString(file)
-            break
-        case "base64":
-            fileReader.readAsDataURL(file)
-            break
-        case "text":
-            fileReader.readAsText(file)
-            break
-        default:
-            return file as any
-    }
-
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         fileReader.addEventListener("load", () => {
             resolve(fileReader.result as any)
         })
+        fileReader.addEventListener("error", () => {
+            reject(fileReader.error ?? new Error("Failed to read file"))
+        })
+        fileReader.addEventListener("abort", () => {
+            reject(fileReader.error ?? new Error("File reading was aborted"))
+        })
+
+        try {
+            switch (type) {
+                case "arrayBuffer":
+                    fileReader.readAsArrayBuffer(file)
+                    break
+                case "binary":
+                    fileReader.readAsBinaryString(file)
+                    break
+                case "base64":
+                    fileReader.readAsDataURL(file)
+                    break
+                case "text":
+                    fileReader.readAsText(file)
+                    break
+                default:
+                    resolve(file as any)
+            }
+        } catch (error) {
+            reject(error)
+        }
     })
 }
 

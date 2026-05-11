@@ -66,17 +66,19 @@ export function InputFileButton<
     const { ref, style, disabled: __disabled, ...restInputProps } = inputProps
     const [disabled, setDisabled] = useState(false)
     const input = useRef<HTMLInputElement>(null)
+    const isDisabled = disabled || _disabled || __disabled
 
     useImperativeHandle(ref, () => input.current!, [input.current])
 
     function onClick(e: ReactMouseEvent<ComponentRef<AS>, MouseEvent>) {
-        input.current?.click()
         _onClick?.(e as any)
+        if (isDisabled || e.defaultPrevented) return
+        input.current?.click()
     }
 
     async function onDrop(e: DragEvent<ComponentRef<AS>>) {
         _onDrop?.(e as any)
-        if (disabled || !dragFile) return
+        if (isDisabled || !dragFile) return
         e.preventDefault()
         const { files } = e.dataTransfer
         if (!files || files.length === 0) return
@@ -110,7 +112,7 @@ export function InputFileButton<
 
     function onDragOver(e: DragEvent<ComponentRef<AS>>) {
         _onDragOver?.(e as any)
-        if (disabled || !dragFile) return
+        if (isDisabled || !dragFile) return
         e.preventDefault()
     }
 
@@ -118,7 +120,7 @@ export function InputFileButton<
         <Fragment>
             <InputFile<Multiple, Type>
                 ref={input}
-                disabled={disabled || _disabled || __disabled}
+                disabled={isDisabled}
                 style={{ display: "none", ...style }}
                 multiple={multiple}
                 accept={accept}
@@ -130,7 +132,8 @@ export function InputFileButton<
                 {...restInputProps}
             />
             {createElement(as, {
-                disabled: disabled || _disabled,
+                disabled: isDisabled,
+                type: "button",
                 onClick,
                 onDrop,
                 onDragOver,

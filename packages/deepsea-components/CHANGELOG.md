@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.18.4
+
+### Patch Changes
+
+- fix(deepsea-components): 修复文件选择组件异常状态处理
+
 ## 5.18.3
 
 ### Patch Changes
