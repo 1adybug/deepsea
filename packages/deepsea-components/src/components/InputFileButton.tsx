@@ -125,6 +125,7 @@ export function InputFileButton<
                 type={type as Type}
                 onValueChange={onValueChange}
                 onFileChange={onFileChange}
+                onDataChange={onDataChange}
                 clearAfterChange={clearAfterChange}
                 {...restInputProps}
             />

@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.18.3
+
+### Patch Changes
+
+- fix(deepsea-components): 修复 InputFileButton 点击选择文件不触发 onDataChange
+
 ## 5.18.2
 
 ### Patch Changes
