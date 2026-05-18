@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.48.0
+
+### Minor Changes
+
+- feat(deepsea-tools): 添加 optionalFn 工具函数以处理可选函数参数
+
 ## 5.47.11
 
 ### Patch Changes
