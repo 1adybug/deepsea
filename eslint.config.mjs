@@ -1,45 +1,72 @@
-// @ts-check
+import { defineConfig } from "@1adybug/eslint"
 
-import js from "@eslint/js"
-import reactHooks from "eslint-plugin-react-hooks"
-import reactRefresh from "eslint-plugin-react-refresh"
-import { defineConfig, globalIgnores } from "eslint/config"
-import globals from "globals"
-import tseslint from "typescript-eslint"
+const files = "**/*.{js,mjs,ts,tsx}"
 
-export default defineConfig([
-    globalIgnores(["node_modules", "dist", "build", "public"]),
-    reactHooks.configs.flat.recommended,
+const browserPackages = [
+    "deepsea-components",
+    "playground",
+    "react-soda",
+    "soda-antd",
+    "soda-heroui",
+    "soda-hooks",
+    "soda-next",
+    "soda-react",
+    "soda-react-router",
+    "soda-tanstack-form",
+    "soda-tanstack-query",
+]
+
+const nodePackages = ["sdnext", "sdrr", "soda-nodejs", "soda-tailwind"]
+
+const mixedPackages = ["deepsea-tools", "soda-array", "soda-coordinate", "soda-type"]
+
+const outOfProjectFiles = [
+    "utils/**/*.ts",
+    "packages/*/rslib.config.ts",
+    "packages/*/rsbuild.config.ts",
+    "packages/*/tailwind.config.ts",
+    "packages/*/scripts/**/*.ts",
+]
+
+export default [
+    ...defineConfig({
+        next: false,
+        react: true,
+        node: {
+            enabled: true,
+            preset: "module",
+            version: ">=24.0.0",
+            rules: {
+                "n/hashbang": "off",
+                "n/no-process-exit": "off",
+                "n/no-unpublished-import": "off",
+            },
+        },
+        directories: {
+            web: browserPackages.map(name => `packages/${name}/src/${files}`),
+            node: [
+                `*.config.mjs`,
+                `scripts/${files}`,
+                ...nodePackages.map(name => `packages/${name}/src/${files}`),
+                ...outOfProjectFiles,
+                "packages/playground/postcss.config.mjs",
+            ],
+            mixed: [...mixedPackages.map(name => `packages/${name}/src/${files}`), "packages/*/types.d.ts"],
+        },
+        ignores: ["**/dist/**", "**/compiled/**", "**/coverage/**", "**/.next/**", "**/public/**"],
+        rules: {
+            "@typescript-eslint/no-unsafe-function-type": "off",
+        },
+    }),
     {
-        files: ["**/*.{js,mjs,ts,tsx}"],
-        extends: [js.configs.recommended, tseslint.configs.recommended, reactRefresh.configs.vite],
+        files: outOfProjectFiles,
         languageOptions: {
-            ecmaVersion: "latest",
-            globals: globals.browser,
+            parserOptions: {
+                projectService: false,
+            },
         },
         rules: {
-            "@typescript-eslint/no-explicit-any": "off",
-            "@typescript-eslint/no-unsafe-function-type": "off",
-            "@typescript-eslint/no-empty-object-type": "off",
-            "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
-            "no-empty": "off",
-            "no-extra-boolean-cast": "off",
-            "no-unused-vars": "off",
-            "react-refresh/only-export-components": "off",
-            "@typescript-eslint/no-unused-vars": [
-                "warn",
-                {
-                    args: "none",
-                    caughtErrors: "none",
-                    ignoreRestSiblings: true,
-                },
-            ],
-            "prefer-const": [
-                "off",
-                {
-                    destructuring: "any",
-                },
-            ],
+            "@typescript-eslint/no-deprecated": "off",
         },
     },
-])
+]
