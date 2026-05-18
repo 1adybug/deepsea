@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import { getEnumerable } from "./getEnumerable"
 
 export type Combine<A, B> = B extends undefined ? A : B

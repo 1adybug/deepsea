@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import { ComponentProps, CSSProperties, Key, ReactNode, useEffect, useMemo, useRef, useState } from "react"
 
 import { clsx, getArray, isNullable } from "deepsea-tools"
@@ -347,8 +349,10 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
             setKeyToOrder(newOrderMap)
             onOrderMapChange?.(newOrderMap)
             const newRenderKeys = new Set(newOrderMap.keys())
+            // eslint-disable-next-line react-hooks/immutability
             setRenderKeys(prev => prev.intersection(newRenderKeys).union(newRenderKeys.difference(prev)))
         }
+        // eslint-disable-next-line react-hooks/refs
     }, [dragging, cache, orders, keyToItem, keyToOrder, orderPriority, onOrderMapChange])
 
     /** 渲染的元素的 key，不会随着 keyToOrder 的变化而变化 */
@@ -384,6 +388,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
 
         if (!!orderMap && isLegalOrderMap({ orders, keys: keyToItem.keys(), orderMap })) setKeyToOrder(orderMap)
         else onOrderMapChange?.(keyToOrder)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [orderMap, keyToOrder, onOrderMapChange])
 
     function onDragMoveStart(key: K, event: DragMoveEvent<HTMLDivElement>) {
@@ -512,6 +517,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
             }
             {...rest}
         >
+            {/* eslint-disable-next-line react-hooks/refs */}
             {Array.from(renderKeys).map(key => {
                 if (!keyToItem.has(key)) return undefined
                 const item = keyToItem.get(key)!

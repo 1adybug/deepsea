@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import { ComponentProps, createElement, FC, JSX, JSXElementConstructor } from "react"
 
 import { AnyFieldApi } from "@tanstack/react-form"

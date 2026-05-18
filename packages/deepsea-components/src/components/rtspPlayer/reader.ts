@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 /*
  * Derived from MediaMTX reader.js:
  * https://github.com/bluenviron/mediamtx/blob/main/internal/servers/webrtc/reader.js

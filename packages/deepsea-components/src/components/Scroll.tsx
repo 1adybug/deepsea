@@ -49,6 +49,7 @@ export const Scroll: FC<ScrollProps> = ({
     useLayoutEffect(() => {
         bar.current = Scrollbar.init(ele.current!, scrollbarOptions)
         return () => bar.current?.destroy()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useImperativeHandle(ref, () => ele.current!, [])

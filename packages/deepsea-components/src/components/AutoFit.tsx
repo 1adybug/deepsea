@@ -39,6 +39,7 @@ export const AutoFit = forwardRef<HTMLDivElement, AutoFitProps>((props, ref) => 
     const [width, setWidth] = useState<string | undefined>(undefined)
     const [height, setHeight] = useState<string | undefined>(undefined)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useImperativeHandle(ref, () => ele.current!, [ele.current])
 
     useLayoutEffect(() => {
@@ -80,6 +81,7 @@ export const AutoFit = forwardRef<HTMLDivElement, AutoFitProps>((props, ref) => 
     }, [ele.current?.parentElement, designWidth, designHeight, direction])
 
     if (process.env.NODE_ENV === "development") {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         useEffect(() => {
             const parent = ele.current?.parentElement
             if (!parent) return

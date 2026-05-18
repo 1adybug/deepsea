@@ -1,5 +1,7 @@
 "use client"
 
+/* eslint-disable no-restricted-syntax */
+
 import { ComponentPropsWithoutRef, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 
 import ClipboardJS, { Event } from "clipboard"
@@ -19,6 +21,7 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>((props,
     const onCopySuccess = useLatest(_onCoptSuccess)
     const onCopyError = useLatest(_onCopyError)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useImperativeHandle(ref, () => ele.current!, [ele.current])
 
     useEffect(() => {
@@ -26,6 +29,7 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>((props,
         clipboard.on("success", event => onCopySuccess.current?.(event))
         clipboard.on("error", event => onCopyError.current?.(event))
         return () => clipboard.destroy()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return <button ref={ele} {...rest} data-clipboard-text={text} />

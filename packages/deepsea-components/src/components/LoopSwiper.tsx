@@ -39,6 +39,7 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
     const container = useRef<HTMLDivElement>(null)
     const [swiper, setSwiper] = useState(false)
     const directionRef = useRef(direction)
+    // eslint-disable-next-line react-hooks/refs
     directionRef.current = direction
     const flexDirection: CSSProperties["flexDirection"] = direction === "vertical" ? (reverse ? "column-reverse" : "column") : reverse ? "row-reverse" : "row"
     const animationName = swiper

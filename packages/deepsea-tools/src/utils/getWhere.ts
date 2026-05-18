@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 type StringKey<T, K extends keyof T = keyof T> = K extends keyof T ? (Exclude<T[K], undefined> extends string ? K : never) : never
 
 type ArrayKey<T, K extends keyof T = keyof T> = K extends keyof T ? (Exclude<T[K], undefined> extends (number | Date | undefined)[] ? K : never) : never

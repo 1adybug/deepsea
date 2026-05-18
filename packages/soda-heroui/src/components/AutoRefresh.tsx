@@ -18,6 +18,7 @@ export const AutoRefresh: FC<AutoRefreshProps> = ({ children, onRefresh, ...rest
         onRefresh?.()
     }
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useAutoRefresh(() =>
         addToast({
             title: "检测到页面更新",

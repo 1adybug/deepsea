@@ -127,6 +127,7 @@ export const AutoScroll: FC<AutoScrollProps> = ({
         return () => {
             clearTimeout(timeout.current)
             bar.current?.removeListener(listener)
+            // eslint-disable-next-line react-hooks/exhaustive-deps
             bar.current?.scrollTo(0, 0)
         }
     }, [size, count, itemSize, gap, duration, animation, isVertical])

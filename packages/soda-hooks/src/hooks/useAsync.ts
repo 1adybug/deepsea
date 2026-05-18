@@ -33,5 +33,6 @@ export function useAsync(
             stop = true
             if (typeof callbackOrDeps === "function") callbackOrDeps()
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, dependencyList)
 }

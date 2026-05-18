@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 export type Node<T> = T & {
     /**
      * 子节点

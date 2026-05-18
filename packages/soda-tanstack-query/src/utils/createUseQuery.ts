@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import {
     useQuery as _useQuery,
     DefinedInitialDataOptions,

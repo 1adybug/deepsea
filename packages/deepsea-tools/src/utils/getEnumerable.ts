@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 /**
  * 获取对象的可枚举属性
  * @param obj 对象

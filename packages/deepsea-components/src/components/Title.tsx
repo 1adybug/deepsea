@@ -15,10 +15,13 @@ export const Title: FC<ComponentProps<"title">> = ({ ref, children, ...rest }) =
 
     if (major >= 19) return <title ref={ref} {...rest} children={children} />
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const ele = useRef<HTMLTitleElement>(null)
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks, react-hooks/exhaustive-deps, react-hooks/refs
     useImperativeHandle(ref, () => ele.current as HTMLTitleElement, [ele.current])
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useLayoutEffect(() => {
         const title = document.head.querySelector("title")
         if (title === ele.current) return

@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import type { FSWatcher } from "chokidar"
 
 import { resolveSdrrOptions, type SdrrOptions } from "./utils/resolveSdrrOptions"

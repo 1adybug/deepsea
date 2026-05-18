@@ -18,6 +18,7 @@ export function useCalcEffect<T extends [(() => any) | RefObject<any>, ...((() =
 ) {
     const [value, setValue] = useState(null as unknown as GetValues<T>)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const newValue = values.map(getValue) as GetValues<T>
         if (!!value && compareArray(value, newValue)) return
@@ -29,5 +30,6 @@ export function useCalcEffect<T extends [(() => any) | RefObject<any>, ...((() =
         const unmount = effect(...value)
         if (typeof unmount !== "function") return
         return () => unmount(...value)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, ...deps])
 }

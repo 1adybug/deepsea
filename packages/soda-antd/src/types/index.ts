@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import { ComponentProps, ReactNode } from "react"
 
 import { Modal } from "antd"

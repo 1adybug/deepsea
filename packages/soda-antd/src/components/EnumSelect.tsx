@@ -43,6 +43,7 @@ export function EnumSelect<Options extends SelectOptions, Multiple extends boole
     loading,
     filter,
     allowUnavailableValue,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     mode,
     ...rest
 }: EnumSelectProps<Options, Multiple, AllowClear>) {

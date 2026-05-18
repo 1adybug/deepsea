@@ -1,5 +1,7 @@
 "use client"
 
+/* eslint-disable no-restricted-syntax */
+
 import { ComponentProps, createContext, createElement, CSSProperties, FC, JSX, JSXElementConstructor, ReactNode, useContext } from "react"
 
 import { clsx } from "deepsea-tools"

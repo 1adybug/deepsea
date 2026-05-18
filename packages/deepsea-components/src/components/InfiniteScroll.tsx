@@ -1,5 +1,7 @@
 "use client"
 
+/* eslint-disable no-restricted-syntax */
+
 import { ComponentPropsWithoutRef, CSSProperties, forwardRef, MouseEvent as ReactMouseEvent, useEffect, useImperativeHandle, useRef } from "react"
 
 import { css } from "@emotion/css"
@@ -58,6 +60,7 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
 
     const ele = useRef<HTMLDivElement>(null)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useImperativeHandle(ref, () => wrapper.current as HTMLDivElement, [wrapper.current])
 
     const container = useRef<HTMLDivElement>(null)
@@ -88,6 +91,7 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
             { duration, iterations: Infinity },
         )
         return () => animation.current?.cancel()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [wrapperSize, containerSize, overflow, direction, duration])
 
     function enter(e: ReactMouseEvent<HTMLDivElement, MouseEvent>) {
@@ -102,6 +106,7 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
 
     useEffect(() => {
         if (!pauseOnHover && animation.current?.playState === "paused") animation.current?.play()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [animation.current, pauseOnHover])
 
     return (

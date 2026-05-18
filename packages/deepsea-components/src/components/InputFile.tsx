@@ -1,5 +1,7 @@
 "use client"
 
+/* eslint-disable no-restricted-syntax */
+
 import { ChangeEvent, ComponentProps, ReactNode, useState } from "react"
 
 export interface InputFileDataTypeMap {
@@ -34,6 +36,7 @@ export function getFileData<T extends InputFileDataType>(file: File, type: T): P
                     fileReader.readAsArrayBuffer(file)
                     break
                 case "binary":
+                    // eslint-disable-next-line @typescript-eslint/no-deprecated
                     fileReader.readAsBinaryString(file)
                     break
                 case "base64":

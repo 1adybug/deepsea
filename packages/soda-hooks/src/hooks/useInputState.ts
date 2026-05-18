@@ -16,6 +16,7 @@ export function useInputState<T>(input: T | (() => T), deps?: any[]): [T, Dispat
     const prevDeps = useRef(deps)
     const [state, setState] = useState(input)
 
+    // eslint-disable-next-line react-hooks/refs
     if (!compareArray(prevDeps.current, deps)) {
         if (typeof input !== "function") newState = input
         else {
@@ -23,6 +24,7 @@ export function useInputState<T>(input: T | (() => T), deps?: any[]): [T, Dispat
         }
 
         if (!Object.is(newState!, state)) setState(newState!)
+        // eslint-disable-next-line react-hooks/refs
         prevDeps.current = deps
     }
 

@@ -180,12 +180,14 @@ export function Echart<T extends ECBasicOption = ECBasicOption>({
         const ele = container.current!
         chartRef.current = init(ele, option, { ...initOption, width, height, locale })
         return () => chartRef.current?.dispose()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useImperativeHandle(ref, () => container.current!)
 
     useImperativeHandle(chart, () => chartRef.current!)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => chartRef.current?.setOption(option), [hash(option)])
 
     // @ts-expect-error width and height can be string

@@ -10,7 +10,6 @@ import { BrowserParser } from "./useBrowser"
 export function useBrowserSafe(): BrowserParser | null {
     const [browser, setBrowser] = useState<Parser.Parser | null>(null)
 
-    // eslint-disable-next-line
     useEffect(() => setBrowser(getParser(window.navigator.userAgent)), [])
 
     return browser

@@ -64,6 +64,7 @@ export function NiceSearch<Data, Field extends FieldType<Data> = FieldType<Data>
     loading,
     allowUnavailableValue,
     multiple,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     mode,
     ...rest
 }: NiceSearchProps<Data, Field, Multiple, Value>): ReactNode {

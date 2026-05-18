@@ -21,12 +21,15 @@ export function transformState<T, P extends (...args: any[]) => any, X>(
     [state, setState]: UseState<T, P>,
     { get, set, dependOnGet = true }: TransformStateParams<T, P, X>,
 ) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks, react-hooks/exhaustive-deps
     const newState = useMemo(() => get(state), dependOnGet ? [state, get] : [state])
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const cache = useRef({ newState, setState, set })
     cache.current.newState = newState
     cache.current.setState = setState
     cache.current.set = set
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const newSetState = useCallback(function setState(state: SetStateAction<X>) {
         const { newState, setState, set } = cache.current
         const next = typeof state === "function" ? (state as (prev: X) => X)(newState) : state

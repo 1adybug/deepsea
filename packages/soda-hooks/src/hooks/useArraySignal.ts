@@ -4,6 +4,7 @@ import { useRef } from "react"
  * 在 react 中比较数组是否发生变化
  */
 export function useArraySignal<T>(data: T[], compareFn?: (a: T, b: T) => boolean) {
+    /* eslint-disable react-hooks/refs */
     const dataRef = useRef(data)
     const signal = useRef(Symbol("arraySignal"))
 
@@ -17,4 +18,5 @@ export function useArraySignal<T>(data: T[], compareFn?: (a: T, b: T) => boolean
     }
 
     return signal.current
+    /* eslint-enable react-hooks/refs */
 }

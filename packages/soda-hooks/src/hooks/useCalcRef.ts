@@ -6,6 +6,7 @@ import { RefObject, useRef } from "react"
  * @returns ref
  */
 export function useCalcRef<T>(fn: () => T): RefObject<T> {
+    /* eslint-disable react-hooks/refs */
     const done = useRef(false)
     const ref = useRef<T | undefined>(undefined)
 
@@ -15,4 +16,5 @@ export function useCalcRef<T>(fn: () => T): RefObject<T> {
     }
 
     return ref as RefObject<T>
+    /* eslint-enable react-hooks/refs */
 }

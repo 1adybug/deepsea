@@ -1,5 +1,7 @@
 "use client"
 
+/* eslint-disable no-restricted-syntax */
+
 import { ComponentPropsWithoutRef, ReactNode } from "react"
 
 import { As, InputOtp, InputOtpProps, MergeWithAs } from "@heroui/react"

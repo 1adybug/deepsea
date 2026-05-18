@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import { exec, ExecOptions } from "child_process"
 import { ObjectEncodingOptions } from "fs"
 

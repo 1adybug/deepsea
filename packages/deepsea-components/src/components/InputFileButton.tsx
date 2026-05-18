@@ -1,5 +1,7 @@
 "use client"
 
+/* eslint-disable no-restricted-syntax */
+
 import {
     ComponentProps,
     ComponentRef,
@@ -68,6 +70,7 @@ export function InputFileButton<
     const input = useRef<HTMLInputElement>(null)
     const isDisabled = disabled || _disabled || __disabled
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/refs
     useImperativeHandle(ref, () => input.current!, [input.current])
 
     function onClick(e: ReactMouseEvent<ComponentRef<AS>, MouseEvent>) {
@@ -116,6 +119,7 @@ export function InputFileButton<
         e.preventDefault()
     }
 
+    /* eslint-disable react-hooks/refs */
     return (
         <Fragment>
             <InputFile<Multiple, Type>
@@ -141,4 +145,5 @@ export function InputFileButton<
             })}
         </Fragment>
     )
+    /* eslint-enable react-hooks/refs */
 }

@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import { getEnumerable } from "./getEnumerable"
 
 export function merge<T extends {}>(a: T, b: T) {

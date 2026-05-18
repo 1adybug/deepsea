@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import { useCallback, useMemo, useRef } from "react"
 
 import { Equal } from "soda-type"
@@ -69,9 +71,13 @@ export function useNativeQueryState<T extends string = never, K extends QueryToS
     }, {})
 
     const cache = useRef({ searchParams, setSearchParams, search, parse, stringify, exact, deps })
+    // eslint-disable-next-line react-hooks/refs
     cache.current.searchParams = searchParams
+    // eslint-disable-next-line react-hooks/refs
     cache.current.setSearchParams = setSearchParams
+    // eslint-disable-next-line react-hooks/refs
     if (!compareSearch(cache.current.search, search) || !compareArray(cache.current.deps, deps))
+        // eslint-disable-next-line react-hooks/refs
         cache.current = { searchParams, setSearchParams, search, parse, stringify, exact, deps }
 
     const queryState: QueryState<T, K, P> = useMemo(
@@ -82,10 +88,12 @@ export function useNativeQueryState<T extends string = never, K extends QueryToS
                 prev[key] = parser ? parser(value, values) : value
                 return prev
             }, {}) as any,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [cache.current],
     )
 
     const queryStateRef = useRef(queryState)
+    // eslint-disable-next-line react-hooks/refs
     queryStateRef.current = queryState
 
     const setQueryState: SetQueryState<T, K, P> = useCallback(state => {
@@ -163,6 +171,7 @@ export function useNativeQueryState<T extends string = never, K extends QueryToS
         }
 
         setSearchParams(newSearchParams)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return [queryState, setQueryState]

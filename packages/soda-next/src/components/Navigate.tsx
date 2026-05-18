@@ -14,6 +14,7 @@ export interface NavigateProps {
 
 export const Navigate: FC<NavigateProps> = ({ to, replace }) => {
     const router = useRouter()
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     if (isBrowser) replace ? router.replace(to) : router.push(to)
     return null
 }

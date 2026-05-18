@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import { ComponentProps, FC, ReactNode } from "react"
 
 import { ConfigProvider } from "antd"

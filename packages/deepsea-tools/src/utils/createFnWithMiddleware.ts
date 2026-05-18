@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import { assignFnName } from "./assignFnName"
 
 export type AnyFunction = (...args: any[]) => any

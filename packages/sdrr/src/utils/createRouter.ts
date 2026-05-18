@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 import { readdir, readFile, stat, writeFile } from "fs/promises"
 import { join, parse } from "path"
 

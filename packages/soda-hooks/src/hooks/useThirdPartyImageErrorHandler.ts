@@ -1,6 +1,6 @@
-import { CSSProperties, MutableRefObject, useEffect, useLayoutEffect } from "react"
+import { CSSProperties, RefObject, useEffect, useLayoutEffect } from "react"
 
-export type ThirdPartyImageErrorHandlerTarget = HTMLElement | Window | Document | MutableRefObject<HTMLElement>
+export type ThirdPartyImageErrorHandlerTarget = HTMLElement | Window | Document | RefObject<HTMLElement>
 
 export interface ThirdPartyImageErrorHandlerOptions {
     target?: ThirdPartyImageErrorHandlerTarget
@@ -12,7 +12,7 @@ export interface ThirdPartyImageErrorHandlerOptions {
     lineHeight?: CSSProperties["lineHeight"]
 }
 
-function targetIsMutableRefObject(target: ThirdPartyImageErrorHandlerTarget): target is MutableRefObject<HTMLElement> {
+function targetIsMutableRefObject(target: ThirdPartyImageErrorHandlerTarget): target is RefObject<HTMLElement> {
     return target !== null && typeof target === "object" && "current" in target && target.current instanceof HTMLElement
 }
 

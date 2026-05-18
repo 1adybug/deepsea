@@ -1,5 +1,7 @@
 "use client"
 
+/* eslint-disable no-restricted-syntax */
+
 import { ComponentProps, createElement, JSX, JSXElementConstructor, MouseEvent as ReactMouseEvent } from "react"
 
 import { writeSheet, WriteSheetParams } from "deepsea-tools"

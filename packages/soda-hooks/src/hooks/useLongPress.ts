@@ -25,6 +25,7 @@ export function useLongPress<T extends HTMLElement = HTMLElement>(
 ) {
     const ref = useRef<T>(null)
     const callbacksRef = useRef({ onLongPress, onStart, onEnd, onCancel })
+    // eslint-disable-next-line react-hooks/refs
     callbacksRef.current = { onLongPress, onStart, onEnd, onCancel }
 
     useEffect(() => {
@@ -104,6 +105,7 @@ export function useLongPress<T extends HTMLElement = HTMLElement>(
             abortController.abort()
             clearTimeout(timeout)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/refs
     }, [ref.current, threshold, preventDefault])
 
     return ref

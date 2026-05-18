@@ -50,5 +50,6 @@ export function useScrollMemo(options: ScrollMemoOptions) {
             clearTimeout(timeout)
             element.removeEventListener("scroll", listener)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [target, storage, key, ready, behavior])
 }

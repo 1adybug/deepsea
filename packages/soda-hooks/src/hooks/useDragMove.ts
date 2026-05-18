@@ -22,6 +22,7 @@ export interface UseDragMoveParams<T extends HTMLElement = HTMLElement> extends 
 }
 
 export function useDragMove<T extends HTMLElement = HTMLElement>({ element, onDragMoveStart, onDragMove, onDragMoveEnd }: UseDragMoveParams<T>) {
+    // eslint-disable-next-line react-hooks/refs
     const cache = useRef({ onDragMoveStart, onDragMove, onDragMoveEnd }).current
     cache.onDragMoveStart = onDragMoveStart
     cache.onDragMove = onDragMove

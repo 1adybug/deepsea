@@ -11,6 +11,7 @@ export function useAutoRefresh(callback: () => void, { interval = 10000, url = "
     const etag = useRef<string | undefined>(undefined)
     const abortController = useRef<AbortController | undefined>(undefined)
     const callbackRef = useRef(callback)
+    // eslint-disable-next-line react-hooks/refs
     callbackRef.current = callback
 
     useEffect(() => {

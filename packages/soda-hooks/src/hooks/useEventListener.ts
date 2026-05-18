@@ -32,6 +32,7 @@ export function useEventListener<T extends EventTarget | ElementInput<Element>>(
             if (!target) return
             target.addEventListener(type, newListener, options)
             return () => target.removeEventListener(type, newListener, options)
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [target])
     }
 }
