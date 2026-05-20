@@ -3,9 +3,9 @@
 import { exec, ExecOptions } from "child_process"
 import { ObjectEncodingOptions } from "fs"
 
-import iconv, { DecodeOptions as IconvLiteDecodeOptions } from "iconv-lite"
+import iconv, { type DecodeOptions as IconvLiteDecodeOptions } from "iconv-lite"
 
-export { DecodeOptions as IconvLiteDecodeOptions } from "iconv-lite"
+export { type DecodeOptions as IconvLiteDecodeOptions } from "iconv-lite"
 
 export type IconvDecodeOptions = {
     encoding: string

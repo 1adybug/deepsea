@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.8.13
+
+### Patch Changes
+
+- fix(soda-nodejs): 修复类型导出错误
+
 ## 0.8.12
 
 ### Patch Changes
