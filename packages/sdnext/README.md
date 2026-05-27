@@ -20,7 +20,6 @@ export async function addUser() {}
 "use server"
 
 import { createResponseFn } from "@/server/createResponseFn"
-
 import { addUser } from "@/shared/addUser"
 
 export const addUserAction = createResponseFn(addUser)
@@ -50,7 +49,6 @@ addUser.route = {}
 
 ```ts
 import { createRoute } from "@/server/createResponseFn"
-
 import { addUser } from "@/shared/addUser"
 
 export const { POST } = createRoute(addUser)

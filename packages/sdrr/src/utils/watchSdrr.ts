@@ -1,6 +1,6 @@
 import { watch } from "chokidar"
 
-import { resolveSdrrOptions, resolveSdrrPath, type SdrrOptions } from "./resolveSdrrOptions"
+import { type SdrrOptions, resolveSdrrOptions, resolveSdrrPath } from "./resolveSdrrOptions"
 import { syncRouter } from "./syncRouter"
 
 export interface WatchSdrrOptions extends SdrrOptions {

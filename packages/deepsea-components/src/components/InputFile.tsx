@@ -2,7 +2,7 @@
 
 /* eslint-disable no-restricted-syntax */
 
-import { ChangeEvent, ComponentProps, ReactNode, useState } from "react"
+import { type ChangeEvent, type ComponentProps, type ReactNode, useState } from "react"
 
 export interface InputFileDataTypeMap {
     base64: string
@@ -23,9 +23,11 @@ export function getFileData<T extends InputFileDataType>(file: File, type: T): P
         fileReader.addEventListener("load", () => {
             resolve(fileReader.result as any)
         })
+
         fileReader.addEventListener("error", () => {
             reject(fileReader.error ?? new Error("Failed to read file"))
         })
+
         fileReader.addEventListener("abort", () => {
             reject(fileReader.error ?? new Error("File reading was aborted"))
         })

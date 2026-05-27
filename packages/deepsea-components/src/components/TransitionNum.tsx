@@ -1,6 +1,6 @@
 "use client"
 
-import { ForwardedRef, forwardRef, HTMLAttributes, useEffect, useImperativeHandle, useRef } from "react"
+import { type ForwardedRef, type HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 
 import { setFrameInterval } from "deepsea-tools"
 

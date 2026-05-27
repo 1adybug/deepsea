@@ -1,4 +1,4 @@
-import { PathLike } from "fs"
+import type { PathLike } from "node:fs"
 
 export function isPathLike(path: unknown): path is PathLike {
     return typeof path === "string" || path instanceof Buffer || path instanceof URL

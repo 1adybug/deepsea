@@ -1,4 +1,4 @@
-import { RefObject, useEffect } from "react"
+import { type RefObject, useEffect } from "react"
 
 export interface ScrollMemoOptions {
     /** 需要监听的元素，可以是 ref */
@@ -46,6 +46,7 @@ export function useScrollMemo(options: ScrollMemoOptions) {
         }
 
         element.addEventListener("scroll", listener)
+
         return () => {
             clearTimeout(timeout)
             element.removeEventListener("scroll", listener)

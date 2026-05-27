@@ -1,4 +1,4 @@
-import { AnyFunction } from "./createFnWithMiddleware"
+import type { AnyFunction } from "./createFnWithMiddleware"
 
 /**
  * 获得一个函数循环出来的数组

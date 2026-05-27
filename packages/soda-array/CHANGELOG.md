@@ -1,5 +1,11 @@
 # soda-array
 
+## 0.1.10
+
+### Patch Changes
+
+- feat: update dependencies
+
 ## 0.1.9
 
 ### Patch Changes

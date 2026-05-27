@@ -1,4 +1,4 @@
-import { SetStateAction, useCallback, useMemo, useRef } from "react"
+import { type SetStateAction, useCallback, useMemo, useRef } from "react"
 
 type UseState<T, P extends (...args: any[]) => any> = [T, P]
 
@@ -23,8 +23,10 @@ export function transformState<T, P extends (...args: any[]) => any, X>(
 ) {
     // eslint-disable-next-line react-hooks/rules-of-hooks, react-hooks/exhaustive-deps
     const newState = useMemo(() => get(state), dependOnGet ? [state, get] : [state])
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const cache = useRef({ newState, setState, set })
+
     cache.current.newState = newState
     cache.current.setState = setState
     cache.current.set = set

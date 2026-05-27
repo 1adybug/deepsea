@@ -1,8 +1,8 @@
-import { IsNever } from "soda-type"
-import { $ZodType, parse } from "zod/v4/core"
+import type { IsNever } from "soda-type"
+import { type $ZodType, parse } from "zod/v4/core"
 
 import { assignFnName } from "./assignFnName"
-import { createFnWithMiddleware, Middleware } from "./createFnWithMiddleware"
+import { type Middleware, createFnWithMiddleware } from "./createFnWithMiddleware"
 
 export interface ResponseData<TData = unknown> {
     /** 是否成功 */

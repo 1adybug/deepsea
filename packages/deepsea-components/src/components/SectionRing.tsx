@@ -1,8 +1,8 @@
 "use client"
 
-import { forwardRef, HTMLAttributes } from "react"
+import { type HTMLAttributes, forwardRef } from "react"
 
-import { drawArc, DrawArcOptions } from "deepsea-tools"
+import { type DrawArcOptions, drawArc } from "deepsea-tools"
 
 export interface SectionRingProps extends HTMLAttributes<HTMLDivElement> {
     outerRadius: number

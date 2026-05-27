@@ -1,16 +1,16 @@
 "use client"
 
-import { CSSProperties, FC, MouseEvent as ReactMouseEvent, useEffect, useEffectEvent, useImperativeHandle, useRef } from "react"
+import { type CSSProperties, type FC, type MouseEvent as ReactMouseEvent, useEffect, useEffectEvent, useImperativeHandle, useRef } from "react"
 
 import { css } from "@emotion/css"
 import { clsx, getArray } from "deepsea-tools"
 import Scrollbar from "smooth-scrollbar"
-import { ScrollStatus } from "smooth-scrollbar/interfaces/scrollbar"
+import type { ScrollStatus } from "smooth-scrollbar/interfaces/scrollbar"
 import { useSize } from "soda-hooks"
 
 import { px, transformCSSVariable } from "@/utils"
 
-import { Scroll, ScrollProps } from "./Scroll"
+import { type ScrollProps, Scroll } from "./Scroll"
 
 export interface AutoScrollProps extends ScrollProps {
     /** 轮播元素的个数 */

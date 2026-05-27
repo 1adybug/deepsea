@@ -1,11 +1,11 @@
-import { readdir, readFile, stat } from "fs/promises"
-import { join, parse, relative } from "path"
-import { cwd } from "process"
+import { readdir, readFile, stat } from "node:fs/promises"
+import { join, parse, relative } from "node:path"
+import { cwd } from "node:process"
 
 import { checkbox, select } from "@inquirer/prompts"
-import { Command } from "commander"
+import type { Command } from "commander"
 
-import { readSdNextSetting, SdNextSetting } from "./readSdNextSetting"
+import { type SdNextSetting, readSdNextSetting } from "./readSdNextSetting"
 import { resolveProjectImportPath } from "./resolveProjectImportPath"
 import { isScriptModule, normalizePathSeparator, writeGeneratedFile } from "./sharedArtifact"
 import { writeSdNextSetting } from "./writeSdNextSetting"

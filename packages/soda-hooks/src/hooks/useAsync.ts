@@ -1,4 +1,4 @@
-import { DependencyList, useEffect } from "react"
+import { type DependencyList, useEffect } from "react"
 
 import { isAsyncGenerator } from "deepsea-tools"
 
@@ -29,6 +29,7 @@ export function useAsync(
         }
 
         run()
+
         return () => {
             stop = true
             if (typeof callbackOrDeps === "function") callbackOrDeps()

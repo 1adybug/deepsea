@@ -1,8 +1,8 @@
-import { FC, ReactNode } from "react"
+import type { FC, ReactNode } from "react"
 
-import { addToast, Button, PressEvent } from "@heroui/react"
+import { type PressEvent, addToast, Button } from "@heroui/react"
 import { useAutoRefresh } from "soda-hooks"
-import { FirstParameter } from "soda-type"
+import type { FirstParameter } from "soda-type"
 
 export interface AutoRefreshProps extends FirstParameter<typeof addToast> {
     onRefresh?: () => void

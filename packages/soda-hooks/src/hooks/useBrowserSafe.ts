@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 
-import { getParser, Parser } from "bowser"
+import { type Parser, getParser } from "bowser"
 
-import { BrowserParser } from "./useBrowser"
+import type { BrowserParser } from "./useBrowser"
 
 /**
  * useBrowser 的 ssr 版本

@@ -1,8 +1,8 @@
 "use client"
 
-import { readSheet, WorkBookData, WorkSheetData } from "deepsea-tools"
+import { type WorkBookData, type WorkSheetData, readSheet } from "deepsea-tools"
 
-import { InputFile, InputFileProps } from "./InputFile"
+import { type InputFileProps, InputFile } from "./InputFile"
 
 export interface ReadSheetProps<Sheet = WorkSheetData> extends Omit<InputFileProps<false, "arrayBuffer">, "multiple" | "accept" | "type" | "onValueChange"> {
     onValueChange?: (data: WorkBookData<Sheet>) => void

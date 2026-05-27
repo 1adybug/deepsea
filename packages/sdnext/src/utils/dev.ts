@@ -1,7 +1,7 @@
-import { spawn } from "child_process"
-import { fileURLToPath } from "url"
+import { spawn } from "node:child_process"
+import { fileURLToPath } from "node:url"
 
-import { Command } from "commander"
+import type { Command } from "commander"
 
 import { buildFolder } from "./build"
 import { spawnCommand } from "./runCommand"

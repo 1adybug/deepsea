@@ -1,6 +1,6 @@
 {
     "name": "soda-nodejs",
-    "version": "0.8.13",
+    "version": "0.8.14",
     "description": "",
     "type": "module",
     "exports": {
@@ -18,7 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "pnpm run build"
     },
     "keywords": [],
     "authors": [
@@ -42,8 +42,8 @@
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-nodejs",
     "dependencies": {
         "iconv-lite": "^0.7.0",
-        "tar": "^7.5.2",
-        "which": "^5.0.0"
+        "tar": "^7.5.15",
+        "which": "^7.0.0"
     },
     "devDependencies": {
         "@types/node": "catalog:",

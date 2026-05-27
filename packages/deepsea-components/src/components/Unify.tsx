@@ -2,7 +2,17 @@
 
 /* eslint-disable no-restricted-syntax */
 
-import { ComponentProps, createContext, createElement, CSSProperties, FC, JSX, JSXElementConstructor, ReactNode, useContext } from "react"
+import {
+    type ComponentProps,
+    type CSSProperties,
+    type FC,
+    type JSX,
+    type JSXElementConstructor,
+    type ReactNode,
+    createContext,
+    createElement,
+    useContext,
+} from "react"
 
 import { clsx } from "deepsea-tools"
 

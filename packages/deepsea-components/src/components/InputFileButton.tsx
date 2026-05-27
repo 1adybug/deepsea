@@ -3,29 +3,29 @@
 /* eslint-disable no-restricted-syntax */
 
 import {
-    ComponentProps,
-    ComponentRef,
+    type ComponentProps,
+    type ComponentRef,
+    type DragEvent,
+    type JSX,
+    type JSXElementConstructor,
+    type MouseEvent as ReactMouseEvent,
     createElement,
-    DragEvent,
     Fragment,
-    JSX,
-    JSXElementConstructor,
-    MouseEvent as ReactMouseEvent,
     useImperativeHandle,
     useRef,
     useState,
 } from "react"
 
 import {
-    DataType,
-    FileType,
+    type DataType,
+    type FileType,
+    type InputFileBaseProps,
+    type InputFileDataType,
+    type InputFileDataTypeMap,
+    type InputFileExtraProps,
+    type ValueType,
     getFileData,
     InputFile,
-    InputFileBaseProps,
-    InputFileDataType,
-    InputFileDataTypeMap,
-    InputFileExtraProps,
-    ValueType,
 } from "./InputFile"
 
 export type InputFileButtonProps<

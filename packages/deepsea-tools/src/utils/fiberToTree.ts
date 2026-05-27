@@ -1,4 +1,4 @@
-import { Fiber, Node } from "./treeToFibers"
+import type { Fiber, Node } from "./treeToFibers"
 import { walkThroughFiber } from "./walkThroughFiber"
 
 /**

@@ -1,6 +1,16 @@
 "use client"
 
-import { ComponentProps, CSSProperties, FC, ForwardedRef, useEffect, useEffectEvent, useImperativeHandle, useLayoutEffect, useRef } from "react"
+import {
+    type ComponentProps,
+    type CSSProperties,
+    type FC,
+    type ForwardedRef,
+    useEffect,
+    useEffectEvent,
+    useImperativeHandle,
+    useLayoutEffect,
+    useRef,
+} from "react"
 
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
@@ -48,6 +58,7 @@ export const Scroll: FC<ScrollProps> = ({
 
     useLayoutEffect(() => {
         bar.current = Scrollbar.init(ele.current!, scrollbarOptions)
+
         return () => bar.current?.destroy()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

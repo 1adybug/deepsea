@@ -1,4 +1,4 @@
-import { AnyFunction } from "./createFnWithMiddleware"
+import type { AnyFunction } from "./createFnWithMiddleware"
 
 /**
  * 将 source 的函数名赋值给 target

@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import type { ReactNode } from "react"
 import { renderToString } from "react-dom/server"
 
 export function renderToText(node: ReactNode): string {

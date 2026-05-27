@@ -1,6 +1,6 @@
 {
     "name": "soda-tailwind",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "tailwindcss plugin",
     "type": "module",
     "exports": {
@@ -17,7 +17,7 @@
     "scripts": {
         "dev": "rslib build --watch",
         "build": "rslib build",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "pnpm run build"
     },
     "keywords": [],
     "authors": [
@@ -39,12 +39,11 @@
         "url": "git+https://github.com/1adybug/deepsea.git"
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-tailwind",
-    "dependencies": {},
     "devDependencies": {
         "@types/node": "catalog:",
         "typescript": "catalog:"
     },
     "peerDependencies": {
-        "tailwindcss": "catalog:"
+        "tailwindcss": "^3.4.19"
     }
 }

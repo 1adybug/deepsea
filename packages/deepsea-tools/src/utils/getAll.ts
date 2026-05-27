@@ -1,4 +1,4 @@
-import { Page } from "./getPagination"
+import type { Page } from "./getPagination"
 
 export async function getAll<T>(query: (time: number) => Promise<Page<T>>) {
     const result: T[] = []

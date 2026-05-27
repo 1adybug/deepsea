@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 
-import { DefaultError, QueryClient, useMutation, UseMutationOptions, UseMutationResult } from "@tanstack/react-query"
+import { type DefaultError, type QueryClient, type UseMutationOptions, type UseMutationResult, useMutation } from "@tanstack/react-query"
 
 type MutationFn = (param: any) => any
 

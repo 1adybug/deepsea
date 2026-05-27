@@ -1,4 +1,4 @@
-import { CalendarDate, CalendarDateTime, Time, ZonedDateTime } from "@internationalized/date"
+import type { CalendarDate, CalendarDateTime, Time, ZonedDateTime } from "@internationalized/date"
 
 export interface DefaultTime {
     year?: number

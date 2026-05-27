@@ -1,6 +1,6 @@
-import { existsSync } from "fs"
-import { copyFile, mkdir, readdir, stat } from "fs/promises"
-import { join, parse } from "path"
+import { existsSync } from "node:fs"
+import { copyFile, mkdir, readdir, stat } from "node:fs/promises"
+import { join, parse } from "node:path"
 
 export type CopyOptions = {
     /** 源文件夹 */

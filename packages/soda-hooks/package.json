@@ -1,6 +1,6 @@
 {
     "name": "soda-hooks",
-    "version": "6.17.1",
+    "version": "6.17.2",
     "description": "",
     "type": "module",
     "exports": {
@@ -18,7 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "pnpm run build"
     },
     "keywords": [],
     "authors": [

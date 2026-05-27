@@ -1,8 +1,20 @@
-import { readdir } from "fs/promises"
-import { join } from "path"
+import { readdir } from "node:fs/promises"
+import { join } from "node:path"
 
 import { resolveProjectImportPath } from "./resolveProjectImportPath"
 import { getSharedModuleInfo, isScriptModule, writeGeneratedFile } from "./sharedArtifact"
+
+interface NamedImportSpecifier {
+    name: string
+    type?: boolean
+}
+
+function getNamedImportStatement(modulePath: string, specifiers: NamedImportSpecifier[]) {
+    const allType = specifiers.every(item => item.type)
+    const names = specifiers.map(item => (allType || !item.type ? item.name : `type ${item.name}`)).join(", ")
+
+    return `import ${allType ? "type " : ""}{ ${names} } from "${modulePath}"`
+}
 
 export async function createRoute(path?: string) {
     if (path) {
@@ -59,15 +71,28 @@ export interface GetRouteFileContentParamsItem {
 
 async function getRouteFileContent(items: GetRouteFileContentParamsItem[], routePath: string) {
     const createRouteFnImportPath = await resolveProjectImportPath(routePath, "server/createResponseFn")
-    const importLines = (await Promise.all(items.map(async (item) => {
-        const importPath = await resolveProjectImportPath(routePath, `shared/${item.importPath}`)
-        return `import { ${item.name} } from "${importPath}"`
-    }))).join("\n")
+    const nextServerImport = getNamedImportStatement("next/server", [{ name: "NextRequest", type: true }, { name: "NextResponse" }])
+    const createRouteFnImport = getNamedImportStatement(createRouteFnImportPath, [
+        { name: "OriginalResponseFn", type: true },
+        { name: "RouteBodyType", type: true },
+        { name: "RouteHandler", type: true },
+        { name: "createRouteFn" },
+    ])
+
+    const importLines = (
+        await Promise.all(
+            items.map(async item => {
+                const importPath = await resolveProjectImportPath(routePath, `shared/${item.importPath}`)
+                return `import { ${item.name} } from "${importPath}"`
+            }),
+        )
+    ).join("\n")
+
     const registerLines = items.map(item => `registerRoute(${item.name})`).join("\n")
 
-    return `import { NextRequest, NextResponse } from "next/server"
+    return `${nextServerImport}
 
-import { createRouteFn, OriginalResponseFn, RouteBodyType, RouteHandler } from "${createRouteFnImportPath}"
+${createRouteFnImport}
 ${importLines ? `\n${importLines}\n` : ""}
 const routeMap = new Map<string, RouteHandler>()
 

@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 
-import { Parser } from "bowser"
+import type { Parser } from "bowser"
 
 import { useBrowser } from "./useBrowser"
 

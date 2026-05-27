@@ -1,6 +1,6 @@
 "use client"
 
-import { ComponentProps, CSSProperties, FC, useEffect, useImperativeHandle, useRef, useState } from "react"
+import { type ComponentProps, type CSSProperties, type FC, useEffect, useImperativeHandle, useRef, useState } from "react"
 
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"

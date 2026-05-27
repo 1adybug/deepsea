@@ -1,6 +1,6 @@
 "use client"
 
-import { WriteSheet, WriteSheetProps } from "./WriteSheet"
+import { type WriteSheetProps, WriteSheet } from "./WriteSheet"
 
 /**
  * @deprecated 请使用 WriteSheetProps 代替

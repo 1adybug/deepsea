@@ -1,9 +1,9 @@
-import { ReactNode } from "react"
+import type { ReactNode } from "react"
 
-import { WriteableWorkSheetCellData } from "deepsea-tools"
+import type { WriteableWorkSheetCellData } from "deepsea-tools"
 import { renderToText, renderToWorkSheetCell } from "soda-react"
 
-import { Columns } from "@/types"
+import type { Columns } from "@/types"
 
 export interface GetWorkSheetParams<T> {
     data: T[]

@@ -1,5 +1,5 @@
 import { getNextFiber } from "./getNextFiber"
-import { Fiber } from "./treeToFibers"
+import type { Fiber } from "./treeToFibers"
 
 /**
  * 遍历 fiber

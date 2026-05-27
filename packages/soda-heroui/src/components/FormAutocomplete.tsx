@@ -1,9 +1,9 @@
 "use client"
 
-import { Key, ReactNode } from "react"
+import type { Key, ReactNode } from "react"
 
-import { Autocomplete, AutocompleteProps } from "@heroui/react"
-import { FieldComponentProps } from "soda-tanstack-form"
+import { type AutocompleteProps, Autocomplete } from "@heroui/react"
+import type { FieldComponentProps } from "soda-tanstack-form"
 
 import { getFieldProps } from "../utils/getFieldProps"
 

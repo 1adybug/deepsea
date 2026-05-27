@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react"
+import type { FC, ReactNode } from "react"
 
 import { StyleProvider } from "@ant-design/cssinjs"
 import { ConfigProvider } from "antd"

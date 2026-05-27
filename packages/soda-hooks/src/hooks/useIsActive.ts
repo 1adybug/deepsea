@@ -1,4 +1,4 @@
-import { ActivePath, isActiveHref } from "deepsea-tools"
+import { type ActivePath, isActiveHref } from "deepsea-tools"
 
 export interface LocationState {
     href: string

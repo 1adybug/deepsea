@@ -1,6 +1,6 @@
-import { Rule } from "antd/es/form"
+import type { Rule } from "antd/es/form"
 import { flattenZodError } from "deepsea-tools"
-import { $ZodError, $ZodType, safeParse } from "zod/v4/core"
+import { type $ZodError, type $ZodType, safeParse } from "zod/v4/core"
 
 export interface schemaToRuleParams<T> {
     schema: $ZodType<T>

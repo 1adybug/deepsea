@@ -1,5 +1,5 @@
-import { copyFile, readFile, writeFile } from "fs/promises"
-import { join } from "path"
+import { copyFile, readFile, writeFile } from "node:fs/promises"
+import { join } from "node:path"
 
 async function main() {
     await copyFile(join("src", "robust-point-in-polygon.d.ts"), join("dist", "robust-point-in-polygon.d.ts"))

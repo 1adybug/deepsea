@@ -1,6 +1,6 @@
 {
     "name": "sdnext",
-    "version": "0.0.32",
+    "version": "0.0.33",
     "description": "",
     "type": "module",
     "exports": {
@@ -20,7 +20,7 @@
     "scripts": {
         "dev": "rslib build --watch",
         "build": "rslib build",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "pnpm run build"
     },
     "keywords": [],
     "authors": [
@@ -43,7 +43,7 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/sdnext",
     "dependencies": {
-        "@inquirer/prompts": "^8.1.0",
+        "@inquirer/prompts": "^8.5.0",
         "chokidar": "^5.0.0",
         "commander": "^14.0.2",
         "deepsea-tools": "workspace:*"

@@ -1,5 +1,5 @@
-import { mkdir, readFile, readdir, rm, writeFile } from "fs/promises"
-import { dirname, join, parse, relative } from "path"
+import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises"
+import { dirname, join, parse, relative } from "node:path"
 
 export interface SharedModuleInfo {
     dir: string

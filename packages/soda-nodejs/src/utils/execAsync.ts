@@ -1,11 +1,11 @@
 /* eslint-disable no-restricted-syntax */
 
-import { exec, ExecOptions } from "child_process"
-import { ObjectEncodingOptions } from "fs"
+import { type ExecOptions, exec } from "node:child_process"
+import type { ObjectEncodingOptions } from "node:fs"
 
 import iconv, { type DecodeOptions as IconvLiteDecodeOptions } from "iconv-lite"
 
-export { type DecodeOptions as IconvLiteDecodeOptions } from "iconv-lite"
+export type { DecodeOptions as IconvLiteDecodeOptions } from "iconv-lite"
 
 export type IconvDecodeOptions = {
     encoding: string

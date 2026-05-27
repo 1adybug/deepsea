@@ -1,15 +1,15 @@
 /* eslint-disable no-restricted-syntax */
 
 import {
+    type DefinedInitialDataOptions,
+    type DefinedUseQueryResult,
+    type QueryClient,
+    type UndefinedInitialDataOptions,
+    type UseQueryOptions,
+    type UseQueryResult,
     useQuery as _useQuery,
-    DefinedInitialDataOptions,
-    DefinedUseQueryResult,
-    QueryClient,
-    UndefinedInitialDataOptions,
-    UseQueryOptions,
-    UseQueryResult,
 } from "@tanstack/react-query"
-import { Assign, IsParamRequired, StrictPartial } from "soda-type"
+import type { Assign, IsParamRequired, StrictPartial } from "soda-type"
 
 // 要在第一个加一个重载，因为 options 是可选的，如果不加这个重载，options 类型会匹配到 DefinedInitialDataOptions，会误认为 initialData 被传递了，造成返回类型必定不为 undefined
 

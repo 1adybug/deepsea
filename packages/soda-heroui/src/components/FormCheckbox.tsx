@@ -2,10 +2,10 @@
 
 /* eslint-disable no-restricted-syntax */
 
-import { ComponentPropsWithoutRef, ReactNode } from "react"
+import type { ComponentPropsWithoutRef, ReactNode } from "react"
 
-import { As, Checkbox, CheckboxProps, MergeWithAs } from "@heroui/react"
-import { Field } from "soda-tanstack-form"
+import { type As, type CheckboxProps, type MergeWithAs, Checkbox } from "@heroui/react"
+import type { Field } from "soda-tanstack-form"
 
 import { getFieldProps } from "../utils/getFieldProps"
 

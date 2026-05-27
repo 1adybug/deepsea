@@ -1,4 +1,4 @@
-import { ValueOf } from "soda-type"
+import type { ValueOf } from "soda-type"
 
 import { getEnumValues } from "./getEnumValues"
 import { isNullable } from "./isNullable"

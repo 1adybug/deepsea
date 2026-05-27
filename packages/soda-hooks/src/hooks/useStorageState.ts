@@ -1,4 +1,4 @@
-import { SetStateAction, useCallback, useSyncExternalStore } from "react"
+import { type SetStateAction, useCallback, useSyncExternalStore } from "react"
 
 import { createObservableStorage } from "deepsea-tools"
 

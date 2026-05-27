@@ -1,4 +1,4 @@
-import { writeSheet, WriteSheetParams } from "./writeSheet"
+import { type WriteSheetParams, writeSheet } from "./writeSheet"
 
 /**
  * @deprecated 请使用 WriteSheetParams 代替

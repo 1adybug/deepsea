@@ -1,6 +1,6 @@
 "use client"
 
-import { CSSProperties, FC, forwardRef, HTMLAttributes, useEffect, useRef, useState } from "react"
+import { type CSSProperties, type FC, type HTMLAttributes, forwardRef, useEffect, useRef, useState } from "react"
 
 import { useSize } from "soda-hooks"
 

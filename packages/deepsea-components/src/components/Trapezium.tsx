@@ -1,6 +1,6 @@
 "use client"
 
-import { forwardRef, HTMLAttributes } from "react"
+import { type HTMLAttributes, forwardRef } from "react"
 
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"

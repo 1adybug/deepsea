@@ -1,7 +1,7 @@
 import { useEffect, useEffectEvent, useState } from "react"
 
 import { useCalcEffect } from "./useCalcEffect"
-import { ElementInput, getElement } from "./useDomEffect"
+import { type ElementInput, getElement } from "./useDomEffect"
 
 type GetEventTarget<T extends EventTarget | ElementInput<Element>> = T extends EventTarget ? T : T extends ElementInput<infer U> ? U : never
 
@@ -31,6 +31,7 @@ export function useEventListener<T extends EventTarget | ElementInput<Element>>(
         useEffect(() => {
             if (!target) return
             target.addEventListener(type, newListener, options)
+
             return () => target.removeEventListener(type, newListener, options)
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [target])

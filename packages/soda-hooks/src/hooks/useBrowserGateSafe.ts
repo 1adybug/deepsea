@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 
-import { BrowserCheckTree } from "./useBrowserGate"
+import type { BrowserCheckTree } from "./useBrowserGate"
 import { useBrowserSafe } from "./useBrowserSafe"
 
 export function useBrowserGateSafe(checkTree: BrowserCheckTree): boolean | null | undefined {

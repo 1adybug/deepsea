@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import { ElementInput, useDomEffect } from "./useDomEffect"
+import { type ElementInput, useDomEffect } from "./useDomEffect"
 
 export interface Size {
     width: number

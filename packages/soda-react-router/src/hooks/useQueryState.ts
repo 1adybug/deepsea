@@ -1,7 +1,7 @@
-import { SetStateAction } from "react"
+import type { SetStateAction } from "react"
 
 import { useSearchParams as _useSearchParams } from "react-router"
-import { QueryState, QueryStateOptions, QueryToStateFnMap, SetQueryState, useNativeQueryState } from "soda-hooks"
+import { type QueryState, type QueryStateOptions, type QueryToStateFnMap, type SetQueryState, useNativeQueryState } from "soda-hooks"
 
 export type SetQueryStateOptions = {
     /** 是否替换页面 */

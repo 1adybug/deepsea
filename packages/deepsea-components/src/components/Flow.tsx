@@ -1,6 +1,6 @@
 "use client"
 
-import { CSSProperties, HTMLAttributes, Key, ReactNode, Ref, useEffect, useImperativeHandle, useRef, useState } from "react"
+import { type CSSProperties, type HTMLAttributes, type Key, type ReactNode, type Ref, useEffect, useImperativeHandle, useRef, useState } from "react"
 
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
@@ -268,12 +268,16 @@ export function Flow<T>(props: FlowProps<T>): ReactNode {
     const ele = useRef<HTMLDivElement>(null)
     const size = useSize(ele)
     const width = useRef(size?.width || 0)
+
     // eslint-disable-next-line react-hooks/refs
     if (size && size.width !== 0) width.current = size.width
+
     // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/refs
     useImperativeHandle(element, () => ele.current!, [ele.current])
+
     // eslint-disable-next-line react-hooks/refs
     if (width.current === 0) return <div ref={ele} {...rest} />
+
     // eslint-disable-next-line react-hooks/refs
     return <ManualFlow element={ele} {...props} width={width.current} />
 }

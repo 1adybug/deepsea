@@ -1,4 +1,4 @@
-import { WriteableWorkSheetCellData } from "deepsea-tools"
+import type { WriteableWorkSheetCellData } from "deepsea-tools"
 
 import { isReactNode } from "./isReactNode"
 import { renderToText } from "./renderToText"

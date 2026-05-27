@@ -1,6 +1,6 @@
 import { useRef } from "react"
 
-import { ElementInput, useDomEffect } from "./useDomEffect"
+import { type ElementInput, useDomEffect } from "./useDomEffect"
 
 export interface DragMoveEvent<T extends HTMLElement = HTMLElement> extends MouseEvent {
     /** 目标元素 */

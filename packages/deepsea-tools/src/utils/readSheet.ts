@@ -1,4 +1,4 @@
-import { ParsingOptions, read, Sheet2JSONOpts, utils } from "xlsx"
+import { type ParsingOptions, type Sheet2JSONOpts, read, utils } from "xlsx"
 
 export type { ParsingOptions, Sheet2JSONOpts } from "xlsx"
 

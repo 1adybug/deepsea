@@ -1,6 +1,6 @@
 "use client"
 
-import { FC, Fragment, HTMLAttributes } from "react"
+import { type FC, type HTMLAttributes, Fragment } from "react"
 
 export interface CircleTextProps extends Omit<HTMLAttributes<HTMLSpanElement>, "children"> {
     /** 每一个方块的宽度 */

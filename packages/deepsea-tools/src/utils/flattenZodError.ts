@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { $ZodError } from "zod/v4/core"
+import type { $ZodError } from "zod/v4/core"
 
 import { isZodError } from "./isZodError"
 

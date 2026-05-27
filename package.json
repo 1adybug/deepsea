@@ -11,20 +11,21 @@
         "cs": "pnpm changeset && pnpm changeset version",
         "format": "prettier --write .",
         "sync": "bun scripts/syncPackage.mjs",
-        "postr": "npm run sync",
+        "postr": "pnpm run sync",
         "build": "bun scripts/build.mjs",
-        "fg": "npm run format && git add . && git commit -m \"✨feature: format\"",
-        "lint": "eslint ."
+        "fg": "npm run format && git add . && git commit -m \"feat: format\"",
+        "lint": "eslint .",
+        "prepare": "husky"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@1adybug/eslint": "^0.0.10",
-        "@1adybug/prettier": "^0.0.27",
+        "@1adybug/eslint": "^0.0.11",
+        "@1adybug/prettier": "^0.0.28",
         "@changesets/cli": "^2.31.0",
         "@eslint/js": "^9.39.1",
-        "@rsbuild/core": "2.0.6",
+        "@rsbuild/core": "2.0.7",
         "@rsbuild/plugin-babel": "^1.0.6",
         "@rsbuild/plugin-react": "^2.0.0",
         "@rslib/core": "^0.21.5",
@@ -34,6 +35,8 @@
         "eslint-plugin-react-hooks": "^7.1.1",
         "eslint-plugin-react-refresh": "^0.5.2",
         "globals": "^17.6.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^17.0.5",
         "prettier": "^3.7.4",
         "soda-nodejs": "workspace:*",
         "typescript": "catalog:",
@@ -44,5 +47,8 @@
             "@internationalized/date": "catalog:",
             "tailwindcss": "catalog:"
         }
+    },
+    "lint-staged": {
+        "**/*": "prettier --write --ignore-unknown"
     }
 }

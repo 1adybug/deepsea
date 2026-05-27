@@ -1,5 +1,5 @@
-import { createWriteStream } from "fs"
-import { Readable } from "stream"
+import { createWriteStream } from "node:fs"
+import { Readable } from "node:stream"
 
 export type SaveFileOptions = {
     /** 要保存的文件 */

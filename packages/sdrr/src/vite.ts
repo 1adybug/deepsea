@@ -2,7 +2,7 @@
 
 import type { FSWatcher } from "chokidar"
 
-import { resolveSdrrOptions, type SdrrOptions } from "./utils/resolveSdrrOptions"
+import { type SdrrOptions, resolveSdrrOptions } from "./utils/resolveSdrrOptions"
 import { syncRouter } from "./utils/syncRouter"
 import { watchSdrr } from "./utils/watchSdrr"
 
@@ -36,7 +36,8 @@ export function sdrrVitePlugin(options: SdrrVitePluginOptions = {}): SdrrVitePlu
     }
 
     function logError(error: unknown) {
-        const message = error instanceof Error ? error.stack ?? error.message : String(error)
+        const message = error instanceof Error ? (error.stack ?? error.message) : String(error)
+
         if (server) {
             server.config.logger.error(`[sdrr] ${message}`)
             return

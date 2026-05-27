@@ -1,4 +1,4 @@
-import { join } from "path"
+import { join } from "node:path"
 
 import { resolveProjectImportPath } from "./resolveProjectImportPath"
 import { getSharedModuleInfo, isScriptModule, writeGeneratedFile } from "./sharedArtifact"
@@ -21,6 +21,6 @@ import { createResponseFn } from "${createResponseFnImportPath}"
 import { ${info.name} } from "${sharedImportPath}"
 
 export const ${info.name}Action = createResponseFn(${info.name})
-`
+`,
     })
 }

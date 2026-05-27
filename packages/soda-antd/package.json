@@ -1,6 +1,6 @@
 {
     "name": "soda-antd",
-    "version": "1.0.29",
+    "version": "1.0.30",
     "description": "soda-antd",
     "type": "module",
     "exports": {
@@ -18,7 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "pnpm run build"
     },
     "keywords": [],
     "authors": [
@@ -41,7 +41,7 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-antd",
     "dependencies": {
-        "dayjs": "^1.11.19",
+        "dayjs": "^1.11.21",
         "deepsea-tools": "workspace:*",
         "soda-hooks": "workspace:*",
         "soda-react": "workspace:*"

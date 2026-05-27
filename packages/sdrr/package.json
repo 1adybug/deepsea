@@ -1,6 +1,6 @@
 {
     "name": "sdrr",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "",
     "type": "module",
     "exports": {
@@ -30,7 +30,7 @@
     "scripts": {
         "dev": "rslib build --watch",
         "build": "rslib build",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "pnpm run build"
     },
     "keywords": [],
     "authors": [
@@ -53,7 +53,7 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/sdrr",
     "dependencies": {
-        "@inquirer/prompts": "^8.1.0",
+        "@inquirer/prompts": "^8.5.0",
         "chokidar": "^5.0.0",
         "commander": "^14.0.2",
         "deepsea-tools": "workspace:*"

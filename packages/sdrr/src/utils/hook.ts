@@ -1,11 +1,11 @@
-import { mkdir, readdir, readFile, stat, writeFile } from "fs/promises"
-import { join, parse, relative } from "path"
-import { cwd } from "process"
+import { mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises"
+import { join, parse, relative } from "node:path"
+import { cwd } from "node:process"
 
 import { checkbox, select } from "@inquirer/prompts"
-import { Command } from "commander"
+import type { Command } from "commander"
 
-import { readSdrrSetting, SdrrSetting } from "./readSdrrSetting"
+import { type SdrrSetting, readSdrrSetting } from "./readSdrrSetting"
 import { resolveProjectImportPath } from "./resolveProjectImportPath"
 import { writeSdrrSetting } from "./writeSdrrSetting"
 

@@ -1,5 +1,5 @@
-import { createWriteStream } from "fs"
-import { Readable } from "stream"
+import { createWriteStream } from "node:fs"
+import { Readable } from "node:stream"
 
 /**
  * 从 Response 对象中下载文件

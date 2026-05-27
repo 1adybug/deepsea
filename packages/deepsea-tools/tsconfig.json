@@ -1,11 +1,14 @@
 {
     "compilerOptions": {
+        "rootDir": "src",
         "strict": true,
         "declaration": true,
         "skipLibCheck": true,
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Bundler",
+        "verbatimModuleSyntax": true,
+        "types": ["node"],
         "paths": {
             "@/*": ["./src/*"]
         }

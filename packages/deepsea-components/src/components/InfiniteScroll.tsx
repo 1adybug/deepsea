@@ -2,7 +2,15 @@
 
 /* eslint-disable no-restricted-syntax */
 
-import { ComponentPropsWithoutRef, CSSProperties, forwardRef, MouseEvent as ReactMouseEvent, useEffect, useImperativeHandle, useRef } from "react"
+import {
+    type ComponentPropsWithoutRef,
+    type CSSProperties,
+    type MouseEvent as ReactMouseEvent,
+    forwardRef,
+    useEffect,
+    useImperativeHandle,
+    useRef,
+} from "react"
 
 import { css } from "@emotion/css"
 import { clsx } from "deepsea-tools"
@@ -90,6 +98,7 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
             },
             { duration, iterations: Infinity },
         )
+
         return () => animation.current?.cancel()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [wrapperSize, containerSize, overflow, direction, duration])

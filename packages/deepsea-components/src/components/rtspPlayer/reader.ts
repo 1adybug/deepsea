@@ -86,12 +86,14 @@ export class MediaMTXWebRTCReader {
             let payloadType = ""
 
             pc.addTransceiver(mediaType, { direction: "recvonly" })
+
             pc.createOffer()
                 .then(offer => {
                     if (offer.sdp === undefined) throw new Error("SDP not present")
                     if (offer.sdp.includes(` ${codec}`)) throw new Error("already present")
 
                     const sections = offer.sdp.split(`m=${mediaType}`)
+
                     const payloadTypes = sections
                         .slice(1)
                         .map(section => section.split("\r\n")[0].split(" ").slice(3))
@@ -128,8 +130,7 @@ export class MediaMTXWebRTCReader {
                                 `a=rtpmap:${payloadType} ${codec}\r\n` +
                                 (fmtp !== undefined ? `a=fmtp:${payloadType} ${fmtp}\r\n` : ""),
                         }),
-                    ),
-                )
+                    ))
                 .then(() => resolve(true))
                 .catch(() => resolve(false))
                 .finally(() => pc.close())
@@ -296,6 +297,7 @@ export class MediaMTXWebRTCReader {
 
     private static editOffer(sdp: string, nonAdvertisedCodecs: string[]) {
         const sections = sdp.split("m=")
+
         const payloadTypes = sections
             .slice(1)
             .map(section => section.split("\r\n")[0].split(" ").slice(3))
@@ -373,16 +375,11 @@ export class MediaMTXWebRTCReader {
 
     private getNonAdvertisedCodecs() {
         Promise.all(
-            [
-                ["pcma/8000/2"],
-                ["multiopus/48000/6", "channel_mapping=0,4,1,2,3,5;num_streams=4;coupled_streams=2"],
-                ["L16/48000/2"],
-            ].map(codec =>
+            [["pcma/8000/2"], ["multiopus/48000/6", "channel_mapping=0,4,1,2,3,5;num_streams=4;coupled_streams=2"], ["L16/48000/2"]].map(codec =>
                 MediaMTXWebRTCReader.supportsNonAdvertisedCodec(codec[0], codec[1]).then(isSupported => {
                     if (!isSupported) return false
                     return codec[0]
-                }),
-            ),
+                })),
         )
             .then(codecs => codecs.filter((codec): codec is string => codec !== false))
             .then(codecs => {

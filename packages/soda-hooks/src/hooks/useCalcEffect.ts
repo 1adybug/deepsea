@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from "react"
+import { type RefObject, useEffect, useState } from "react"
 
 import { compareArray } from "@/utils/compareArray"
 
@@ -29,6 +29,7 @@ export function useCalcEffect<T extends [(() => any) | RefObject<any>, ...((() =
         if (!value) return
         const unmount = effect(...value)
         if (typeof unmount !== "function") return
+
         return () => unmount(...value)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value, ...deps])

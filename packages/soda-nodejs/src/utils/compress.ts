@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync } from "fs"
-import { basename, dirname, resolve } from "path"
+import { existsSync, mkdirSync } from "node:fs"
+import { basename, dirname, resolve } from "node:path"
 
 import { create } from "tar"
 

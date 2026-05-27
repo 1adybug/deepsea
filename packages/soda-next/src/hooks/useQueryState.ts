@@ -1,6 +1,6 @@
-import { QueryState, QueryStateOptions, QueryToStateFnMap, SetQueryState, useNativeQueryState } from "soda-hooks"
+import { type QueryState, type QueryStateOptions, type QueryToStateFnMap, type SetQueryState, useNativeQueryState } from "soda-hooks"
 
-import { SetNextSearchParamsOptions, useNextSearchParams } from "./useNextSearchParams"
+import { type SetNextSearchParamsOptions, useNextSearchParams } from "./useNextSearchParams"
 
 /**
  * 使用 Next 的 useSearchParams 实现的 useQueryState

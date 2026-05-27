@@ -1,6 +1,6 @@
 {
     "name": "soda-heroui",
-    "version": "0.12.20",
+    "version": "0.12.21",
     "description": "",
     "type": "module",
     "exports": {
@@ -18,7 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "pnpm run build"
     },
     "keywords": [],
     "authors": [
@@ -41,8 +41,8 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-heroui",
     "dependencies": {
-        "@internationalized/date": "catalog:",
-        "@tanstack/react-form": "^1.27.1",
+        "@internationalized/date": ">=3.10.0",
+        "@tanstack/react-form": "^1.32.1",
         "deepsea-tools": "workspace:*",
         "soda-hooks": "workspace:*",
         "soda-tanstack-form": "workspace:*",

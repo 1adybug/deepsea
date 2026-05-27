@@ -1,4 +1,4 @@
-import { ComponentProps, FC } from "react"
+import type { ComponentProps, FC } from "react"
 
 const GOLD = (Math.sqrt(5) - 1) / 2
 const GOLD_T = Math.sqrt(1 - GOLD * GOLD)

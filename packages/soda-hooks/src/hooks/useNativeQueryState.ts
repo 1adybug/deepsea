@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useRef } from "react"
 
-import { Equal } from "soda-type"
+import type { Equal } from "soda-type"
 
 import { compareArray } from "@/utils/compareArray"
 import { compareSearch } from "@/utils/compareSearch"
@@ -75,6 +75,7 @@ export function useNativeQueryState<T extends string = never, K extends QueryToS
     cache.current.searchParams = searchParams
     // eslint-disable-next-line react-hooks/refs
     cache.current.setSearchParams = setSearchParams
+
     // eslint-disable-next-line react-hooks/refs
     if (!compareSearch(cache.current.search, search) || !compareArray(cache.current.deps, deps))
         // eslint-disable-next-line react-hooks/refs

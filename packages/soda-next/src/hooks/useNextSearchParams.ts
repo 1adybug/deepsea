@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useRef } from "react"
+import { type Dispatch, type SetStateAction, useCallback, useRef } from "react"
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 

@@ -6,6 +6,7 @@ import { useRef } from "react"
 export function useArraySignal<T>(data: T[], compareFn?: (a: T, b: T) => boolean) {
     /* eslint-disable react-hooks/refs */
     const dataRef = useRef(data)
+
     const signal = useRef(Symbol("arraySignal"))
 
     if (

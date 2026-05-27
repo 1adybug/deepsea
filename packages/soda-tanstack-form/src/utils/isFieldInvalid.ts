@@ -1,4 +1,4 @@
-import { Field } from "./getFieldComponent"
+import type { Field } from "./getFieldComponent"
 
 export function isFieldInvalid(field: Field<any>) {
     return field.state.meta.errors.some(Boolean)

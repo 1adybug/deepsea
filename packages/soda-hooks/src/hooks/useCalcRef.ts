@@ -1,4 +1,4 @@
-import { RefObject, useRef } from "react"
+import { type RefObject, useRef } from "react"
 
 /**
  * 用于计算初始值的 ref，不会重复计算
@@ -8,6 +8,7 @@ import { RefObject, useRef } from "react"
 export function useCalcRef<T>(fn: () => T): RefObject<T> {
     /* eslint-disable react-hooks/refs */
     const done = useRef(false)
+
     const ref = useRef<T | undefined>(undefined)
 
     if (!done.current) {

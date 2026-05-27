@@ -1,7 +1,7 @@
 import type { RsbuildPlugin } from "@rsbuild/core"
 import type { FSWatcher } from "chokidar"
 
-import { resolveSdrrOptions, type SdrrOptions } from "./utils/resolveSdrrOptions"
+import { type SdrrOptions, resolveSdrrOptions } from "./utils/resolveSdrrOptions"
 import { syncRouter } from "./utils/syncRouter"
 import { watchSdrr } from "./utils/watchSdrr"
 

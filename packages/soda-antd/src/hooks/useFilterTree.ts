@@ -1,7 +1,7 @@
-import { Key, useMemo } from "react"
+import { type Key, useMemo } from "react"
 
-import { BasicDataNode, DataNode, EventDataNode } from "antd/es/tree"
-import { isNonNullable, isNullable, StrictOmit } from "deepsea-tools"
+import type { BasicDataNode, DataNode, EventDataNode } from "antd/es/tree"
+import { type StrictOmit, isNonNullable, isNullable } from "deepsea-tools"
 import { useInputState } from "soda-hooks"
 
 export interface BasicTreeDataNode<K extends Key = Key> extends BasicDataNode {

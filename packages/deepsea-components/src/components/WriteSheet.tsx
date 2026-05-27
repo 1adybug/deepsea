@@ -2,9 +2,9 @@
 
 /* eslint-disable no-restricted-syntax */
 
-import { ComponentProps, createElement, JSX, JSXElementConstructor, MouseEvent as ReactMouseEvent } from "react"
+import { type ComponentProps, type JSX, type JSXElementConstructor, type MouseEvent as ReactMouseEvent, createElement } from "react"
 
-import { writeSheet, WriteSheetParams } from "deepsea-tools"
+import { type WriteSheetParams, writeSheet } from "deepsea-tools"
 
 export type WriteSheetProps<AS extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = "button"> = Omit<ComponentProps<AS>, "as" | "excel"> & {
     as?: AS

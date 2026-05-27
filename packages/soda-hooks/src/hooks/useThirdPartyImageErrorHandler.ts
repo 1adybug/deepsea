@@ -1,4 +1,4 @@
-import { CSSProperties, RefObject, useEffect, useLayoutEffect } from "react"
+import { type CSSProperties, type RefObject, useEffect, useLayoutEffect } from "react"
 
 export type ThirdPartyImageErrorHandlerTarget = HTMLElement | Window | Document | RefObject<HTMLElement>
 

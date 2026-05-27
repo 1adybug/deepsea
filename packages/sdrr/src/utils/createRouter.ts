@@ -1,13 +1,26 @@
 /* eslint-disable no-restricted-syntax */
 
-import { readdir, readFile, stat, writeFile } from "fs/promises"
-import { join, parse } from "path"
+import { readdir, readFile, stat, writeFile } from "node:fs/promises"
+import { join, parse } from "node:path"
 
 import { resolveProjectImportPath } from "./resolveProjectImportPath"
-import { resolveSdrrOptions, resolveSdrrPath, type SdrrOptions } from "./resolveSdrrOptions"
+import { type SdrrOptions, resolveSdrrOptions, resolveSdrrPath } from "./resolveSdrrOptions"
+
+interface NamedImportSpecifier {
+    name: string
+    type?: boolean
+}
+
+function getNamedImportStatement(modulePath: string, specifiers: NamedImportSpecifier[]) {
+    const allType = specifiers.every(item => item.type)
+    const names = specifiers.map(item => (allType || !item.type ? item.name : `type ${item.name}`)).join(", ")
+
+    return `import ${allType ? "type " : ""}{ ${names} } from "${modulePath}"`
+}
 
 export async function createRouter(options: SdrrOptions = {}) {
     const resolved = resolveSdrrOptions(options)
+
     const importStatements: string[] = []
 
     const lazyDeclarations: string[] = []
@@ -153,7 +166,14 @@ export async function createRouter(options: SdrrOptions = {}) {
         hasShouldRevalidateFile: boolean
     }
 
-    async function getRoute({ currentProjectDir, routeSegments, item, hasActionFile, hasLoaderFile, hasShouldRevalidateFile }: GetRouteParams): Promise<Router> {
+    async function getRoute({
+        currentProjectDir,
+        routeSegments,
+        item,
+        hasActionFile,
+        hasLoaderFile,
+        hasShouldRevalidateFile,
+    }: GetRouteParams): Promise<Router> {
         const prefix = getSegmentImportPrefix(routeSegments)
         const { name: parsedName } = parse(item)
         const name = normalizeIdentifierPart(parsedName.replace(/\.lazy$/, ""))
@@ -172,7 +192,11 @@ export async function createRouter(options: SdrrOptions = {}) {
         const componentModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, item), resolved.root)
         const actionModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, "action.ts"), resolved.root)
         const loaderModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, "loader.ts"), resolved.root)
-        const shouldRevalidateModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, "shouldRevalidate.ts"), resolved.root)
+        const shouldRevalidateModulePath = await resolveProjectImportPath(
+            routerOutputPath,
+            joinProjectPath(currentProjectDir, "shouldRevalidate.ts"),
+            resolved.root,
+        )
 
         if (isLazyComponent(item)) {
             useLazyImport = true
@@ -414,7 +438,13 @@ export async function createRouter(options: SdrrOptions = {}) {
 
     const routeModulesCode = [importStatements.join("\n"), lazyDeclarations.join("\n")].filter(Boolean).join("\n\n")
 
-    const component = `import { FC${useLazyImport ? ", lazy" : ""} } from "react"
+    const reactImports: NamedImportSpecifier[] = [{ name: "FC", type: true }]
+
+    if (useLazyImport) reactImports.push({ name: "lazy" })
+
+    const reactImport = getNamedImportStatement("react", reactImports)
+
+    const component = `${reactImport}
 import { RouterProvider, createBrowserRouter } from "react-router"
 
 ${routeModulesCode}

@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, FC, ReactNode, useContext } from "react"
+import { type FC, type ReactNode, createContext, useContext } from "react"
 
 import { assign } from "deepsea-tools"
 

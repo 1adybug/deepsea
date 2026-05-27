@@ -1,6 +1,6 @@
 "use client"
 
-import { ComponentProps, FC, useEffect, useImperativeHandle, useRef } from "react"
+import { type ComponentProps, type FC, useEffect, useImperativeHandle, useRef } from "react"
 
 import { MediaMTXWebRTCReader } from "@/components/rtspPlayer/reader"
 
@@ -15,9 +15,7 @@ export interface RtspPlayerProps extends Omit<ComponentProps<"video">, "src" | "
 function getWhepUrl(src: string) {
     const url = new URL(src, window.location.href)
 
-    if (url.protocol !== "http:" && url.protocol !== "https:") {
-        throw new Error("RtspPlayer expects a MediaMTX HTTP(S) playback URL, not an RTSP URL")
-    }
+    if (url.protocol !== "http:" && url.protocol !== "https:") throw new Error("RtspPlayer expects a MediaMTX HTTP(S) playback URL, not an RTSP URL")
 
     const pathname = url.pathname.replace(/\/+$/, "")
     url.pathname = pathname.endsWith("/whep") ? pathname : `${pathname}/whep`
@@ -60,6 +58,7 @@ export const RtspPlayer: FC<RtspPlayerProps> = ({ ref, src, user, pass, token, o
 
         let closed = false
         const fallbackStream = new MediaStream()
+
         const reader = new MediaMTXWebRTCReader({
             url: whepUrl,
             user,

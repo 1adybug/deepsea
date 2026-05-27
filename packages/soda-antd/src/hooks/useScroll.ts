@@ -1,4 +1,4 @@
-import { ElementInput, getElement, useSize } from "soda-hooks"
+import { type ElementInput, getElement, useSize } from "soda-hooks"
 
 export interface UseScrollOptions {
     paginationMargin?: number

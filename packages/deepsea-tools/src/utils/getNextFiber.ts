@@ -1,4 +1,4 @@
-import { Fiber } from "./treeToFibers"
+import type { Fiber } from "./treeToFibers"
 
 /**
  * 获取下一个 fiber

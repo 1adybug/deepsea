@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 
-import { getParser, Parser } from "bowser"
+import { type Parser, getParser } from "bowser"
 
 export type BrowserParser = Parser.Parser
 

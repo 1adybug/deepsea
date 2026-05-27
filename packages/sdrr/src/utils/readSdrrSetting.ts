@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises"
 import { homedir } from "node:os"
 import { join } from "node:path"
 
-import { OperationType } from "./hook"
+import type { OperationType } from "./hook"
 
 export interface SdrrSetting {
     hook?: Record<string, OperationType>

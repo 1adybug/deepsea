@@ -1,15 +1,15 @@
 import {
-    ChildProcess,
-    ChildProcessByStdio,
-    ChildProcessWithoutNullStreams,
+    type ChildProcess,
+    type ChildProcessByStdio,
+    type ChildProcessWithoutNullStreams,
+    type SpawnOptions,
+    type SpawnOptionsWithoutStdio,
+    type SpawnOptionsWithStdioTuple,
+    type StdioNull,
+    type StdioPipe,
     spawn,
-    SpawnOptions,
-    SpawnOptionsWithoutStdio,
-    SpawnOptionsWithStdioTuple,
-    StdioNull,
-    StdioPipe,
-} from "child_process"
-import { Readable, Writable } from "stream"
+} from "node:child_process"
+import type { Readable, Writable } from "node:stream"
 
 export interface PromiseWithChildProcess<T> extends Promise<T> {
     child: T

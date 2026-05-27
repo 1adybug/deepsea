@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.7.8
+
+### Patch Changes
+
+- feat: update dependencies
+
 ## 6.7.7
 
 ### Patch Changes

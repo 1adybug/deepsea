@@ -30,6 +30,7 @@ async function getProjectRootAlias(projectRoot: string) {
     const normalizedProjectRoot = normalize(projectRoot)
 
     let rootAliasPromise = rootAliasPromiseMap.get(normalizedProjectRoot)
+
     if (!rootAliasPromise) {
         rootAliasPromise = resolveProjectRootAlias(normalizedProjectRoot)
         rootAliasPromiseMap.set(normalizedProjectRoot, rootAliasPromise)
@@ -132,6 +133,7 @@ function splitWildcard(value: string) {
 async function resolveExtendsPath(extendsValue: string, baseDir: string) {
     if (isAbsolute(extendsValue) || extendsValue.startsWith(".")) {
         const relativeCandidates = getRelativeCandidates(resolve(baseDir, extendsValue))
+
         for (const candidate of relativeCandidates) {
             if (await exists(candidate)) return candidate
         }
@@ -168,6 +170,7 @@ async function readJsonConfig(path: string): Promise<JsonObject> {
 
 function stripComments(content: string) {
     const output: string[] = []
+
     let inString = false
     let escaped = false
 
@@ -177,6 +180,7 @@ function stripComments(content: string) {
 
         if (inString) {
             output.push(char)
+
             if (escaped) {
                 escaped = false
                 continue
@@ -187,12 +191,12 @@ function stripComments(content: string) {
                 continue
             }
 
-            if (char === "\"") inString = false
+            if (char === '"') inString = false
 
             continue
         }
 
-        if (char === "\"") {
+        if (char === '"') {
             inString = true
             output.push(char)
             continue

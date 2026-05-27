@@ -1,6 +1,6 @@
 {
     "name": "deepsea-components",
-    "version": "5.18.5",
+    "version": "5.18.6",
     "description": "格数科技自用组件库",
     "type": "module",
     "exports": {
@@ -18,7 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "pnpm run build"
     },
     "keywords": [],
     "authors": [
@@ -44,7 +44,7 @@
         "@emotion/css": "^11.13.5",
         "clipboard": "^2.0.11",
         "deepsea-tools": "workspace:*",
-        "echarts": "^6.0.0",
+        "echarts": "^6.1.0",
         "hls.js": "^1.6.13",
         "smooth-scrollbar": "^8.8.4",
         "soda-hooks": "workspace:*",

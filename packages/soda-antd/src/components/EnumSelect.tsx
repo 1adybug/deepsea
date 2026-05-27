@@ -1,7 +1,7 @@
-import { ComponentProps, ReactNode, useCallback, useEffect, useEffectEvent, useMemo } from "react"
+import { type ComponentProps, type ReactNode, useCallback, useEffect, useEffectEvent, useMemo } from "react"
 
 import { Select } from "antd"
-import { getEnumOptions, isNullable, StrictOmit, ValueOf } from "deepsea-tools"
+import { type StrictOmit, type ValueOf, getEnumOptions, isNullable } from "deepsea-tools"
 import { useInputState } from "soda-hooks"
 
 /** enumObject 的类型 */

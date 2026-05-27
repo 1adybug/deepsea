@@ -1,4 +1,4 @@
-import { readSheet, ReadSheetParams } from "./readSheet"
+import { type ReadSheetParams, readSheet } from "./readSheet"
 
 /**
  * @deprecated 请使用 ReadSheetParams 代替

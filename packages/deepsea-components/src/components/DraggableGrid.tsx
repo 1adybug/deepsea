@@ -1,9 +1,9 @@
 /* eslint-disable no-restricted-syntax */
 
-import { ComponentProps, CSSProperties, Key, ReactNode, useEffect, useMemo, useRef, useState } from "react"
+import { type ComponentProps, type CSSProperties, type Key, type ReactNode, useEffect, useMemo, useRef, useState } from "react"
 
 import { clsx, getArray, isNullable } from "deepsea-tools"
-import { DragMoveEvent, DragMoveEvents, useDragMove } from "soda-hooks"
+import { type DragMoveEvent, type DragMoveEvents, useDragMove } from "soda-hooks"
 
 import styles from "./DraggableGrid.module.css"
 
@@ -349,6 +349,7 @@ export function DraggableGrid<T, K extends Key = T extends Key ? T : never>({
             setKeyToOrder(newOrderMap)
             onOrderMapChange?.(newOrderMap)
             const newRenderKeys = new Set(newOrderMap.keys())
+
             // eslint-disable-next-line react-hooks/immutability
             setRenderKeys(prev => prev.intersection(newRenderKeys).union(newRenderKeys.difference(prev)))
         }

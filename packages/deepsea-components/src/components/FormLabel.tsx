@@ -1,6 +1,6 @@
 "use client"
 
-import { ComponentPropsWithoutRef, createContext, FC, Fragment, ReactNode, useContext } from "react"
+import { type ComponentPropsWithoutRef, type FC, type ReactNode, createContext, Fragment, useContext } from "react"
 
 export interface FormLabelConfig {
     /**

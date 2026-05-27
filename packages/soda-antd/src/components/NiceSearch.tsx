@@ -1,4 +1,4 @@
-import { ComponentProps, ReactNode, useEffect, useEffectEvent, useMemo } from "react"
+import { type ComponentProps, type ReactNode, useEffect, useEffectEvent, useMemo } from "react"
 
 import { Select } from "antd"
 import { isNullable, satisfyKeyword } from "deepsea-tools"

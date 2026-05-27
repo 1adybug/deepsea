@@ -1,6 +1,6 @@
 "use client"
 
-import { ComponentProps, FC, useImperativeHandle, useLayoutEffect, useRef } from "react"
+import { type ComponentProps, type FC, useImperativeHandle, useLayoutEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { renderToString } from "react-dom/server"
 

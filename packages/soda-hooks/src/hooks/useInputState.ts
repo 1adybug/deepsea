@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction, useRef, useState } from "react"
+import { type Dispatch, type SetStateAction, useRef, useState } from "react"
 
-import { AnyFunction } from "deepsea-tools"
+import type { AnyFunction } from "deepsea-tools"
 
 import { compareArray } from "@/utils/compareArray"
 

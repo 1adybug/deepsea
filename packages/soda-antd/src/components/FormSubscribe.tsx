@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 
-import { ComponentProps, ReactNode, useState } from "react"
+import { type ComponentProps, type ReactNode, useState } from "react"
 
 import { useWatch } from "antd/es/form/Form"
 import FormItem from "antd/es/form/FormItem"

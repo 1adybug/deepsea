@@ -1,5 +1,5 @@
-import { mkdir, readFile, writeFile } from "fs/promises"
-import { join } from "path"
+import { mkdir, readFile, writeFile } from "node:fs/promises"
+import { join } from "node:path"
 
 export async function writeVsCodeSetting(root: string, config: Record<string, any>) {
     const vscodeDir = join(root, ".vscode")

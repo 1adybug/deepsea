@@ -1,5 +1,11 @@
 # soda-tanstack-form
 
+## 0.3.8
+
+### Patch Changes
+
+- feat: update dependencies
+
 ## 0.3.7
 
 ### Patch Changes

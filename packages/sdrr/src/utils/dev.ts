@@ -1,6 +1,6 @@
-import { spawn } from "child_process"
+import { spawn } from "node:child_process"
 
-import { Command } from "commander"
+import type { Command } from "commander"
 
 import { spawnCommand } from "./runCommand"
 import { syncRouter } from "./syncRouter"

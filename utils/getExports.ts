@@ -1,5 +1,5 @@
-import { readdir, stat } from "fs/promises"
-import { join } from "path"
+import { readdir, stat } from "node:fs/promises"
+import { join } from "node:path"
 
 export async function getExports() {
     const dir = await readdir("src")

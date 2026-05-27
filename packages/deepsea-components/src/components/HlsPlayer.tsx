@@ -1,6 +1,6 @@
 "use client"
 
-import { ComponentProps, FC, useEffect, useImperativeHandle, useRef } from "react"
+import { type ComponentProps, type FC, useEffect, useImperativeHandle, useRef } from "react"
 
 import Hls from "hls.js"
 

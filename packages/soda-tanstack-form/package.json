@@ -1,6 +1,6 @@
 {
     "name": "soda-tanstack-form",
-    "version": "0.3.7",
+    "version": "0.3.8",
     "description": "",
     "type": "module",
     "exports": {
@@ -18,7 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "pnpm run build"
     },
     "keywords": [],
     "authors": [

@@ -2,12 +2,12 @@
 
 /* eslint-disable no-restricted-syntax */
 
-import { ComponentPropsWithoutRef, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
+import { type ComponentPropsWithoutRef, forwardRef, useEffect, useImperativeHandle, useRef } from "react"
 
-import ClipboardJS, { Event } from "clipboard"
+import ClipboardJS, { type Event } from "clipboard"
 import { useLatest } from "soda-hooks"
 
-export { Event } from "clipboard"
+export type { Event } from "clipboard"
 
 export type CopyButtonProps = ComponentPropsWithoutRef<"button"> & {
     text?: string
@@ -28,6 +28,7 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>((props,
         const clipboard = new ClipboardJS(ele.current!)
         clipboard.on("success", event => onCopySuccess.current?.(event))
         clipboard.on("error", event => onCopyError.current?.(event))
+
         return () => clipboard.destroy()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

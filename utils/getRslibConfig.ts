@@ -1,6 +1,6 @@
-import { readFile } from "fs/promises"
+import { readFile } from "node:fs/promises"
 
-import { RsbuildPlugins } from "@rsbuild/core"
+import type { RsbuildPlugins } from "@rsbuild/core"
 import { pluginReact } from "@rsbuild/plugin-react"
 import { defineConfig } from "@rslib/core"
 

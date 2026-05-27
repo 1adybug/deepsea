@@ -115,10 +115,9 @@ export default function App() {
 ### Vite
 
 ```ts
-import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
-
 import { sdrrVitePlugin } from "sdrr/vite"
+import { defineConfig } from "vite"
 
 export default defineConfig({
     plugins: [react(), sdrrVitePlugin()],
@@ -130,7 +129,6 @@ export default defineConfig({
 ```ts
 import { defineConfig } from "@rsbuild/core"
 import { pluginReact } from "@rsbuild/plugin-react"
-
 import { sdrrRsbuildPlugin } from "sdrr/rsbuild"
 
 export default defineConfig({

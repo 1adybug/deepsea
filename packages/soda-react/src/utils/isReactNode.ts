@@ -1,4 +1,4 @@
-import { isValidElement, ReactNode } from "react"
+import { type ReactNode, isValidElement } from "react"
 
 import { isIterable } from "deepsea-tools"
 

@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "rootDir": "src",
         "strict": true,
         "declaration": true,
         "skipLibCheck": true,
@@ -7,19 +8,11 @@
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Bundler",
-        "types": [
-            "node",
-            "react",
-            "react-dom"
-        ],
+        "types": ["node", "react", "react-dom"],
+        "verbatimModuleSyntax": true,
         "paths": {
-            "@/*": [
-                "./src/*"
-            ]
+            "@/*": ["./src/*"]
         }
     },
-    "include": [
-        "src",
-        "types.d.ts"
-    ]
+    "include": ["src", "types.d.ts"]
 }

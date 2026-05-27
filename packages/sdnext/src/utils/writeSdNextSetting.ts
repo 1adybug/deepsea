@@ -2,7 +2,7 @@ import { writeFile } from "node:fs/promises"
 import { homedir } from "node:os"
 import { join } from "node:path"
 
-import { SdNextSetting } from "./readSdNextSetting"
+import type { SdNextSetting } from "./readSdNextSetting"
 
 export async function writeSdNextSetting(setting: SdNextSetting) {
     const userDir = homedir()

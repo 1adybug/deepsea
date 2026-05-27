@@ -1,6 +1,6 @@
 "use client"
 
-import { ReadSheet, ReadSheetProps } from "./ReadSheet"
+import { type ReadSheetProps, ReadSheet } from "./ReadSheet"
 
 /**
  * @deprecated 请使用 ReadSheetProps 代替

@@ -1,6 +1,6 @@
 {
     "name": "soda-next",
-    "version": "0.7.31",
+    "version": "0.7.32",
     "description": "",
     "type": "module",
     "exports": {
@@ -18,7 +18,7 @@
         "dev": "rslib build --watch",
         "build": "rslib build",
         "prebuild": "bun scripts/export.ts",
-        "prepublishOnly": "npm run build"
+        "prepublishOnly": "pnpm run build"
     },
     "keywords": [],
     "authors": [

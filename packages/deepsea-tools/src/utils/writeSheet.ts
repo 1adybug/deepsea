@@ -1,4 +1,4 @@
-import { JSON2SheetOpts, utils, writeFile } from "xlsx"
+import { type JSON2SheetOpts, utils, writeFile } from "xlsx"
 
 export type { JSON2SheetOpts } from "xlsx"
 

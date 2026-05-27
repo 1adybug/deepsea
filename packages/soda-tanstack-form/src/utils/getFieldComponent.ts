@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 
-import { ComponentProps, createElement, FC, JSX, JSXElementConstructor } from "react"
+import { type ComponentProps, type FC, type JSX, type JSXElementConstructor, createElement } from "react"
 
-import { AnyFieldApi } from "@tanstack/react-form"
+import type { AnyFieldApi } from "@tanstack/react-form"
 
 export type UseFieldContext = () => AnyFieldApi
 

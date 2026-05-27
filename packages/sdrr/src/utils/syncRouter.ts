@@ -1,6 +1,6 @@
 import { createRouter } from "./createRouter"
 import { excludeRouter } from "./excludeRouter"
-import { resolveSdrrOptions, type SdrrOptions } from "./resolveSdrrOptions"
+import { type SdrrOptions, resolveSdrrOptions } from "./resolveSdrrOptions"
 
 export async function syncRouter(options: SdrrOptions = {}) {
     const resolved = resolveSdrrOptions(options)

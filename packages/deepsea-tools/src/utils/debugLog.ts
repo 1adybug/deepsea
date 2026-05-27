@@ -1,4 +1,4 @@
-import { StrKeyOf } from "soda-type"
+import type { StrKeyOf } from "soda-type"
 
 export function debugLog<T>(value: T): T {
     if (process.env.NODE_ENV === "development") console.log(value)

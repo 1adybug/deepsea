@@ -1,4 +1,4 @@
-import { ComponentProps, CSSProperties, FC, useRef } from "react"
+import { type ComponentProps, type CSSProperties, type FC, useRef } from "react"
 
 import { clsx, isNonNullable } from "deepsea-tools"
 import { useSize } from "soda-hooks"
