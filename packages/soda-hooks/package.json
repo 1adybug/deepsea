@@ -1,6 +1,6 @@
 {
     "name": "soda-hooks",
-    "version": "6.18.0",
+    "version": "6.18.1",
     "description": "",
     "type": "module",
     "exports": {
@@ -8,6 +8,11 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js",
             "require": "./dist/index.cjs"
+        },
+        "./eslint": {
+            "types": "./dist/eslint.d.ts",
+            "import": "./dist/eslint.js",
+            "require": "./dist/eslint.cjs"
         }
     },
     "main": "./dist/index.cjs",

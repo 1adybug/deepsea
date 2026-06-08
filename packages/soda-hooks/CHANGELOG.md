@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.18.1
+
+### Patch Changes
+
+- feat(soda-hooks): export eslint config for custom effect hooks
+
 ## 6.18.0
 
 ### Minor Changes

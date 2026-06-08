@@ -29,6 +29,13 @@ const outOfProjectFiles = [
 ]
 
 export default [
+    {
+        settings: {
+            "react-hooks": {
+                additionalEffectHooks: "^useStableEffect$",
+            },
+        },
+    },
     ...defineConfig({
         next: false,
         react: true,
