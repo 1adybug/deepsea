@@ -1,5 +1,17 @@
 # deepsea-components-demo
 
+## 0.4.52
+
+### Patch Changes
+
+- fix(sdrr): handle route HMR in rsbuild and vite plugins
+- Updated dependencies
+    - deepsea-tools@5.48.2
+    - soda-nodejs@0.8.15
+    - deepsea-components@5.18.7
+    - soda-hooks@6.17.3
+    - soda-react-router@1.2.33
+
 ## 0.4.51
 
 ### Patch Changes

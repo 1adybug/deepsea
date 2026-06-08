@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.8.15
+
+### Patch Changes
+
+- fix(sdrr): handle route HMR in rsbuild and vite plugins
+
 ## 0.8.14
 
 ### Patch Changes

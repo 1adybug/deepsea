@@ -1,38 +1,32 @@
 /* eslint-disable no-restricted-syntax */
 
 import type { FSWatcher } from "chokidar"
+import type { EnvironmentModuleNode, Plugin, ViteDevServer } from "vite"
 
-import { type SdrrOptions, resolveSdrrOptions } from "./utils/resolveSdrrOptions"
+import { type SdrrOptions, resolveSdrrOptions, resolveSdrrPath } from "./utils/resolveSdrrOptions"
 import { syncRouter } from "./utils/syncRouter"
 import { watchSdrr } from "./utils/watchSdrr"
 
 export interface SdrrVitePluginOptions extends SdrrOptions {}
 
-interface ViteDevServerLike {
-    config: {
-        logger: {
-            error(message: string): void
-        }
-    }
-}
-
-export interface SdrrVitePlugin {
-    name: string
-    buildStart?: () => Promise<void>
-    configureServer?: (viteServer: any) => void | Promise<void | (() => void | Promise<void>)> | (() => void | Promise<void>)
-    closeBundle?: () => Promise<void>
-}
-
-export function sdrrVitePlugin(options: SdrrVitePluginOptions = {}): SdrrVitePlugin {
+export function sdrrVitePlugin(options: SdrrVitePluginOptions = {}): Plugin {
     const resolved = resolveSdrrOptions(options)
+    const appDirAbsPath = resolveSdrrPath(resolved, resolved.appDir)
+    const routerOutputAbsPath = resolveSdrrPath(resolved, resolved.routerOutputPath)
 
     let watcher: FSWatcher | undefined
-    let server: ViteDevServerLike | undefined
+    let server: ViteDevServer | undefined
 
     async function closeWatcher() {
         if (!watcher) return
         await watcher.close()
         watcher = undefined
+    }
+
+    function waitForWatcherReady(current: FSWatcher) {
+        return new Promise<void>(resolve => {
+            current.once("ready", () => resolve())
+        })
     }
 
     function logError(error: unknown) {
@@ -46,31 +40,60 @@ export function sdrrVitePlugin(options: SdrrVitePluginOptions = {}): SdrrVitePlu
         console.error("[sdrr]", error)
     }
 
+    function invalidateRouterModules(viteServer: ViteDevServer, timestamp: number) {
+        for (const environment of Object.values(viteServer.environments)) {
+            const modules = environment.moduleGraph.getModulesByFile(routerOutputAbsPath)
+            if (!modules) continue
+
+            const seen = new Set<EnvironmentModuleNode>()
+
+            for (const module of modules) environment.moduleGraph.invalidateModule(module, seen, timestamp, true)
+        }
+    }
+
+    function reloadRouter(viteServer: ViteDevServer) {
+        invalidateRouterModules(viteServer, Date.now())
+
+        viteServer.hot.send({
+            type: "full-reload",
+            path: "*",
+            triggeredBy: appDirAbsPath,
+        })
+    }
+
+    function registerClose(viteServer: ViteDevServer) {
+        viteServer.httpServer?.once("close", () => {
+            if (server === viteServer) server = undefined
+            void closeWatcher()
+        })
+    }
+
     return {
         name: "sdrr:vite",
         async buildStart() {
             await syncRouter(resolved)
         },
-        configureServer(viteServer) {
+        async configureServer(viteServer) {
             server = viteServer
-            void closeWatcher().then(() => {
-                watcher = watchSdrr(
-                    {
-                        ...resolved,
-                        syncOnStart: false,
+            await closeWatcher()
+            watcher = watchSdrr(
+                {
+                    ...resolved,
+                    syncOnStart: false,
+                },
+                {
+                    onError: logError,
+                    onSync(changed) {
+                        if (changed) reloadRouter(viteServer)
                     },
-                    {
-                        onError: logError,
-                    },
-                )
-            })
-
-            return async () => {
-                await closeWatcher()
-            }
+                },
+            )
+            await waitForWatcherReady(watcher)
+            registerClose(viteServer)
         },
         async closeBundle() {
             await closeWatcher()
+            server = undefined
         },
     }
 }

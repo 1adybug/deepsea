@@ -1,7 +1,7 @@
 {
     "name": "playground",
     "private": true,
-    "version": "0.4.51",
+    "version": "0.4.52",
     "type": "module",
     "scripts": {
         "dev": "rsbuild dev --open",
@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "@ant-design/cssinjs": "^2.1.2",
-        "@ant-design/icons": "^6.2.3",
+        "@ant-design/icons": "^6.2.5",
         "@emotion/css": "^11.13.5",
         "@heroui/react": "^2.8.5",
         "antd": "^6.4.3",
@@ -19,9 +19,9 @@
         "deepsea-components": "workspace:*",
         "deepsea-tools": "workspace:*",
         "framer-motion": "^12.40.0",
-        "react": "^19.2.6",
-        "react-dom": "^19.2.6",
-        "react-router-dom": "^7.15.1",
+        "react": "^19.2.7",
+        "react-dom": "^19.2.7",
+        "react-router-dom": "^7.17.0",
         "soda-array": "workspace:*",
         "soda-coordinate": "workspace:*",
         "soda-hooks": "workspace:*",
@@ -29,10 +29,10 @@
         "soda-react-router": "workspace:*"
     },
     "devDependencies": {
-        "@rsbuild/core": "2.0.7",
-        "@rsbuild/plugin-react": "2.0.0",
-        "@rsbuild/plugin-svgr": "2.0.2",
-        "@rsdoctor/rspack-plugin": "^1.5.11",
+        "@rsbuild/core": "2.0.11",
+        "@rsbuild/plugin-react": "2.0.1",
+        "@rsbuild/plugin-svgr": "2.0.3",
+        "@rsdoctor/rspack-plugin": "^1.5.12",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
         "@vitejs/plugin-react": "^6.0.2",

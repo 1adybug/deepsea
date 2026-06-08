@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.48.2
+
+### Patch Changes
+
+- fix(sdrr): handle route HMR in rsbuild and vite plugins
+
 ## 5.48.1
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # soda-tanstack-form
 
+## 0.12.22
+
+### Patch Changes
+
+- fix(sdrr): handle route HMR in rsbuild and vite plugins
+- Updated dependencies
+    - deepsea-tools@5.48.2
+    - soda-hooks@6.17.3
+
 ## 0.12.21
 
 ### Patch Changes

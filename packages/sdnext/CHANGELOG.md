@@ -1,5 +1,13 @@
 # soda-node
 
+## 0.0.34
+
+### Patch Changes
+
+- fix(sdrr): handle route HMR in rsbuild and vite plugins
+- Updated dependencies
+    - deepsea-tools@5.48.2
+
 ## 0.0.33
 
 ### Patch Changes

@@ -9,6 +9,7 @@ export interface WatchSdrrOptions extends SdrrOptions {
 
 export interface WatchSdrrHooks {
     onError?: (error: unknown) => void
+    onSync?: (changed: boolean) => void | Promise<void>
 }
 
 export function watchSdrr(options: WatchSdrrOptions = {}, hooks: WatchSdrrHooks = {}) {
@@ -35,7 +36,8 @@ export function watchSdrr(options: WatchSdrrOptions = {}, hooks: WatchSdrrHooks 
         try {
             do {
                 pending = false
-                await syncRouter(resolved)
+                const changed = await syncRouter(resolved)
+                await hooks.onSync?.(changed)
             } while (pending)
         } catch (error) {
             onError(error)
@@ -45,7 +47,6 @@ export function watchSdrr(options: WatchSdrrOptions = {}, hooks: WatchSdrrHooks 
     }
 
     const watcher = watch(resolveSdrrPath(resolved, resolved.appDir), {
-        awaitWriteFinish: true,
         ignoreInitial: true,
         persistent: true,
     })
