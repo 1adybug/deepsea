@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.18.0
+
+### Minor Changes
+
+- feat(soda-hooks): 新增 useStableEffect
+
 ## 6.17.3
 
 ### Patch Changes

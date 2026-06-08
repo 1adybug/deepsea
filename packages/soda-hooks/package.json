@@ -1,6 +1,6 @@
 {
     "name": "soda-hooks",
-    "version": "6.17.3",
+    "version": "6.18.0",
     "description": "",
     "type": "module",
     "exports": {
@@ -43,7 +43,8 @@
     "dependencies": {
         "bowser": "^2.14.1",
         "deepsea-tools": "workspace:*",
-        "soda-type": "workspace:*"
+        "soda-type": "workspace:*",
+        "stable-hash": "^0.0.6"
     },
     "devDependencies": {
         "typescript": "catalog:"
