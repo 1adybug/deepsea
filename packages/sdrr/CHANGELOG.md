@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.2.5
+
+### Patch Changes
+
+- feat(sdrr): 路由改为具名导出
+
 ## 0.2.4
 
 ### Patch Changes

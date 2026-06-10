@@ -101,7 +101,7 @@ sdrr build
 生成完成后会得到 `components/Router.tsx`，你可以在入口里直接渲染它：
 
 ```tsx
-import Router from "./components/Router"
+import { Router } from "./components/Router"
 
 export default function App() {
     return <Router />
@@ -152,6 +152,7 @@ export default defineConfig({
     root?: string
     appDir?: string
     routerOutputPath?: string
+    routerExportType?: "default" | "named"
     updateVsCodeSettings?: boolean
 }
 ```
@@ -159,7 +160,22 @@ export default defineConfig({
 - `root`：项目根目录，默认是当前工作目录
 - `appDir`：路由目录，默认是 `app`
 - `routerOutputPath`：生成文件路径，默认是 `components/Router.tsx`
+- `routerExportType`：生成的 Router 组件导出方式，默认是 `named`；设为 `default` 时使用默认导出
 - `updateVsCodeSettings`：是否同步写入 `.vscode/settings.json`
+
+默认导出示例：
+
+```ts
+sdrrVitePlugin({
+    routerExportType: "default",
+})
+```
+
+此时入口处使用：
+
+```tsx
+import Router from "./components/Router"
+```
 
 ## 命令行用法
 
@@ -304,7 +320,7 @@ app/posts
 
 ```tsx
 import { Suspense } from "react"
-import Router from "./components/Router"
+import { Router } from "./components/Router"
 
 export default function App() {
     return (

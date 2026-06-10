@@ -443,6 +443,7 @@ export async function createRouter(options: SdrrOptions = {}) {
     if (useLazyImport) reactImports.push({ name: "lazy" })
 
     const reactImport = getNamedImportStatement("react", reactImports)
+    const routerExportStatement = resolved.routerExportType === "named" ? "export { Router }" : "export default Router"
 
     const component = `${reactImport}
 import { RouterProvider, createBrowserRouter } from "react-router"
@@ -455,7 +456,7 @@ ${str}
 
 const Router: FC = () => <RouterProvider router={router} />
 
-export default Router
+${routerExportStatement}
 `
 
     const routerOutputAbsPath = resolveSdrrPath(resolved, routerOutputPath)
