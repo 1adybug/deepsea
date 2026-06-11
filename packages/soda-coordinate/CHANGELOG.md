@@ -1,5 +1,11 @@
 # soda-coordinate
 
+## 5.4.1
+
+### Patch Changes
+
+- fix(soda-coordinate): clone Coord for same-type conversions
+
 ## 5.4.0
 
 ### Minor Changes

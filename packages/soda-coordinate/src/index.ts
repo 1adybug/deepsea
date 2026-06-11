@@ -174,7 +174,7 @@ export class Coord implements CoordBase {
                 return new Coord({ type: "WGS84", longitude: longitude1, latitude: latitude1 })
             }
             default:
-                return this
+                return new Coord(this)
         }
     }
 
@@ -201,7 +201,7 @@ export class Coord implements CoordBase {
                 return new Coord({ type: "GCJ02", longitude: longitude1, latitude: latitude1 })
             }
             default:
-                return this
+                return new Coord(this)
         }
     }
 
@@ -228,7 +228,7 @@ export class Coord implements CoordBase {
                 return new Coord({ type: "BD09", longitude: longitude1, latitude: latitude1 })
             }
             default:
-                return this
+                return new Coord(this)
         }
     }
 
