@@ -1,5 +1,11 @@
 # soda-coordinate
 
+## 5.4.0
+
+### Minor Changes
+
+- feat(soda-coordinate): add flexible Coord inputs and output helpers
+
 ## 5.3.8
 
 ### Patch Changes
