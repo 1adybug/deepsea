@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.48.3
+
+### Patch Changes
+
+- fix(deepsea-tools): 适配 pnpm 11，解决 xlsx 兼容性问题
+
 ## 5.48.2
 
 ### Patch Changes
