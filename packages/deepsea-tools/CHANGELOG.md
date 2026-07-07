@@ -1,5 +1,11 @@
 # deepsea-tools
 
+## 5.48.4
+
+### Patch Changes
+
+- fix(deepsea-tools): migrate xlsx to @1adybug/xlsx
+
 ## 5.48.3
 
 ### Patch Changes

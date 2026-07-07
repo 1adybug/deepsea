@@ -1,6 +1,6 @@
-import { type ParsingOptions, type Sheet2JSONOpts, read, utils } from "xlsx"
+import { type ParsingOptions, type Sheet2JSONOpts, read, utils } from "@1adybug/xlsx"
 
-export type { ParsingOptions, Sheet2JSONOpts } from "xlsx"
+export type { ParsingOptions, Sheet2JSONOpts } from "@1adybug/xlsx"
 
 /**
  * 工作簿的数据

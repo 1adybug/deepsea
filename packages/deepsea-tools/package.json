@@ -1,6 +1,6 @@
 {
     "name": "deepsea-tools",
-    "version": "5.48.3",
+    "version": "5.48.4",
     "description": "格数科技自用工具包",
     "type": "module",
     "exports": {
@@ -46,6 +46,7 @@
         "identifier-regex": "^1.0.1",
         "js-cookie": "^3.0.8",
         "robust-segment-intersect": "^1.0.1",
+        "@1adybug/xlsx": "workspace:*",
         "soda-type": "workspace:*",
         "tailwind-merge": "^3.6.0",
         "uuid": "^14.0.0"
@@ -53,12 +54,10 @@
     "devDependencies": {
         "@types/js-cookie": "^3.0.6",
         "@types/node": "catalog:",
-        "typescript": "catalog:",
-        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+        "typescript": "catalog:"
     },
     "peerDependencies": {
         "dayjs": "^1.11.19",
-        "xlsx": "0.20.3",
         "zod": "^4.4.3"
     }
 }
