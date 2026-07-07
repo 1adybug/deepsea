@@ -3,6 +3,7 @@ public
 dist
 build
 generated
+packages/xlsx
 .next
 .vscode
 .generated
