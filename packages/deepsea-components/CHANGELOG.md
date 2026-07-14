@@ -1,5 +1,11 @@
 # deepsea-components
 
+## 5.18.14
+
+### Patch Changes
+
+- feat(deepsea-components): 优化 HlsPlayer 错误处理与资源清理
+
 ## 5.18.13
 
 ### Patch Changes
