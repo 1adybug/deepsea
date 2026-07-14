@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useEffectEvent } from "react"
 
 import { type ElementInput, useDomEffect } from "./useDomEffect"
 
@@ -22,11 +22,9 @@ export interface UseDragMoveParams<T extends HTMLElement = HTMLElement> extends 
 }
 
 export function useDragMove<T extends HTMLElement = HTMLElement>({ element, onDragMoveStart, onDragMove, onDragMoveEnd }: UseDragMoveParams<T>) {
-    // eslint-disable-next-line react-hooks/refs
-    const cache = useRef({ onDragMoveStart, onDragMove, onDragMoveEnd }).current
-    cache.onDragMoveStart = onDragMoveStart
-    cache.onDragMove = onDragMove
-    cache.onDragMoveEnd = onDragMoveEnd
+    const onDragMoveStartLatest = useEffectEvent((event: DragMoveEvent<T>) => onDragMoveStart?.(event))
+    const onDragMoveLatest = useEffectEvent((event: DragMoveEvent<T>) => onDragMove?.(event))
+    const onDragMoveEndLatest = useEffectEvent((event: DragMoveEvent<T>) => onDragMoveEnd?.(event))
 
     useDomEffect(
         element => {
@@ -43,7 +41,10 @@ export function useDragMove<T extends HTMLElement = HTMLElement>({ element, onDr
                 dragMoveEvent.dragTarget = target
                 dragMoveEvent.deltaX = 0
                 dragMoveEvent.deltaY = 0
-                cache.onDragMoveStart?.(dragMoveEvent)
+
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                onDragMoveStartLatest(dragMoveEvent)
+
                 window.addEventListener("mousemove", onMouseMove)
                 window.addEventListener("mouseup", onMouseUp)
             }
@@ -55,15 +56,22 @@ export function useDragMove<T extends HTMLElement = HTMLElement>({ element, onDr
                 dragMoveEvent.dragTarget = target
                 dragMoveEvent.deltaX = x
                 dragMoveEvent.deltaY = y
-                cache.onDragMove?.(dragMoveEvent)
+
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                onDragMoveLatest(dragMoveEvent)
             }
 
             function onMouseUp(event: MouseEvent) {
+                const x = event.clientX - startX
+                const y = event.clientY - startY
                 const dragMoveEvent = event as DragMoveEvent<T>
                 dragMoveEvent.dragTarget = target
-                dragMoveEvent.deltaX = 0
-                dragMoveEvent.deltaY = 0
-                cache.onDragMoveEnd?.(dragMoveEvent)
+                dragMoveEvent.deltaX = x
+                dragMoveEvent.deltaY = y
+
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                onDragMoveEndLatest(dragMoveEvent)
+
                 window.removeEventListener("mousemove", onMouseMove)
                 window.removeEventListener("mouseup", onMouseUp)
             }

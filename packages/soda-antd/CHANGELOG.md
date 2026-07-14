@@ -1,5 +1,16 @@
 # soda-antd
 
+## 1.0.36
+
+### Patch Changes
+
+- feat(soda-hooks): 新增 useVideoStalled，优化 useCalcEffect 相关
+- Updated dependencies
+- Updated dependencies
+    - soda-hooks@6.19.0
+    - deepsea-tools@5.48.5
+    - soda-react@0.1.34
+
 ## 1.0.35
 
 ### Patch Changes

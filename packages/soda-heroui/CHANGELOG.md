@@ -1,5 +1,16 @@
 # soda-tanstack-form
 
+## 0.12.27
+
+### Patch Changes
+
+- feat(soda-hooks): 新增 useVideoStalled，优化 useCalcEffect 相关
+- Updated dependencies
+- Updated dependencies
+    - soda-hooks@6.19.0
+    - deepsea-tools@5.48.5
+    - soda-type@6.7.9
+
 ## 0.12.26
 
 ### Patch Changes

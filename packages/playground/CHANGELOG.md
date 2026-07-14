@@ -1,5 +1,19 @@
 # deepsea-components-demo
 
+## 0.4.59
+
+### Patch Changes
+
+- feat(soda-hooks): 新增 useVideoStalled，优化 useCalcEffect 相关
+- Updated dependencies
+- Updated dependencies
+    - soda-hooks@6.19.0
+    - soda-coordinate@5.4.2
+    - deepsea-tools@5.48.5
+    - soda-nodejs@0.8.16
+    - deepsea-components@5.18.12
+    - soda-react-router@1.2.38
+
 ## 0.4.58
 
 ### Patch Changes

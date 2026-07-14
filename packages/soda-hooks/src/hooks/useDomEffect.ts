@@ -13,7 +13,7 @@ export function getElement<T extends Element>(element: ElementInput<T>) {
     return (
         isNonNullable(element)
             ? typeof element === "string"
-                ? document.querySelector(element)
+                ? (document.getElementById(element) ?? document.querySelector(element))
                 : element instanceof Element
                   ? element
                   : element.current

@@ -1,5 +1,13 @@
 # deepsea-tools
 
+## 5.48.5
+
+### Patch Changes
+
+- feat(soda-hooks): 新增 useVideoStalled，优化 useCalcEffect 相关
+- Updated dependencies
+    - soda-type@6.7.9
+
 ## 5.48.4
 
 ### Patch Changes

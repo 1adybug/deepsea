@@ -11,26 +11,40 @@ function getValue<T extends (() => any) | RefObject<any>>(value: T): GetValue<T>
 
 type GetValues<T extends any[]> = T extends [infer First, ...infer Rest] ? [GetValue<First>, ...GetValues<Rest>] : []
 
+type CalcEffect<T extends any[]> = (...values: T) => void | ((...values: T) => void)
+
+interface Snapshot<T extends any[]> {
+    values: T
+    deps: any[]
+    effect: CalcEffect<T>
+}
+
+/**
+ * 在每次渲染提交后重新计算 values，并在计算结果或额外依赖 deps 变化时执行 effect。
+ *
+ * 计算结果使用 Object.is 逐项比较。values 中的函数应返回原始值或引用稳定的对象；
+ * 如果每次计算都返回新的对象、数组等引用，Hook 会认为结果持续变化并继续触发更新。
+ */
 export function useCalcEffect<T extends [(() => any) | RefObject<any>, ...((() => any) | RefObject<any>)[]]>(
-    effect: (...values: GetValues<T>) => void | ((...values: GetValues<T>) => void),
+    effect: CalcEffect<GetValues<T>>,
     values: T,
     deps: any[] = [],
 ) {
-    const [value, setValue] = useState(null as unknown as GetValues<T>)
+    const [snapshot, setSnapshot] = useState<Snapshot<GetValues<T>>>()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
-        const newValue = values.map(getValue) as GetValues<T>
-        if (!!value && compareArray(value, newValue)) return
-        setValue(newValue)
+        const newValues = values.map(getValue) as GetValues<T>
+        if (snapshot && compareArray(snapshot.values, newValues) && compareArray(snapshot.deps, deps)) return
+
+        setSnapshot({ values: newValues, deps: [...deps], effect })
     })
 
     useEffect(() => {
-        if (!value) return
-        const unmount = effect(...value)
+        if (!snapshot) return
+        const unmount = snapshot.effect(...snapshot.values)
         if (typeof unmount !== "function") return
 
-        return () => unmount(...value)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [value, ...deps])
+        return () => unmount(...snapshot.values)
+    }, [snapshot])
 }

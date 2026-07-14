@@ -1,5 +1,11 @@
 # soda-coordinate
 
+## 5.4.2
+
+### Patch Changes
+
+- feat(soda-hooks): 新增 useVideoStalled，优化 useCalcEffect 相关
+
 ## 5.4.1
 
 ### Patch Changes

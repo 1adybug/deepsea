@@ -25,12 +25,13 @@ export type CoordString = string
 export type CoordInput = CoordObject | CoordTuple | CoordString
 
 export type CoordConstructorArgs =
-    | [longitude: number, latitude: number]
-    | [coord: CoordInput]
-    | [type: CoordType, longitude: number, latitude: number]
-    | [longitude: number, latitude: number, type: CoordType]
-    | [type: CoordType, coord: CoordInput]
-    | [coord: CoordInput, type: CoordType]
+
+        | [longitude: number, latitude: number]
+        | [coord: CoordInput]
+        | [type: CoordType, longitude: number, latitude: number]
+        | [longitude: number, latitude: number, type: CoordType]
+        | [type: CoordType, coord: CoordInput]
+        | [coord: CoordInput, type: CoordType]
 
 /**
  * 判断值是否为支持的坐标系类型

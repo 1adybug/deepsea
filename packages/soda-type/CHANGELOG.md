@@ -1,5 +1,11 @@
 # soda-type
 
+## 6.7.9
+
+### Patch Changes
+
+- feat(soda-hooks): 新增 useVideoStalled，优化 useCalcEffect 相关
+
 ## 6.7.8
 
 ### Patch Changes

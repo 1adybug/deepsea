@@ -1,5 +1,13 @@
 # soda-node
 
+## 0.2.8
+
+### Patch Changes
+
+- feat(soda-hooks): 新增 useVideoStalled，优化 useCalcEffect 相关
+- Updated dependencies
+    - deepsea-tools@5.48.5
+
 ## 0.2.7
 
 ### Patch Changes

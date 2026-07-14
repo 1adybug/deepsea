@@ -12,6 +12,9 @@ type GetEventTarget<T extends EventTarget | ElementInput<Element>> = T extends E
  */
 export function useEventListener<T extends EventTarget | ElementInput<Element>>(input: T): GetEventTarget<T>["addEventListener"] {
     return function useAddEventListener(type, listener, options) {
+        const normalizedOptions = typeof options === "boolean" ? { capture: options } : options
+        const { capture, once, passive, signal } = normalizedOptions ?? {}
+
         const newListener = useEffectEvent(
             typeof listener === "function"
                 ? listener
@@ -30,10 +33,18 @@ export function useEventListener<T extends EventTarget | ElementInput<Element>>(
 
         useEffect(() => {
             if (!target) return
-            target.addEventListener(type, newListener, options)
 
-            return () => target.removeEventListener(type, newListener, options)
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [target])
+            const listenerOptions: AddEventListenerOptions = {}
+
+            if (capture !== undefined) listenerOptions.capture = capture
+            if (once !== undefined) listenerOptions.once = once
+            if (passive !== undefined) listenerOptions.passive = passive
+            if (signal !== undefined) listenerOptions.signal = signal
+
+            const hasOptions = capture !== undefined || once !== undefined || passive !== undefined || signal !== undefined
+            target.addEventListener(type, newListener, hasOptions ? listenerOptions : undefined)
+
+            return () => target.removeEventListener(type, newListener, capture)
+        }, [target, type, capture, once, passive, signal])
     }
 }

@@ -1,5 +1,18 @@
 # soda-hooks
 
+## 6.19.0
+
+### Minor Changes
+
+- feat(soda-hooks): 新增 useVideoStalled，优化 useCalcEffect 相关
+- feat(soda-hooks): 新增 useVideoStalled，用于监测视频停止输出画面
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.48.5
+    - soda-type@6.7.9
+
 ## 6.18.3
 
 ### Patch Changes

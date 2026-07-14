@@ -16,9 +16,7 @@ import type { TimeValueMode, TimeValueModeMap } from "@/utils/time"
 export interface FormRangeCalendarProps<
     ValueMode extends TimeValueMode = "date",
     FieldValue extends [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>] | null | undefined =
-        | [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>]
-        | null
-        | undefined,
+        [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>] | null | undefined,
 > extends StrictOmit<FieldComponentProps<typeof RangeCalendar, FieldValue>, never> {
     valueMode?: ValueMode
     emptyValue?: EmptyValue
@@ -30,9 +28,7 @@ export interface FormRangeCalendarProps<
 export function FormRangeCalendar<
     ValueMode extends TimeValueMode = "date",
     FieldValue extends [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>] | null | undefined =
-        | [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>]
-        | null
-        | undefined,
+        [TimeValueModeMap<ValueMode>, TimeValueModeMap<ValueMode>] | null | undefined,
 >({
     field: _field,
     valueMode,

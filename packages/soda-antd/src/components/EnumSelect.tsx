@@ -63,8 +63,7 @@ export function EnumSelect<Options extends SelectOptions, Multiple extends boole
         () =>
             (
                 (Array.isArray(enumObject) ? enumObject.map(([label, value]) => ({ label, value })) : enumObject ? getEnumOptions(enumObject) : undefined) as
-                    | EnumOption<Options>[]
-                    | undefined
+                    EnumOption<Options>[] | undefined
             )?.filter(item => (filter ? filter(item) : true)),
         [enumObject, filter],
     )

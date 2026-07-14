@@ -7,8 +7,7 @@ import { clsm } from "deepsea-tools"
  */
 export function aclsm<T extends string, U>(
     ...inputs: (
-        | (Partial<Record<T, string | undefined | null>> | undefined | null)
-        | ((params: U) => Partial<Record<T, string | undefined | null>> | undefined | null)
+        (Partial<Record<T, string | undefined | null>> | undefined | null) | ((params: U) => Partial<Record<T, string | undefined | null>> | undefined | null)
     )[]
 ): (params: U) => Partial<Record<T, string>> {
     return function classNames(params: U) {

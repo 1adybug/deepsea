@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.8.16
+
+### Patch Changes
+
+- feat(soda-hooks): 新增 useVideoStalled，优化 useCalcEffect 相关
+
 ## 0.8.15
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
     "name": "soda-heroui",
-    "version": "0.12.26",
+    "version": "0.12.27",
     "description": "",
     "type": "module",
     "exports": {
@@ -41,8 +41,8 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/soda-heroui",
     "dependencies": {
-        "@internationalized/date": ">=3.10.0",
-        "@tanstack/react-form": "^1.33.0",
+        "@internationalized/date": "^3.12.2",
+        "@tanstack/react-form": "^1.33.2",
         "deepsea-tools": "workspace:*",
         "soda-hooks": "workspace:*",
         "soda-tanstack-form": "workspace:*",

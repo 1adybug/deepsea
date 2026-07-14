@@ -29,14 +29,15 @@ export async function createRouter(options: SdrrOptions = {}) {
     const routerOutputPath = resolved.routerOutputPath
 
     type Segment =
-        | { kind: "root" }
-        | { kind: "group"; name: string }
-        | { kind: "static"; name: string }
-        | { kind: "dynamic"; name: string }
-        | { kind: "catchAll"; name: string }
-        | { kind: "optionalCatchAll"; name: string }
-        | { kind: "parallel"; name: string }
-        | { kind: "intercepting"; name: string }
+
+            | { kind: "root" }
+            | { kind: "group"; name: string }
+            | { kind: "static"; name: string }
+            | { kind: "dynamic"; name: string }
+            | { kind: "catchAll"; name: string }
+            | { kind: "optionalCatchAll"; name: string }
+            | { kind: "parallel"; name: string }
+            | { kind: "intercepting"; name: string }
 
     function parseSegmentName(name: string): Segment {
         if (/^@.+/.test(name)) return { kind: "parallel", name }

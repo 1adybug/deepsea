@@ -83,15 +83,16 @@ export type NonObjectOrArrayInUnion<T> = Exclude<T, ObjectInUnion<T> | ArrayInUn
 
 /** 将联合类型组合起来 */
 export type CombineUnion<T> =
-    | NonObjectOrArrayInUnion<T>
-    | (ObjectInUnion<T> extends never
-          ? never
-          : {
-                [K in RequiredKeysInUnion<ObjectInUnion<T>>]: CombineUnion<PossibleValuesInUnion<ObjectInUnion<T>, K>>
-            } & {
-                [K in OptionalKeysInUnion<ObjectInUnion<T>>]?: CombineUnion<PossibleValuesInUnion<ObjectInUnion<T>, K>>
-            })
-    | (ArrayInUnion<T> extends never ? never : CombineUnion<ArrayInUnion<T>[number]>[])
+
+        | NonObjectOrArrayInUnion<T>
+        | (ObjectInUnion<T> extends never
+              ? never
+              : {
+                    [K in RequiredKeysInUnion<ObjectInUnion<T>>]: CombineUnion<PossibleValuesInUnion<ObjectInUnion<T>, K>>
+                } & {
+                    [K in OptionalKeysInUnion<ObjectInUnion<T>>]?: CombineUnion<PossibleValuesInUnion<ObjectInUnion<T>, K>>
+                })
+        | (ArrayInUnion<T> extends never ? never : CombineUnion<ArrayInUnion<T>[number]>[])
 
 /** 一般类型 */
 export type CommonType = string | number | boolean | null | undefined
