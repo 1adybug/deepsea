@@ -1,5 +1,12 @@
 # soda-tanstack-form
 
+## 0.12.28
+
+### Patch Changes
+
+- Updated dependencies
+    - soda-hooks@6.19.1
+
 ## 0.12.27
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # soda-hooks
 
+## 6.19.1
+
+### Patch Changes
+
+- feat(soda-hooks): enhance useAutoPlay with external ref support and playback retry
+
 ## 6.19.0
 
 ### Minor Changes

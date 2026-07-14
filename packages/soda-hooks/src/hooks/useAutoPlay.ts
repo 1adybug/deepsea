@@ -1,16 +1,37 @@
-import { useEffect, useRef } from "react"
+import { type RefObject, useRef } from "react"
+
+import { useDomEffect } from "./useDomEffect"
 
 /**
  * 用于在页面加载时自动播放视频
  */
-export function useAutoPlay() {
-    const video = useRef<HTMLVideoElement | null>(null)
+export function useAutoPlay(): RefObject<HTMLVideoElement | null>
+export function useAutoPlay(video: RefObject<HTMLVideoElement | null>): RefObject<HTMLVideoElement | null>
+export function useAutoPlay(video?: RefObject<HTMLVideoElement | null>) {
+    const ref = useRef<HTMLVideoElement | null>(null)
+    const videoRef = video ?? ref
 
-    useEffect(() => {
-        const play = () => video.current?.play()
-        window.addEventListener("click", play, { once: true })
-        return () => window.removeEventListener("click", play)
-    }, [])
+    useDomEffect(
+        current => {
+            if (!current) return
+            const video = current
 
-    return video
+            async function play() {
+                try {
+                    await video.play()
+                    window.removeEventListener("click", play)
+                } catch {}
+            }
+
+            window.addEventListener("click", play)
+
+            play()
+
+            return () => window.removeEventListener("click", play)
+        },
+        [videoRef],
+        [],
+    )
+
+    return videoRef
 }
