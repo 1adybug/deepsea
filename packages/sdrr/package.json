@@ -1,6 +1,6 @@
 {
     "name": "sdrr",
-    "version": "0.2.8",
+    "version": "0.2.9",
     "description": "",
     "type": "module",
     "exports": {
@@ -30,6 +30,7 @@
     "scripts": {
         "dev": "rslib build --watch",
         "build": "rslib build",
+        "test": "bun test",
         "prepublishOnly": "pnpm run build"
     },
     "keywords": [],

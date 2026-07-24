@@ -251,6 +251,13 @@ export async function createRouter(options: SdrrOptions = {}) {
         children?: Router[]
     }
 
+    function prependRoutePath(route: Router, path: string): Router {
+        if (route.path) return { ...route, path: `${path}/${route.path}` }
+        if (route.index) return { ...route, path, index: undefined }
+        if (route.children) return { ...route, children: route.children.map(child => prependRoutePath(child, path)) }
+        return route
+    }
+
     function joinProjectPath(...parts: string[]) {
         return join(...parts).replace(/\\/g, "/")
     }
@@ -409,6 +416,12 @@ export async function createRouter(options: SdrrOptions = {}) {
         }
 
         const path = getRoutePath(routeSegments)
+
+        if (routeSegments.length > 0 && path && !layout && !page && !errorBoundary && !notFound && children.length > 0) {
+            return {
+                children: children.map(child => prependRoutePath(child, path)),
+            }
+        }
 
         const node: Router = {
             path,

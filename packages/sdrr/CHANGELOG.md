@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.2.9
+
+### Patch Changes
+
+- fix(sdrr): 修复仅含子路由的结构目录遮蔽动态路由
+
 ## 0.2.8
 
 ### Patch Changes
