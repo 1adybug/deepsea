@@ -1,5 +1,11 @@
 # soda-node
 
+## 0.2.10
+
+### Patch Changes
+
+- 支持错误路由
+
 ## 0.2.9
 
 ### Patch Changes

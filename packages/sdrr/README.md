@@ -21,7 +21,7 @@
 | 动态段 `[id]`                    | 映射为 `:id`                                               | 与 Next 的动态段语义对齐                               |
 | catch-all `[...slug]`            | 映射为 `:slug/*`（内部用两层 route 生成）                  | `slug` 是第一个段；剩余段在 `params["*"]`              |
 | optional catch-all `[[...slug]]` | 同时生成 `/`（index）与 `:slug/*` 两种匹配                 | 与 Next 的“可选”语义对齐                               |
-| `error.(ts/tsx/js/jsx)`          | 映射为 route 的 `ErrorBoundary`                            | Next 的 `error.js` 是错误边界概念，近似映射            |
+| `error.(ts/tsx/js/jsx)`          | 映射为 route 的 `ErrorBoundary`                            | 根目录未提供时生成安全的最小错误页                     |
 | `not-found.(ts/tsx/js/jsx)`      | 生成 `path: "*"` 的兜底子路由                              | 用于该布局/段下的 404 兜底                             |
 | `@slot`（并行路由）              | 不支持，直接抛错                                           | `react-router` 缺少命名 slot/outlet 的等价能力         |
 | `(.)/(..)/(...)`（拦截路由）     | 不支持，直接抛错                                           | `react-router` 无等价语义                              |
@@ -223,6 +223,8 @@ sdrr build pnpm dev --watch
 - 布局：`layout.(ts|tsx|js|jsx)`、`layout.lazy.(ts|tsx|js|jsx)`
 - 错误边界：`error.(ts|tsx|js|jsx)`、`error.lazy.(ts|tsx|js|jsx)`（映射到 `react-router` 的 `ErrorBoundary`）
 - 404：`not-found.(ts|tsx|js|jsx)`、`not-found.lazy.(ts|tsx|js|jsx)`（会生成一个 `path: "*"` 的兜底子路由）
+
+如果根目录没有提供 `error.*`，`sdrr` 会为根 route 生成一个最小错误边界。它不会向页面暴露异常消息或调用栈，并提供重新加载入口，避免 React Router 的默认错误页让用户停留在不可恢复状态。项目提供的根 `app/error.*` 会完整替代这个默认边界。
 
 补充规则：
 

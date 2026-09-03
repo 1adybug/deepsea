@@ -445,12 +445,42 @@ export async function createRouter(options: SdrrOptions = {}) {
     const router = await createRouteTree(resolved.appDir, [])
     if (!router) throw new Error("未在 app 目录中找到任何可生成的路由文件。")
 
+    const useDefaultErrorBoundary = !router.ErrorBoundary
+
+    if (useDefaultErrorBoundary) router.ErrorBoundary = "$$SdrrDefaultErrorBoundary$$"
+
     const str = JSON.stringify(router, null, 4)
         .replace(/^/gm, "    ")
         .replace(/^( *)"(.+?)":/gm, "$1$2:")
         .replace(/"\$\$(.+?)\$\$"/gm, "$1")
 
-    const routeModulesCode = [importStatements.join("\n"), lazyDeclarations.join("\n")].filter(Boolean).join("\n\n")
+    const defaultErrorBoundaryCode = useDefaultErrorBoundary
+        ? `function SdrrDefaultErrorBoundary() {
+    return (
+        <main
+            style={{
+                alignItems: "center",
+                boxSizing: "border-box",
+                display: "flex",
+                flexDirection: "column",
+                fontFamily: "system-ui, sans-serif",
+                justifyContent: "center",
+                minHeight: "100vh",
+                padding: "2rem",
+                textAlign: "center",
+            }}
+        >
+            <h1>Something went wrong</h1>
+            <p>Please reload the page and try again.</p>
+            <button type="button" onClick={() => window.location.reload()}>
+                Reload page
+            </button>
+        </main>
+    )
+}`
+        : ""
+
+    const routeModulesCode = [importStatements.join("\n"), lazyDeclarations.join("\n"), defaultErrorBoundaryCode].filter(Boolean).join("\n\n")
 
     const reactImports: NamedImportSpecifier[] = [{ name: "FC", type: true }]
 

@@ -19,6 +19,43 @@ async function createRouteFile(root: string, path: string) {
 }
 
 describe("createRouter", () => {
+    it("根目录未提供错误页时生成可恢复且不暴露异常详情的默认边界", async () => {
+        const root = await mkdtemp(join(tmpdir(), "sdrr-create-router-"))
+        testRoots.push(root)
+
+        await mkdir(join(root, "components"), { recursive: true })
+        await createRouteFile(root, "layout.tsx")
+        await createRouteFile(root, "page.tsx")
+
+        await createRouter({ root })
+
+        const router = await readFile(join(root, "components/Router.tsx"), "utf8")
+
+        expect(router).toContain("function SdrrDefaultErrorBoundary()")
+        expect(router).toContain("ErrorBoundary: SdrrDefaultErrorBoundary")
+        expect(router).toContain("Reload page")
+        expect(router).toContain("window.location.reload()")
+        expect(router).not.toContain("useRouteError")
+    })
+
+    it("根目录提供错误页时完全使用项目边界", async () => {
+        const root = await mkdtemp(join(tmpdir(), "sdrr-create-router-"))
+        testRoots.push(root)
+
+        await mkdir(join(root, "components"), { recursive: true })
+        await createRouteFile(root, "layout.tsx")
+        await createRouteFile(root, "page.tsx")
+        await createRouteFile(root, "error.tsx")
+
+        await createRouter({ root })
+
+        const router = await readFile(join(root, "components/Router.tsx"), "utf8")
+
+        expect(router).toContain('import RootError from "../app/error.tsx"')
+        expect(router).toContain("ErrorBoundary: RootError")
+        expect(router).not.toContain("SdrrDefaultErrorBoundary")
+    })
+
     it("不会让仅包含详情子路由的静态目录遮蔽动态列表路由", async () => {
         const root = await mkdtemp(join(tmpdir(), "sdrr-create-router-"))
         testRoots.push(root)
