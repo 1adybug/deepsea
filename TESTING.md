@@ -1,38 +1,63 @@
-# 测试与构建验证
+# Testing guide
 
-`pnpm test` 执行全部包的真实测试；`pnpm test:types` 使用 TypeScript 检查测试代码和编译期断言，避免只转译不检查类型。`pnpm check` 同时运行仓库边界、格式、ESLint、源码和测试类型检查、测试、构建及公开入口检查。
+[English](TESTING.md) | [简体中文](TESTING.zh-CN.md)
 
-| 包                         | 当前回归范围                                                                  |
-| -------------------------- | ----------------------------------------------------------------------------- |
-| @1adybug/components        | 文件读取、Unicode / Base64、多文件顺序和异步禁用状态                          |
-| @1adybug/tools             | 分页边界、远程分页、存储代理与去重通知                                        |
-| @1adybug/store             | 状态合并 / 替换、订阅取消、React 更新和相同值去重                             |
-| sdnext                     | 共享模块路径、命名与生成文件幂等性                                            |
-| sdrr                       | 默认 / 自定义错误边界和静态目录与动态路由关系                                 |
-| @1adybug/antd              | Zod 规则、样式合并、日期区间、真实表单 selector 订阅                          |
-| @1adybug/array             | 66 个操作、标准边界语义、缺失原生实现、原型隔离、按需安装、生产打包及类型契约 |
-| @1adybug/coordinate        | 输入规范化、非法输入和 WGS84 / GCJ02 / BD09 往返转换                          |
-| @1adybug/heroui            | 共享字段投影、校验状态、日期和时间默认值                                      |
-| @1adybug/hooks             | 多订阅存储状态同步、函数式更新和查询参数保留                                  |
-| @1adybug/next              | Next 导航 push / replace、编码和更新后的选项                                  |
-| @1adybug/node              | 递归复制、多输入复制、保留源文件和失败传播                                    |
-| @1adybug/react             | 嵌套节点判定和表格原始值转换                                                  |
-| @1adybug/react-router      | 真实 MemoryRouter 内查询参数更新与其他参数保留                                |
-| @1adybug/tailwind          | 通过 Tailwind 3 / PostCSS 实际编译工具类                                      |
-| @1adybug/tanstack-form     | 错误判断、字段上下文绑定和事件转发                                            |
-| @1adybug/tanstack-query    | 真实 QueryClient 查询缓存、参数 key、refine 和 mutation 回调顺序              |
-| @1adybug/types             | 类型相等、never、可选字段、联合与交集的编译期契约                             |
-| @1adybug/xlsx              | 随附 ESM / CJS 的 XLSX 二进制往返                                             |
-| @1adybug/playground        | 使用实际工作区组件的渲染与卸载                                                |
-| @1adybug/build-config      | 干净包内实际 CLI 构建、ESM / CJS 消费、声明生成、类型错误导致失败、导出幂等性 |
-| @1adybug/typescript-config | TypeScript 实际解析各共享 preset 的继承设置                                   |
+All 40 workspace packages have executable test tasks. Runtime tests, type contracts, build consumption and compatibility-entry checks validate different boundaries and complement each other.
 
-浏览器相关测试使用 jsdom 与 Testing Library。@1adybug/playground 测试为 jsdom 缺失的 ResizeObserver 提供观察器替身；Next 路由通过导航接口替身验证调用契约。上述测试不代表真实浏览器布局、视频播放、网络请求或所有导出 API 的完整覆盖。
+## Commands
 
-新增缺陷应优先添加能复现真实问题的回归用例。测试不放入 `src`，不会出现在自动导出或发布产物中。新增源码文件的监听与生成行为通过根目录 `pnpm dev` 使用同一任务图。
+```sh
+pnpm test
+pnpm test:types
+pnpm test:coverage
+pnpm check
 
-## 兼容层测试
+# Focus on one package after building its prerequisites
+pnpm --filter @1adybug/components... build
+pnpm --filter @1adybug/components test
+pnpm --filter @1adybug/components test:types
+```
 
-`compat/*` 复用 `tests/compatibility.ts`，每个旧包独立运行 ESM 导出引用检查、CommonJS 模块对象检查及类型契约检查。CLI 通过真实子进程检查旧命令的帮助与版本，hooks 的 ESLint 默认配置和数组类型入口也保留。实现包不复制到兼容层。
+## Test matrix
 
-Array 兼容层同步镜像实现包的 wildcard exports，并测试 pure、global、virtual、profile 和带 .js 后缀的代表路径。公开入口审计会展开全部 wildcard，逐一验证运行时与声明文件存在。Turborepo 的类型检查和测试依赖本包 build，支持干净检出后的入口验证。
+| Package                                                         | Main scenarios                                                                                                                                                                                                                                                                      |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`@1adybug/array`](packages/array/tests)                        | Every ArrayFunctions method, sparse arrays, array-like receivers, species, coercion, invalid inputs, prototype installation, pure/global isolation, generated entry resolution and bundling.                                                                                        |
+| [`@1adybug/tools`](packages/tools/tests)                        | Parsers, enum mappings, object/collection identity, tree traversal, pagination boundaries, middleware ordering, validation failures, storage events, cookies, downloads, spreadsheet conversion, deterministic random boundaries and frame cancellation.                            |
+| [`@1adybug/types`](packages/types/tests)                        | All exported type utilities: positive and negative equality, union optionality, JSON-compatible shapes, strict keys, readonly errors, query/form round-trips, tuple boundaries and required/optional parameters.                                                                    |
+| [`@1adybug/store`](packages/store/tests)                        | Lazy initialization, merge/replace, Object.is no-ops, selectors, subscriptions, server rendering, codec access, corrupt data, async hydration races and storage failures.                                                                                                           |
+| [`@1adybug/hooks`](packages/hooks/tests)                        | Each hook's state/identity and lifecycle contracts, repeated query values, storage areas, dependency changes, DOM listener replacement, drag/press cancellation, observer cleanup, autoplay retry, ETag changes and media watchdogs.                                                |
+| [`@1adybug/react`](packages/react/tests)                        | Primitives, nested iterables, invalid values, escaped markup, bigint conversion and invalid-child diagnostics.                                                                                                                                                                      |
+| [`@1adybug/components`](packages/components/tests)              | All public components and helpers: meaningful DOM/prop behavior, measurements, interaction, refs, timers, file errors, clipboard, chart updates/disposal and media recovery/cleanup. Third-party rendering engines and WebRTC negotiation are mocked at their integration boundary. |
+| [`@1adybug/coordinate`](packages/coordinate/tests)              | Constructor overloads, normalization failures, fixed conversion references, conversion round-trips, distance symmetry/bounds, segment contact, self-intersections and region inclusion/exclusion.                                                                                   |
+| [`@1adybug/node`](packages/node/tests)                          | Real temporary-file copy and binary stream saving, missing/writable paths, source stream errors, child exit/error handling, command encoding, archive contents and 7-Zip argument construction without requiring 7-Zip in tests.                                                    |
+| [`@1adybug/antd`](packages/antd/tests)                          | Selection filtering and invalidation, search callbacks, Theme scope, form subscriptions, tree checking/selection without input mutation, scroll measurements, schema failures, date boundaries and rendered worksheets.                                                             |
+| [`@1adybug/heroui`](packages/heroui/tests)                      | Every field adapter's empty/value/change/blur/error contract, enum factories and field bindings, selection clearing, nested provider isolation, date/range identity, toast lifecycle and update notifications.                                                                      |
+| [`@1adybug/tanstack-form`](packages/tanstack-form/tests)        | Field injection, map generation, refreshed context, forwarded change/blur/extra props and empty/truthy error arrays.                                                                                                                                                                |
+| [`@1adybug/tanstack-query`](packages/tanstack-query/tests)      | Real QueryClient caching, parameter changes, selections, initial/disabled states, error identity, client overrides, refinements, injected query hooks and mutation success/error/settled ordering.                                                                                  |
+| [`@1adybug/next`](packages/next/tests)                          | Encoded parameters, functional updates after route changes, setter identity, push/replace options, typed query delegation and Navigate behavior against a mocked Next navigation boundary.                                                                                          |
+| [`@1adybug/react-router`](packages/react-router/tests)          | Real MemoryRouter updates, preserved unrelated parameters, repeated-value parsing, deletion, replacement and injected adapter options.                                                                                                                                              |
+| [`@1adybug/react-router-cli`](packages/react-router-cli/tests)  | Temporary-project route generation, custom paths, aliases, errors, lazy/data routes, precedence, stable mtimes, watcher coalescing/recovery, Vite reload/disposal and Rsbuild lifecycle hooks.                                                                                      |
+| [`@1adybug/next-cli`](packages/next-cli/tests)                  | Clean temporary-project action/route generation, deterministic registry ordering, relative/alias imports, ignored assets, stale artifact removal, directory pruning, no-op mtimes and CLI help/version.                                                                             |
+| [`@1adybug/tailwind`](packages/tailwind/tests)                  | Actual PostCSS/Tailwind compilation of each utility, background-size theme extension and variant generation.                                                                                                                                                                        |
+| [`@1adybug/xlsx`](tests/xlsx.test.mjs)                          | Both ESM and CommonJS: binary and multi-format round-trips, address boundaries, sheet editing, metadata, escaped CSV/HTML, filesystem writes/reads, streaming, formatting and compound-file containers.                                                                             |
+| [`@1adybug/build-config`](tooling/build-config/tests)           | Clean-package build and consumption in ESM/CJS, declaration failure, target/React detection, export filtering and stable output.                                                                                                                                                    |
+| [`@1adybug/typescript-config`](tooling/typescript-config/tests) | Compiler-resolved inheritance for all presets, consumer overrides and a real strict-nullability diagnostic.                                                                                                                                                                         |
+| compat/*                                                        | Each package's forwarding code, declarations, dependency/peer parity, ESM/CJS identity, CLI and representative wildcard entries                                                                                                                                                     |
+| apps/playground                                                 | Actual workspace component mounting, DOM and observer cleanup                                                                                                                                                                                                                       |
+
+## Type tests
+
+expectTypeOf does not verify types at runtime. pnpm test:types compiles test/type fixtures with TypeScript and checks @ts-expect-error. Utility types should cover valid inference and rejected usage; component generics should cover value types, selection modes and callback arguments.
+
+## Coverage
+
+pnpm test:coverage generates package/coverage/index.html and coverage-summary.json for first-party TypeScript packages and the playground. Reports include unexecuted source and exclude declarations and generated Array forwarding entries. Third-party XLSX code and private MJS tooling use Node tests; compatibility entries have separate contract tests rather than duplicate implementation coverage. Coverage locates omissions and is not sufficient evidence of test quality or completeness.
+
+## Isolation and validation boundaries
+
+File and generator tests use isolated temporary directories and clean their output; process tests are bounded. Time and random boundaries use controlled inputs. React tests unmount components and check listener/timer/observer cleanup. Network, clipboard, chart engines and media negotiation are mocked at external boundaries while library state and adapter logic execute normally. Automation does not replace visual, real-browser media, live-service, cross-device or manual accessibility acceptance.
+
+## Adding tests
+
+Identify the public object's inputs, state transitions, results and side effects, then choose cases that distinguish correct behavior from a plausible bug. Cover relevant boundaries, failure propagation, updates and cleanup. Parameterize genuinely different input semantics. Verify aliases by identity/types and reuse implementation behavior tests. Keep a regression that fails on the original defect. Avoid import-only checks, reimplementing algorithms in expected values, or duplicating assertions for counts.

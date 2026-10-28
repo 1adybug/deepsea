@@ -143,6 +143,7 @@ export function spawnAsync(command: string, args?: any, options?: any): Promise<
         else args = { ...defaultOptions, ...args }
 
         child = spawn(command, args, options)
+        child.on("error", reject)
 
         child.on("exit", (code: number) => {
             if (code === 0) return resolve(child)

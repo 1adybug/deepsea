@@ -67,6 +67,7 @@ export class MediaMTXWebRTCReader {
 
     close() {
         this.state = "closed"
+        this.closeSession()
 
         if (this.pc) {
             this.pc.close()
@@ -77,6 +78,13 @@ export class MediaMTXWebRTCReader {
             clearTimeout(this.restartTimeout)
             this.restartTimeout = null
         }
+    }
+
+    private closeSession() {
+        if (this.sessionUrl === null) return
+        const url = this.sessionUrl
+        this.sessionUrl = null
+        void fetch(url, { method: "DELETE", headers: this.authHeader() }).catch(() => {})
     }
 
     private static supportsNonAdvertisedCodec(codec: string, fmtp?: string) {
@@ -353,10 +361,7 @@ export class MediaMTXWebRTCReader {
 
             this.offerData = null
 
-            if (this.sessionUrl !== null) {
-                fetch(this.sessionUrl, { method: "DELETE" })
-                this.sessionUrl = null
-            }
+            this.closeSession()
 
             this.queuedCandidates = []
             this.state = "restarting"
@@ -480,6 +485,11 @@ export class MediaMTXWebRTCReader {
             if (location === null) throw new Error("session location not present")
 
             this.sessionUrl = new URL(location, this.conf.url).toString()
+
+            if (this.state !== "running") {
+                this.closeSession()
+                throw new Error("closed")
+            }
 
             return res.text()
         })

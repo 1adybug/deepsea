@@ -8,7 +8,7 @@ export interface StyleWithCSSVariable extends CSSProperties {
     [X: CSSVariableName]: CSSVariableValue
 }
 
-const cssVariableReg = /[A-Z]/
+const cssVariableReg = /[A-Z]/g
 
 function addCSSVariableLine(match: string): string {
     return `-${match}`

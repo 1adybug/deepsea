@@ -11,7 +11,8 @@
         "typecheck": "tsc --noEmit",
         "clean": "node ../../scripts/clean.mjs",
         "test": "vitest run --config ../../vitest.config.ts",
-        "test:types": "tsc --project tsconfig.test.json"
+        "test:types": "tsc --project tsconfig.test.json",
+        "test:coverage": "vitest run --config ../../vitest.config.ts --coverage"
     },
     "dependencies": {
         "@ant-design/cssinjs": "catalog:",

@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 
-import { readdir, readFile, stat, writeFile } from "node:fs/promises"
-import { join, parse } from "node:path"
+import { mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises"
+import { dirname, join, parse } from "node:path"
 
 import { resolveProjectImportPath } from "./resolveProjectImportPath"
 import { type SdrrOptions, resolveSdrrOptions, resolveSdrrPath } from "./resolveSdrrOptions"
@@ -509,6 +509,7 @@ ${routerExportStatement}
         if (current === component) return false
     } catch (error) {}
 
+    await mkdir(dirname(routerOutputAbsPath), { recursive: true })
     await writeFile(routerOutputAbsPath, component)
 
     return true

@@ -1,74 +1,138 @@
 # Deepsea
 
-基于 pnpm workspace、Turborepo、Rslib / Rsbuild 和 Changesets 的 TypeScript monorepo。保留各 npm 包的独立版本与公开入口。
+[English](README.md) | [简体中文](README.zh-CN.md)
 
-## 环境与启动
+Deepsea is a modular JavaScript and TypeScript library workspace for data processing, React state and interaction, UI integrations, route generation and Node.js utilities. Libraries install independently and share explicit package boundaries, typed APIs and build tooling.
 
-- Node.js 24（最低 24.15.0，推荐使用 `.node-version` 中的版本）
-- pnpm 11.10.0（由根 `package.json` 的 `packageManager` 固定）
+## Contents
+
+- [Packages](#packages)
+- [Install and use](#install-and-use)
+- [Workspace development](#workspace-development)
+- [Testing and quality](#testing-and-quality)
+- [Package formats and compatibility entries](#package-formats-and-compatibility-entries)
+- [Contributing and releases](#contributing-and-releases)
+- [License](#license)
+
+## Packages
+
+| Package                                                            | Purpose                                                                                                                                    |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| [`@1adybug/array`](packages/array/README.md)                       | Typed standalone array functions, modern Array polyfills, and opt-in prototype extensions for JavaScript and TypeScript.                   |
+| [`@1adybug/tools`](packages/tools/README.md)                       | General-purpose TypeScript utilities for parsing, collections, request middleware, browser storage, spreadsheets, geometry and animation.  |
+| [`@1adybug/types`](packages/types/README.md)                       | Compile-time TypeScript utilities for union analysis, strict object transformations, tuple indexing, function parameters and query models. |
+| [`@1adybug/store`](packages/store/README.md)                       | Small React external stores with selectors, subscriptions, immutable object updates and optional persistent storage.                       |
+| [`@1adybug/hooks`](packages/hooks/README.md)                       | React hooks for external storage, typed URL state, DOM effects, element measurement, interaction, media and browser lifecycle.             |
+| [`@1adybug/react`](packages/react/README.md)                       | React node validation and text/worksheet-cell conversion helpers.                                                                          |
+| [`@1adybug/components`](packages/components/README.md)             | Reusable React components for measured layouts, scrolling, file workflows, charts, media and visual primitives.                            |
+| [`@1adybug/coordinate`](packages/coordinate/README.md)             | Longitude/latitude representations, WGS84/GCJ02/BD09 conversions and geometry helpers.                                                     |
+| [`@1adybug/node`](packages/node/README.md)                         | Node.js helpers for files, response streams, child processes and archives.                                                                 |
+| [`@1adybug/antd`](packages/antd/README.md)                         | Ant Design helpers for typed selections, searchable options, reactive forms, filtered trees, table sizing and worksheet export.            |
+| [`@1adybug/heroui`](packages/heroui/README.md)                     | HeroUI form adapters and selection utilities for TanStack Form, with date/time conversion, validation messages and toast helpers.          |
+| [`@1adybug/tanstack-form`](packages/tanstack-form/README.md)       | Small typed bridges between TanStack Form field context and reusable React field components.                                               |
+| [`@1adybug/tanstack-query`](packages/tanstack-query/README.md)     | Typed factories for reusable TanStack Query query and mutation hooks.                                                                      |
+| [`@1adybug/next`](packages/next/README.md)                         | React helpers for Next.js App Router query state and declarative navigation.                                                               |
+| [`@1adybug/react-router`](packages/react-router/README.md)         | Typed URL query-state hooks for React Router applications.                                                                                 |
+| [`@1adybug/react-router-cli`](packages/react-router-cli/README.md) | Filesystem route generation for React Router, with a CLI and Vite/Rsbuild development integrations.                                        |
+| [`@1adybug/next-cli`](packages/next-cli/README.md)                 | Next.js project CLI for generating server actions, action-route registries and client query/mutation hooks from shared modules.            |
+| [`@1adybug/tailwind`](packages/tailwind/README.md)                 | A Tailwind CSS 3 plugin for flexible fill sizing, justified text and full background sizing.                                               |
+| [`@1adybug/xlsx`](packages/xlsx/README.md)                         | Spreadsheet parsing and writing through a packaged SheetJS-based runtime, including workbook utilities and Node/browser entry points.      |
+
+## Install and use
+
+Install only the packages you need and provide the peer dependencies listed in their guides. The repository root is a private workspace, not a combined runtime entry.
 
 ```sh
-npm install --global pnpm@11.10.0
+pnpm add @1adybug/array @1adybug/tools
+```
+
+```ts
+import { chunk } from "@1adybug/array"
+import { createRequestFn, intParser } from "@1adybug/tools"
+
+const groups = chunk([1, 2, 3, 4, 5], 2)
+const page = intParser("2") ?? 1
+
+const load = createRequestFn(async (id: number) => ({
+    success: true,
+    data: { id },
+}))
+
+const item = await load(1)
+```
+
+The array root uses pure functions; opt into auto only when global Array extension is intended. React packages share the host's React, UI and router instances. Storage, DOM, animation and media helpers require browser facilities; Node and CLI packages run in Node.
+
+## Workspace development
+
+Development requirements: Node.js >=24.15.0 and <25, and pnpm 11.10.0. See package.json and .node-version for the pinned setup.
+
+```sh
+git clone https://github.com/1adybug/deepsea.git
+cd deepsea
 pnpm install --frozen-lockfile
+pnpm build:packages
 pnpm dev
 ```
 
-`pnpm dev` 按依赖顺序构建 @1adybug/playground 使用的库，然后启动 Rsbuild。Turborepo 监听库与构建工具的变化，重新构建受影响的包，并重启 @1adybug/playground 服务。新建、删除源码文件也会重新生成相应包的导出入口。开发工具不依赖已构建的业务包，首次克隆可以直接安装和构建，无需 Bun。
-
-## 目录与边界
-
-| 目录                        | 职责                                              |
-| --------------------------- | ------------------------------------------------- |
-| `apps/playground`           | 私有的组件与工具调试应用，不发布到 npm            |
-| `packages/*`                | 独立发布的工具库、React 集成库与 CLI              |
-| `packages/xlsx`             | 随仓库保存的 SheetJS 发行文件，保留原始许可和产物 |
-| `tooling/build-config`      | 私有的共享 Rslib 配置与确定性导出生成工具         |
-| `tooling/typescript-config` | 私有的 TypeScript 基础、库、React 库和应用配置    |
-| `scripts`                   | 仓库边界检查、产物清理和可选镜像同步              |
-| `.changeset`                | 待发布变更与独立版本策略                          |
-| `.github/workflows`         | Windows / Linux CI 与手动发布流程                 |
-
-内部依赖必须显式声明为 `workspace:*`。应用不能被其他包依赖；发布包的运行时依赖和 peer dependencies 不能引用私有工具包。共享版本统一维护在 `pnpm-workspace.yaml` 的 catalog 中，Node 类型依赖使用 24 系列。`pnpm check:workspace` 检查这些边界。
-
-## 常用命令
-
-| 命令                                               | 用途                                             |
-| -------------------------------------------------- | ------------------------------------------------ |
-| `pnpm dev`                                         | 监听并开发 @1adybug/playground 及其依赖          |
-| `pnpm dev:all`                                     | 监听所有库与 @1adybug/playground                 |
-| `pnpm build`                                       | 按依赖顺序构建所有库和应用，缓存 `dist`          |
-| `pnpm build:packages`                              | 仅构建发布包及其依赖                             |
-| `pnpm build --filter=@1adybug/react-router-cli...` | 构建 sdrr 及其所有依赖                           |
-| `pnpm typecheck`                                   | 先构建依赖，再执行各包的 TypeScript 检查         |
-| `pnpm test`                                        | 运行已有路由回归测试与共享工具测试               |
-| `pnpm lint`                                        | 使用统一 ESLint 配置检查整个仓库                 |
-| `pnpm format` / `pnpm format:check`                | 格式化 / 只检查格式                              |
-| `pnpm check`                                       | 执行边界、格式、lint、类型、测试和全量构建门禁   |
-| `pnpm clean`                                       | 清理各自维护的库和应用产物，保留 xlsx 的发行文件 |
-
-Turborepo 根据声明的包依赖安排任务；共享工具变化会使下游任务缓存失效。本地缓存存放在 `.turbo`，CI 按操作系统恢复缓存。共享构建只生成一份声明，避免 ESM / CJS 并发写入同一类型文件，声明错误会中止构建。Node 工具库保留双格式，CLI 生成 ESM。
-
-`pnpm-lock.yaml` 纳入版本管理，CI 使用 frozen lockfile，依赖变更必须同时更新锁文件。安装是显式步骤，任务执行期间不触发隐式安装，避免并行任务同时改写 node_modules。依赖升级范围见 [DEPENDENCIES.md](./DEPENDENCIES.md)，当前测试范围见 [TESTING.md](./TESTING.md)。
-
-## 版本与发布
-
-```sh
-pnpm changeset
-# 在变更 PR 中提交生成的 .changeset/*.md
-
-pnpm version:packages
-# 在版本 PR 中审核并提交版本号、CHANGELOG 与 pnpm-lock.yaml
-
-pnpm release
-# 完整验证后，只发布尚未发布的包版本
+```text
+deepsea/
+  packages/   # independently installable libraries and CLIs
+  compat/     # forwarding package-name entries
+  tooling/    # private build and TypeScript presets
+  apps/       # interactive playground
+  tests/      # shared browser, compatibility and spreadsheet tests
+  scripts/    # workspace validation, artifacts and release support
 ```
 
-Changesets 使用独立版本，内部依赖变更按 patch 传播；私有应用和工具包不参与版本和 tag。发布包只携带运行源码和发行文件，共享的私有构建配置不进入 npm 产物。
+| Command               | Purpose                                                                    |
+| --------------------- | -------------------------------------------------------------------------- |
+| `pnpm dev`            | Watch the playground and its workspace dependencies                        |
+| `pnpm build`          | Build all packages and the playground in dependency order                  |
+| `pnpm build:packages` | Build publishable libraries and compatibility entries                      |
+| `pnpm test`           | Run all 40 workspace package test tasks with build prerequisites           |
+| `pnpm test:types`     | Compile runtime-test and type-contract fixtures                            |
+| `pnpm test:coverage`  | Produce V8 reports for first-party TypeScript libraries and the playground |
+| `pnpm check`          | Validate boundaries, formatting, lint, types, tests, builds and artifacts  |
+| `pnpm clean`          | Remove generated workspace outputs                                         |
 
-GitHub 的 **Release** 工作流只接受 `main` 上的手动触发，先执行完整门禁，再发布包并推送版本 tag。使用前需在仓库中配置 `npm` environment 和 `NPM_TOKEN` secret；可在该 environment 设置审核人。CI 不自动执行发布。镜像同步独立执行 `pnpm sync:registry`，不属于发布的必需步骤。
+## Testing and quality
 
-新增包和依赖的约定见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+Tests follow public API responsibilities: functions cover inputs, outputs, boundaries and failures; components cover rendering, interaction, updates and cleanup; type utilities use compiler-checked inference and negative cases; CLIs exercise generation, watching and cleanup in temporary projects; compatibility packages verify real entries, declarations and shared references. Aliases sharing an implementation reuse behavior tests and verify entry identity.
 
-## 旧名称兼容
+See the [testing guide](TESTING.md). Coverage reports help locate omissions; they do not establish visual acceptance, real media/network behavior, device interaction or every upstream library behavior. CI runs the full checks on Windows and Linux.
 
-实现包统一命名为 `@1adybug/*`，旧名称放在 `compat/`，仅依赖并转发对应实现。新代码使用作用域包，旧项目可以逐步替换 import。默认导出、公开子路径、CLI 命令和持久化键保持兼容。完整映射和迁移步骤见 [MIGRATION.md](./MIGRATION.md)。
+## Package formats and compatibility entries
+
+Most runtime libraries ship ESM, CommonJS and TypeScript declarations. Node generators and CLIs primarily use ESM; XLSX also exposes dedicated browser and encoding entries. Import through the exports declared by each package.json.
+
+| Compatibility name                                            | Implementation              |
+| ------------------------------------------------------------- | --------------------------- |
+| [`deepsea-components`](compat/deepsea-components/README.md)   | `@1adybug/components`       |
+| [`deepsea-tools`](compat/deepsea-tools/README.md)             | `@1adybug/tools`            |
+| [`react-soda`](compat/react-soda/README.md)                   | `@1adybug/store`            |
+| [`sdnext`](compat/sdnext/README.md)                           | `@1adybug/next-cli`         |
+| [`sdrr`](compat/sdrr/README.md)                               | `@1adybug/react-router-cli` |
+| [`soda-antd`](compat/soda-antd/README.md)                     | `@1adybug/antd`             |
+| [`soda-array`](compat/soda-array/README.md)                   | `@1adybug/array`            |
+| [`soda-coordinate`](compat/soda-coordinate/README.md)         | `@1adybug/coordinate`       |
+| [`soda-heroui`](compat/soda-heroui/README.md)                 | `@1adybug/heroui`           |
+| [`soda-hooks`](compat/soda-hooks/README.md)                   | `@1adybug/hooks`            |
+| [`soda-next`](compat/soda-next/README.md)                     | `@1adybug/next`             |
+| [`soda-nodejs`](compat/soda-nodejs/README.md)                 | `@1adybug/node`             |
+| [`soda-react`](compat/soda-react/README.md)                   | `@1adybug/react`            |
+| [`soda-react-router`](compat/soda-react-router/README.md)     | `@1adybug/react-router`     |
+| [`soda-tailwind`](compat/soda-tailwind/README.md)             | `@1adybug/tailwind`         |
+| [`soda-tanstack-form`](compat/soda-tanstack-form/README.md)   | `@1adybug/tanstack-form`    |
+| [`soda-tanstack-query`](compat/soda-tanstack-query/README.md) | `@1adybug/tanstack-query`   |
+| [`soda-type`](compat/soda-type/README.md)                     | `@1adybug/types`            |
+
+Internal presets: [build-config](tooling/build-config/README.md), [typescript-config](tooling/typescript-config/README.md). Interactive examples: [playground](apps/playground/README.md).
+
+## Contributing and releases
+
+Fix behavior at its original state or execution boundary and add a discriminating regression test. Run pnpm check before submitting and update both documentation languages for public behavior changes. External versions live in the root catalog; internal edges use workspace:*. Record public changes with pnpm changeset and update versions with pnpm version:packages. The release workflow runs full checks before Changesets publication.
+
+## License
+
+Library and compatibility package manifests declare MIT. @1adybug/xlsx uses Apache-2.0; see its [LICENSE](packages/xlsx/LICENSE). The private root manifest declares ISC. Follow the licenses of the distributed packages and their third-party dependencies.

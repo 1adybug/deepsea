@@ -22,7 +22,7 @@ export type CoordTuple = [longitude: number, latitude: number]
 
 export type CoordString = string
 
-export type CoordInput = CoordObject | CoordTuple | CoordString
+export type CoordInput = CoordObject | CoordBase | CoordTuple | CoordString
 
 export type CoordConstructorArgs =
     | [longitude: number, latitude: number]
@@ -555,26 +555,30 @@ export function canCoordsBePolygon(coords: CoordTuple[]): boolean {
  * @returns {CoordTuple[]} 可能的两个坐标
  */
 export function getCoordsWithCertainDistance(coord: CoordTuple, coord2: CoordTuple, d: number, d2: number): CoordTuple[] {
+    if (!Number.isFinite(d) || !Number.isFinite(d2) || d < 0 || d2 < 0) throw new RangeError("Distances must be finite and nonnegative")
     const [longitude, latitude] = coord
     const [longitude2, latitude2] = coord2
+    const deltaLongitude = longitude2 - longitude
+    const deltaLatitude = latitude2 - latitude
+    const dx = getDistance(coord, [longitude2, latitude]) * Math.sign(deltaLongitude)
+    const dy = getDistance(coord, [longitude, latitude2]) * Math.sign(deltaLatitude)
+    const distance = Math.hypot(dx, dy)
+    if (distance === 0 || distance > d + d2 || distance < Math.abs(d - d2)) return []
 
-    const [m, n] = [latitude2 - latitude, longitude2 - longitude]
+    const longitudeStep = longitude <= 179 ? 1 : -1
+    const latitudeStep = latitude <= 89 ? 1 : -1
+    const xScale = deltaLongitude === 0 ? getDistance(coord, [longitude + longitudeStep, latitude]) : dx / deltaLongitude
+    const yScale = deltaLatitude === 0 ? getDistance(coord, [longitude, latitude + latitudeStep]) : dy / deltaLatitude
+    if (xScale === 0 || yScale === 0) return []
 
-    const s = getDistance(coord, [longitude, latitude2]) / m
-    const t = getDistance(coord, [longitude2, latitude]) / n
-    const e = m * s
-    const f = n * t
-    const g = -e / f
-    const h = (e ** 2 + f ** 2 + d ** 2 - d2 ** 2) / (2 * f)
-    const a = g ** 2 + 1
-    const b = 2 * g * h
-    const c = h ** 2 - d ** 2
-    const ox1 = (-b + (b ** 2 - 4 * a * c) ** (1 / 2)) / (2 * a)
-    const oy1 = g * ox1 + h
-    const ox2 = (-b - (b ** 2 - 4 * a * c) ** (1 / 2)) / (2 * a)
-    const oy2 = g * ox2 + h
+    const along = (d * d - d2 * d2 + distance * distance) / (2 * distance)
+    const height = Math.sqrt(Math.max(0, d * d - along * along))
+    const x = (along * dx) / distance
+    const y = (along * dy) / distance
+    const offsetX = (-dy * height) / distance
+    const offsetY = (dx * height) / distance
     return [
-        [oy1 / t + longitude, ox1 / s + latitude],
-        [oy2 / t + longitude, ox2 / s + latitude],
+        [(x + offsetX) / xScale + longitude, (y + offsetY) / yScale + latitude],
+        [(x - offsetX) / xScale + longitude, (y - offsetY) / yScale + latitude],
     ]
 }

@@ -20,5 +20,5 @@ export function renderToText(node: ReactNode): string {
 
     const str = renderToString(node)
     const doc = new DOMParser().parseFromString(str, "text/html")
-    return doc.body.innerText
+    return doc.body.textContent ?? ""
 }

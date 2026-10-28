@@ -248,7 +248,7 @@ for (const [key, value] of Object.entries(exports)) {
 manifest.exports = exports
 manifest.sideEffects = ["./dist/auto.*", "./dist/generated/global/**", "./dist/generated/global-virtual/**"]
 manifest.scripts.prebuild = "node scripts/generate.mjs"
-manifest.files = ["dist", "api.d.ts", "types.d.ts"]
+manifest.files = ["dist", "api.d.ts", "types.d.ts", "README.zh-CN.md"]
 manifest.arrayMethods = profiles
 const manifestText = JSON.stringify(manifest, null, 4) + "\n"
 if ((await readFile(manifestPath, "utf8")) !== manifestText) await writeFile(manifestPath, manifestText)

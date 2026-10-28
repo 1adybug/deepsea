@@ -19,13 +19,13 @@ export function createCookieStorage(): CookieStorage {
             Object.keys(Cookies.get() || {})?.forEach(key => Cookies.remove(key))
         },
         getItem(key) {
-            return Cookies.get(key) || null
+            return Cookies.get(key) ?? null
         },
         setItem(key, value, options) {
             Cookies.set(key, value, options)
         },
         key(index) {
-            return Object.keys(Cookies.get())[index]
+            return Object.keys(Cookies.get())[index] ?? null
         },
         removeItem(key) {
             Cookies.remove(key)

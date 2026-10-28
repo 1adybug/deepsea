@@ -18,3 +18,12 @@ it("generates utilities through the Tailwind 3 plugin API", async () => {
     expect(result.css).toContain("text-align-last: justify")
     expect(result.css).toContain("background-size: 100% 100%")
 })
+
+it("supports responsive and hover variants through the host Tailwind compiler", async () => {
+    const result = await postcss([
+        tailwindcss({ content: [{ raw: '<div class="hover:fill-x md:fill-y"></div>' }], plugins: [soda()], corePlugins: { preflight: false } }),
+    ]).process("@tailwind utilities;", { from: undefined })
+    expect(result.css).toContain(".hover\\:fill-x:hover")
+    expect(result.css).toContain("@media (min-width: 768px)")
+    expect(result.css).toContain(".md\\:fill-y")
+})

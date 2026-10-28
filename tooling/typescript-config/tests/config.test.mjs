@@ -17,3 +17,22 @@ test("TypeScript resolves all shared presets with strict checking and bundler re
         if (name === "app") assert.equal(parsed.options.noEmit, true)
     }
 })
+
+test("shared presets preserve consumer overrides and enforce strict assignability", () => {
+    const base = fileURLToPath(new URL("../base.json", import.meta.url))
+    const config = ts.parseJsonConfigFileContent({ extends: base, compilerOptions: { target: "ES2022", noEmit: true }, files: [] }, ts.sys, process.cwd())
+    assert.equal(config.options.target, ts.ScriptTarget.ES2022)
+    assert.equal(config.options.noEmit, true)
+    assert.equal(config.options.strict, true)
+    assert.equal(config.options.verbatimModuleSyntax, true)
+    const source = "const value: number = null; export { value }"
+    const path = fileURLToPath(new URL("./strict-fixture.ts", import.meta.url))
+    const host = ts.createCompilerHost(config.options)
+    const getSourceFile = host.getSourceFile.bind(host)
+    host.getSourceFile = (name, languageVersion, onError, shouldCreateNewSourceFile) =>
+        name.replaceAll("\\", "/") === path.replaceAll("\\", "/")
+            ? ts.createSourceFile(path, source, languageVersion)
+            : getSourceFile(name, languageVersion, onError, shouldCreateNewSourceFile)
+    const program = ts.createProgram([path], config.options, host)
+    assert.ok(program.getSemanticDiagnostics().some(diagnostic => diagnostic.code === 2322))
+})

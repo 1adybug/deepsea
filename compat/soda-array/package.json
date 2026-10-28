@@ -810,7 +810,8 @@
         "./dist/entries/with/**"
     ],
     "files": [
-        "dist"
+        "dist",
+        "README.zh-CN.md"
     ],
     "publishConfig": {
         "access": "public",

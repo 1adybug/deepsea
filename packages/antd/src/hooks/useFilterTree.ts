@@ -105,7 +105,7 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
             const node = rangeNodeMap.get(key)!
             const parentKey = parentMap.get(key)
 
-            if (parentKey) {
+            if (isNonNullable(parentKey)) {
                 const parent = rangeNodeMap.get(parentKey)!
                 parent.children ??= []
                 parent.children.push(node)
@@ -256,8 +256,9 @@ export function useFilterTreeProps<K extends Key = Key, T extends BasicTreeDataN
     function onSelect(selectedKeys: Key[], info: SelectInfo<T>) {
         const newSelectedKeys = [...totalSelectedKeys]
 
-        if (info.selected) totalSelectedKeys.push(info.node.key)
-        else {
+        if (info.selected) {
+            if (!newSelectedKeys.includes(info.node.key)) newSelectedKeys.push(info.node.key)
+        } else {
             const index = newSelectedKeys.indexOf(info.node.key)
             if (index !== -1) newSelectedKeys.splice(index, 1)
         }

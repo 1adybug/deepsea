@@ -15,12 +15,12 @@ export function setFrameTimeout(callback: () => void, frames: number): () => voi
 
     function run() {
         signal = requestAnimationFrame(() => {
-            run()
-
             if (current++ >= frames) {
                 callback()
                 return
             }
+
+            run()
         })
     }
 

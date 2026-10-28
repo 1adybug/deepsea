@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process"
+import { fileURLToPath } from "node:url"
 
 import type { Command } from "commander"
 
@@ -12,13 +13,34 @@ export async function dev(options: Record<string, string>, { args }: Command) {
 
     if (args.length === 0) return
 
-    const watchPath = import.meta.resolve("./watch.js").replace(process.platform === "win32" ? /^file:\/\/\// : /^file:\/\//, "")
+    const watchPath = fileURLToPath(new URL("./watch.js", import.meta.url))
 
-    const child = spawn(process.execPath, [watchPath])
+    const child = spawn(process.execPath, [watchPath], { stdio: "inherit" })
 
     const child2 = spawnCommand({ args })
 
-    child.on("close", () => child2.kill())
+    process.exitCode = await new Promise<number>((resolve, reject) => {
+        let settled = false
 
-    child2.on("close", () => child.kill())
+        function onClose(code: number) {
+            if (settled) return
+            settled = true
+            child.kill()
+            child2.kill()
+            resolve(code)
+        }
+
+        function onError(error: Error) {
+            if (settled) return
+            settled = true
+            child.kill()
+            child2.kill()
+            reject(error)
+        }
+
+        child.once("error", onError)
+        child2.once("error", onError)
+        child.once("close", (code, signal) => onClose(typeof code === "number" ? code : signal ? 1 : 0))
+        child2.once("close", (code, signal) => onClose(typeof code === "number" ? code : signal ? 1 : 0))
+    })
 }

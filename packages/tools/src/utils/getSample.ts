@@ -1,5 +1,6 @@
 export function getSample<T extends Record<string, any>>(data: T[], size?: number): T[] {
     size ??= data.length
+    if (data.length === 0 || size <= 0) return []
     const keys = Object.keys(data[0])
 
     type Values = {

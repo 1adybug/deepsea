@@ -14,10 +14,14 @@ export function useNextSearchParams(options?: SetNextSearchParamsOptions) {
     const pathname = usePathname()
     const searchParams = useSearchParams()
     const optionsRef = useRef(options)
+    const navigationRef = useRef({ router, pathname, searchParams })
     // eslint-disable-next-line react-hooks/refs
     optionsRef.current = options
+    // eslint-disable-next-line react-hooks/refs
+    navigationRef.current = { router, pathname, searchParams }
 
     const setSearchParams: Dispatch<SetStateAction<URLSearchParams>> = useCallback(function setSearchParams(value: SetStateAction<URLSearchParams>) {
+        const { router, pathname, searchParams } = navigationRef.current
         const newSearchParams = typeof value === "function" ? value(searchParams) : value
         const newSearch = newSearchParams.toString()
         const newPathname = newSearchParams.size === 0 ? pathname : `${pathname}?${newSearch}`
@@ -25,7 +29,6 @@ export function useNextSearchParams(options?: SetNextSearchParamsOptions) {
 
         if (replace) router.replace(newPathname, { scroll })
         else router.push(newPathname, { scroll })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return [searchParams, setSearchParams] as const

@@ -29,18 +29,25 @@
         },
         "typecheck": {
             "dependsOn": ["build"],
+            "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/tests/**"],
             "outputs": []
         },
         "test": {
             "dependsOn": ["build"],
-            "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/vitest.config.ts", "$TURBO_ROOT$/tests/setup.ts", "$TURBO_ROOT$/tests/compatibility.ts"],
+            "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/vitest.config.ts", "$TURBO_ROOT$/tests/**"],
             "outputs": []
+        },
+        "test:coverage": {
+            "dependsOn": ["build"],
+            "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/vitest.config.ts", "$TURBO_ROOT$/tests/**"],
+            "outputs": ["coverage/**"]
         },
         "clean": {
             "cache": false
         },
         "test:types": {
             "dependsOn": ["build"],
+            "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/tests/**"],
             "outputs": []
         },
         "@1adybug/xlsx#test": {

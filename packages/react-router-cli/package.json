@@ -1,7 +1,7 @@
 {
     "name": "@1adybug/react-router-cli",
     "version": "0.2.10",
-    "description": "",
+    "description": "Filesystem route generation for React Router, with a CLI and Vite/Rsbuild development integrations.",
     "type": "module",
     "exports": {
         ".": {
@@ -39,7 +39,8 @@
         "prepublishOnly": "pnpm run typecheck && pnpm run build",
         "typecheck": "tsc --noEmit",
         "clean": "node ../../scripts/clean.mjs",
-        "test:types": "tsc --project tsconfig.test.json"
+        "test:types": "tsc --project tsconfig.test.json",
+        "test:coverage": "vitest run --config ../../vitest.config.ts --coverage"
     },
     "keywords": [],
     "authors": [
@@ -48,7 +49,8 @@
     "license": "MIT",
     "files": [
         "dist",
-        "src"
+        "src",
+        "README.zh-CN.md"
     ],
     "publishConfig": {
         "access": "public",
@@ -61,10 +63,10 @@
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/react-router-cli",
     "dependencies": {
+        "@1adybug/tools": "workspace:*",
         "@inquirer/prompts": "catalog:",
         "chokidar": "catalog:",
-        "commander": "catalog:",
-        "@1adybug/tools": "workspace:*"
+        "commander": "catalog:"
     },
     "peerDependencies": {
         "@rsbuild/core": "catalog:",
@@ -79,11 +81,13 @@
         }
     },
     "devDependencies": {
-        "@types/node": "catalog:",
-        "typescript": "catalog:",
         "@1adybug/build-config": "workspace:*",
+        "@1adybug/tanstack-query": "workspace:*",
         "@1adybug/typescript-config": "workspace:*",
         "@rslib/core": "catalog:",
+        "@tanstack/react-query": "catalog:",
+        "@types/node": "catalog:",
+        "typescript": "catalog:",
         "vitest": "catalog:"
     }
 }

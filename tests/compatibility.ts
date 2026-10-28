@@ -15,6 +15,24 @@ export function runCompatibilityTests() {
     const core = JSON.parse(readFileSync(resolve(coreDirectory, "package.json"), "utf8"))
     const require = createRequire(manifestPath)
 
+    it("keeps implementation dependencies and peer contracts aligned", () => {
+        expect(manifest.dependencies).toEqual({ [config.target]: "workspace:*" })
+        expect(manifest.peerDependencies ?? {}).toEqual(core.peerDependencies ?? {})
+    })
+
+    it("forwards every declared entry and declaration to the implementation", () => {
+        for (const [subpath, conditions] of Object.entries(manifest.exports) as [string, Record<string, string>][]) {
+            if (subpath.includes("*")) continue
+            const suffix = subpath === "." ? "" : subpath.slice(1)
+
+            for (const [condition, path] of Object.entries(conditions)) {
+                const content = readFileSync(resolve(directory, path), "utf8")
+                expect(content).toContain(config.target + suffix)
+                if (condition === "require" && path.endsWith(".cjs")) expect(content).toContain("module.exports = require(")
+            }
+        }
+    })
+
     function resolveExport(exports: Record<string, Record<string, string>>, subpath: string): Record<string, string> {
         if (exports[subpath]) return exports[subpath]!
 

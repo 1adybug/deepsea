@@ -27,3 +27,13 @@ test("barrel generation excludes declarations, tests and nested directories, and
     await writeCode(output, (await getExports(root)).join("\n"))
     assert.doesNotMatch(await readFile(output, "utf8"), /utils\/a/)
 })
+
+test("barrel generation handles empty folders and propagates missing source errors", async t => {
+    const root = await mkdtemp(join(tmpdir(), "deepsea-empty-"))
+    t.after(() => rm(root, { recursive: true, force: true }))
+    await assert.rejects(getExports(root), { code: "ENOENT" })
+    await mkdir(join(root, "src"))
+    assert.deepEqual(await getExports(root), [])
+    await writeCode(join(root, "src/index.ts"), "")
+    assert.equal(await readFile(join(root, "src/index.ts"), "utf8"), "\n")
+})

@@ -83,6 +83,7 @@ export const LoopSwiper: FC<LoopSwiperProps> = ({
 
         observer.observe(wrapperEle)
         observer.observe(containerEle)
+        return () => observer.disconnect()
     }, [])
 
     const style = css`

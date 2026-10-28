@@ -101,7 +101,7 @@ export function useNativeQueryState<T extends string = never, K extends QueryToS
     const setQueryState: SetQueryState<T, K, P> = useCallback(state => {
         const newState = typeof state === "function" ? state(queryStateRef.current) : state
         queryStateRef.current = newState as QueryState<T, K, P>
-        const { searchParams, setSearchParams, search, stringify } = cache.current
+        const { searchParams, setSearchParams, search, stringify, exact } = cache.current
         let newSearchParams: URLSearchParams
 
         if (exact) {
@@ -173,7 +173,6 @@ export function useNativeQueryState<T extends string = never, K extends QueryToS
         }
 
         setSearchParams(newSearchParams)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return [queryState, setQueryState]

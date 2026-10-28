@@ -1,6 +1,9 @@
+import { execFile } from "node:child_process"
+import { promisify } from "node:util"
+
 import which from "which"
 
-import { execAsync } from "./execAsync"
+const execFileAsync = promisify(execFile)
 
 export type UnzipOptions = {
     /**
@@ -30,5 +33,5 @@ export type UnzipOptions = {
  */
 export async function unzip({ input, output, cwd }: UnzipOptions) {
     await which("7z")
-    return await execAsync(`7z x ${input} -o${output}`, { cwd })
+    return (await execFileAsync("7z", ["x", input, `-o${output}`], { cwd })).stdout
 }

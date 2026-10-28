@@ -17,5 +17,5 @@ it("preserves worksheet primitives, large integers and empty values", () => {
     expect(renderToWorkSheetCell(9007199254740993n)).toBe("9007199254740993")
     expect(renderToWorkSheetCell({ invalid: true })).toBe("")
     expect(renderToText(null)).toBe("")
-    expect(renderToText("格数")).toBe("格数")
+    expect(renderToText("测试")).toBe("测试")
 })

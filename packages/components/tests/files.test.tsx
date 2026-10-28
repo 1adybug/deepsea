@@ -4,8 +4,8 @@ import { expect, it, vi } from "vitest"
 import { getFileData, InputFile } from "../src/components/InputFile"
 
 it("reads Unicode text and preserves the original File in file mode", async () => {
-    const file = new File(["格数"], "data.txt", { type: "text/plain" })
-    await expect(getFileData(file, "text")).resolves.toBe("格数")
+    const file = new File(["测试"], "data.txt", { type: "text/plain" })
+    await expect(getFileData(file, "text")).resolves.toBe("测试")
     await expect(getFileData(file, "file")).resolves.toBe(file)
     await expect(getFileData(file, "base64")).resolves.toMatch(/^data:text\/plain;base64,/)
 })

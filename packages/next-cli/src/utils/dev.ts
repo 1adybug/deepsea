@@ -33,8 +33,16 @@ export async function dev(options: Record<string, string>, { args }: Command) {
             resolve(code)
         }
 
-        child.once("error", reject)
-        child2.once("error", reject)
+        function onError(error: Error) {
+            if (settled) return
+            settled = true
+            child.kill()
+            child2.kill()
+            reject(error)
+        }
+
+        child.once("error", onError)
+        child2.once("error", onError)
         child.once("close", (code, signal) => onClose(typeof code === "number" ? code : signal ? 1 : 0))
         child2.once("close", (code, signal) => onClose(typeof code === "number" ? code : signal ? 1 : 0))
     })

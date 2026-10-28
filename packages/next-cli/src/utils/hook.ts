@@ -85,7 +85,6 @@ export async function createHook(path: string, hookMap: Record<string, HookData>
     const actionPath = normalizePathSeparator(join("actions", actionImportPath))
     const hookActionImportPath = await resolveProjectImportPath(hookPath, actionPath)
     const hookPresetImportPath = await resolveProjectImportPath(hookPath, normalizePathSeparator(join("presets", mutationPresetImportPath)))
-    const mutationPresetSharedImportPath = await resolveProjectImportPath(mutationPresetPath, normalizePathSeparator(join("shared", actionImportPath)))
 
     const mutationHook = `import { createRequestFn } from "@1adybug/tools"
 
@@ -98,39 +97,20 @@ export const ${name}Client = createRequestFn(${name}Action)
 export const use${upName} = createUse${upName}(${name}Client)
 `
 
-    const mutationPreset = `import { useId } from "react"
+    const presetClientImportPath = await resolveProjectImportPath(mutationPresetPath, normalizePathSeparator(hookPath.replace(/\.[tj]sx?$/, "")))
 
-import { withUseMutationDefaults } from "@1adybug/tanstack-query"
+    const mutationPreset = `import { withUseMutationDefaults } from "@1adybug/tanstack-query"
 
-import { ${name} } from "${mutationPresetSharedImportPath}"
+import type { ${name}Client } from "${presetClientImportPath}"
 
-export const createUse${upName} = withUseMutationDefaults<typeof ${name}>(() => {
-    const key = useId()
-
-    return {
-        onMutate(variables, context) {
-            message.open({
-                key,
-                type: "loading",
-                content: "中...",
-                duration: 0,
-            })
-        },
-        onSuccess(data, variables, onMutateResult, context) {
-            context.client.invalidateQueries({ queryKey: ["query-${key.replace(/^.+?-/, "")}"] })
-            context.client.invalidateQueries({ queryKey: ["get-${key.replace(/^.+?-/, "")}", data.id] })
-
-            message.open({
-                key,
-                type: "success",
-                content: "成功",
-            })
-        },
-        onError(error, variables, onMutateResult, context) {
-            message.destroy(key)
-        },
-        onSettled(data, error, variables, onMutateResult, context) {},
-    }
+export const createUse${upName} = withUseMutationDefaults<typeof ${name}Client>({
+    onSuccess(data, variables, onMutateResult, context) {
+        void context.client.invalidateQueries({ queryKey: ["query-${key.replace(/^.+?-/, "")}"] })
+        const entity: unknown = data
+        if (entity !== null && typeof entity === "object" && "id" in entity) {
+            void context.client.invalidateQueries({ queryKey: ["get-${key.replace(/^.+?-/, "")}", entity.id] })
+        }
+    },
 })
 `
 
@@ -141,7 +121,7 @@ import { ${name}Action } from "${hookActionImportPath}"
 
 export const ${name}Client = createRequestFn(${name}Action)
 
-export type ${clientInputType} = Parameters<typeof ${name}Client> extends [] ? undefined : Parameters<typeof ${name}Client>[0]
+export type ${clientInputType} = Parameters<typeof ${name}Client> extends [] ? undefined : Parameters<typeof ${name}Client>[number]
 
 export function ${name}ClientOptional(id?: ${clientInputType} | null) {
     return isNonNullable(id) ? ${name}Client(id) : null

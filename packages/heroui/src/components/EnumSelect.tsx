@@ -158,6 +158,14 @@ export function createFieldEnumSelect<Options extends SelectOptions>(enumObject?
         field,
         ...rest
     }: FieldEnumSelectProps<Options, Mode, DisallowEmptySelection, Empty>): ReactNode {
-        return <EnumSelect<Options, Mode, DisallowEmptySelection, Empty> enumObject={enumObject} {...getFieldProps(field)} {...rest} />
+        return (
+            <EnumSelect<Options, Mode, DisallowEmptySelection, Empty>
+                enumObject={enumObject}
+                value={field.state.value}
+                onValueChange={field.handleChange}
+                {...getFieldProps(field)}
+                {...rest}
+            />
+        )
     } as unknown as FieldEnumSelectComponent<EnumValue<Options>>
 }

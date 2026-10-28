@@ -53,47 +53,30 @@ export async function createHook(path: string, hookMap: Record<string, HookData>
     const hookPath = join("hooks", dir, hookName)
     const apiImportPath = await resolveProjectImportPath(hookPath, join("apis", dir, name))
 
-    const mutationHook = `import { useId } from "react"
-
-import { useMutation, UseMutationOptions } from "@tanstack/react-query"
+    const mutationHook = `import { useMutation, type UseMutationOptions } from "@tanstack/react-query"
 
 import { ${name} } from "${apiImportPath}"
 
 export interface Use${upName}Params<TOnMutateResult = unknown> extends Omit<
-    UseMutationOptions<Awaited<ReturnType<typeof ${name}>>, Error, Parameters<typeof ${name}>[0], TOnMutateResult>,
+    UseMutationOptions<Awaited<ReturnType<typeof ${name}>>, Error, (Parameters<typeof ${name}> extends [] ? void : Parameters<typeof ${name}>[number]), TOnMutateResult>,
     "mutationFn"
 > {}
 
 export function use${upName}<TOnMutateResult = unknown>({ onMutate, onSuccess, onError, onSettled, ...rest }: Use${upName}Params<TOnMutateResult> = {}) {
-    const key = useId()
-
     return useMutation({
         mutationFn: ${name},
         onMutate(variables, context) {
-            message.open({
-                key,
-                type: "loading",
-                content: "中...",
-                duration: 0,
-            })
-
             return onMutate?.(variables, context) as TOnMutateResult | Promise<TOnMutateResult>
         },
         onSuccess(data, variables, onMutateResult, context) {
-            context.client.invalidateQueries({ queryKey: ["query-${key.replace(/^.+?-/, "")}"] })
-            context.client.invalidateQueries({ queryKey: ["get-${key.replace(/^.+?-/, "")}", data.id] })
-
-            message.open({
-                key,
-                type: "success",
-                content: "成功",
-            })
-
+            void context.client.invalidateQueries({ queryKey: ["query-${key.replace(/^.+?-/, "")}"] })
+            const entity: unknown = data
+        if (entity !== null && typeof entity === "object" && "id" in entity) {
+                void context.client.invalidateQueries({ queryKey: ["get-${key.replace(/^.+?-/, "")}", entity.id] })
+            }
             return onSuccess?.(data, variables, onMutateResult, context)
         },
         onError(error, variables, onMutateResult, context) {
-            message.destroy(key)
-
             return onError?.(error, variables, onMutateResult, context)
         },
         onSettled(data, error, variables, onMutateResult, context) {
@@ -109,7 +92,7 @@ import { createUseQuery } from "@1adybug/tanstack-query"
 
 import { ${name} } from "${apiImportPath}"
 
-export function ${name}Optional(id?: string | undefined | null) {
+export function ${name}Optional(id?: (Parameters<typeof ${name}> extends [] ? undefined : (Parameters<typeof ${name}> extends [] ? void : Parameters<typeof ${name}>[number])) | null) {
     return isNonNullable(id) ? ${name}(id) : null
 }
 

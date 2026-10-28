@@ -1,5 +1,6 @@
 import { createWriteStream } from "node:fs"
 import { Readable } from "node:stream"
+import { pipeline } from "node:stream/promises"
 
 export type SaveFileOptions = {
     /** 要保存的文件 */
@@ -12,12 +13,5 @@ export type SaveFileOptions = {
  * 保存文件
  */
 export async function saveFile({ input, output }: SaveFileOptions) {
-    await new Promise<void>((resolve, reject) => {
-        const writeAble = createWriteStream(output)
-
-        Readable.fromWeb(input.stream() as any)
-            .pipe(writeAble)
-            .on("finish", resolve)
-            .on("error", reject)
-    })
+    await pipeline(Readable.fromWeb(input.stream() as any), createWriteStream(output))
 }

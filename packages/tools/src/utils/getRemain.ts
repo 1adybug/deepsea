@@ -6,5 +6,5 @@
  */
 export function getRemain(a: number, b: number) {
     const r = a % b
-    return a >= 0 ? r : r + Math.abs(b)
+    return r === 0 ? 0 : r < 0 ? r + Math.abs(b) : r
 }

@@ -137,7 +137,7 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
                 style={{
                     position: "absolute",
                     width: direction === "vertical" ? "100%" : containerSize && (overflow ? containerSize.width * 2 + gap : containerSize.width),
-                    height: direction === "horizontal" ? "100%" : containerSize && (overflow ? containerSize.height * 2 + gap : containerSize.width),
+                    height: direction === "horizontal" ? "100%" : containerSize && (overflow ? containerSize.height * 2 + gap : containerSize.height),
                 }}
             >
                 <div
@@ -157,7 +157,6 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>((p
                 </div>
                 {overflow && (
                     <div
-                        ref={container}
                         className={clsx(
                             css`
                                 position: absolute;

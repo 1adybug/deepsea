@@ -31,11 +31,9 @@ export class TransitionNum {
         }
 
         this.#target = target
+        this.#clear?.()
 
-        if (this.equal(this.#target, this.#current)) {
-            this.#clear?.()
-            return
-        }
+        if (this.equal(this.#target, this.#current)) return
 
         this.#clear = setFrameInterval(() => {
             const a = this.#current

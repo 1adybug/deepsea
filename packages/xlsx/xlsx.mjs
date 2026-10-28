@@ -27471,7 +27471,7 @@ function writeFileSyncXLSX(wb/*:Workbook*/, filename/*:string*/, opts/*:?WriteFi
 
 
 function writeFileAsync(filename/*:string*/, wb/*:Workbook*/, opts/*:?WriteFileOpts*/, cb/*:?(e?:ErrnoError)=>void*/) {
-	var o = opts||{}; o.type = 'file';
+	var o = (typeof opts === 'function' ? {} : opts)||{}; o.type = 'file';
 	o.file = filename;
 	resolve_book_type(o);
 	o.type = 'buffer';

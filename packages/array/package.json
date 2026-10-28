@@ -1,7 +1,7 @@
 {
     "name": "@1adybug/array",
     "version": "0.1.10",
-    "description": "",
+    "description": "Typed standalone array functions, modern Array polyfills, and opt-in prototype extensions for JavaScript and TypeScript.",
     "type": "module",
     "exports": {
         ".": {
@@ -674,7 +674,8 @@
         "clean": "node ../../scripts/clean.mjs",
         "test": "vitest run --config ../../vitest.config.ts",
         "test:types": "tsc --project tsconfig.test.json && tsc --project tests/tsconfig.json && tsc --project tests/tsconfig.node.json",
-        "prebuild": "node scripts/generate.mjs"
+        "prebuild": "node scripts/generate.mjs",
+        "test:coverage": "vitest run --config ../../vitest.config.ts --coverage"
     },
     "keywords": [],
     "authors": [
@@ -684,7 +685,8 @@
     "files": [
         "dist",
         "api.d.ts",
-        "types.d.ts"
+        "types.d.ts",
+        "README.zh-CN.md"
     ],
     "publishConfig": {
         "access": "public",

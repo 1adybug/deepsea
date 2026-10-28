@@ -41,7 +41,7 @@ export function getPagination<T>({ data, exact, total, pageNum, pageSize }: Pagi
     total ??= data.length
     const list = exact ? data.slice(0, pageSize) : data.slice(start, end)
     const size = list.length
-    const range = Math.floor(pageNum / 8)
+    const range = Math.floor((pageNum - 1) / 8)
     const hasNextPage = total > end
     const hasPreviousPage = start > 0
     const isFirstPage = pageNum === 1

@@ -1,7 +1,7 @@
 {
     "name": "@1adybug/store",
     "version": "5.3.8",
-    "description": "😉 Simpler and more effective state management for react.",
+    "description": "Small React external stores with selectors, subscriptions, immutable object updates and optional persistent storage.",
     "type": "module",
     "exports": {
         ".": {
@@ -21,7 +21,8 @@
         "typecheck": "tsc --noEmit",
         "clean": "node ../../scripts/clean.mjs",
         "test": "vitest run --config ../../vitest.config.ts",
-        "test:types": "tsc --project tsconfig.test.json"
+        "test:types": "tsc --project tsconfig.test.json",
+        "test:coverage": "vitest run --config ../../vitest.config.ts --coverage"
     },
     "keywords": [
         "react",
@@ -37,7 +38,8 @@
     "license": "MIT",
     "files": [
         "dist",
-        "src"
+        "src",
+        "README.zh-CN.md"
     ],
     "publishConfig": {
         "access": "public",
@@ -49,16 +51,17 @@
         "directory": "packages/store"
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/store",
-    "dependencies": {},
     "devDependencies": {
-        "typescript": "catalog:",
         "@1adybug/build-config": "workspace:*",
         "@1adybug/typescript-config": "workspace:*",
         "@rslib/core": "catalog:",
-        "vitest": "catalog:",
-        "@testing-library/react": "catalog:",
         "@testing-library/dom": "catalog:",
-        "jsdom": "catalog:"
+        "@testing-library/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "jsdom": "catalog:",
+        "react-dom": "catalog:",
+        "typescript": "catalog:",
+        "vitest": "catalog:"
     },
     "peerDependencies": {
         "@types/react": "catalog:",

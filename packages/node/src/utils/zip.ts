@@ -1,8 +1,10 @@
+import { execFile } from "node:child_process"
 import { cpus } from "node:os"
+import { promisify } from "node:util"
 
 import which from "which"
 
-import { execAsync } from "./execAsync"
+const execFileAsync = promisify(execFile)
 
 export type ZipOptions = {
     /**
@@ -49,10 +51,12 @@ export type ZipOptions = {
 export async function zip({ input, output, thread = "auto", level, password, cwd, filter }: ZipOptions) {
     await which("7z")
     filter = Array.isArray(filter) ? filter : typeof filter === "string" ? [filter] : []
-    input = Array.isArray(input) ? input.join(" ") : input
     if (thread === "max") thread = cpus().length
-    return await execAsync(
-        `7z a ${output} ${input} -mmt=${thread === "auto" ? "on" : thread}${typeof level === "number" ? ` -mx=${level}` : ""}${password ? ` -p${password}` : ""}${filter.length > 0 ? ` ${filter.map(item => `-x!${item}`).join(" ")}` : ""}`,
-        { cwd },
-    )
+
+    const args = ["a", output, ...(Array.isArray(input) ? input : [input]), `-mmt=${thread === "auto" ? "on" : thread}`]
+
+    if (typeof level === "number") args.push(`-mx=${level}`)
+    if (password) args.push(`-p${password}`)
+    args.push(...filter.map(item => `-x!${item}`))
+    return (await execFileAsync("7z", args, { cwd })).stdout
 }

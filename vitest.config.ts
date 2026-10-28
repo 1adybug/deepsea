@@ -18,5 +18,12 @@ export default defineConfig({
         setupFiles: browser ? [fileURLToPath(new URL("./tests/setup.ts", import.meta.url))] : [],
         maxWorkers: 2,
         restoreMocks: true,
+        coverage: {
+            provider: "v8",
+            include: ["src/**/*.{ts,tsx}"],
+            exclude: ["src/**/*.d.ts", "src/generated/**"],
+            reporter: ["text", "json-summary", "html"],
+            reportsDirectory: "coverage",
+        },
     },
 })

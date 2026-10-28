@@ -1,7 +1,7 @@
 {
     "name": "@1adybug/tools",
     "version": "5.48.5",
-    "description": "格数科技自用工具包",
+    "description": "General-purpose TypeScript utilities for parsing, collections, request middleware, browser storage, spreadsheets, geometry and animation.",
     "type": "module",
     "exports": {
         ".": {
@@ -22,7 +22,8 @@
         "typecheck": "tsc --noEmit",
         "clean": "node ../../scripts/clean.mjs",
         "test": "vitest run --config ../../vitest.config.ts",
-        "test:types": "tsc --project tsconfig.test.json"
+        "test:types": "tsc --project tsconfig.test.json",
+        "test:coverage": "vitest run --config ../../vitest.config.ts --coverage"
     },
     "keywords": [],
     "authors": [
@@ -31,7 +32,8 @@
     "license": "MIT",
     "files": [
         "dist",
-        "src"
+        "src",
+        "README.zh-CN.md"
     ],
     "publishConfig": {
         "access": "public",

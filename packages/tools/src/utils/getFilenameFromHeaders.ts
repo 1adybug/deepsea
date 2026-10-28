@@ -6,8 +6,15 @@
 export function getFilenameFromHeaders(headers: Headers) {
     const disposition = headers.get("content-disposition")
     if (!disposition) return undefined
-    const reg = /filename=(.+?);/
-    const match = disposition.match(reg)
+    const encoded = disposition.match(/(?:^|;)\s*filename\*=UTF-8''([^;]+)/i)
+
+    if (encoded) {
+        try {
+            return decodeURIComponent(encoded[1].trim())
+        } catch {}
+    }
+
+    const match = disposition.match(/(?:^|;)\s*filename=(?:"((?:\\.|[^"\\])*)"|([^;]*))/i)
     if (!match) return undefined
-    return match[1]
+    return match[1]?.replace(/\\(.)/g, "$1") ?? match[2].trim()
 }

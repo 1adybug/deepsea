@@ -50,15 +50,14 @@ export function getRangeUpdater({
     if (!isNonNullable(value)) return getEmptyValue(emptyValue)
     defaultTime = typeof defaultTime === "function" ? defaultTime() : defaultTime
     const { start, end } = isNonNullable(defaultTime) && isRangeDefaultTime(defaultTime) ? defaultTime : { start: defaultTime, end: defaultTime }
-    if (valueMode === "timestamp") return [getTimeValue(value.start, start), getTimeValue(value.end, end)]
+    const startTimestamp = getTimeValue(value.start, start)
+    const endTimestamp = getTimeValue(value.end, end)
+    if (valueMode === "timestamp") return [startTimestamp, endTimestamp]
 
     function updater(prev: [Date, Date] | [number, number] | null | undefined): [Date, Date] | [number, number] | null | undefined {
-        return prev?.[0] instanceof Date &&
-            prev?.[1] instanceof Date &&
-            prev[0].valueOf() === value!.start.valueOf() &&
-            prev[1].valueOf() === value!.end.valueOf()
+        return prev?.[0] instanceof Date && prev?.[1] instanceof Date && prev[0].valueOf() === startTimestamp && prev[1].valueOf() === endTimestamp
             ? prev
-            : [new Date(getTimeValue(value!.start, start)!), new Date(getTimeValue(value!.end, end)!)]
+            : [new Date(startTimestamp), new Date(endTimestamp)]
     }
 
     return updater

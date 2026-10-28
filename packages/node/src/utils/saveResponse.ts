@@ -1,5 +1,6 @@
 import { createWriteStream } from "node:fs"
 import { Readable } from "node:stream"
+import { pipeline } from "node:stream/promises"
 
 /**
  * 从 Response 对象中下载文件
@@ -7,11 +8,6 @@ import { Readable } from "node:stream"
  * @param file 文件路径
  */
 export async function saveResponse(response: Response, file: string) {
-    const writeable = createWriteStream(file)
-    await new Promise<void>((resolve, reject) =>
-        Readable.fromWeb(response.body! as any)
-            .pipe(writeable)
-            .on("close", resolve)
-            .on("error", reject),
-    )
+    if (response.body === null) throw new Error("Response has no body")
+    await pipeline(Readable.fromWeb(response.body as any), createWriteStream(file))
 }

@@ -1,7 +1,7 @@
 {
     "name": "@1adybug/types",
     "version": "6.7.9",
-    "description": "",
+    "description": "Compile-time TypeScript utilities for union analysis, strict object transformations, tuple indexing, function parameters and query models.",
     "type": "module",
     "exports": {
         ".": {
@@ -21,7 +21,8 @@
         "typecheck": "tsc --noEmit",
         "clean": "node ../../scripts/clean.mjs",
         "test": "vitest run --config ../../vitest.config.ts",
-        "test:types": "tsc --project tsconfig.test.json"
+        "test:types": "tsc --project tsconfig.test.json",
+        "test:coverage": "vitest run --config ../../vitest.config.ts --coverage"
     },
     "keywords": [],
     "authors": [
@@ -30,7 +31,8 @@
     "license": "MIT",
     "files": [
         "dist",
-        "src"
+        "src",
+        "README.zh-CN.md"
     ],
     "publishConfig": {
         "access": "public",

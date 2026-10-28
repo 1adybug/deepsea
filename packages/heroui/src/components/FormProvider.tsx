@@ -27,7 +27,7 @@ export interface FormProviderProps extends Partial<FormContext> {
 
 export const FormProvider: FC<FormProviderProps> = ({ children, emptyValue }) => {
     const config = useContext(FormContext)
-    const newConfig = assign(config, { emptyValue })
+    const newConfig = assign({ ...config }, { emptyValue })
 
     return <FormContext value={newConfig}>{children}</FormContext>
 }
