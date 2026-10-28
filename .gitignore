@@ -16,5 +16,6 @@ bun.lock
 coverage
 *.tsbuildinfo
 .artifacts
+packages/array/src/generated/
 .yarnrc.yml
 .yarn

@@ -10,7 +10,7 @@
 | sdnext                     | 共享模块路径、命名与生成文件幂等性                                            |
 | sdrr                       | 默认 / 自定义错误边界和静态目录与动态路由关系                                 |
 | @1adybug/antd              | Zod 规则、样式合并、日期区间、真实表单 selector 订阅                          |
-| @1adybug/array             | 分块、非法参数、去重、差集和幂等扩展                                          |
+| @1adybug/array             | 66 个操作、标准边界语义、缺失原生实现、原型隔离、按需安装、生产打包及类型契约 |
 | @1adybug/coordinate        | 输入规范化、非法输入和 WGS84 / GCJ02 / BD09 往返转换                          |
 | @1adybug/heroui            | 共享字段投影、校验状态、日期和时间默认值                                      |
 | @1adybug/hooks             | 多订阅存储状态同步、函数式更新和查询参数保留                                  |
@@ -34,3 +34,5 @@
 ## 兼容层测试
 
 `compat/*` 复用 `tests/compatibility.ts`，每个旧包独立运行 ESM 导出引用检查、CommonJS 模块对象检查及类型契约检查。CLI 通过真实子进程检查旧命令的帮助与版本，hooks 的 ESLint 默认配置和数组类型入口也保留。实现包不复制到兼容层。
+
+Array 兼容层同步镜像实现包的 wildcard exports，并测试 pure、global、virtual、profile 和带 .js 后缀的代表路径。公开入口审计会展开全部 wildcard，逐一验证运行时与声明文件存在。Turborepo 的类型检查和测试依赖本包 build，支持干净检出后的入口验证。

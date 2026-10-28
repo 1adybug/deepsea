@@ -10,13 +10,805 @@
             "require": "./dist/index.cjs"
         },
         "./types": {
-            "types": "./dist/types.d.ts"
+            "types": "./dist/entries/types.d.ts"
+        },
+        "./auto": {
+            "types": "./dist/entries/auto.d.ts",
+            "import": "./dist/entries/auto.js",
+            "require": "./dist/entries/auto.cjs"
+        },
+        "./pure": {
+            "types": "./dist/entries/pure.d.ts",
+            "import": "./dist/entries/pure.js",
+            "require": "./dist/entries/pure.cjs"
+        },
+        "./pure/*": {
+            "types": "./dist/entries/pure/*.d.ts",
+            "import": "./dist/entries/pure/*.js",
+            "require": "./dist/entries/pure/*.cjs"
+        },
+        "./virtual": {
+            "types": "./dist/entries/virtual.d.ts",
+            "import": "./dist/entries/virtual.js",
+            "require": "./dist/entries/virtual.cjs"
+        },
+        "./virtual/*": {
+            "types": "./dist/entries/virtual/*.d.ts",
+            "import": "./dist/entries/virtual/*.js",
+            "require": "./dist/entries/virtual/*.cjs"
+        },
+        "./*": {
+            "types": "./dist/entries/*.d.ts",
+            "import": "./dist/entries/*.js",
+            "require": "./dist/entries/*.cjs"
+        },
+        "./es": {
+            "types": "./dist/entries/es.d.ts",
+            "import": "./dist/entries/es.js",
+            "require": "./dist/entries/es.cjs"
+        },
+        "./es/*": {
+            "types": "./dist/entries/es/*.d.ts",
+            "import": "./dist/entries/es/*.js",
+            "require": "./dist/entries/es/*.cjs"
+        },
+        "./es/array": {
+            "types": "./dist/entries/es/array.d.ts",
+            "import": "./dist/entries/es/array.js",
+            "require": "./dist/entries/es/array.cjs"
+        },
+        "./es/array/*": {
+            "types": "./dist/entries/es/array/*.d.ts",
+            "import": "./dist/entries/es/array/*.js",
+            "require": "./dist/entries/es/array/*.cjs"
+        },
+        "./pure/es": {
+            "types": "./dist/entries/pure/es.d.ts",
+            "import": "./dist/entries/pure/es.js",
+            "require": "./dist/entries/pure/es.cjs"
+        },
+        "./pure/es/*": {
+            "types": "./dist/entries/pure/es/*.d.ts",
+            "import": "./dist/entries/pure/es/*.js",
+            "require": "./dist/entries/pure/es/*.cjs"
+        },
+        "./pure/es/array": {
+            "types": "./dist/entries/pure/es/array.d.ts",
+            "import": "./dist/entries/pure/es/array.js",
+            "require": "./dist/entries/pure/es/array.cjs"
+        },
+        "./pure/es/array/*": {
+            "types": "./dist/entries/pure/es/array/*.d.ts",
+            "import": "./dist/entries/pure/es/array/*.js",
+            "require": "./dist/entries/pure/es/array/*.cjs"
+        },
+        "./pure/es/virtual": {
+            "types": "./dist/entries/pure/es/virtual.d.ts",
+            "import": "./dist/entries/pure/es/virtual.js",
+            "require": "./dist/entries/pure/es/virtual.cjs"
+        },
+        "./pure/es/virtual/*": {
+            "types": "./dist/entries/pure/es/virtual/*.d.ts",
+            "import": "./dist/entries/pure/es/virtual/*.js",
+            "require": "./dist/entries/pure/es/virtual/*.cjs"
+        },
+        "./pure/es/array/virtual": {
+            "types": "./dist/entries/pure/es/array/virtual.d.ts",
+            "import": "./dist/entries/pure/es/array/virtual.js",
+            "require": "./dist/entries/pure/es/array/virtual.cjs"
+        },
+        "./pure/es/array/virtual/*": {
+            "types": "./dist/entries/pure/es/array/virtual/*.d.ts",
+            "import": "./dist/entries/pure/es/array/virtual/*.js",
+            "require": "./dist/entries/pure/es/array/virtual/*.cjs"
+        },
+        "./es/virtual": {
+            "types": "./dist/entries/es/virtual.d.ts",
+            "import": "./dist/entries/es/virtual.js",
+            "require": "./dist/entries/es/virtual.cjs"
+        },
+        "./es/virtual/*": {
+            "types": "./dist/entries/es/virtual/*.d.ts",
+            "import": "./dist/entries/es/virtual/*.js",
+            "require": "./dist/entries/es/virtual/*.cjs"
+        },
+        "./es/array/virtual": {
+            "types": "./dist/entries/es/array/virtual.d.ts",
+            "import": "./dist/entries/es/array/virtual.js",
+            "require": "./dist/entries/es/array/virtual.cjs"
+        },
+        "./es/array/virtual/*": {
+            "types": "./dist/entries/es/array/virtual/*.d.ts",
+            "import": "./dist/entries/es/array/virtual/*.js",
+            "require": "./dist/entries/es/array/virtual/*.cjs"
+        },
+        "./stable": {
+            "types": "./dist/entries/stable.d.ts",
+            "import": "./dist/entries/stable.js",
+            "require": "./dist/entries/stable.cjs"
+        },
+        "./stable/*": {
+            "types": "./dist/entries/stable/*.d.ts",
+            "import": "./dist/entries/stable/*.js",
+            "require": "./dist/entries/stable/*.cjs"
+        },
+        "./stable/array": {
+            "types": "./dist/entries/stable/array.d.ts",
+            "import": "./dist/entries/stable/array.js",
+            "require": "./dist/entries/stable/array.cjs"
+        },
+        "./stable/array/*": {
+            "types": "./dist/entries/stable/array/*.d.ts",
+            "import": "./dist/entries/stable/array/*.js",
+            "require": "./dist/entries/stable/array/*.cjs"
+        },
+        "./pure/stable": {
+            "types": "./dist/entries/pure/stable.d.ts",
+            "import": "./dist/entries/pure/stable.js",
+            "require": "./dist/entries/pure/stable.cjs"
+        },
+        "./pure/stable/*": {
+            "types": "./dist/entries/pure/stable/*.d.ts",
+            "import": "./dist/entries/pure/stable/*.js",
+            "require": "./dist/entries/pure/stable/*.cjs"
+        },
+        "./pure/stable/array": {
+            "types": "./dist/entries/pure/stable/array.d.ts",
+            "import": "./dist/entries/pure/stable/array.js",
+            "require": "./dist/entries/pure/stable/array.cjs"
+        },
+        "./pure/stable/array/*": {
+            "types": "./dist/entries/pure/stable/array/*.d.ts",
+            "import": "./dist/entries/pure/stable/array/*.js",
+            "require": "./dist/entries/pure/stable/array/*.cjs"
+        },
+        "./pure/stable/virtual": {
+            "types": "./dist/entries/pure/stable/virtual.d.ts",
+            "import": "./dist/entries/pure/stable/virtual.js",
+            "require": "./dist/entries/pure/stable/virtual.cjs"
+        },
+        "./pure/stable/virtual/*": {
+            "types": "./dist/entries/pure/stable/virtual/*.d.ts",
+            "import": "./dist/entries/pure/stable/virtual/*.js",
+            "require": "./dist/entries/pure/stable/virtual/*.cjs"
+        },
+        "./pure/stable/array/virtual": {
+            "types": "./dist/entries/pure/stable/array/virtual.d.ts",
+            "import": "./dist/entries/pure/stable/array/virtual.js",
+            "require": "./dist/entries/pure/stable/array/virtual.cjs"
+        },
+        "./pure/stable/array/virtual/*": {
+            "types": "./dist/entries/pure/stable/array/virtual/*.d.ts",
+            "import": "./dist/entries/pure/stable/array/virtual/*.js",
+            "require": "./dist/entries/pure/stable/array/virtual/*.cjs"
+        },
+        "./stable/virtual": {
+            "types": "./dist/entries/stable/virtual.d.ts",
+            "import": "./dist/entries/stable/virtual.js",
+            "require": "./dist/entries/stable/virtual.cjs"
+        },
+        "./stable/virtual/*": {
+            "types": "./dist/entries/stable/virtual/*.d.ts",
+            "import": "./dist/entries/stable/virtual/*.js",
+            "require": "./dist/entries/stable/virtual/*.cjs"
+        },
+        "./stable/array/virtual": {
+            "types": "./dist/entries/stable/array/virtual.d.ts",
+            "import": "./dist/entries/stable/array/virtual.js",
+            "require": "./dist/entries/stable/array/virtual.cjs"
+        },
+        "./stable/array/virtual/*": {
+            "types": "./dist/entries/stable/array/virtual/*.d.ts",
+            "import": "./dist/entries/stable/array/virtual/*.js",
+            "require": "./dist/entries/stable/array/virtual/*.cjs"
+        },
+        "./actual": {
+            "types": "./dist/entries/actual.d.ts",
+            "import": "./dist/entries/actual.js",
+            "require": "./dist/entries/actual.cjs"
+        },
+        "./actual/*": {
+            "types": "./dist/entries/actual/*.d.ts",
+            "import": "./dist/entries/actual/*.js",
+            "require": "./dist/entries/actual/*.cjs"
+        },
+        "./actual/array": {
+            "types": "./dist/entries/actual/array.d.ts",
+            "import": "./dist/entries/actual/array.js",
+            "require": "./dist/entries/actual/array.cjs"
+        },
+        "./actual/array/*": {
+            "types": "./dist/entries/actual/array/*.d.ts",
+            "import": "./dist/entries/actual/array/*.js",
+            "require": "./dist/entries/actual/array/*.cjs"
+        },
+        "./pure/actual": {
+            "types": "./dist/entries/pure/actual.d.ts",
+            "import": "./dist/entries/pure/actual.js",
+            "require": "./dist/entries/pure/actual.cjs"
+        },
+        "./pure/actual/*": {
+            "types": "./dist/entries/pure/actual/*.d.ts",
+            "import": "./dist/entries/pure/actual/*.js",
+            "require": "./dist/entries/pure/actual/*.cjs"
+        },
+        "./pure/actual/array": {
+            "types": "./dist/entries/pure/actual/array.d.ts",
+            "import": "./dist/entries/pure/actual/array.js",
+            "require": "./dist/entries/pure/actual/array.cjs"
+        },
+        "./pure/actual/array/*": {
+            "types": "./dist/entries/pure/actual/array/*.d.ts",
+            "import": "./dist/entries/pure/actual/array/*.js",
+            "require": "./dist/entries/pure/actual/array/*.cjs"
+        },
+        "./pure/actual/virtual": {
+            "types": "./dist/entries/pure/actual/virtual.d.ts",
+            "import": "./dist/entries/pure/actual/virtual.js",
+            "require": "./dist/entries/pure/actual/virtual.cjs"
+        },
+        "./pure/actual/virtual/*": {
+            "types": "./dist/entries/pure/actual/virtual/*.d.ts",
+            "import": "./dist/entries/pure/actual/virtual/*.js",
+            "require": "./dist/entries/pure/actual/virtual/*.cjs"
+        },
+        "./pure/actual/array/virtual": {
+            "types": "./dist/entries/pure/actual/array/virtual.d.ts",
+            "import": "./dist/entries/pure/actual/array/virtual.js",
+            "require": "./dist/entries/pure/actual/array/virtual.cjs"
+        },
+        "./pure/actual/array/virtual/*": {
+            "types": "./dist/entries/pure/actual/array/virtual/*.d.ts",
+            "import": "./dist/entries/pure/actual/array/virtual/*.js",
+            "require": "./dist/entries/pure/actual/array/virtual/*.cjs"
+        },
+        "./actual/virtual": {
+            "types": "./dist/entries/actual/virtual.d.ts",
+            "import": "./dist/entries/actual/virtual.js",
+            "require": "./dist/entries/actual/virtual.cjs"
+        },
+        "./actual/virtual/*": {
+            "types": "./dist/entries/actual/virtual/*.d.ts",
+            "import": "./dist/entries/actual/virtual/*.js",
+            "require": "./dist/entries/actual/virtual/*.cjs"
+        },
+        "./actual/array/virtual": {
+            "types": "./dist/entries/actual/array/virtual.d.ts",
+            "import": "./dist/entries/actual/array/virtual.js",
+            "require": "./dist/entries/actual/array/virtual.cjs"
+        },
+        "./actual/array/virtual/*": {
+            "types": "./dist/entries/actual/array/virtual/*.d.ts",
+            "import": "./dist/entries/actual/array/virtual/*.js",
+            "require": "./dist/entries/actual/array/virtual/*.cjs"
+        },
+        "./full": {
+            "types": "./dist/entries/full.d.ts",
+            "import": "./dist/entries/full.js",
+            "require": "./dist/entries/full.cjs"
+        },
+        "./full/*": {
+            "types": "./dist/entries/full/*.d.ts",
+            "import": "./dist/entries/full/*.js",
+            "require": "./dist/entries/full/*.cjs"
+        },
+        "./full/array": {
+            "types": "./dist/entries/full/array.d.ts",
+            "import": "./dist/entries/full/array.js",
+            "require": "./dist/entries/full/array.cjs"
+        },
+        "./full/array/*": {
+            "types": "./dist/entries/full/array/*.d.ts",
+            "import": "./dist/entries/full/array/*.js",
+            "require": "./dist/entries/full/array/*.cjs"
+        },
+        "./pure/full": {
+            "types": "./dist/entries/pure/full.d.ts",
+            "import": "./dist/entries/pure/full.js",
+            "require": "./dist/entries/pure/full.cjs"
+        },
+        "./pure/full/*": {
+            "types": "./dist/entries/pure/full/*.d.ts",
+            "import": "./dist/entries/pure/full/*.js",
+            "require": "./dist/entries/pure/full/*.cjs"
+        },
+        "./pure/full/array": {
+            "types": "./dist/entries/pure/full/array.d.ts",
+            "import": "./dist/entries/pure/full/array.js",
+            "require": "./dist/entries/pure/full/array.cjs"
+        },
+        "./pure/full/array/*": {
+            "types": "./dist/entries/pure/full/array/*.d.ts",
+            "import": "./dist/entries/pure/full/array/*.js",
+            "require": "./dist/entries/pure/full/array/*.cjs"
+        },
+        "./pure/full/virtual": {
+            "types": "./dist/entries/pure/full/virtual.d.ts",
+            "import": "./dist/entries/pure/full/virtual.js",
+            "require": "./dist/entries/pure/full/virtual.cjs"
+        },
+        "./pure/full/virtual/*": {
+            "types": "./dist/entries/pure/full/virtual/*.d.ts",
+            "import": "./dist/entries/pure/full/virtual/*.js",
+            "require": "./dist/entries/pure/full/virtual/*.cjs"
+        },
+        "./pure/full/array/virtual": {
+            "types": "./dist/entries/pure/full/array/virtual.d.ts",
+            "import": "./dist/entries/pure/full/array/virtual.js",
+            "require": "./dist/entries/pure/full/array/virtual.cjs"
+        },
+        "./pure/full/array/virtual/*": {
+            "types": "./dist/entries/pure/full/array/virtual/*.d.ts",
+            "import": "./dist/entries/pure/full/array/virtual/*.js",
+            "require": "./dist/entries/pure/full/array/virtual/*.cjs"
+        },
+        "./full/virtual": {
+            "types": "./dist/entries/full/virtual.d.ts",
+            "import": "./dist/entries/full/virtual.js",
+            "require": "./dist/entries/full/virtual.cjs"
+        },
+        "./full/virtual/*": {
+            "types": "./dist/entries/full/virtual/*.d.ts",
+            "import": "./dist/entries/full/virtual/*.js",
+            "require": "./dist/entries/full/virtual/*.cjs"
+        },
+        "./full/array/virtual": {
+            "types": "./dist/entries/full/array/virtual.d.ts",
+            "import": "./dist/entries/full/array/virtual.js",
+            "require": "./dist/entries/full/array/virtual.cjs"
+        },
+        "./full/array/virtual/*": {
+            "types": "./dist/entries/full/array/virtual/*.d.ts",
+            "import": "./dist/entries/full/array/virtual/*.js",
+            "require": "./dist/entries/full/array/virtual/*.cjs"
+        },
+        "./features": {
+            "types": "./dist/entries/features.d.ts",
+            "import": "./dist/entries/features.js",
+            "require": "./dist/entries/features.cjs"
+        },
+        "./features/*": {
+            "types": "./dist/entries/features/*.d.ts",
+            "import": "./dist/entries/features/*.js",
+            "require": "./dist/entries/features/*.cjs"
+        },
+        "./features/array": {
+            "types": "./dist/entries/features/array.d.ts",
+            "import": "./dist/entries/features/array.js",
+            "require": "./dist/entries/features/array.cjs"
+        },
+        "./features/array/*": {
+            "types": "./dist/entries/features/array/*.d.ts",
+            "import": "./dist/entries/features/array/*.js",
+            "require": "./dist/entries/features/array/*.cjs"
+        },
+        "./pure/features": {
+            "types": "./dist/entries/pure/features.d.ts",
+            "import": "./dist/entries/pure/features.js",
+            "require": "./dist/entries/pure/features.cjs"
+        },
+        "./pure/features/*": {
+            "types": "./dist/entries/pure/features/*.d.ts",
+            "import": "./dist/entries/pure/features/*.js",
+            "require": "./dist/entries/pure/features/*.cjs"
+        },
+        "./pure/features/array": {
+            "types": "./dist/entries/pure/features/array.d.ts",
+            "import": "./dist/entries/pure/features/array.js",
+            "require": "./dist/entries/pure/features/array.cjs"
+        },
+        "./pure/features/array/*": {
+            "types": "./dist/entries/pure/features/array/*.d.ts",
+            "import": "./dist/entries/pure/features/array/*.js",
+            "require": "./dist/entries/pure/features/array/*.cjs"
+        },
+        "./pure/features/virtual": {
+            "types": "./dist/entries/pure/features/virtual.d.ts",
+            "import": "./dist/entries/pure/features/virtual.js",
+            "require": "./dist/entries/pure/features/virtual.cjs"
+        },
+        "./pure/features/virtual/*": {
+            "types": "./dist/entries/pure/features/virtual/*.d.ts",
+            "import": "./dist/entries/pure/features/virtual/*.js",
+            "require": "./dist/entries/pure/features/virtual/*.cjs"
+        },
+        "./pure/features/array/virtual": {
+            "types": "./dist/entries/pure/features/array/virtual.d.ts",
+            "import": "./dist/entries/pure/features/array/virtual.js",
+            "require": "./dist/entries/pure/features/array/virtual.cjs"
+        },
+        "./pure/features/array/virtual/*": {
+            "types": "./dist/entries/pure/features/array/virtual/*.d.ts",
+            "import": "./dist/entries/pure/features/array/virtual/*.js",
+            "require": "./dist/entries/pure/features/array/virtual/*.cjs"
+        },
+        "./features/virtual": {
+            "types": "./dist/entries/features/virtual.d.ts",
+            "import": "./dist/entries/features/virtual.js",
+            "require": "./dist/entries/features/virtual.cjs"
+        },
+        "./features/virtual/*": {
+            "types": "./dist/entries/features/virtual/*.d.ts",
+            "import": "./dist/entries/features/virtual/*.js",
+            "require": "./dist/entries/features/virtual/*.cjs"
+        },
+        "./features/array/virtual": {
+            "types": "./dist/entries/features/array/virtual.d.ts",
+            "import": "./dist/entries/features/array/virtual.js",
+            "require": "./dist/entries/features/array/virtual.cjs"
+        },
+        "./features/array/virtual/*": {
+            "types": "./dist/entries/features/array/virtual/*.d.ts",
+            "import": "./dist/entries/features/array/virtual/*.js",
+            "require": "./dist/entries/features/array/virtual/*.cjs"
+        },
+        "./pure/*.js": {
+            "types": "./dist/entries/pure/*.d.ts",
+            "import": "./dist/entries/pure/*.js",
+            "require": "./dist/entries/pure/*.cjs"
+        },
+        "./virtual/*.js": {
+            "types": "./dist/entries/virtual/*.d.ts",
+            "import": "./dist/entries/virtual/*.js",
+            "require": "./dist/entries/virtual/*.cjs"
+        },
+        "./*.js": {
+            "types": "./dist/entries/*.d.ts",
+            "import": "./dist/entries/*.js",
+            "require": "./dist/entries/*.cjs"
+        },
+        "./es/*.js": {
+            "types": "./dist/entries/es/*.d.ts",
+            "import": "./dist/entries/es/*.js",
+            "require": "./dist/entries/es/*.cjs"
+        },
+        "./es/array/*.js": {
+            "types": "./dist/entries/es/array/*.d.ts",
+            "import": "./dist/entries/es/array/*.js",
+            "require": "./dist/entries/es/array/*.cjs"
+        },
+        "./pure/es/*.js": {
+            "types": "./dist/entries/pure/es/*.d.ts",
+            "import": "./dist/entries/pure/es/*.js",
+            "require": "./dist/entries/pure/es/*.cjs"
+        },
+        "./pure/es/array/*.js": {
+            "types": "./dist/entries/pure/es/array/*.d.ts",
+            "import": "./dist/entries/pure/es/array/*.js",
+            "require": "./dist/entries/pure/es/array/*.cjs"
+        },
+        "./pure/es/virtual/*.js": {
+            "types": "./dist/entries/pure/es/virtual/*.d.ts",
+            "import": "./dist/entries/pure/es/virtual/*.js",
+            "require": "./dist/entries/pure/es/virtual/*.cjs"
+        },
+        "./pure/es/array/virtual/*.js": {
+            "types": "./dist/entries/pure/es/array/virtual/*.d.ts",
+            "import": "./dist/entries/pure/es/array/virtual/*.js",
+            "require": "./dist/entries/pure/es/array/virtual/*.cjs"
+        },
+        "./es/virtual/*.js": {
+            "types": "./dist/entries/es/virtual/*.d.ts",
+            "import": "./dist/entries/es/virtual/*.js",
+            "require": "./dist/entries/es/virtual/*.cjs"
+        },
+        "./es/array/virtual/*.js": {
+            "types": "./dist/entries/es/array/virtual/*.d.ts",
+            "import": "./dist/entries/es/array/virtual/*.js",
+            "require": "./dist/entries/es/array/virtual/*.cjs"
+        },
+        "./stable/*.js": {
+            "types": "./dist/entries/stable/*.d.ts",
+            "import": "./dist/entries/stable/*.js",
+            "require": "./dist/entries/stable/*.cjs"
+        },
+        "./stable/array/*.js": {
+            "types": "./dist/entries/stable/array/*.d.ts",
+            "import": "./dist/entries/stable/array/*.js",
+            "require": "./dist/entries/stable/array/*.cjs"
+        },
+        "./pure/stable/*.js": {
+            "types": "./dist/entries/pure/stable/*.d.ts",
+            "import": "./dist/entries/pure/stable/*.js",
+            "require": "./dist/entries/pure/stable/*.cjs"
+        },
+        "./pure/stable/array/*.js": {
+            "types": "./dist/entries/pure/stable/array/*.d.ts",
+            "import": "./dist/entries/pure/stable/array/*.js",
+            "require": "./dist/entries/pure/stable/array/*.cjs"
+        },
+        "./pure/stable/virtual/*.js": {
+            "types": "./dist/entries/pure/stable/virtual/*.d.ts",
+            "import": "./dist/entries/pure/stable/virtual/*.js",
+            "require": "./dist/entries/pure/stable/virtual/*.cjs"
+        },
+        "./pure/stable/array/virtual/*.js": {
+            "types": "./dist/entries/pure/stable/array/virtual/*.d.ts",
+            "import": "./dist/entries/pure/stable/array/virtual/*.js",
+            "require": "./dist/entries/pure/stable/array/virtual/*.cjs"
+        },
+        "./stable/virtual/*.js": {
+            "types": "./dist/entries/stable/virtual/*.d.ts",
+            "import": "./dist/entries/stable/virtual/*.js",
+            "require": "./dist/entries/stable/virtual/*.cjs"
+        },
+        "./stable/array/virtual/*.js": {
+            "types": "./dist/entries/stable/array/virtual/*.d.ts",
+            "import": "./dist/entries/stable/array/virtual/*.js",
+            "require": "./dist/entries/stable/array/virtual/*.cjs"
+        },
+        "./actual/*.js": {
+            "types": "./dist/entries/actual/*.d.ts",
+            "import": "./dist/entries/actual/*.js",
+            "require": "./dist/entries/actual/*.cjs"
+        },
+        "./actual/array/*.js": {
+            "types": "./dist/entries/actual/array/*.d.ts",
+            "import": "./dist/entries/actual/array/*.js",
+            "require": "./dist/entries/actual/array/*.cjs"
+        },
+        "./pure/actual/*.js": {
+            "types": "./dist/entries/pure/actual/*.d.ts",
+            "import": "./dist/entries/pure/actual/*.js",
+            "require": "./dist/entries/pure/actual/*.cjs"
+        },
+        "./pure/actual/array/*.js": {
+            "types": "./dist/entries/pure/actual/array/*.d.ts",
+            "import": "./dist/entries/pure/actual/array/*.js",
+            "require": "./dist/entries/pure/actual/array/*.cjs"
+        },
+        "./pure/actual/virtual/*.js": {
+            "types": "./dist/entries/pure/actual/virtual/*.d.ts",
+            "import": "./dist/entries/pure/actual/virtual/*.js",
+            "require": "./dist/entries/pure/actual/virtual/*.cjs"
+        },
+        "./pure/actual/array/virtual/*.js": {
+            "types": "./dist/entries/pure/actual/array/virtual/*.d.ts",
+            "import": "./dist/entries/pure/actual/array/virtual/*.js",
+            "require": "./dist/entries/pure/actual/array/virtual/*.cjs"
+        },
+        "./actual/virtual/*.js": {
+            "types": "./dist/entries/actual/virtual/*.d.ts",
+            "import": "./dist/entries/actual/virtual/*.js",
+            "require": "./dist/entries/actual/virtual/*.cjs"
+        },
+        "./actual/array/virtual/*.js": {
+            "types": "./dist/entries/actual/array/virtual/*.d.ts",
+            "import": "./dist/entries/actual/array/virtual/*.js",
+            "require": "./dist/entries/actual/array/virtual/*.cjs"
+        },
+        "./full/*.js": {
+            "types": "./dist/entries/full/*.d.ts",
+            "import": "./dist/entries/full/*.js",
+            "require": "./dist/entries/full/*.cjs"
+        },
+        "./full/array/*.js": {
+            "types": "./dist/entries/full/array/*.d.ts",
+            "import": "./dist/entries/full/array/*.js",
+            "require": "./dist/entries/full/array/*.cjs"
+        },
+        "./pure/full/*.js": {
+            "types": "./dist/entries/pure/full/*.d.ts",
+            "import": "./dist/entries/pure/full/*.js",
+            "require": "./dist/entries/pure/full/*.cjs"
+        },
+        "./pure/full/array/*.js": {
+            "types": "./dist/entries/pure/full/array/*.d.ts",
+            "import": "./dist/entries/pure/full/array/*.js",
+            "require": "./dist/entries/pure/full/array/*.cjs"
+        },
+        "./pure/full/virtual/*.js": {
+            "types": "./dist/entries/pure/full/virtual/*.d.ts",
+            "import": "./dist/entries/pure/full/virtual/*.js",
+            "require": "./dist/entries/pure/full/virtual/*.cjs"
+        },
+        "./pure/full/array/virtual/*.js": {
+            "types": "./dist/entries/pure/full/array/virtual/*.d.ts",
+            "import": "./dist/entries/pure/full/array/virtual/*.js",
+            "require": "./dist/entries/pure/full/array/virtual/*.cjs"
+        },
+        "./full/virtual/*.js": {
+            "types": "./dist/entries/full/virtual/*.d.ts",
+            "import": "./dist/entries/full/virtual/*.js",
+            "require": "./dist/entries/full/virtual/*.cjs"
+        },
+        "./full/array/virtual/*.js": {
+            "types": "./dist/entries/full/array/virtual/*.d.ts",
+            "import": "./dist/entries/full/array/virtual/*.js",
+            "require": "./dist/entries/full/array/virtual/*.cjs"
+        },
+        "./features/*.js": {
+            "types": "./dist/entries/features/*.d.ts",
+            "import": "./dist/entries/features/*.js",
+            "require": "./dist/entries/features/*.cjs"
+        },
+        "./features/array/*.js": {
+            "types": "./dist/entries/features/array/*.d.ts",
+            "import": "./dist/entries/features/array/*.js",
+            "require": "./dist/entries/features/array/*.cjs"
+        },
+        "./pure/features/*.js": {
+            "types": "./dist/entries/pure/features/*.d.ts",
+            "import": "./dist/entries/pure/features/*.js",
+            "require": "./dist/entries/pure/features/*.cjs"
+        },
+        "./pure/features/array/*.js": {
+            "types": "./dist/entries/pure/features/array/*.d.ts",
+            "import": "./dist/entries/pure/features/array/*.js",
+            "require": "./dist/entries/pure/features/array/*.cjs"
+        },
+        "./pure/features/virtual/*.js": {
+            "types": "./dist/entries/pure/features/virtual/*.d.ts",
+            "import": "./dist/entries/pure/features/virtual/*.js",
+            "require": "./dist/entries/pure/features/virtual/*.cjs"
+        },
+        "./pure/features/array/virtual/*.js": {
+            "types": "./dist/entries/pure/features/array/virtual/*.d.ts",
+            "import": "./dist/entries/pure/features/array/virtual/*.js",
+            "require": "./dist/entries/pure/features/array/virtual/*.cjs"
+        },
+        "./features/virtual/*.js": {
+            "types": "./dist/entries/features/virtual/*.d.ts",
+            "import": "./dist/entries/features/virtual/*.js",
+            "require": "./dist/entries/features/virtual/*.cjs"
+        },
+        "./features/array/virtual/*.js": {
+            "types": "./dist/entries/features/array/virtual/*.d.ts",
+            "import": "./dist/entries/features/array/virtual/*.js",
+            "require": "./dist/entries/features/array/virtual/*.cjs"
         }
     },
     "main": "./dist/index.cjs",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "sideEffects": false,
+    "sideEffects": [
+        "./dist/entries/actual.*",
+        "./dist/entries/actual/**",
+        "./dist/entries/as-non-nullable.*",
+        "./dist/entries/as-non-nullable/**",
+        "./dist/entries/at.*",
+        "./dist/entries/at/**",
+        "./dist/entries/auto.*",
+        "./dist/entries/auto/**",
+        "./dist/entries/chunk.*",
+        "./dist/entries/chunk/**",
+        "./dist/entries/concat.*",
+        "./dist/entries/concat/**",
+        "./dist/entries/copy-within.*",
+        "./dist/entries/copy-within/**",
+        "./dist/entries/difference.*",
+        "./dist/entries/difference/**",
+        "./dist/entries/entries.*",
+        "./dist/entries/entries/**",
+        "./dist/entries/es.*",
+        "./dist/entries/es/**",
+        "./dist/entries/every.*",
+        "./dist/entries/every/**",
+        "./dist/entries/features.*",
+        "./dist/entries/features/**",
+        "./dist/entries/fill.*",
+        "./dist/entries/fill/**",
+        "./dist/entries/filter.*",
+        "./dist/entries/filter/**",
+        "./dist/entries/filter-out.*",
+        "./dist/entries/filter-out/**",
+        "./dist/entries/filter-reject.*",
+        "./dist/entries/filter-reject/**",
+        "./dist/entries/find.*",
+        "./dist/entries/find/**",
+        "./dist/entries/find-index.*",
+        "./dist/entries/find-index/**",
+        "./dist/entries/find-last.*",
+        "./dist/entries/find-last/**",
+        "./dist/entries/find-last-index.*",
+        "./dist/entries/find-last-index/**",
+        "./dist/entries/flat.*",
+        "./dist/entries/flat/**",
+        "./dist/entries/flat-map.*",
+        "./dist/entries/flat-map/**",
+        "./dist/entries/for-each.*",
+        "./dist/entries/for-each/**",
+        "./dist/entries/from.*",
+        "./dist/entries/from/**",
+        "./dist/entries/from-async.*",
+        "./dist/entries/from-async/**",
+        "./dist/entries/full.*",
+        "./dist/entries/full/**",
+        "./dist/entries/group.*",
+        "./dist/entries/group/**",
+        "./dist/entries/group-by.*",
+        "./dist/entries/group-by/**",
+        "./dist/entries/group-by-to-map.*",
+        "./dist/entries/group-by-to-map/**",
+        "./dist/entries/group-to-map.*",
+        "./dist/entries/group-to-map/**",
+        "./dist/entries/includes.*",
+        "./dist/entries/includes/**",
+        "./dist/entries/index.*",
+        "./dist/entries/index/**",
+        "./dist/entries/index-of.*",
+        "./dist/entries/index-of/**",
+        "./dist/entries/intersection.*",
+        "./dist/entries/intersection/**",
+        "./dist/entries/is-array.*",
+        "./dist/entries/is-array/**",
+        "./dist/entries/is-template-object.*",
+        "./dist/entries/is-template-object/**",
+        "./dist/entries/iterator.*",
+        "./dist/entries/iterator/**",
+        "./dist/entries/join.*",
+        "./dist/entries/join/**",
+        "./dist/entries/keys.*",
+        "./dist/entries/keys/**",
+        "./dist/entries/last-index.*",
+        "./dist/entries/last-index/**",
+        "./dist/entries/last-index-of.*",
+        "./dist/entries/last-index-of/**",
+        "./dist/entries/last-item.*",
+        "./dist/entries/last-item/**",
+        "./dist/entries/map.*",
+        "./dist/entries/map/**",
+        "./dist/entries/non-nullable.*",
+        "./dist/entries/non-nullable/**",
+        "./dist/entries/of.*",
+        "./dist/entries/of/**",
+        "./dist/entries/pop.*",
+        "./dist/entries/pop/**",
+        "./dist/entries/push.*",
+        "./dist/entries/push/**",
+        "./dist/entries/random.*",
+        "./dist/entries/random/**",
+        "./dist/entries/reduce.*",
+        "./dist/entries/reduce/**",
+        "./dist/entries/reduce-right.*",
+        "./dist/entries/reduce-right/**",
+        "./dist/entries/reverse.*",
+        "./dist/entries/reverse/**",
+        "./dist/entries/shift.*",
+        "./dist/entries/shift/**",
+        "./dist/entries/slice.*",
+        "./dist/entries/slice/**",
+        "./dist/entries/some.*",
+        "./dist/entries/some/**",
+        "./dist/entries/sort.*",
+        "./dist/entries/sort/**",
+        "./dist/entries/splice.*",
+        "./dist/entries/splice/**",
+        "./dist/entries/stable.*",
+        "./dist/entries/stable/**",
+        "./dist/entries/to-deduplicated.*",
+        "./dist/entries/to-deduplicated/**",
+        "./dist/entries/to-exchange.*",
+        "./dist/entries/to-exchange/**",
+        "./dist/entries/to-locale-string.*",
+        "./dist/entries/to-locale-string/**",
+        "./dist/entries/to-popped.*",
+        "./dist/entries/to-popped/**",
+        "./dist/entries/to-pushed.*",
+        "./dist/entries/to-pushed/**",
+        "./dist/entries/to-reversed.*",
+        "./dist/entries/to-reversed/**",
+        "./dist/entries/to-shifted.*",
+        "./dist/entries/to-shifted/**",
+        "./dist/entries/to-sorted.*",
+        "./dist/entries/to-sorted/**",
+        "./dist/entries/to-spliced.*",
+        "./dist/entries/to-spliced/**",
+        "./dist/entries/to-string.*",
+        "./dist/entries/to-string/**",
+        "./dist/entries/to-unshifted.*",
+        "./dist/entries/to-unshifted/**",
+        "./dist/entries/union.*",
+        "./dist/entries/union/**",
+        "./dist/entries/unique-by.*",
+        "./dist/entries/unique-by/**",
+        "./dist/entries/unshift.*",
+        "./dist/entries/unshift/**",
+        "./dist/entries/values.*",
+        "./dist/entries/values/**",
+        "./dist/entries/with.*",
+        "./dist/entries/with/**"
+    ],
     "files": [
         "dist"
     ],
@@ -53,10 +845,26 @@
         "prepublishOnly": "pnpm run build && pnpm run typecheck"
     },
     "compatibility": {
+        "mirrorExports": true,
         "target": "@1adybug/array",
-        "defaults": [],
+        "defaults": [
+            "*"
+        ],
         "typeOnly": [
             "./types"
+        ],
+        "testSubpaths": [
+            ".",
+            "./pure",
+            "./actual",
+            "./full",
+            "./pure/chunk",
+            "./pure/full/to-spliced",
+            "./pure/actual/array/map.js",
+            "./pure/full/virtual/to-exchange",
+            "./actual/chunk",
+            "./actual/array/virtual/chunk.js",
+            "./features/array/to-deduplicated"
         ]
     }
 }

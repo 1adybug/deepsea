@@ -3,6 +3,7 @@
     "compilerOptions": {
         "rootDir": ".",
         "noEmit": true,
+        "skipLibCheck": false,
         "jsx": "react-jsx"
     },
     "include": ["src", "tests", "types.d.ts"]

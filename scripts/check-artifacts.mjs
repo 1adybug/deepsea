@@ -1,7 +1,7 @@
 import { access } from "node:fs/promises"
 import { resolve } from "node:path"
 
-import { readWorkspacePackages } from "./workspace.mjs"
+import { expandPackageExports, readWorkspacePackages } from "./workspace.mjs"
 
 let count = 0
 
@@ -13,7 +13,12 @@ function targets(value) {
 
 for (const { directory, manifest } of (await readWorkspacePackages()).values()) {
     if (manifest.private) continue
-    const paths = new Set([...targets(manifest.exports), ...targets(manifest.bin), ...[manifest.main, manifest.module, manifest.types].filter(Boolean)])
+    const exports = await expandPackageExports(manifest, directory)
+    const paths = new Set([
+        ...targets(Object.fromEntries(exports)),
+        ...targets(manifest.bin),
+        ...[manifest.main, manifest.module, manifest.types].filter(Boolean),
+    ])
 
     for (const path of paths) {
         await access(resolve(directory, path)).catch(() => {

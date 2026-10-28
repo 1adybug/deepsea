@@ -54,7 +54,17 @@ export default [
             ],
             mixed: [...mixedPackages.map(name => `packages/${name}/src/${files}`), "packages/*/types.d.ts"],
         },
-        ignores: ["**/dist/**", "**/compiled/**", "**/coverage/**", "**/.next/**", "**/public/**", "**/.turbo/**", "**/.artifacts/**", "packages/xlsx/**"],
+        ignores: [
+            "**/dist/**",
+            "**/compiled/**",
+            "**/coverage/**",
+            "**/.next/**",
+            "**/public/**",
+            "**/.turbo/**",
+            "**/.artifacts/**",
+            "packages/xlsx/**",
+            "packages/array/src/generated/**",
+        ],
         rules: {
             "@typescript-eslint/no-unsafe-function-type": "off",
             "@typescript-eslint/consistent-type-definitions": "off",

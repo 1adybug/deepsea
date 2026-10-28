@@ -7,10 +7,19 @@
             "dependsOn": ["^build"],
             "outputs": ["dist/**"]
         },
+        "@1adybug/array#build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**", "src/generated/**"]
+        },
         "dev": {
             "dependsOn": ["^dev"],
             "cache": false,
             "outputs": ["dist/**"]
+        },
+        "@1adybug/array#dev": {
+            "dependsOn": ["^dev"],
+            "cache": false,
+            "outputs": ["dist/**", "src/generated/**"]
         },
         "@1adybug/playground#dev": {
             "dependsOn": ["^dev"],

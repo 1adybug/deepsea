@@ -11,12 +11,661 @@
         },
         "./types": {
             "types": "./types.d.ts"
+        },
+        "./auto": {
+            "types": "./dist/auto.d.ts",
+            "import": "./dist/auto.js",
+            "require": "./dist/auto.cjs"
+        },
+        "./pure": {
+            "types": "./dist/generated/pure/full/index.d.ts",
+            "import": "./dist/generated/pure/full/index.js",
+            "require": "./dist/generated/pure/full/index.cjs"
+        },
+        "./pure/*": {
+            "types": "./dist/generated/pure/full/*.d.ts",
+            "import": "./dist/generated/pure/full/*.js",
+            "require": "./dist/generated/pure/full/*.cjs"
+        },
+        "./virtual": {
+            "types": "./dist/generated/virtual/full/index.d.ts",
+            "import": "./dist/generated/virtual/full/index.js",
+            "require": "./dist/generated/virtual/full/index.cjs"
+        },
+        "./virtual/*": {
+            "types": "./dist/generated/virtual/full/*.d.ts",
+            "import": "./dist/generated/virtual/full/*.js",
+            "require": "./dist/generated/virtual/full/*.cjs"
+        },
+        "./*": {
+            "types": "./dist/generated/global/full/*.d.ts",
+            "import": "./dist/generated/global/full/*.js",
+            "require": "./dist/generated/global/full/*.cjs"
+        },
+        "./es": {
+            "types": "./dist/generated/global/es/index.d.ts",
+            "import": "./dist/generated/global/es/index.js",
+            "require": "./dist/generated/global/es/index.cjs"
+        },
+        "./es/*": {
+            "types": "./dist/generated/global/es/*.d.ts",
+            "import": "./dist/generated/global/es/*.js",
+            "require": "./dist/generated/global/es/*.cjs"
+        },
+        "./es/array": {
+            "types": "./dist/generated/global/es/index.d.ts",
+            "import": "./dist/generated/global/es/index.js",
+            "require": "./dist/generated/global/es/index.cjs"
+        },
+        "./es/array/*": {
+            "types": "./dist/generated/global/es/*.d.ts",
+            "import": "./dist/generated/global/es/*.js",
+            "require": "./dist/generated/global/es/*.cjs"
+        },
+        "./pure/es": {
+            "types": "./dist/generated/pure/es/index.d.ts",
+            "import": "./dist/generated/pure/es/index.js",
+            "require": "./dist/generated/pure/es/index.cjs"
+        },
+        "./pure/es/*": {
+            "types": "./dist/generated/pure/es/*.d.ts",
+            "import": "./dist/generated/pure/es/*.js",
+            "require": "./dist/generated/pure/es/*.cjs"
+        },
+        "./pure/es/array": {
+            "types": "./dist/generated/pure/es/index.d.ts",
+            "import": "./dist/generated/pure/es/index.js",
+            "require": "./dist/generated/pure/es/index.cjs"
+        },
+        "./pure/es/array/*": {
+            "types": "./dist/generated/pure/es/*.d.ts",
+            "import": "./dist/generated/pure/es/*.js",
+            "require": "./dist/generated/pure/es/*.cjs"
+        },
+        "./pure/es/virtual": {
+            "types": "./dist/generated/virtual/es/index.d.ts",
+            "import": "./dist/generated/virtual/es/index.js",
+            "require": "./dist/generated/virtual/es/index.cjs"
+        },
+        "./pure/es/virtual/*": {
+            "types": "./dist/generated/virtual/es/*.d.ts",
+            "import": "./dist/generated/virtual/es/*.js",
+            "require": "./dist/generated/virtual/es/*.cjs"
+        },
+        "./pure/es/array/virtual": {
+            "types": "./dist/generated/virtual/es/index.d.ts",
+            "import": "./dist/generated/virtual/es/index.js",
+            "require": "./dist/generated/virtual/es/index.cjs"
+        },
+        "./pure/es/array/virtual/*": {
+            "types": "./dist/generated/virtual/es/*.d.ts",
+            "import": "./dist/generated/virtual/es/*.js",
+            "require": "./dist/generated/virtual/es/*.cjs"
+        },
+        "./es/virtual": {
+            "types": "./dist/generated/global-virtual/es/index.d.ts",
+            "import": "./dist/generated/global-virtual/es/index.js",
+            "require": "./dist/generated/global-virtual/es/index.cjs"
+        },
+        "./es/virtual/*": {
+            "types": "./dist/generated/global-virtual/es/*.d.ts",
+            "import": "./dist/generated/global-virtual/es/*.js",
+            "require": "./dist/generated/global-virtual/es/*.cjs"
+        },
+        "./es/array/virtual": {
+            "types": "./dist/generated/global-virtual/es/index.d.ts",
+            "import": "./dist/generated/global-virtual/es/index.js",
+            "require": "./dist/generated/global-virtual/es/index.cjs"
+        },
+        "./es/array/virtual/*": {
+            "types": "./dist/generated/global-virtual/es/*.d.ts",
+            "import": "./dist/generated/global-virtual/es/*.js",
+            "require": "./dist/generated/global-virtual/es/*.cjs"
+        },
+        "./stable": {
+            "types": "./dist/generated/global/stable/index.d.ts",
+            "import": "./dist/generated/global/stable/index.js",
+            "require": "./dist/generated/global/stable/index.cjs"
+        },
+        "./stable/*": {
+            "types": "./dist/generated/global/stable/*.d.ts",
+            "import": "./dist/generated/global/stable/*.js",
+            "require": "./dist/generated/global/stable/*.cjs"
+        },
+        "./stable/array": {
+            "types": "./dist/generated/global/stable/index.d.ts",
+            "import": "./dist/generated/global/stable/index.js",
+            "require": "./dist/generated/global/stable/index.cjs"
+        },
+        "./stable/array/*": {
+            "types": "./dist/generated/global/stable/*.d.ts",
+            "import": "./dist/generated/global/stable/*.js",
+            "require": "./dist/generated/global/stable/*.cjs"
+        },
+        "./pure/stable": {
+            "types": "./dist/generated/pure/stable/index.d.ts",
+            "import": "./dist/generated/pure/stable/index.js",
+            "require": "./dist/generated/pure/stable/index.cjs"
+        },
+        "./pure/stable/*": {
+            "types": "./dist/generated/pure/stable/*.d.ts",
+            "import": "./dist/generated/pure/stable/*.js",
+            "require": "./dist/generated/pure/stable/*.cjs"
+        },
+        "./pure/stable/array": {
+            "types": "./dist/generated/pure/stable/index.d.ts",
+            "import": "./dist/generated/pure/stable/index.js",
+            "require": "./dist/generated/pure/stable/index.cjs"
+        },
+        "./pure/stable/array/*": {
+            "types": "./dist/generated/pure/stable/*.d.ts",
+            "import": "./dist/generated/pure/stable/*.js",
+            "require": "./dist/generated/pure/stable/*.cjs"
+        },
+        "./pure/stable/virtual": {
+            "types": "./dist/generated/virtual/stable/index.d.ts",
+            "import": "./dist/generated/virtual/stable/index.js",
+            "require": "./dist/generated/virtual/stable/index.cjs"
+        },
+        "./pure/stable/virtual/*": {
+            "types": "./dist/generated/virtual/stable/*.d.ts",
+            "import": "./dist/generated/virtual/stable/*.js",
+            "require": "./dist/generated/virtual/stable/*.cjs"
+        },
+        "./pure/stable/array/virtual": {
+            "types": "./dist/generated/virtual/stable/index.d.ts",
+            "import": "./dist/generated/virtual/stable/index.js",
+            "require": "./dist/generated/virtual/stable/index.cjs"
+        },
+        "./pure/stable/array/virtual/*": {
+            "types": "./dist/generated/virtual/stable/*.d.ts",
+            "import": "./dist/generated/virtual/stable/*.js",
+            "require": "./dist/generated/virtual/stable/*.cjs"
+        },
+        "./stable/virtual": {
+            "types": "./dist/generated/global-virtual/stable/index.d.ts",
+            "import": "./dist/generated/global-virtual/stable/index.js",
+            "require": "./dist/generated/global-virtual/stable/index.cjs"
+        },
+        "./stable/virtual/*": {
+            "types": "./dist/generated/global-virtual/stable/*.d.ts",
+            "import": "./dist/generated/global-virtual/stable/*.js",
+            "require": "./dist/generated/global-virtual/stable/*.cjs"
+        },
+        "./stable/array/virtual": {
+            "types": "./dist/generated/global-virtual/stable/index.d.ts",
+            "import": "./dist/generated/global-virtual/stable/index.js",
+            "require": "./dist/generated/global-virtual/stable/index.cjs"
+        },
+        "./stable/array/virtual/*": {
+            "types": "./dist/generated/global-virtual/stable/*.d.ts",
+            "import": "./dist/generated/global-virtual/stable/*.js",
+            "require": "./dist/generated/global-virtual/stable/*.cjs"
+        },
+        "./actual": {
+            "types": "./dist/generated/global/actual/index.d.ts",
+            "import": "./dist/generated/global/actual/index.js",
+            "require": "./dist/generated/global/actual/index.cjs"
+        },
+        "./actual/*": {
+            "types": "./dist/generated/global/actual/*.d.ts",
+            "import": "./dist/generated/global/actual/*.js",
+            "require": "./dist/generated/global/actual/*.cjs"
+        },
+        "./actual/array": {
+            "types": "./dist/generated/global/actual/index.d.ts",
+            "import": "./dist/generated/global/actual/index.js",
+            "require": "./dist/generated/global/actual/index.cjs"
+        },
+        "./actual/array/*": {
+            "types": "./dist/generated/global/actual/*.d.ts",
+            "import": "./dist/generated/global/actual/*.js",
+            "require": "./dist/generated/global/actual/*.cjs"
+        },
+        "./pure/actual": {
+            "types": "./dist/generated/pure/actual/index.d.ts",
+            "import": "./dist/generated/pure/actual/index.js",
+            "require": "./dist/generated/pure/actual/index.cjs"
+        },
+        "./pure/actual/*": {
+            "types": "./dist/generated/pure/actual/*.d.ts",
+            "import": "./dist/generated/pure/actual/*.js",
+            "require": "./dist/generated/pure/actual/*.cjs"
+        },
+        "./pure/actual/array": {
+            "types": "./dist/generated/pure/actual/index.d.ts",
+            "import": "./dist/generated/pure/actual/index.js",
+            "require": "./dist/generated/pure/actual/index.cjs"
+        },
+        "./pure/actual/array/*": {
+            "types": "./dist/generated/pure/actual/*.d.ts",
+            "import": "./dist/generated/pure/actual/*.js",
+            "require": "./dist/generated/pure/actual/*.cjs"
+        },
+        "./pure/actual/virtual": {
+            "types": "./dist/generated/virtual/actual/index.d.ts",
+            "import": "./dist/generated/virtual/actual/index.js",
+            "require": "./dist/generated/virtual/actual/index.cjs"
+        },
+        "./pure/actual/virtual/*": {
+            "types": "./dist/generated/virtual/actual/*.d.ts",
+            "import": "./dist/generated/virtual/actual/*.js",
+            "require": "./dist/generated/virtual/actual/*.cjs"
+        },
+        "./pure/actual/array/virtual": {
+            "types": "./dist/generated/virtual/actual/index.d.ts",
+            "import": "./dist/generated/virtual/actual/index.js",
+            "require": "./dist/generated/virtual/actual/index.cjs"
+        },
+        "./pure/actual/array/virtual/*": {
+            "types": "./dist/generated/virtual/actual/*.d.ts",
+            "import": "./dist/generated/virtual/actual/*.js",
+            "require": "./dist/generated/virtual/actual/*.cjs"
+        },
+        "./actual/virtual": {
+            "types": "./dist/generated/global-virtual/actual/index.d.ts",
+            "import": "./dist/generated/global-virtual/actual/index.js",
+            "require": "./dist/generated/global-virtual/actual/index.cjs"
+        },
+        "./actual/virtual/*": {
+            "types": "./dist/generated/global-virtual/actual/*.d.ts",
+            "import": "./dist/generated/global-virtual/actual/*.js",
+            "require": "./dist/generated/global-virtual/actual/*.cjs"
+        },
+        "./actual/array/virtual": {
+            "types": "./dist/generated/global-virtual/actual/index.d.ts",
+            "import": "./dist/generated/global-virtual/actual/index.js",
+            "require": "./dist/generated/global-virtual/actual/index.cjs"
+        },
+        "./actual/array/virtual/*": {
+            "types": "./dist/generated/global-virtual/actual/*.d.ts",
+            "import": "./dist/generated/global-virtual/actual/*.js",
+            "require": "./dist/generated/global-virtual/actual/*.cjs"
+        },
+        "./full": {
+            "types": "./dist/generated/global/full/index.d.ts",
+            "import": "./dist/generated/global/full/index.js",
+            "require": "./dist/generated/global/full/index.cjs"
+        },
+        "./full/*": {
+            "types": "./dist/generated/global/full/*.d.ts",
+            "import": "./dist/generated/global/full/*.js",
+            "require": "./dist/generated/global/full/*.cjs"
+        },
+        "./full/array": {
+            "types": "./dist/generated/global/full/index.d.ts",
+            "import": "./dist/generated/global/full/index.js",
+            "require": "./dist/generated/global/full/index.cjs"
+        },
+        "./full/array/*": {
+            "types": "./dist/generated/global/full/*.d.ts",
+            "import": "./dist/generated/global/full/*.js",
+            "require": "./dist/generated/global/full/*.cjs"
+        },
+        "./pure/full": {
+            "types": "./dist/generated/pure/full/index.d.ts",
+            "import": "./dist/generated/pure/full/index.js",
+            "require": "./dist/generated/pure/full/index.cjs"
+        },
+        "./pure/full/*": {
+            "types": "./dist/generated/pure/full/*.d.ts",
+            "import": "./dist/generated/pure/full/*.js",
+            "require": "./dist/generated/pure/full/*.cjs"
+        },
+        "./pure/full/array": {
+            "types": "./dist/generated/pure/full/index.d.ts",
+            "import": "./dist/generated/pure/full/index.js",
+            "require": "./dist/generated/pure/full/index.cjs"
+        },
+        "./pure/full/array/*": {
+            "types": "./dist/generated/pure/full/*.d.ts",
+            "import": "./dist/generated/pure/full/*.js",
+            "require": "./dist/generated/pure/full/*.cjs"
+        },
+        "./pure/full/virtual": {
+            "types": "./dist/generated/virtual/full/index.d.ts",
+            "import": "./dist/generated/virtual/full/index.js",
+            "require": "./dist/generated/virtual/full/index.cjs"
+        },
+        "./pure/full/virtual/*": {
+            "types": "./dist/generated/virtual/full/*.d.ts",
+            "import": "./dist/generated/virtual/full/*.js",
+            "require": "./dist/generated/virtual/full/*.cjs"
+        },
+        "./pure/full/array/virtual": {
+            "types": "./dist/generated/virtual/full/index.d.ts",
+            "import": "./dist/generated/virtual/full/index.js",
+            "require": "./dist/generated/virtual/full/index.cjs"
+        },
+        "./pure/full/array/virtual/*": {
+            "types": "./dist/generated/virtual/full/*.d.ts",
+            "import": "./dist/generated/virtual/full/*.js",
+            "require": "./dist/generated/virtual/full/*.cjs"
+        },
+        "./full/virtual": {
+            "types": "./dist/generated/global-virtual/full/index.d.ts",
+            "import": "./dist/generated/global-virtual/full/index.js",
+            "require": "./dist/generated/global-virtual/full/index.cjs"
+        },
+        "./full/virtual/*": {
+            "types": "./dist/generated/global-virtual/full/*.d.ts",
+            "import": "./dist/generated/global-virtual/full/*.js",
+            "require": "./dist/generated/global-virtual/full/*.cjs"
+        },
+        "./full/array/virtual": {
+            "types": "./dist/generated/global-virtual/full/index.d.ts",
+            "import": "./dist/generated/global-virtual/full/index.js",
+            "require": "./dist/generated/global-virtual/full/index.cjs"
+        },
+        "./full/array/virtual/*": {
+            "types": "./dist/generated/global-virtual/full/*.d.ts",
+            "import": "./dist/generated/global-virtual/full/*.js",
+            "require": "./dist/generated/global-virtual/full/*.cjs"
+        },
+        "./features": {
+            "types": "./dist/generated/global/full/index.d.ts",
+            "import": "./dist/generated/global/full/index.js",
+            "require": "./dist/generated/global/full/index.cjs"
+        },
+        "./features/*": {
+            "types": "./dist/generated/global/full/*.d.ts",
+            "import": "./dist/generated/global/full/*.js",
+            "require": "./dist/generated/global/full/*.cjs"
+        },
+        "./features/array": {
+            "types": "./dist/generated/global/full/index.d.ts",
+            "import": "./dist/generated/global/full/index.js",
+            "require": "./dist/generated/global/full/index.cjs"
+        },
+        "./features/array/*": {
+            "types": "./dist/generated/global/full/*.d.ts",
+            "import": "./dist/generated/global/full/*.js",
+            "require": "./dist/generated/global/full/*.cjs"
+        },
+        "./pure/features": {
+            "types": "./dist/generated/pure/full/index.d.ts",
+            "import": "./dist/generated/pure/full/index.js",
+            "require": "./dist/generated/pure/full/index.cjs"
+        },
+        "./pure/features/*": {
+            "types": "./dist/generated/pure/full/*.d.ts",
+            "import": "./dist/generated/pure/full/*.js",
+            "require": "./dist/generated/pure/full/*.cjs"
+        },
+        "./pure/features/array": {
+            "types": "./dist/generated/pure/full/index.d.ts",
+            "import": "./dist/generated/pure/full/index.js",
+            "require": "./dist/generated/pure/full/index.cjs"
+        },
+        "./pure/features/array/*": {
+            "types": "./dist/generated/pure/full/*.d.ts",
+            "import": "./dist/generated/pure/full/*.js",
+            "require": "./dist/generated/pure/full/*.cjs"
+        },
+        "./pure/features/virtual": {
+            "types": "./dist/generated/virtual/full/index.d.ts",
+            "import": "./dist/generated/virtual/full/index.js",
+            "require": "./dist/generated/virtual/full/index.cjs"
+        },
+        "./pure/features/virtual/*": {
+            "types": "./dist/generated/virtual/full/*.d.ts",
+            "import": "./dist/generated/virtual/full/*.js",
+            "require": "./dist/generated/virtual/full/*.cjs"
+        },
+        "./pure/features/array/virtual": {
+            "types": "./dist/generated/virtual/full/index.d.ts",
+            "import": "./dist/generated/virtual/full/index.js",
+            "require": "./dist/generated/virtual/full/index.cjs"
+        },
+        "./pure/features/array/virtual/*": {
+            "types": "./dist/generated/virtual/full/*.d.ts",
+            "import": "./dist/generated/virtual/full/*.js",
+            "require": "./dist/generated/virtual/full/*.cjs"
+        },
+        "./features/virtual": {
+            "types": "./dist/generated/global-virtual/full/index.d.ts",
+            "import": "./dist/generated/global-virtual/full/index.js",
+            "require": "./dist/generated/global-virtual/full/index.cjs"
+        },
+        "./features/virtual/*": {
+            "types": "./dist/generated/global-virtual/full/*.d.ts",
+            "import": "./dist/generated/global-virtual/full/*.js",
+            "require": "./dist/generated/global-virtual/full/*.cjs"
+        },
+        "./features/array/virtual": {
+            "types": "./dist/generated/global-virtual/full/index.d.ts",
+            "import": "./dist/generated/global-virtual/full/index.js",
+            "require": "./dist/generated/global-virtual/full/index.cjs"
+        },
+        "./features/array/virtual/*": {
+            "types": "./dist/generated/global-virtual/full/*.d.ts",
+            "import": "./dist/generated/global-virtual/full/*.js",
+            "require": "./dist/generated/global-virtual/full/*.cjs"
+        },
+        "./pure/*.js": {
+            "types": "./dist/generated/pure/full/*.d.ts",
+            "import": "./dist/generated/pure/full/*.js",
+            "require": "./dist/generated/pure/full/*.cjs"
+        },
+        "./virtual/*.js": {
+            "types": "./dist/generated/virtual/full/*.d.ts",
+            "import": "./dist/generated/virtual/full/*.js",
+            "require": "./dist/generated/virtual/full/*.cjs"
+        },
+        "./*.js": {
+            "types": "./dist/generated/global/full/*.d.ts",
+            "import": "./dist/generated/global/full/*.js",
+            "require": "./dist/generated/global/full/*.cjs"
+        },
+        "./es/*.js": {
+            "types": "./dist/generated/global/es/*.d.ts",
+            "import": "./dist/generated/global/es/*.js",
+            "require": "./dist/generated/global/es/*.cjs"
+        },
+        "./es/array/*.js": {
+            "types": "./dist/generated/global/es/*.d.ts",
+            "import": "./dist/generated/global/es/*.js",
+            "require": "./dist/generated/global/es/*.cjs"
+        },
+        "./pure/es/*.js": {
+            "types": "./dist/generated/pure/es/*.d.ts",
+            "import": "./dist/generated/pure/es/*.js",
+            "require": "./dist/generated/pure/es/*.cjs"
+        },
+        "./pure/es/array/*.js": {
+            "types": "./dist/generated/pure/es/*.d.ts",
+            "import": "./dist/generated/pure/es/*.js",
+            "require": "./dist/generated/pure/es/*.cjs"
+        },
+        "./pure/es/virtual/*.js": {
+            "types": "./dist/generated/virtual/es/*.d.ts",
+            "import": "./dist/generated/virtual/es/*.js",
+            "require": "./dist/generated/virtual/es/*.cjs"
+        },
+        "./pure/es/array/virtual/*.js": {
+            "types": "./dist/generated/virtual/es/*.d.ts",
+            "import": "./dist/generated/virtual/es/*.js",
+            "require": "./dist/generated/virtual/es/*.cjs"
+        },
+        "./es/virtual/*.js": {
+            "types": "./dist/generated/global-virtual/es/*.d.ts",
+            "import": "./dist/generated/global-virtual/es/*.js",
+            "require": "./dist/generated/global-virtual/es/*.cjs"
+        },
+        "./es/array/virtual/*.js": {
+            "types": "./dist/generated/global-virtual/es/*.d.ts",
+            "import": "./dist/generated/global-virtual/es/*.js",
+            "require": "./dist/generated/global-virtual/es/*.cjs"
+        },
+        "./stable/*.js": {
+            "types": "./dist/generated/global/stable/*.d.ts",
+            "import": "./dist/generated/global/stable/*.js",
+            "require": "./dist/generated/global/stable/*.cjs"
+        },
+        "./stable/array/*.js": {
+            "types": "./dist/generated/global/stable/*.d.ts",
+            "import": "./dist/generated/global/stable/*.js",
+            "require": "./dist/generated/global/stable/*.cjs"
+        },
+        "./pure/stable/*.js": {
+            "types": "./dist/generated/pure/stable/*.d.ts",
+            "import": "./dist/generated/pure/stable/*.js",
+            "require": "./dist/generated/pure/stable/*.cjs"
+        },
+        "./pure/stable/array/*.js": {
+            "types": "./dist/generated/pure/stable/*.d.ts",
+            "import": "./dist/generated/pure/stable/*.js",
+            "require": "./dist/generated/pure/stable/*.cjs"
+        },
+        "./pure/stable/virtual/*.js": {
+            "types": "./dist/generated/virtual/stable/*.d.ts",
+            "import": "./dist/generated/virtual/stable/*.js",
+            "require": "./dist/generated/virtual/stable/*.cjs"
+        },
+        "./pure/stable/array/virtual/*.js": {
+            "types": "./dist/generated/virtual/stable/*.d.ts",
+            "import": "./dist/generated/virtual/stable/*.js",
+            "require": "./dist/generated/virtual/stable/*.cjs"
+        },
+        "./stable/virtual/*.js": {
+            "types": "./dist/generated/global-virtual/stable/*.d.ts",
+            "import": "./dist/generated/global-virtual/stable/*.js",
+            "require": "./dist/generated/global-virtual/stable/*.cjs"
+        },
+        "./stable/array/virtual/*.js": {
+            "types": "./dist/generated/global-virtual/stable/*.d.ts",
+            "import": "./dist/generated/global-virtual/stable/*.js",
+            "require": "./dist/generated/global-virtual/stable/*.cjs"
+        },
+        "./actual/*.js": {
+            "types": "./dist/generated/global/actual/*.d.ts",
+            "import": "./dist/generated/global/actual/*.js",
+            "require": "./dist/generated/global/actual/*.cjs"
+        },
+        "./actual/array/*.js": {
+            "types": "./dist/generated/global/actual/*.d.ts",
+            "import": "./dist/generated/global/actual/*.js",
+            "require": "./dist/generated/global/actual/*.cjs"
+        },
+        "./pure/actual/*.js": {
+            "types": "./dist/generated/pure/actual/*.d.ts",
+            "import": "./dist/generated/pure/actual/*.js",
+            "require": "./dist/generated/pure/actual/*.cjs"
+        },
+        "./pure/actual/array/*.js": {
+            "types": "./dist/generated/pure/actual/*.d.ts",
+            "import": "./dist/generated/pure/actual/*.js",
+            "require": "./dist/generated/pure/actual/*.cjs"
+        },
+        "./pure/actual/virtual/*.js": {
+            "types": "./dist/generated/virtual/actual/*.d.ts",
+            "import": "./dist/generated/virtual/actual/*.js",
+            "require": "./dist/generated/virtual/actual/*.cjs"
+        },
+        "./pure/actual/array/virtual/*.js": {
+            "types": "./dist/generated/virtual/actual/*.d.ts",
+            "import": "./dist/generated/virtual/actual/*.js",
+            "require": "./dist/generated/virtual/actual/*.cjs"
+        },
+        "./actual/virtual/*.js": {
+            "types": "./dist/generated/global-virtual/actual/*.d.ts",
+            "import": "./dist/generated/global-virtual/actual/*.js",
+            "require": "./dist/generated/global-virtual/actual/*.cjs"
+        },
+        "./actual/array/virtual/*.js": {
+            "types": "./dist/generated/global-virtual/actual/*.d.ts",
+            "import": "./dist/generated/global-virtual/actual/*.js",
+            "require": "./dist/generated/global-virtual/actual/*.cjs"
+        },
+        "./full/*.js": {
+            "types": "./dist/generated/global/full/*.d.ts",
+            "import": "./dist/generated/global/full/*.js",
+            "require": "./dist/generated/global/full/*.cjs"
+        },
+        "./full/array/*.js": {
+            "types": "./dist/generated/global/full/*.d.ts",
+            "import": "./dist/generated/global/full/*.js",
+            "require": "./dist/generated/global/full/*.cjs"
+        },
+        "./pure/full/*.js": {
+            "types": "./dist/generated/pure/full/*.d.ts",
+            "import": "./dist/generated/pure/full/*.js",
+            "require": "./dist/generated/pure/full/*.cjs"
+        },
+        "./pure/full/array/*.js": {
+            "types": "./dist/generated/pure/full/*.d.ts",
+            "import": "./dist/generated/pure/full/*.js",
+            "require": "./dist/generated/pure/full/*.cjs"
+        },
+        "./pure/full/virtual/*.js": {
+            "types": "./dist/generated/virtual/full/*.d.ts",
+            "import": "./dist/generated/virtual/full/*.js",
+            "require": "./dist/generated/virtual/full/*.cjs"
+        },
+        "./pure/full/array/virtual/*.js": {
+            "types": "./dist/generated/virtual/full/*.d.ts",
+            "import": "./dist/generated/virtual/full/*.js",
+            "require": "./dist/generated/virtual/full/*.cjs"
+        },
+        "./full/virtual/*.js": {
+            "types": "./dist/generated/global-virtual/full/*.d.ts",
+            "import": "./dist/generated/global-virtual/full/*.js",
+            "require": "./dist/generated/global-virtual/full/*.cjs"
+        },
+        "./full/array/virtual/*.js": {
+            "types": "./dist/generated/global-virtual/full/*.d.ts",
+            "import": "./dist/generated/global-virtual/full/*.js",
+            "require": "./dist/generated/global-virtual/full/*.cjs"
+        },
+        "./features/*.js": {
+            "types": "./dist/generated/global/full/*.d.ts",
+            "import": "./dist/generated/global/full/*.js",
+            "require": "./dist/generated/global/full/*.cjs"
+        },
+        "./features/array/*.js": {
+            "types": "./dist/generated/global/full/*.d.ts",
+            "import": "./dist/generated/global/full/*.js",
+            "require": "./dist/generated/global/full/*.cjs"
+        },
+        "./pure/features/*.js": {
+            "types": "./dist/generated/pure/full/*.d.ts",
+            "import": "./dist/generated/pure/full/*.js",
+            "require": "./dist/generated/pure/full/*.cjs"
+        },
+        "./pure/features/array/*.js": {
+            "types": "./dist/generated/pure/full/*.d.ts",
+            "import": "./dist/generated/pure/full/*.js",
+            "require": "./dist/generated/pure/full/*.cjs"
+        },
+        "./pure/features/virtual/*.js": {
+            "types": "./dist/generated/virtual/full/*.d.ts",
+            "import": "./dist/generated/virtual/full/*.js",
+            "require": "./dist/generated/virtual/full/*.cjs"
+        },
+        "./pure/features/array/virtual/*.js": {
+            "types": "./dist/generated/virtual/full/*.d.ts",
+            "import": "./dist/generated/virtual/full/*.js",
+            "require": "./dist/generated/virtual/full/*.cjs"
+        },
+        "./features/virtual/*.js": {
+            "types": "./dist/generated/global-virtual/full/*.d.ts",
+            "import": "./dist/generated/global-virtual/full/*.js",
+            "require": "./dist/generated/global-virtual/full/*.cjs"
+        },
+        "./features/array/virtual/*.js": {
+            "types": "./dist/generated/global-virtual/full/*.d.ts",
+            "import": "./dist/generated/global-virtual/full/*.js",
+            "require": "./dist/generated/global-virtual/full/*.cjs"
         }
     },
     "main": "./dist/index.cjs",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "sideEffects": false,
+    "sideEffects": [
+        "./dist/auto.*",
+        "./dist/generated/global/**",
+        "./dist/generated/global-virtual/**"
+    ],
     "scripts": {
         "dev": "pnpm run build",
         "build": "rslib build",
@@ -24,7 +673,8 @@
         "typecheck": "tsc --noEmit",
         "clean": "node ../../scripts/clean.mjs",
         "test": "vitest run --config ../../vitest.config.ts",
-        "test:types": "tsc --project tsconfig.test.json"
+        "test:types": "tsc --project tsconfig.test.json && tsc --project tests/tsconfig.json && tsc --project tests/tsconfig.node.json",
+        "prebuild": "node scripts/generate.mjs"
     },
     "keywords": [],
     "authors": [
@@ -33,6 +683,7 @@
     "license": "MIT",
     "files": [
         "dist",
+        "api.d.ts",
         "types.d.ts"
     ],
     "publishConfig": {
@@ -45,7 +696,10 @@
         "directory": "packages/array"
     },
     "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/array",
-    "dependencies": {},
+    "dependencies": {
+        "core-js": "catalog:",
+        "core-js-pure": "catalog:"
+    },
     "devDependencies": {
         "typescript": "catalog:",
         "@1adybug/build-config": "workspace:*",
@@ -53,5 +707,253 @@
         "@rslib/core": "catalog:",
         "vitest": "catalog:"
     },
-    "peerDependencies": {}
+    "peerDependencies": {},
+    "arrayMethods": {
+        "es": [
+            "at",
+            "concat",
+            "copyWithin",
+            "entries",
+            "every",
+            "fill",
+            "filter",
+            "findIndex",
+            "findLastIndex",
+            "findLast",
+            "find",
+            "flatMap",
+            "flat",
+            "forEach",
+            "fromAsync",
+            "from",
+            "includes",
+            "indexOf",
+            "isArray",
+            "iterator",
+            "join",
+            "keys",
+            "lastIndexOf",
+            "map",
+            "of",
+            "push",
+            "reduceRight",
+            "reduce",
+            "reverse",
+            "slice",
+            "some",
+            "sort",
+            "splice",
+            "toReversed",
+            "toSorted",
+            "toSpliced",
+            "unshift",
+            "values",
+            "with",
+            "pop",
+            "shift",
+            "toString",
+            "toLocaleString",
+            "chunk",
+            "nonNullable",
+            "asNonNullable",
+            "toShifted",
+            "toPopped",
+            "toPushed",
+            "toUnshifted",
+            "toExchange",
+            "toDeduplicated",
+            "difference",
+            "intersection",
+            "union",
+            "random"
+        ],
+        "stable": [
+            "at",
+            "concat",
+            "copyWithin",
+            "entries",
+            "every",
+            "fill",
+            "filter",
+            "findIndex",
+            "findLastIndex",
+            "findLast",
+            "find",
+            "flatMap",
+            "flat",
+            "forEach",
+            "fromAsync",
+            "from",
+            "includes",
+            "indexOf",
+            "isArray",
+            "iterator",
+            "join",
+            "keys",
+            "lastIndexOf",
+            "map",
+            "of",
+            "push",
+            "reduceRight",
+            "reduce",
+            "reverse",
+            "slice",
+            "some",
+            "sort",
+            "splice",
+            "toReversed",
+            "toSorted",
+            "toSpliced",
+            "unshift",
+            "values",
+            "with",
+            "pop",
+            "shift",
+            "toString",
+            "toLocaleString",
+            "chunk",
+            "nonNullable",
+            "asNonNullable",
+            "toShifted",
+            "toPopped",
+            "toPushed",
+            "toUnshifted",
+            "toExchange",
+            "toDeduplicated",
+            "difference",
+            "intersection",
+            "union",
+            "random"
+        ],
+        "actual": [
+            "at",
+            "concat",
+            "copyWithin",
+            "entries",
+            "every",
+            "fill",
+            "filter",
+            "findIndex",
+            "findLastIndex",
+            "findLast",
+            "find",
+            "flatMap",
+            "flat",
+            "forEach",
+            "fromAsync",
+            "from",
+            "groupByToMap",
+            "groupBy",
+            "groupToMap",
+            "group",
+            "includes",
+            "indexOf",
+            "isArray",
+            "iterator",
+            "join",
+            "keys",
+            "lastIndexOf",
+            "map",
+            "of",
+            "push",
+            "reduceRight",
+            "reduce",
+            "reverse",
+            "slice",
+            "some",
+            "sort",
+            "splice",
+            "toReversed",
+            "toSorted",
+            "toSpliced",
+            "unshift",
+            "values",
+            "with",
+            "pop",
+            "shift",
+            "toString",
+            "toLocaleString",
+            "chunk",
+            "nonNullable",
+            "asNonNullable",
+            "toShifted",
+            "toPopped",
+            "toPushed",
+            "toUnshifted",
+            "toExchange",
+            "toDeduplicated",
+            "difference",
+            "intersection",
+            "union",
+            "random"
+        ],
+        "full": [
+            "at",
+            "concat",
+            "copyWithin",
+            "entries",
+            "every",
+            "fill",
+            "filterOut",
+            "filterReject",
+            "filter",
+            "findIndex",
+            "findLastIndex",
+            "findLast",
+            "find",
+            "flatMap",
+            "flat",
+            "forEach",
+            "fromAsync",
+            "from",
+            "groupByToMap",
+            "groupBy",
+            "groupToMap",
+            "group",
+            "includes",
+            "indexOf",
+            "isArray",
+            "isTemplateObject",
+            "iterator",
+            "join",
+            "keys",
+            "lastIndexOf",
+            "lastIndex",
+            "lastItem",
+            "map",
+            "of",
+            "push",
+            "reduceRight",
+            "reduce",
+            "reverse",
+            "slice",
+            "some",
+            "sort",
+            "splice",
+            "toReversed",
+            "toSorted",
+            "toSpliced",
+            "uniqueBy",
+            "unshift",
+            "values",
+            "with",
+            "pop",
+            "shift",
+            "toString",
+            "toLocaleString",
+            "chunk",
+            "nonNullable",
+            "asNonNullable",
+            "toShifted",
+            "toPopped",
+            "toPushed",
+            "toUnshifted",
+            "toExchange",
+            "toDeduplicated",
+            "difference",
+            "intersection",
+            "union",
+            "random"
+        ]
+    }
 }

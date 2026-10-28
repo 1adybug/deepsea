@@ -1,4 +1,4 @@
-import { readdir, readFile } from "node:fs/promises"
+import { glob, readdir, readFile } from "node:fs/promises"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -17,4 +17,33 @@ export async function readWorkspacePackages() {
     }
 
     return packages
+}
+
+export async function expandPackageExports(manifest, directory) {
+    const exports = new Map()
+
+    for (const [subpath, conditions] of Object.entries(manifest.exports)) {
+        if (!subpath.includes("*")) {
+            exports.set(subpath, conditions)
+            continue
+        }
+
+        const pattern = conditions.import ?? conditions.types ?? conditions.require
+        const [prefix, suffix] = pattern.split("*")
+        let matches = 0
+
+        for await (const file of glob(pattern, { cwd: directory })) {
+            const normalized = "./" + file.replaceAll("\\", "/").replace(/^\.\//, "")
+            const name = normalized.slice(prefix.length, suffix ? -suffix.length : undefined)
+            exports.set(
+                subpath.replaceAll("*", name),
+                Object.fromEntries(Object.entries(conditions).map(([condition, path]) => [condition, path.replaceAll("*", name)])),
+            )
+            matches++
+        }
+
+        if (!matches) throw new Error(`${manifest.name}: export pattern has no files: ${pattern}`)
+    }
+
+    return exports
 }

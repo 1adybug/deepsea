@@ -15,9 +15,27 @@ export function runCompatibilityTests() {
     const core = JSON.parse(readFileSync(resolve(coreDirectory, "package.json"), "utf8"))
     const require = createRequire(manifestPath)
 
-    for (const [subpath, conditions] of Object.entries(manifest.exports) as [string, Record<string, string>][]) {
+    function resolveExport(exports: Record<string, Record<string, string>>, subpath: string): Record<string, string> {
+        if (exports[subpath]) return exports[subpath]!
+
+        for (const pattern of Object.keys(exports)
+            .filter(key => key.includes("*"))
+            .sort((a, b) => b.length - a.length)) {
+            const [prefix, suffix] = pattern.split("*") as [string, string]
+            if (!subpath.startsWith(prefix) || !subpath.endsWith(suffix)) continue
+            const value = subpath.slice(prefix.length, suffix ? -suffix.length : undefined)
+            return Object.fromEntries(Object.entries(exports[pattern]!).map(([name, path]) => [name, path.replaceAll("*", value)]))
+        }
+
+        throw new Error(`Unknown export: ${subpath}`)
+    }
+
+    const paths = config.testSubpaths ?? Object.keys(manifest.exports).filter(key => !key.includes("*"))
+
+    for (const subpath of paths as string[]) {
+        const conditions = resolveExport(manifest.exports, subpath)
         if (config.typeOnly?.includes(subpath) || (subpath === "." && config.bins && Object.values(config.bins).includes("."))) continue
-        const target = core.exports[subpath]
+        const target = resolveExport(core.exports, subpath)
 
         it(`${subpath}: ESM exports reference the implementation without duplicating state`, async () => {
             const legacy = await import(pathToFileURL(resolve(directory, conditions.import!)).href)
