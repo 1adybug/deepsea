@@ -131,7 +131,7 @@ deepsea/
 
 ## 贡献与发布
 
-修复应定位原始状态或执行逻辑，并添加有区分力的回归用例。提交前运行 pnpm check，公共行为变化需同步中英文文档。依赖版本由根 catalog 管理，包间使用 workspace:*。使用 pnpm changeset 记录公共变化，pnpm version:packages 更新版本；发布流程运行完整检查后执行 Changesets 发布。
+修复应定位原始状态或执行逻辑，并添加有区分力的回归用例。提交前运行 pnpm check，公共行为变化需同步中英文文档。依赖版本由根 catalog 管理，包间使用 workspace:*。使用 pnpm changeset 记录公共变化，pnpm version:packages 更新版本；pnpm release 运行完整检查后执行 Changesets 发布。发布阶段复用已验证的构建产物，跳过包级发布生命周期脚本，避免并发重建清理其他包正在读取的类型声明。
 
 ## 许可证
 

@@ -21,7 +21,7 @@
         "clean": "turbo run clean",
         "changeset": "changeset",
         "version:packages": "changeset version && pnpm install --lockfile-only",
-        "release": "pnpm check && changeset publish",
+        "release": "pnpm check && node scripts/publish-packages.mjs",
         "sync:registry": "node scripts/syncPackage.mjs",
         "prepare": "husky",
         "test:types": "turbo run test:types --concurrency=4",

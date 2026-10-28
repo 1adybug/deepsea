@@ -131,7 +131,7 @@ Internal presets: [build-config](tooling/build-config/README.md), [typescript-co
 
 ## Contributing and releases
 
-Fix behavior at its original state or execution boundary and add a discriminating regression test. Run pnpm check before submitting and update both documentation languages for public behavior changes. External versions live in the root catalog; internal edges use workspace:*. Record public changes with pnpm changeset and update versions with pnpm version:packages. The release workflow runs full checks before Changesets publication.
+Fix behavior at its original state or execution boundary and add a discriminating regression test. Run pnpm check before submitting and update both documentation languages for public behavior changes. External versions live in the root catalog; internal edges use workspace:*. Record public changes with pnpm changeset and update versions with pnpm version:packages. Run pnpm release for full checks followed by Changesets publication. Publication reuses the verified build outputs and skips package lifecycle scripts so concurrent rebuilds cannot delete declarations another package is reading.
 
 ## License
 
