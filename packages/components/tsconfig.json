@@ -1,0 +1,11 @@
+{
+    "extends": "@1adybug/typescript-config/react-library.json",
+    "compilerOptions": {
+        "rootDir": "src",
+        "types": ["node", "react", "react-dom"],
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": ["src", "types.d.ts"]
+}

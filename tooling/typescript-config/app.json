@@ -1,0 +1,12 @@
+{
+    "extends": "./base.json",
+    "compilerOptions": {
+        "lib": ["DOM", "ESNext"],
+        "jsx": "react-jsx",
+        "noEmit": true,
+        "isolatedModules": true,
+        "resolveJsonModule": true,
+        "useDefineForClassFields": true,
+        "allowImportingTsExtensions": true
+    }
+}

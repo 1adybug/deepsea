@@ -1,0 +1,9 @@
+{
+    "extends": "@1adybug/typescript-config/app.json",
+    "compilerOptions": {
+        "paths": {
+            "@assets/*": ["./src/assets/*"]
+        }
+    },
+    "include": ["src"]
+}

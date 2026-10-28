@@ -1,0 +1,67 @@
+{
+    "name": "@1adybug/store",
+    "version": "5.3.8",
+    "description": "😉 Simpler and more effective state management for react.",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "rslib build",
+        "prepublishOnly": "pnpm run typecheck && pnpm run build",
+        "typecheck": "tsc --noEmit",
+        "clean": "node ../../scripts/clean.mjs",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "test:types": "tsc --project tsconfig.test.json"
+    },
+    "keywords": [
+        "react",
+        "state",
+        "state management",
+        "react state management",
+        "react-soda",
+        "soda"
+    ],
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "packages/store"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/store",
+    "dependencies": {},
+    "devDependencies": {
+        "typescript": "catalog:",
+        "@1adybug/build-config": "workspace:*",
+        "@1adybug/typescript-config": "workspace:*",
+        "@rslib/core": "catalog:",
+        "vitest": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@testing-library/dom": "catalog:",
+        "jsdom": "catalog:"
+    },
+    "peerDependencies": {
+        "@types/react": "catalog:",
+        "react": "catalog:"
+    }
+}

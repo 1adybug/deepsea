@@ -1,0 +1,515 @@
+/* eslint-disable no-restricted-syntax */
+
+import { readdir, readFile, stat, writeFile } from "node:fs/promises"
+import { join, parse } from "node:path"
+
+import { resolveProjectImportPath } from "./resolveProjectImportPath"
+import { type SdrrOptions, resolveSdrrOptions, resolveSdrrPath } from "./resolveSdrrOptions"
+
+interface NamedImportSpecifier {
+    name: string
+    type?: boolean
+}
+
+function getNamedImportStatement(modulePath: string, specifiers: NamedImportSpecifier[]) {
+    const allType = specifiers.every(item => item.type)
+    const names = specifiers.map(item => (allType || !item.type ? item.name : `type ${item.name}`)).join(", ")
+
+    return `import ${allType ? "type " : ""}{ ${names} } from "${modulePath}"`
+}
+
+export async function createRouter(options: SdrrOptions = {}) {
+    const resolved = resolveSdrrOptions(options)
+
+    const importStatements: string[] = []
+
+    const lazyDeclarations: string[] = []
+
+    let useLazyImport = false
+    const routerOutputPath = resolved.routerOutputPath
+
+    type Segment =
+        | { kind: "root" }
+        | { kind: "group"; name: string }
+        | { kind: "static"; name: string }
+        | { kind: "dynamic"; name: string }
+        | { kind: "catchAll"; name: string }
+        | { kind: "optionalCatchAll"; name: string }
+        | { kind: "parallel"; name: string }
+        | { kind: "intercepting"; name: string }
+
+    function parseSegmentName(name: string): Segment {
+        if (/^@.+/.test(name)) return { kind: "parallel", name }
+
+        if (/^\(\.\.\.\).+/.test(name) || /^\(\.\.\).+/.test(name) || /^\(\.\).+/.test(name)) return { kind: "intercepting", name }
+
+        const group = name.match(/^\((.+?)\)$/)
+        if (group) return { kind: "group", name: group[1]! }
+
+        const optionalCatchAll = name.match(/^\[\[\.\.\.(.+?)\]\]$/)
+        if (optionalCatchAll) return { kind: "optionalCatchAll", name: optionalCatchAll[1]! }
+
+        const catchAll = name.match(/^\[\.\.\.(.+?)\]$/)
+        if (catchAll) return { kind: "catchAll", name: catchAll[1]! }
+
+        const dynamic = name.match(/^\[(.+?)\]$/)
+        if (dynamic) return { kind: "dynamic", name: dynamic[1]! }
+
+        return { kind: "static", name }
+    }
+
+    function normalizeIdentifierPart(input: string) {
+        const cleaned = input
+            .replace(/[()[\]:]/g, "")
+            .replace(/\.+/g, "-")
+            .replace(/[^a-zA-Z0-9_-]/g, "")
+            .replace(/-([a-zA-Z0-9])/g, (_m, a) => String(a).toUpperCase())
+            .replace(/_+([a-zA-Z0-9])/g, (_m, a) => String(a).toUpperCase())
+
+        const withoutLeading = cleaned.replace(/^(\d)/, "_$1")
+        return withoutLeading || "X"
+    }
+
+    function getSegmentImportPrefix(routeSegments: string[]) {
+        if (routeSegments.length === 0) return "Root"
+
+        const last = routeSegments.at(-1)!
+        const segment = parseSegmentName(last)
+
+        if (segment.kind === "group") return normalizeIdentifierPart(segment.name)
+        if (segment.kind === "dynamic") return normalizeIdentifierPart(segment.name)
+        if (segment.kind === "catchAll") return `${normalizeIdentifierPart(segment.name)}Splat`
+        if (segment.kind === "optionalCatchAll") return `${normalizeIdentifierPart(segment.name)}OptionalSplat`
+
+        return normalizeIdentifierPart(last)
+    }
+
+    function isLayout(name: string) {
+        return /^layout(\.lazy)?\.[tj]sx?$/.test(name)
+    }
+
+    function isPage(name: string) {
+        return /^page(\.lazy)?\.[tj]sx?$/.test(name)
+    }
+
+    function isErrorBoundary(name: string) {
+        return /^error(\.lazy)?\.[tj]sx?$/.test(name)
+    }
+
+    function isNotFound(name: string) {
+        return /^not-found(\.lazy)?\.[tj]sx?$/.test(name)
+    }
+
+    function isLazyComponent(name: string) {
+        return /\.lazy\.[tj]sx?$/.test(name)
+    }
+
+    const routeFileExtPriority = ["tsx", "jsx", "ts", "js"] as const
+
+    function getRouteFileExtScore(filename: string) {
+        const ext = parse(filename).ext.replace(/^\./, "").toLowerCase()
+        const index = routeFileExtPriority.indexOf(ext as (typeof routeFileExtPriority)[number])
+        return index === -1 ? 0 : routeFileExtPriority.length - index
+    }
+
+    function compareRouteFiles(a: string, b: string) {
+        const aLazy = isLazyComponent(a)
+        const bLazy = isLazyComponent(b)
+        if (aLazy !== bLazy) return aLazy ? -1 : 1
+
+        const aScore = getRouteFileExtScore(a)
+        const bScore = getRouteFileExtScore(b)
+        if (aScore !== bScore) return bScore - aScore
+
+        return a.localeCompare(b)
+    }
+
+    async function pickPreferredRouteFile(currentProjectDir: string, candidates: string[]) {
+        const meaningful: string[] = []
+
+        for (const item of candidates) {
+            if (await hasMeaningfulContent(joinProjectPath(currentProjectDir, item))) meaningful.push(item)
+        }
+
+        return meaningful.sort(compareRouteFiles).at(0)
+    }
+
+    const nameCount: Record<string, number> = {}
+
+    function getExportName(name: string) {
+        if (nameCount[name] === undefined) {
+            nameCount[name] = 1
+            return name
+        }
+
+        nameCount[name]++
+        return `${name}${nameCount[name]}`
+    }
+
+    async function hasMeaningfulContent(path: string) {
+        try {
+            const stats = await stat(resolveSdrrPath(resolved, path))
+            if (!stats.isFile()) return false
+            const content = await readFile(resolveSdrrPath(resolved, path), "utf-8")
+            return content.trim().length > 0
+        } catch {
+            return false
+        }
+    }
+
+    interface GetRouteParams {
+        currentProjectDir: string
+        routeSegments: string[]
+        item: string
+        hasActionFile: boolean
+        hasLoaderFile: boolean
+        hasShouldRevalidateFile: boolean
+    }
+
+    async function getRoute({
+        currentProjectDir,
+        routeSegments,
+        item,
+        hasActionFile,
+        hasLoaderFile,
+        hasShouldRevalidateFile,
+    }: GetRouteParams): Promise<Router> {
+        const prefix = getSegmentImportPrefix(routeSegments)
+        const { name: parsedName } = parse(item)
+        const name = normalizeIdentifierPart(parsedName.replace(/\.lazy$/, ""))
+
+        function getRouteExportName(name: string, upperCase = false) {
+            const prefixCased = upperCase ? prefix.replace(/^./, m => m.toUpperCase()) : prefix.replace(/^./, m => m.toLowerCase())
+            const nameCased = name.replace(/^./, m => m.toUpperCase())
+            return getExportName(`${prefixCased}${nameCased}`)
+        }
+
+        const Component = getRouteExportName(name, true)
+        const action = hasActionFile ? getRouteExportName("action") : undefined
+        const loader = hasLoaderFile ? getRouteExportName("loader") : undefined
+        const shouldRevalidate = hasShouldRevalidateFile ? getRouteExportName("shouldRevalidate") : undefined
+
+        const componentModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, item), resolved.root)
+        const actionModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, "action.ts"), resolved.root)
+        const loaderModulePath = await resolveProjectImportPath(routerOutputPath, joinProjectPath(currentProjectDir, "loader.ts"), resolved.root)
+        const shouldRevalidateModulePath = await resolveProjectImportPath(
+            routerOutputPath,
+            joinProjectPath(currentProjectDir, "shouldRevalidate.ts"),
+            resolved.root,
+        )
+
+        if (isLazyComponent(item)) {
+            useLazyImport = true
+            lazyDeclarations.push(`const ${Component} = lazy(() => import("${componentModulePath}"))`)
+        } else importStatements.push(`import ${Component} from "${componentModulePath}"`)
+
+        if (action) importStatements.push(`import { action as ${action} } from "${actionModulePath}"`)
+        if (loader) importStatements.push(`import { loader as ${loader} } from "${loaderModulePath}"`)
+        if (shouldRevalidate) importStatements.push(`import { shouldRevalidate as ${shouldRevalidate} } from "${shouldRevalidateModulePath}"`)
+
+        function getHashName(name: string) {
+            return `$$${name}$$`
+        }
+
+        return {
+            Component: getHashName(Component),
+            action: action ? getHashName(action) : undefined,
+            loader: loader ? getHashName(loader) : undefined,
+            shouldRevalidate: shouldRevalidate ? getHashName(shouldRevalidate) : undefined,
+        }
+    }
+
+    function getRoutePath(routeSegments: string[]) {
+        if (routeSegments.length === 0) return "/"
+
+        const last = routeSegments.at(-1)!
+        const segment = parseSegmentName(last)
+
+        if (segment.kind === "group") return undefined
+        if (segment.kind === "dynamic") return `:${segment.name}`
+
+        if (segment.kind === "static") return segment.name
+
+        if (segment.kind === "parallel") throw new Error(`不支持 Next.js 的并行路由目录：${last}（@slot）。react-router 没有命名 slot/outlet 的等价能力。`)
+
+        if (segment.kind === "intercepting") throw new Error(`不支持 Next.js 的拦截路由目录：${last}（(.)/(..)/(...)）。`)
+
+        if (segment.kind === "catchAll" || segment.kind === "optionalCatchAll") throw new Error("catch-all 段的 path 由专用逻辑生成，不应调用 getRoutePath()")
+
+        return last
+    }
+
+    interface Router {
+        path?: string
+        index?: boolean
+        loader?: string
+        action?: string
+        shouldRevalidate?: string
+        Component?: string
+        ErrorBoundary?: string
+        children?: Router[]
+    }
+
+    function prependRoutePath(route: Router, path: string): Router {
+        if (route.path) return { ...route, path: `${path}/${route.path}` }
+        if (route.index) return { ...route, path, index: undefined }
+        if (route.children) return { ...route, children: route.children.map(child => prependRoutePath(child, path)) }
+        return route
+    }
+
+    function joinProjectPath(...parts: string[]) {
+        return join(...parts).replace(/\\/g, "/")
+    }
+
+    async function createRouteTree(currentProjectDir: string, routeSegments: string[]): Promise<Router | undefined> {
+        const currentDir = resolveSdrrPath(resolved, currentProjectDir)
+        const content = await readdir(currentDir)
+
+        const last = routeSegments.at(-1)
+        const segment = routeSegments.length === 0 ? ({ kind: "root" } as const) : parseSegmentName(last!)
+
+        const dirNames: string[] = []
+
+        const fileNames: string[] = []
+
+        for (const item of content) {
+            const stats = await stat(join(currentDir, item))
+
+            if (stats.isDirectory()) dirNames.push(item)
+            else fileNames.push(item)
+        }
+
+        dirNames.sort((a, b) => {
+            const sa = parseSegmentName(a)
+            const sb = parseSegmentName(b)
+
+            const order: Record<Segment["kind"], number> = {
+                root: 0,
+                group: 1,
+                static: 2,
+                dynamic: 3,
+                catchAll: 4,
+                optionalCatchAll: 5,
+                parallel: 6,
+                intercepting: 7,
+            }
+
+            const diff = order[sa.kind] - order[sb.kind]
+            if (diff !== 0) return diff
+            return a.localeCompare(b)
+        })
+
+        const layoutItem = await pickPreferredRouteFile(currentProjectDir, fileNames.filter(isLayout))
+        const pageItem = await pickPreferredRouteFile(currentProjectDir, fileNames.filter(isPage))
+        const errorItem = await pickPreferredRouteFile(currentProjectDir, fileNames.filter(isErrorBoundary))
+        const notFoundItem = await pickPreferredRouteFile(currentProjectDir, fileNames.filter(isNotFound))
+
+        const hasPage = !!pageItem
+        const hasActionFile = hasPage && (await hasMeaningfulContent(joinProjectPath(currentProjectDir, "action.ts")))
+        const hasLoaderFile = hasPage && (await hasMeaningfulContent(joinProjectPath(currentProjectDir, "loader.ts")))
+        const hasShouldRevalidateFile = hasPage && (await hasMeaningfulContent(joinProjectPath(currentProjectDir, "shouldRevalidate.ts")))
+
+        const layout = layoutItem
+            ? await getRoute({
+                  currentProjectDir,
+                  routeSegments,
+                  item: layoutItem,
+                  hasActionFile: false,
+                  hasLoaderFile: false,
+                  hasShouldRevalidateFile: false,
+              })
+            : undefined
+
+        const page = pageItem
+            ? await getRoute({
+                  currentProjectDir,
+                  routeSegments,
+                  item: pageItem,
+                  hasActionFile,
+                  hasLoaderFile,
+                  hasShouldRevalidateFile,
+              })
+            : undefined
+
+        const errorBoundary = errorItem
+            ? await getRoute({
+                  currentProjectDir,
+                  routeSegments,
+                  item: errorItem,
+                  hasActionFile: false,
+                  hasLoaderFile: false,
+                  hasShouldRevalidateFile: false,
+              })
+            : undefined
+
+        const notFound = notFoundItem
+            ? await getRoute({
+                  currentProjectDir,
+                  routeSegments,
+                  item: notFoundItem,
+                  hasActionFile: false,
+                  hasLoaderFile: false,
+                  hasShouldRevalidateFile: false,
+              })
+            : undefined
+
+        const children: Router[] = []
+
+        for (const item of dirNames) {
+            const child = await createRouteTree(joinProjectPath(currentProjectDir, item), [...routeSegments, item])
+            if (child) children.push(child)
+        }
+
+        function assertNoChildrenForSplat() {
+            if (children.length > 0) throw new Error(`Next.js 的 catch-all/optional catch-all 段不允许再有子路由目录：${currentDir}`)
+        }
+
+        if (segment.kind === "parallel") throw new Error(`不支持 Next.js 的并行路由目录：${last}（@slot）。react-router 没有命名 slot/outlet 的等价能力。`)
+
+        if (segment.kind === "intercepting") throw new Error(`不支持 Next.js 的拦截路由目录：${last}（(.)/(..)/(...)）。`)
+
+        if (segment.kind === "catchAll") {
+            assertNoChildrenForSplat()
+            if (!page) throw new Error(`catch-all 目录必须存在 page 文件：${currentDir}`)
+
+            const node: Router = {
+                path: `:${segment.name}`,
+                Component: layout?.Component,
+                ErrorBoundary: errorBoundary?.Component,
+                children: [
+                    {
+                        path: "*",
+                        ...page,
+                    },
+                ],
+            }
+
+            return node
+        }
+
+        if (segment.kind === "optionalCatchAll") {
+            assertNoChildrenForSplat()
+            if (!page) throw new Error(`optional catch-all 目录必须存在 page 文件：${currentDir}`)
+
+            const node: Router = {
+                Component: layout?.Component,
+                ErrorBoundary: errorBoundary?.Component,
+                children: [
+                    {
+                        index: true,
+                        ...page,
+                    },
+                    {
+                        path: `:${segment.name}`,
+                        children: [
+                            {
+                                path: "*",
+                                ...page,
+                            },
+                        ],
+                    },
+                ],
+            }
+
+            return node
+        }
+
+        const path = getRoutePath(routeSegments)
+
+        if (routeSegments.length > 0 && path && !layout && !page && !errorBoundary && !notFound && children.length > 0) {
+            return {
+                children: children.map(child => prependRoutePath(child, path)),
+            }
+        }
+
+        const node: Router = {
+            path,
+            Component: layout?.Component,
+            ErrorBoundary: errorBoundary?.Component,
+        }
+
+        const nodeChildren: Router[] = []
+
+        if (page) nodeChildren.push({ index: true, ...page })
+        nodeChildren.push(...children)
+        if (notFound) nodeChildren.push({ path: "*", Component: notFound.Component })
+
+        node.children = nodeChildren.length > 0 ? nodeChildren : undefined
+
+        if (!node.Component && !node.ErrorBoundary && !node.children) return undefined
+
+        return node
+    }
+
+    const router = await createRouteTree(resolved.appDir, [])
+    if (!router) throw new Error("未在 app 目录中找到任何可生成的路由文件。")
+
+    const useDefaultErrorBoundary = !router.ErrorBoundary
+
+    if (useDefaultErrorBoundary) router.ErrorBoundary = "$$SdrrDefaultErrorBoundary$$"
+
+    const str = JSON.stringify(router, null, 4)
+        .replace(/^/gm, "    ")
+        .replace(/^( *)"(.+?)":/gm, "$1$2:")
+        .replace(/"\$\$(.+?)\$\$"/gm, "$1")
+
+    const defaultErrorBoundaryCode = useDefaultErrorBoundary
+        ? `function SdrrDefaultErrorBoundary() {
+    return (
+        <main
+            style={{
+                alignItems: "center",
+                boxSizing: "border-box",
+                display: "flex",
+                flexDirection: "column",
+                fontFamily: "system-ui, sans-serif",
+                justifyContent: "center",
+                minHeight: "100vh",
+                padding: "2rem",
+                textAlign: "center",
+            }}
+        >
+            <h1>Something went wrong</h1>
+            <p>Please reload the page and try again.</p>
+            <button type="button" onClick={() => window.location.reload()}>
+                Reload page
+            </button>
+        </main>
+    )
+}`
+        : ""
+
+    const routeModulesCode = [importStatements.join("\n"), lazyDeclarations.join("\n"), defaultErrorBoundaryCode].filter(Boolean).join("\n\n")
+
+    const reactImports: NamedImportSpecifier[] = [{ name: "FC", type: true }]
+
+    if (useLazyImport) reactImports.push({ name: "lazy" })
+
+    const reactImport = getNamedImportStatement("react", reactImports)
+    const routerExportStatement = resolved.routerExportType === "named" ? "export { Router }" : "export default Router"
+
+    const component = `${reactImport}
+import { RouterProvider, createBrowserRouter } from "react-router"
+
+${routeModulesCode}
+
+const router = createBrowserRouter([
+${str}
+])
+
+const Router: FC = () => <RouterProvider router={router} />
+
+${routerExportStatement}
+`
+
+    const routerOutputAbsPath = resolveSdrrPath(resolved, routerOutputPath)
+
+    try {
+        const current = await readFile(routerOutputAbsPath, "utf-8")
+        if (current === component) return false
+    } catch (error) {}
+
+    await writeFile(routerOutputAbsPath, component)
+
+    return true
+}

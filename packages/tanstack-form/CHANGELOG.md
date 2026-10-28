@@ -1,0 +1,121 @@
+# soda-tanstack-form
+
+## 0.3.8
+
+### Patch Changes
+
+- feat: update dependencies
+
+## 0.3.7
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+
+## 0.3.6
+
+### Patch Changes
+
+- 升级依赖
+
+## 0.3.5
+
+### Patch Changes
+
+- 优化代码
+
+## 0.3.4
+
+### Patch Changes
+
+- update dependencies
+
+## 0.3.3
+
+### Patch Changes
+
+- update dependencies
+
+## 0.3.2
+
+### Patch Changes
+
+- 新增 useEventListener，升级 react 最低版本至 19.2.0
+
+## 0.3.1
+
+### Patch Changes
+
+- 升级依赖
+
+## 0.3.0
+
+### Minor Changes
+
+- 移除 react compiler
+
+## 0.2.5
+
+### Patch Changes
+
+- 升级依赖
+
+## 0.2.4
+
+### Patch Changes
+
+- 迁移到新环境
+
+## 0.2.3
+
+### Patch Changes
+
+- name 属性变为可选
+
+## 0.2.2
+
+### Patch Changes
+
+- 自动匹配表单元素的 name 属性
+
+## 0.2.1
+
+### Patch Changes
+
+- 修复依赖问题
+
+## 0.2.0
+
+### Minor Changes
+
+- isFieldInvalid 移到 soda-tanstack-form 中
+
+## 0.1.0
+
+### Minor Changes
+
+- 迁移到 rslib
+
+## 0.0.4
+
+### Patch Changes
+
+- 更新 TypeScript 字段
+
+## 0.0.3
+
+### Patch Changes
+
+- 优化类型
+
+## 0.0.2
+
+### Patch Changes
+
+- 新增 soda-heroui
+
+## 0.0.1
+
+### Patch Changes
+
+- 新增 getFieldComponent 方法

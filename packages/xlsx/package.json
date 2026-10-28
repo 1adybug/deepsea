@@ -109,25 +109,36 @@
 		"fs": false
 	},
 	"sideEffects": false,
-	"dependencies": {
-	},
+	"dependencies": {},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/1adybug/deepsea.git"
 	},
 	"scripts": {
-		"build": "node -e \"console.log('@1adybug/xlsx uses vendored xlsx 0.20.3 files')\""
+		"test": "node --test ../../tests/xlsx.test.mjs"
 	},
 	"publishConfig": {
 		"access": "public",
-		"registry": "https://registry.npmjs.com/"
+		"registry": "https://registry.npmjs.org/"
 	},
 	"homepage": "https://github.com/1adybug/deepsea/tree/main/packages/xlsx",
 	"files": [
-		"CHANGELOG.md", "LICENSE", "README.md", "bower.json", "package.json", "xlsx.js", "xlsx.mjs", "xlsxworker.js",
+		"CHANGELOG.md",
+		"LICENSE",
+		"README.md",
+		"bower.json",
+		"package.json",
+		"xlsx.js",
+		"xlsx.mjs",
+		"xlsxworker.js",
 		"bin/xlsx.njs",
-		"dist/LICENSE", "dist/*.mjs", "dist/*.js", "dist/*.map", "dist/*.d.ts",
-		"types/index.d.ts", "types/tsconfig.json"
+		"dist/LICENSE",
+		"dist/*.mjs",
+		"dist/*.js",
+		"dist/*.map",
+		"dist/*.d.ts",
+		"types/index.d.ts",
+		"types/tsconfig.json"
 	],
 	"bugs": {
 		"url": "https://git.sheetjs.com/SheetJS/sheetjs/issues"

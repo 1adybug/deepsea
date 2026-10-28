@@ -1,0 +1,63 @@
+{
+    "name": "soda-tanstack-form",
+    "version": "0.3.8",
+    "description": "Compatibility entry for @1adybug/tanstack-form",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "compat/soda-tanstack-form"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/compat/soda-tanstack-form",
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "@1adybug/tanstack-form": "workspace:*"
+    },
+    "devDependencies": {
+        "typescript": "catalog:",
+        "vitest": "catalog:",
+        "@types/node": "catalog:",
+        "jsdom": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@testing-library/dom": "catalog:"
+    },
+    "peerDependencies": {
+        "@tanstack/react-form": "catalog:",
+        "@types/react": "catalog:",
+        "react": "catalog:"
+    },
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "node ../../scripts/build-compat.mjs",
+        "clean": "node ../../scripts/clean.mjs",
+        "typecheck": "tsc --project tsconfig.test.json",
+        "test:types": "tsc --project tsconfig.test.json",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "prepublishOnly": "pnpm run build && pnpm run typecheck"
+    },
+    "compatibility": {
+        "target": "@1adybug/tanstack-form",
+        "defaults": []
+    }
+}

@@ -1,5 +1,16 @@
 packages:
+    - apps/*
     - packages/*
+    - compat/*
+    - tooling/*
+
+engineStrict: true
+preferWorkspacePackages: true
+enablePrePostScripts: true
+# Installation is an explicit step; parallel package tasks must not mutate node_modules.
+verifyDepsBeforeRun: false
+publicHoistPattern:
+    - "*@heroui/*"
 
 allowBuilds:
     "@heroui/shared-utils": true
@@ -8,16 +19,87 @@ allowBuilds:
     unrs-resolver: true
 
 catalog:
-    "@internationalized/date": "^3.12.2"
-    "@types/node": ^26.1.1
-    "@types/react": "^19.2.17"
-    "@types/react-dom": ">=19.2.3"
-    next: ">=16.0.10"
-    react: ">=19.2.3"
-    react-dom: ">=19.2.3"
-    tailwindcss: ^3.4.19
-    typescript: "^6.0.3"
+    "@1adybug/eslint": "^0.0.17"
+    "@1adybug/prettier": "^0.0.37"
+    "@ant-design/cssinjs": "^2.1.2"
+    "@ant-design/icons": "^6.3.4"
+    "@changesets/cli": "^2.31.1"
+    "@emotion/css": "^11.13.5"
+    "@eslint/js": "^9.39.5"
+    "@heroui/react": "^2.8.10"
+    "@inquirer/prompts": "^8.7.5"
+    "@internationalized/date": "^3.12.4"
+    "@react-types/shared": "^3.37.0"
+    "@rsbuild/core": "^2.2.14"
+    "@rsbuild/plugin-react": "^2.1.1"
+    "@rsbuild/plugin-svgr": "^2.0.5"
+    "@rsdoctor/rspack-plugin": "^1.6.5"
+    "@rslib/core": "^0.23.2"
+    "@tanstack/react-form": "^1.33.5"
+    "@tanstack/react-query": "^5.105.0"
+    "@testing-library/dom": "^10.4.2"
+    "@testing-library/react": "^16.3.3"
+    "@types/js-cookie": "^3.0.6"
+    "@types/node": "^24.19.2"
+    "@types/react": "^19.3.0"
+    "@types/react-dom": "^19.3.0"
+    "@types/which": "^3.0.4"
+    "antd": "^6.6.8"
+    "autoprefixer": "^10.6.2"
+    "bowser": "^2.15.0"
+    "chokidar": "^5.0.0"
+    "clipboard": "^2.0.11"
+    "clsx": "^2.1.1"
+    "commander": "^14.0.3"
+    "cross-env": "^10.1.0"
+    "dayjs": "^1.11.23"
+    "echarts": "^6.1.0"
+    "eslint": "^9.39.5"
+    "eslint-plugin-react-hooks": "^7.1.1"
+    "eslint-plugin-react-refresh": "^0.5.7"
+    "fast-deep-equal": "^3.1.3"
+    "framer-motion": "^12.43.0"
+    "get-port-please": "^3.2.0"
+    "globals": "^17.13.0"
+    "hls.js": "^1.7.3"
+    "husky": "^9.1.7"
+    "iconv-lite": "^0.7.3"
+    "identifier-regex": "^1.1.0"
+    "js-cookie": "^3.0.8"
+    "jsdom": "^30.1.3"
+    "lint-staged": "^17.6.0"
+    "next": "^16.4.3"
+    "postcss": "^8.5.32"
+    "prettier": "^3.9.10"
+    "react": "^19.3.1"
+    "react-dom": "^19.3.1"
+    "react-router": "^7.18.5"
+    "react-router-dom": "^7.18.5"
+    "robust-point-in-polygon": "^1.0.3"
+    "robust-segment-intersect": "^1.0.1"
+    "smooth-scrollbar": "^8.8.4"
+    "stable-hash": "^0.0.6"
+    "tailwind-merge": "^3.7.0"
+    "tailwindcss": "^3.4.19"
+    "tar": "^7.5.22"
+    "turbo": "^2.11.10"
+    "typescript": "^6.0.3"
+    "typescript-eslint": "^8.72.1"
+    "uuid": "^14.0.3"
+    "vite": "^8.3.5"
+    "vitest": "^5.0.5"
+    "which": "^7.0.0"
+    "zod": "^4.6.7"
 
 overrides:
+    "@types/node": "catalog:"
     "@internationalized/date": "catalog:"
     tailwindcss: "catalog:"
+
+minimumReleaseAgeExclude:
+    - "@1adybug/prettier-plugin-block-padding@0.0.25"
+    - "@1adybug/prettier-plugin-remove-braces@0.0.17"
+    - "@1adybug/prettier-plugin-sort-imports@0.0.37"
+    - "@1adybug/prettier@0.0.37"
+    - react-router-dom@7.18.5
+    - react-router@7.18.5

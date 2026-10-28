@@ -1,0 +1,13 @@
+import type { FC } from "react"
+
+import { ScrollMask } from "@1adybug/components"
+
+const App: FC = () => (
+    <div className="h-96 w-96 overflow-y-auto">
+        <ScrollMask position="top" />
+        <ScrollMask position="bottom" />
+        <div className="h-[200px] bg-red-500"></div>
+    </div>
+)
+
+export default App

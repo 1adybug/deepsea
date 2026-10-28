@@ -1,0 +1,42 @@
+{
+    "$schema": "https://turborepo.com/schema.json",
+    "ui": "stream",
+    "globalDependencies": [".node-version", "pnpm-workspace.yaml"],
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**"]
+        },
+        "dev": {
+            "dependsOn": ["^dev"],
+            "cache": false,
+            "outputs": ["dist/**"]
+        },
+        "@1adybug/playground#dev": {
+            "dependsOn": ["^dev"],
+            "cache": false,
+            "persistent": true,
+            "interruptible": true
+        },
+        "typecheck": {
+            "dependsOn": ["build"],
+            "outputs": []
+        },
+        "test": {
+            "dependsOn": ["build"],
+            "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/vitest.config.ts", "$TURBO_ROOT$/tests/setup.ts", "$TURBO_ROOT$/tests/compatibility.ts"],
+            "outputs": []
+        },
+        "clean": {
+            "cache": false
+        },
+        "test:types": {
+            "dependsOn": ["build"],
+            "outputs": []
+        },
+        "@1adybug/xlsx#test": {
+            "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/tests/xlsx.test.mjs"],
+            "outputs": []
+        }
+    }
+}

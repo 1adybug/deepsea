@@ -2,30 +2,21 @@ import { defineConfig } from "@1adybug/eslint"
 
 const files = "**/*.{js,mjs,ts,tsx}"
 
-const browserPackages = [
-    "deepsea-components",
-    "playground",
-    "react-soda",
-    "soda-antd",
-    "soda-heroui",
-    "soda-hooks",
-    "soda-next",
-    "soda-react",
-    "soda-react-router",
-    "soda-tanstack-form",
-    "soda-tanstack-query",
-]
+const browserPackages = ["components", "store", "antd", "heroui", "hooks", "next", "react", "react-router", "tanstack-form", "tanstack-query"]
 
-const nodePackages = ["sdnext", "sdrr", "soda-nodejs", "soda-tailwind"]
+const nodePackages = ["next-cli", "react-router-cli", "node", "tailwind"]
 
-const mixedPackages = ["deepsea-tools", "soda-array", "soda-coordinate", "soda-type"]
+const mixedPackages = ["tools", "array", "coordinate", "types"]
 
 const outOfProjectFiles = [
-    "utils/**/*.ts",
     "packages/*/rslib.config.ts",
-    "packages/*/rsbuild.config.ts",
-    "packages/*/tailwind.config.ts",
     "packages/*/scripts/**/*.ts",
+    "apps/*/*.config.ts",
+    "packages/*/tests/**/*.{ts,tsx}",
+    "apps/*/tests/**/*.{ts,tsx}",
+    "tests/**/*.ts",
+    "compat/*/tests/**/*.ts",
+    "vitest.config.ts",
 ]
 
 export default [
@@ -50,19 +41,28 @@ export default [
             },
         },
         directories: {
-            web: browserPackages.map(name => `packages/${name}/src/${files}`),
+            web: [...browserPackages.map(name => `packages/${name}/src/${files}`), `apps/*/src/${files}`],
             node: [
                 `*.config.mjs`,
                 `scripts/${files}`,
+                `tooling/${files}`,
+                `tooling/**/${files}`,
+                `tests/${files}`,
                 ...nodePackages.map(name => `packages/${name}/src/${files}`),
                 ...outOfProjectFiles,
-                "packages/playground/postcss.config.mjs",
+                "apps/*/postcss.config.mjs",
             ],
             mixed: [...mixedPackages.map(name => `packages/${name}/src/${files}`), "packages/*/types.d.ts"],
         },
-        ignores: ["**/dist/**", "**/compiled/**", "**/coverage/**", "**/.next/**", "**/public/**"],
+        ignores: ["**/dist/**", "**/compiled/**", "**/coverage/**", "**/.next/**", "**/public/**", "**/.turbo/**", "**/.artifacts/**", "packages/xlsx/**"],
         rules: {
             "@typescript-eslint/no-unsafe-function-type": "off",
+            "@typescript-eslint/consistent-type-definitions": "off",
+            "@typescript-eslint/naming-convention": "off",
+            "prefer-const": "off",
+            "prefer-template": "off",
+            "prefer-arrow-callback": "off",
+            "react/self-closing-comp": "off",
         },
     }),
     {
@@ -74,6 +74,17 @@ export default [
         },
         rules: {
             "@typescript-eslint/no-deprecated": "off",
+        },
+    },
+    {
+        files: ["packages/*/tests/**/*.{ts,tsx}", "apps/*/tests/**/*.{ts,tsx}"],
+        rules: {
+            "no-restricted-syntax": "off",
+        },
+    },
+    {
+        rules: {
+            "react/self-closing-comp": "off",
         },
     },
 ]

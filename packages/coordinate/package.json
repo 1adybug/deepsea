@@ -1,0 +1,58 @@
+{
+    "name": "@1adybug/coordinate",
+    "version": "5.4.2",
+    "description": "coordinate tools",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "rslib build",
+        "postbuild": "node scripts/addReference.ts",
+        "prepublishOnly": "pnpm run typecheck && pnpm run build",
+        "typecheck": "tsc --noEmit",
+        "clean": "node ../../scripts/clean.mjs",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "test:types": "tsc --project tsconfig.test.json"
+    },
+    "keywords": [],
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "packages/coordinate"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/coordinate",
+    "dependencies": {
+        "robust-point-in-polygon": "catalog:",
+        "robust-segment-intersect": "catalog:"
+    },
+    "devDependencies": {
+        "typescript": "catalog:",
+        "@1adybug/build-config": "workspace:*",
+        "@1adybug/typescript-config": "workspace:*",
+        "@rslib/core": "catalog:",
+        "vitest": "catalog:"
+    },
+    "peerDependencies": {}
+}

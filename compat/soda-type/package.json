@@ -1,0 +1,56 @@
+{
+    "name": "soda-type",
+    "version": "6.7.9",
+    "description": "Compatibility entry for @1adybug/types",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "compat/soda-type"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/compat/soda-type",
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "@1adybug/types": "workspace:*"
+    },
+    "devDependencies": {
+        "typescript": "catalog:",
+        "vitest": "catalog:",
+        "@types/node": "catalog:"
+    },
+    "peerDependencies": {},
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "node ../../scripts/build-compat.mjs",
+        "clean": "node ../../scripts/clean.mjs",
+        "typecheck": "tsc --project tsconfig.test.json",
+        "test:types": "tsc --project tsconfig.test.json",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "prepublishOnly": "pnpm run build && pnpm run typecheck"
+    },
+    "compatibility": {
+        "target": "@1adybug/types",
+        "defaults": []
+    }
+}

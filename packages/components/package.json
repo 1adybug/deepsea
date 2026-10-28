@@ -1,0 +1,73 @@
+{
+    "name": "@1adybug/components",
+    "version": "5.18.14",
+    "description": "格数科技自用组件库",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "rslib build",
+        "prebuild": "node scripts/export.ts",
+        "prepublishOnly": "pnpm run typecheck && pnpm run build",
+        "typecheck": "tsc --noEmit",
+        "clean": "node ../../scripts/clean.mjs",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "test:types": "tsc --project tsconfig.test.json"
+    },
+    "keywords": [],
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "packages/components"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/components",
+    "dependencies": {
+        "@emotion/css": "catalog:",
+        "clipboard": "catalog:",
+        "@1adybug/tools": "workspace:*",
+        "echarts": "catalog:",
+        "hls.js": "catalog:",
+        "smooth-scrollbar": "catalog:",
+        "@1adybug/hooks": "workspace:*",
+        "stable-hash": "catalog:"
+    },
+    "devDependencies": {
+        "typescript": "catalog:",
+        "@1adybug/build-config": "workspace:*",
+        "@1adybug/typescript-config": "workspace:*",
+        "@rslib/core": "catalog:",
+        "vitest": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@testing-library/dom": "catalog:",
+        "jsdom": "catalog:"
+    },
+    "peerDependencies": {
+        "@types/node": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:"
+    }
+}

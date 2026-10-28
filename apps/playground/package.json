@@ -1,0 +1,53 @@
+{
+    "name": "@1adybug/playground",
+    "private": true,
+    "version": "0.4.61",
+    "type": "module",
+    "scripts": {
+        "dev": "rsbuild dev",
+        "build": "rsbuild build",
+        "build:rsdoctor": "cross-env RSDOCTOR=true rsbuild build",
+        "preview": "rsbuild preview",
+        "typecheck": "tsc --noEmit",
+        "clean": "node ../../scripts/clean.mjs",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "test:types": "tsc --project tsconfig.test.json"
+    },
+    "dependencies": {
+        "@ant-design/cssinjs": "catalog:",
+        "@ant-design/icons": "catalog:",
+        "@emotion/css": "catalog:",
+        "@heroui/react": "catalog:",
+        "antd": "catalog:",
+        "dayjs": "catalog:",
+        "@1adybug/components": "workspace:*",
+        "@1adybug/tools": "workspace:*",
+        "framer-motion": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "react-router-dom": "catalog:",
+        "@1adybug/array": "workspace:*",
+        "@1adybug/coordinate": "workspace:*",
+        "@1adybug/hooks": "workspace:*",
+        "@1adybug/react-router": "workspace:*"
+    },
+    "devDependencies": {
+        "@rsbuild/core": "catalog:",
+        "@rsbuild/plugin-react": "catalog:",
+        "@rsbuild/plugin-svgr": "catalog:",
+        "@rsdoctor/rspack-plugin": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "autoprefixer": "catalog:",
+        "cross-env": "catalog:",
+        "get-port-please": "catalog:",
+        "postcss": "catalog:",
+        "tailwindcss": "catalog:",
+        "typescript": "catalog:",
+        "@1adybug/typescript-config": "workspace:*",
+        "vitest": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@testing-library/dom": "catalog:",
+        "jsdom": "catalog:"
+    }
+}

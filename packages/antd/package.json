@@ -1,0 +1,70 @@
+{
+    "name": "@1adybug/antd",
+    "version": "1.0.37",
+    "description": "soda-antd",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "rslib build",
+        "prebuild": "node scripts/export.ts",
+        "prepublishOnly": "pnpm run typecheck && pnpm run build",
+        "typecheck": "tsc --noEmit",
+        "clean": "node ../../scripts/clean.mjs",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "test:types": "tsc --project tsconfig.test.json"
+    },
+    "keywords": [],
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "packages/antd"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/antd",
+    "dependencies": {
+        "dayjs": "catalog:",
+        "@1adybug/tools": "workspace:*",
+        "@1adybug/hooks": "workspace:*",
+        "@1adybug/react": "workspace:*"
+    },
+    "devDependencies": {
+        "typescript": "catalog:",
+        "@1adybug/build-config": "workspace:*",
+        "@1adybug/typescript-config": "workspace:*",
+        "@rslib/core": "catalog:",
+        "vitest": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@testing-library/dom": "catalog:",
+        "jsdom": "catalog:"
+    },
+    "peerDependencies": {
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
+        "antd": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
+        "zod": "catalog:"
+    }
+}

@@ -1,0 +1,89 @@
+{
+    "name": "@1adybug/react-router-cli",
+    "version": "0.2.10",
+    "description": "",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        },
+        "./vite": {
+            "types": "./dist/vite.d.ts",
+            "import": "./dist/vite.js",
+            "require": "./dist/vite.js"
+        },
+        "./rsbuild": {
+            "types": "./dist/rsbuild.d.ts",
+            "import": "./dist/rsbuild.js",
+            "require": "./dist/rsbuild.js"
+        },
+        "./cli": {
+            "types": "./dist/cli.d.ts",
+            "import": "./dist/cli.js",
+            "require": "./dist/cli.js"
+        }
+    },
+    "bin": {
+        "sdrr": "./dist/cli.js"
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "rslib build",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "prepublishOnly": "pnpm run typecheck && pnpm run build",
+        "typecheck": "tsc --noEmit",
+        "clean": "node ../../scripts/clean.mjs",
+        "test:types": "tsc --project tsconfig.test.json"
+    },
+    "keywords": [],
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "packages/react-router-cli"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/react-router-cli",
+    "dependencies": {
+        "@inquirer/prompts": "catalog:",
+        "chokidar": "catalog:",
+        "commander": "catalog:",
+        "@1adybug/tools": "workspace:*"
+    },
+    "peerDependencies": {
+        "@rsbuild/core": "catalog:",
+        "vite": "catalog:"
+    },
+    "peerDependenciesMeta": {
+        "@rsbuild/core": {
+            "optional": true
+        },
+        "vite": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "@types/node": "catalog:",
+        "typescript": "catalog:",
+        "@1adybug/build-config": "workspace:*",
+        "@1adybug/typescript-config": "workspace:*",
+        "@rslib/core": "catalog:",
+        "vitest": "catalog:"
+    }
+}

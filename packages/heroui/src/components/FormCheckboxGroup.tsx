@@ -1,0 +1,37 @@
+"use client"
+
+/* eslint-disable no-restricted-syntax */
+
+import type { ComponentPropsWithoutRef, ReactNode } from "react"
+
+import type { Field } from "@1adybug/tanstack-form"
+import { type As, type CheckboxGroupProps, type MergeWithAs, CheckboxGroup } from "@heroui/react"
+
+import { getFieldProps } from "../utils/getFieldProps"
+
+export type FormCheckboxGroupProps<FieldValue extends string[] | null | undefined = string[] | null | undefined, AsComponent extends As = "div"> = MergeWithAs<
+    ComponentPropsWithoutRef<"div">,
+    ComponentPropsWithoutRef<AsComponent>,
+    CheckboxGroupProps,
+    AsComponent
+> & {
+    field: Field<FieldValue>
+    component?: <AsComponent extends As = "div">(
+        props: MergeWithAs<ComponentPropsWithoutRef<"div">, ComponentPropsWithoutRef<AsComponent>, CheckboxGroupProps, AsComponent>,
+    ) => ReactNode
+}
+
+export function FormCheckboxGroup<FieldValue extends string[] | null | undefined = string[] | null | undefined, AsComponent extends As = "div">({
+    field,
+    component: CheckboxGroup2 = CheckboxGroup,
+    ...rest
+}: FormCheckboxGroupProps<FieldValue, AsComponent>): ReactNode {
+    return (
+        <CheckboxGroup2<AsComponent>
+            value={field.state.value ?? []}
+            onValueChange={field.handleChange as (value: string[]) => void}
+            {...getFieldProps(field)}
+            {...rest}
+        />
+    )
+}

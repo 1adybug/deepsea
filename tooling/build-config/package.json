@@ -1,0 +1,17 @@
+{
+    "name": "@1adybug/build-config",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./index.mjs",
+        "./exports": "./exports.mjs"
+    },
+    "scripts": {
+        "test": "node --test tests/*.test.mjs"
+    },
+    "dependencies": {
+        "@rsbuild/plugin-react": "catalog:",
+        "@rslib/core": "catalog:"
+    }
+}

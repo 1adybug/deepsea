@@ -1,0 +1,11 @@
+{
+    "extends": "@1adybug/typescript-config/library.json",
+    "compilerOptions": {
+        "rootDir": "src",
+        "types": ["node"],
+        "paths": {
+            "@/*": ["./src/*"]
+        }
+    },
+    "include": ["src", "types.d.ts"]
+}

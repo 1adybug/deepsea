@@ -1,0 +1,14 @@
+{
+    "extends": ["//"],
+    "tasks": {
+        "typecheck": {
+            "dependsOn": ["build"]
+        },
+        "test:types": {
+            "dependsOn": ["build"]
+        },
+        "test": {
+            "dependsOn": ["build"]
+        }
+    }
+}

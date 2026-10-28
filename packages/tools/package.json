@@ -1,0 +1,73 @@
+{
+    "name": "@1adybug/tools",
+    "version": "5.48.5",
+    "description": "格数科技自用工具包",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "rslib build",
+        "prebuild": "node scripts/export.ts",
+        "prepublishOnly": "pnpm run typecheck && pnpm run build",
+        "typecheck": "tsc --noEmit",
+        "clean": "node ../../scripts/clean.mjs",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "test:types": "tsc --project tsconfig.test.json"
+    },
+    "keywords": [],
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "packages/tools"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/tools",
+    "dependencies": {
+        "@1adybug/xlsx": "workspace:*",
+        "clsx": "catalog:",
+        "fast-deep-equal": "catalog:",
+        "identifier-regex": "catalog:",
+        "js-cookie": "catalog:",
+        "robust-segment-intersect": "catalog:",
+        "@1adybug/types": "workspace:*",
+        "tailwind-merge": "catalog:",
+        "uuid": "catalog:"
+    },
+    "devDependencies": {
+        "@types/js-cookie": "catalog:",
+        "@types/node": "catalog:",
+        "typescript": "catalog:",
+        "@1adybug/build-config": "workspace:*",
+        "@1adybug/typescript-config": "workspace:*",
+        "@rslib/core": "catalog:",
+        "vitest": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@testing-library/dom": "catalog:",
+        "jsdom": "catalog:"
+    },
+    "peerDependencies": {
+        "dayjs": "catalog:",
+        "zod": "catalog:"
+    }
+}

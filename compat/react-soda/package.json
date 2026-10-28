@@ -1,0 +1,64 @@
+{
+    "name": "react-soda",
+    "version": "5.3.8",
+    "description": "Compatibility entry for @1adybug/store",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "compat/react-soda"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/compat/react-soda",
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "@1adybug/store": "workspace:*"
+    },
+    "devDependencies": {
+        "typescript": "catalog:",
+        "vitest": "catalog:",
+        "@types/node": "catalog:",
+        "jsdom": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@testing-library/dom": "catalog:"
+    },
+    "peerDependencies": {
+        "@types/react": "catalog:",
+        "react": "catalog:"
+    },
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "node ../../scripts/build-compat.mjs",
+        "clean": "node ../../scripts/clean.mjs",
+        "typecheck": "tsc --project tsconfig.test.json",
+        "test:types": "tsc --project tsconfig.test.json",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "prepublishOnly": "pnpm run build && pnpm run typecheck"
+    },
+    "compatibility": {
+        "target": "@1adybug/store",
+        "defaults": [
+            "."
+        ]
+    }
+}

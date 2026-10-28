@@ -1,0 +1,178 @@
+"use client"
+
+import { type ComponentProps, type CSSProperties, type FC, useEffect, useImperativeHandle, useRef, useState } from "react"
+
+import { clsx } from "@1adybug/tools"
+import { css } from "@emotion/css"
+
+export interface LoopSwiperClassNames {
+    root?: string
+    container?: string
+    mirror?: string
+}
+
+export interface LoopSwiperProps extends ComponentProps<"div"> {
+    classNames?: LoopSwiperClassNames
+    direction?: "horizontal" | "vertical"
+    reverse?: boolean
+    period: number
+    pauseOnHover?: boolean
+    paused?: boolean
+    gap?: number
+}
+
+/** 循环播放组件 */
+export const LoopSwiper: FC<LoopSwiperProps> = ({
+    ref,
+    className,
+    classNames: { root: rootClassName, container: containerClassName, mirror: mirrorClassName } = {},
+    children,
+    direction,
+    period,
+    reverse,
+    pauseOnHover = true,
+    paused,
+    gap = 0,
+    ...rest
+}) => {
+    const wrapper = useRef<HTMLDivElement>(null)
+    const container = useRef<HTMLDivElement>(null)
+    const [swiper, setSwiper] = useState(false)
+    const directionRef = useRef(direction)
+    // eslint-disable-next-line react-hooks/refs
+    directionRef.current = direction
+    const flexDirection: CSSProperties["flexDirection"] = direction === "vertical" ? (reverse ? "column-reverse" : "column") : reverse ? "row-reverse" : "row"
+    const animationName = swiper
+        ? direction === "vertical"
+            ? reverse
+                ? "deepsea-reverse-vertical-loop-swipe"
+                : "deepsea-vertical-loop-swipe"
+            : reverse
+              ? "deepsea-reverse-horizontal-loop-swipe"
+              : "deepsea-horizontal-loop-swipe"
+        : "none"
+    const animationDuration = `${period}ms`
+    const animationTimingFunction = "linear"
+    const animationIterationCount = "infinite"
+
+    useImperativeHandle(ref, () => wrapper.current!, [])
+
+    useEffect(() => {
+        const wrapperEle = wrapper.current!
+        const containerEle = container.current!
+        let wrapperWidth = 0
+        let wrapperHeight = 0
+        let containerWidth = 0
+        let containerHeight = 0
+
+        const observer = new ResizeObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.target === wrapperEle) {
+                    wrapperWidth = entry.contentRect.width
+                    wrapperHeight = entry.contentRect.height
+                } else {
+                    if (entry.target === containerEle) {
+                        containerWidth = entry.contentRect.width
+                        containerHeight = entry.contentRect.height
+                    }
+                }
+            })
+
+            setSwiper(directionRef.current === "vertical" ? containerHeight > wrapperHeight : containerWidth > wrapperWidth)
+        })
+
+        observer.observe(wrapperEle)
+        observer.observe(containerEle)
+    }, [])
+
+    const style = css`
+        display: flex;
+        flex-direction: ${flexDirection};
+        gap: ${gap}px;
+        ${direction === "vertical" ? "overflow-y: hidden;" : "overflow-x: hidden;"}
+        ${pauseOnHover ? `&:hover > * { animation-play-state: paused; }` : ""}
+        ${paused ? "& > * { animation-play-state: paused; }" : ""}
+    `
+
+    return (
+        <div
+            ref={wrapper}
+            className={clsx(
+                css`
+                    @keyframes deepsea-horizontal-loop-swipe {
+                        from {
+                            transform: translateX(0);
+                        }
+                        to {
+                            transform: translateX(calc(-100% - ${gap}px));
+                        }
+                    }
+                    @keyframes deepsea-reverse-horizontal-loop-swipe {
+                        from {
+                            transform: translateX(0);
+                        }
+                        to {
+                            transform: translateX(calc(100% + ${gap}px));
+                        }
+                    }
+                    @keyframes deepsea-vertical-loop-swipe {
+                        from {
+                            transform: translateY(0);
+                        }
+                        to {
+                            transform: translateY(calc(-100% - ${gap}px));
+                        }
+                    }
+                    @keyframes deepsea-reverse-vertical-loop-swipe {
+                        from {
+                            transform: translateY(0);
+                        }
+                        to {
+                            transform: translateY(calc(100% + ${gap}px));
+                        }
+                    }
+                `,
+                style,
+                rootClassName,
+                className,
+            )}
+            {...rest}
+        >
+            <div
+                ref={container}
+                className={clsx(
+                    css`
+                        display: flex;
+                        flex: none;
+                        flex-direction: ${flexDirection};
+                        gap: ${gap}px;
+                        animation-name: ${animationName};
+                        animation-timing-function: ${animationTimingFunction};
+                        animation-duration: ${animationDuration};
+                        animation-iteration-count: ${animationIterationCount};
+                    `,
+                    containerClassName,
+                )}
+            >
+                {children}
+            </div>
+            <div
+                className={clsx(
+                    css`
+                        display: ${swiper ? "flex" : "none"};
+                        flex: none;
+                        flex-direction: ${flexDirection};
+                        gap: ${gap}px;
+                        animation-name: ${animationName};
+                        animation-timing-function: ${animationTimingFunction};
+                        animation-duration: ${animationDuration};
+                        animation-iteration-count: ${animationIterationCount};
+                    `,
+                    mirrorClassName,
+                )}
+            >
+                {children}
+            </div>
+        </div>
+    )
+}

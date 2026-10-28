@@ -1,0 +1,451 @@
+# soda-react
+
+## 0.1.34
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.48.5
+
+## 0.1.33
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.48.4
+
+## 0.1.32
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.48.3
+
+## 0.1.31
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.48.2
+
+## 0.1.30
+
+### Patch Changes
+
+- feat: update dependencies
+- Updated dependencies
+    - deepsea-tools@5.48.1
+
+## 0.1.29
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.48.0
+
+## 0.1.28
+
+### Patch Changes
+
+- fix: 移除弃用的 baseUrl 字段
+- Updated dependencies
+    - deepsea-tools@5.47.11
+
+## 0.1.27
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.10
+
+## 0.1.26
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.9
+
+## 0.1.25
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.8
+
+## 0.1.24
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.7
+
+## 0.1.23
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.6
+
+## 0.1.22
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.5
+
+## 0.1.21
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.4
+
+## 0.1.20
+
+### Patch Changes
+
+- deepsea-tools@5.47.3
+
+## 0.1.19
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.2
+
+## 0.1.18
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.1
+
+## 0.1.17
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.47.0
+
+## 0.1.16
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.46.1
+
+## 0.1.15
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.46.0
+
+## 0.1.14
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.45.2
+
+## 0.1.13
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.45.1
+
+## 0.1.12
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.45.0
+
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.44.0
+
+## 0.1.10
+
+### Patch Changes
+
+- 升级依赖
+- Updated dependencies
+    - deepsea-tools@5.43.5
+
+## 0.1.9
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.43.4
+
+## 0.1.8
+
+### Patch Changes
+
+- 新增多个工具，移除无效依赖
+
+## 0.1.7
+
+### Patch Changes
+
+- update dependencies
+- Updated dependencies
+    - deepsea-tools@5.43.3
+
+## 0.1.6
+
+### Patch Changes
+
+- update dependencies
+- Updated dependencies
+    - deepsea-tools@5.43.2
+
+## 0.1.5
+
+### Patch Changes
+
+- 新增 useEventListener，升级 react 最低版本至 19.2.0
+
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.43.1
+
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.43.0
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.42.4
+
+## 0.1.1
+
+### Patch Changes
+
+- 升级依赖
+- Updated dependencies
+    - deepsea-tools@5.42.3
+
+## 0.1.0
+
+### Minor Changes
+
+- 移除 react compiler
+
+## 0.0.29
+
+### Patch Changes
+
+- deepsea-tools@5.42.2
+
+## 0.0.28
+
+### Patch Changes
+
+- deepsea-tools@5.42.1
+
+## 0.0.27
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.42.0
+
+## 0.0.26
+
+### Patch Changes
+
+- deepsea-tools@5.41.1
+
+## 0.0.25
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.41.0
+
+## 0.0.24
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.40.6
+
+## 0.0.23
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.40.5
+
+## 0.0.22
+
+### Patch Changes
+
+- 升级依赖
+- Updated dependencies
+    - deepsea-tools@5.40.4
+
+## 0.0.21
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.40.3
+
+## 0.0.20
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.40.2
+
+## 0.0.19
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.40.1
+
+## 0.0.18
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.40.0
+
+## 0.0.17
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.39.1
+
+## 0.0.16
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.39.0
+
+## 0.0.15
+
+### Patch Changes
+
+- 升级依赖
+- Updated dependencies
+    - deepsea-tools@5.38.2
+
+## 0.0.14
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.38.1
+
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.38.0
+
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.37.0
+
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.36.0
+
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.35.3
+
+## 0.0.9
+
+### Patch Changes
+
+- 更改默认空值为 null
+- Updated dependencies
+    - deepsea-tools@5.35.2
+
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.35.1
+
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.35.0
+
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.34.1
+
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.34.0
+
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.33.0
+
+## 0.0.3
+
+### Patch Changes
+
+- deepsea-tools@5.32.1
+
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies
+    - deepsea-tools@5.32.0
+
+## 0.0.1
+
+### Patch Changes
+
+- 优化大量内容
+- Updated dependencies
+    - deepsea-tools@5.31.0

@@ -1,0 +1,75 @@
+{
+    "name": "sdrr",
+    "version": "0.2.10",
+    "description": "Compatibility entry for @1adybug/react-router-cli",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js"
+        },
+        "./vite": {
+            "types": "./dist/vite.d.ts",
+            "import": "./dist/vite.js",
+            "require": "./dist/vite.js"
+        },
+        "./rsbuild": {
+            "types": "./dist/rsbuild.d.ts",
+            "import": "./dist/rsbuild.js",
+            "require": "./dist/rsbuild.js"
+        }
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "compat/sdrr"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/compat/sdrr",
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "@1adybug/react-router-cli": "workspace:*"
+    },
+    "devDependencies": {
+        "typescript": "catalog:",
+        "vitest": "catalog:",
+        "@types/node": "catalog:"
+    },
+    "peerDependencies": {
+        "@rsbuild/core": "catalog:",
+        "vite": "catalog:"
+    },
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "node ../../scripts/build-compat.mjs",
+        "clean": "node ../../scripts/clean.mjs",
+        "typecheck": "tsc --project tsconfig.test.json",
+        "test:types": "tsc --project tsconfig.test.json",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "prepublishOnly": "pnpm run build && pnpm run typecheck"
+    },
+    "compatibility": {
+        "target": "@1adybug/react-router-cli",
+        "defaults": [],
+        "bins": {
+            "sdrr": "./cli"
+        }
+    },
+    "bin": {
+        "sdrr": "./dist/bin/sdrr.js"
+    }
+}

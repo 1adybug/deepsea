@@ -1,0 +1,69 @@
+{
+    "name": "soda-hooks",
+    "version": "6.19.1",
+    "description": "Compatibility entry for @1adybug/hooks",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        },
+        "./eslint": {
+            "types": "./dist/eslint.d.ts",
+            "import": "./dist/eslint.js",
+            "require": "./dist/eslint.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "compat/soda-hooks"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/compat/soda-hooks",
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "@1adybug/hooks": "workspace:*"
+    },
+    "devDependencies": {
+        "typescript": "catalog:",
+        "vitest": "catalog:",
+        "@types/node": "catalog:",
+        "jsdom": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@testing-library/dom": "catalog:"
+    },
+    "peerDependencies": {
+        "@types/react": "catalog:",
+        "react": "catalog:"
+    },
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "node ../../scripts/build-compat.mjs",
+        "clean": "node ../../scripts/clean.mjs",
+        "typecheck": "tsc --project tsconfig.test.json",
+        "test:types": "tsc --project tsconfig.test.json",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "prepublishOnly": "pnpm run build && pnpm run typecheck"
+    },
+    "compatibility": {
+        "target": "@1adybug/hooks",
+        "defaults": [
+            "./eslint"
+        ]
+    }
+}

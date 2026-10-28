@@ -1,0 +1,74 @@
+{
+    "name": "@1adybug/heroui",
+    "version": "0.12.28",
+    "description": "",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "dev": "pnpm run build",
+        "build": "rslib build",
+        "prebuild": "node scripts/export.ts",
+        "prepublishOnly": "pnpm run typecheck && pnpm run build",
+        "typecheck": "tsc --noEmit",
+        "clean": "node ../../scripts/clean.mjs",
+        "test": "vitest run --config ../../vitest.config.ts",
+        "test:types": "tsc --project tsconfig.test.json"
+    },
+    "keywords": [],
+    "authors": [
+        "lurongv@qq.com"
+    ],
+    "license": "MIT",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/1adybug/deepsea.git",
+        "directory": "packages/heroui"
+    },
+    "homepage": "https://github.com/1adybug/deepsea/tree/main/packages/heroui",
+    "dependencies": {
+        "@internationalized/date": "catalog:",
+        "@tanstack/react-form": "catalog:",
+        "@1adybug/tools": "workspace:*",
+        "@1adybug/hooks": "workspace:*",
+        "@1adybug/tanstack-form": "workspace:*",
+        "@1adybug/types": "workspace:*"
+    },
+    "devDependencies": {
+        "@react-types/shared": "catalog:",
+        "typescript": "catalog:",
+        "@1adybug/build-config": "workspace:*",
+        "@1adybug/typescript-config": "workspace:*",
+        "@rslib/core": "catalog:",
+        "vitest": "catalog:",
+        "@testing-library/react": "catalog:",
+        "@testing-library/dom": "catalog:",
+        "jsdom": "catalog:"
+    },
+    "peerDependencies": {
+        "@heroui/react": "catalog:",
+        "@types/node": "catalog:",
+        "@types/react": "catalog:",
+        "react": "catalog:"
+    },
+    "overrides": {
+        "@internationalized/date": "catalog:"
+    }
+}
