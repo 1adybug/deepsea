@@ -1,6 +1,6 @@
 {
     "name": "soda-hooks",
-    "version": "6.19.1",
+    "version": "6.19.2",
     "description": "Compatibility entry for @1adybug/hooks",
     "type": "module",
     "exports": {

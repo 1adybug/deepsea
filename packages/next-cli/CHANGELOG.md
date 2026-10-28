@@ -1,5 +1,17 @@
 # soda-node
 
+## 0.0.38
+
+### Patch Changes
+
+- 74745f1: 根据当前公开 API 重写中英文 README，补全安装、入口、使用方式、运行环境与边界说明。扩展函数、组件、CLI、兼容入口及类型工具的行为和类型契约测试，并将中文文档包含在发布包中。
+- cc1a084: 统一兼容范围内的依赖版本与 Node 24 类型，使用共享构建配置，补齐包级回归和类型测试。修复公开声明引用 @1adybug/types 时缺失的运行依赖，以及 React Router 集成中缺失的 React peer dependency；适配 Ant Design 6 表单订阅 selector 的类型契约。
+- 74745f1: 修正生成的 TanStack Query hooks 的请求体、数字 ID、无参数请求与缓存失效类型，移除对隐式消息对象的依赖；开发子进程启动失败时回收其他进程。
+- Updated dependencies [74745f1]
+- Updated dependencies [cc1a084]
+- Updated dependencies [74745f1]
+    - @1adybug/tools@5.48.6
+
 ## 0.0.37
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
     "name": "sdnext",
-    "version": "0.0.37",
+    "version": "0.0.38",
     "description": "Compatibility entry for @1adybug/next-cli",
     "type": "module",
     "exports": {

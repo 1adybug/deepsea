@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/tanstack-query",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "description": "Typed factories for reusable TanStack Query query and mutation hooks.",
     "type": "module",
     "exports": {

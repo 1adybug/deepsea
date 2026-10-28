@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/tailwind",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "A Tailwind CSS 3 plugin for flexible fill sizing, justified text and full background sizing.",
     "type": "module",
     "exports": {

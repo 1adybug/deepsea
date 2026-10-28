@@ -1,6 +1,6 @@
 {
     "name": "soda-tanstack-query",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "description": "Compatibility entry for @1adybug/tanstack-query",
     "type": "module",
     "exports": {

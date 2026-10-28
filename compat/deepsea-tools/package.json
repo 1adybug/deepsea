@@ -1,6 +1,6 @@
 {
     "name": "deepsea-tools",
-    "version": "5.48.5",
+    "version": "5.48.6",
     "description": "Compatibility entry for @1adybug/tools",
     "type": "module",
     "exports": {

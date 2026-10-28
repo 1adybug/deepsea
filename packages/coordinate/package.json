@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/coordinate",
-    "version": "5.4.2",
+    "version": "5.4.3",
     "description": "Longitude/latitude representations, WGS84/GCJ02/BD09 conversions and geometry helpers.",
     "type": "module",
     "exports": {

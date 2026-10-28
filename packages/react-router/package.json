@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/react-router",
-    "version": "1.2.39",
+    "version": "1.2.40",
     "description": "Typed URL query-state hooks for React Router applications.",
     "type": "module",
     "exports": {

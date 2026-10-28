@@ -1,6 +1,6 @@
 {
     "name": "soda-nodejs",
-    "version": "0.8.16",
+    "version": "0.8.17",
     "description": "Compatibility entry for @1adybug/node",
     "type": "module",
     "exports": {

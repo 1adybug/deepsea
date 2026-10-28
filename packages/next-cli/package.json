@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/next-cli",
-    "version": "0.0.37",
+    "version": "0.0.38",
     "description": "Next.js project CLI for generating server actions, action-route registries and client query/mutation hooks from shared modules.",
     "type": "module",
     "exports": {

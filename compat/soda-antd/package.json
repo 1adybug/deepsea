@@ -1,6 +1,6 @@
 {
     "name": "soda-antd",
-    "version": "1.0.37",
+    "version": "1.0.38",
     "description": "Compatibility entry for @1adybug/antd",
     "type": "module",
     "exports": {

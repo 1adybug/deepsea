@@ -1,6 +1,6 @@
 {
     "name": "sdrr",
-    "version": "0.2.10",
+    "version": "0.2.11",
     "description": "Compatibility entry for @1adybug/react-router-cli",
     "type": "module",
     "exports": {

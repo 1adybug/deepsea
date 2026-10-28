@@ -1,6 +1,6 @@
 {
     "name": "soda-heroui",
-    "version": "0.12.28",
+    "version": "0.12.29",
     "description": "Compatibility entry for @1adybug/heroui",
     "type": "module",
     "exports": {

@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/next",
-    "version": "0.7.39",
+    "version": "0.7.40",
     "description": "React helpers for Next.js App Router query state and declarative navigation.",
     "type": "module",
     "exports": {

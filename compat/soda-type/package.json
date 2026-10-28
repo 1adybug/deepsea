@@ -1,6 +1,6 @@
 {
     "name": "soda-type",
-    "version": "6.7.9",
+    "version": "6.7.10",
     "description": "Compatibility entry for @1adybug/types",
     "type": "module",
     "exports": {

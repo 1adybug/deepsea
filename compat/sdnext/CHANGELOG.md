@@ -1,5 +1,16 @@
 # soda-node
 
+## 0.0.38
+
+### Patch Changes
+
+- 74745f1: 根据当前公开 API 重写中英文 README，补全安装、入口、使用方式、运行环境与边界说明。扩展函数、组件、CLI、兼容入口及类型工具的行为和类型契约测试，并将中文文档包含在发布包中。
+- cc1a084: 将旧名称改为对应 @1adybug 实现包的兼容入口，保留公开导出、默认导出、已声明子路径和 CLI 命令。业务实现只维护在新作用域包中，旧入口转发到同一份实现，持久化键与已有文件配置约定保持兼容。
+- Updated dependencies [74745f1]
+- Updated dependencies [cc1a084]
+- Updated dependencies [74745f1]
+    - @1adybug/next-cli@0.0.38
+
 ## 0.0.37
 
 ### Patch Changes

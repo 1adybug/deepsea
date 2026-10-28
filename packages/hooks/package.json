@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/hooks",
-    "version": "6.19.1",
+    "version": "6.19.2",
     "description": "React hooks for external storage, typed URL state, DOM effects, element measurement, interaction, media and browser lifecycle.",
     "type": "module",
     "exports": {

@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/antd",
-    "version": "1.0.37",
+    "version": "1.0.38",
     "description": "Ant Design helpers for typed selections, searchable options, reactive forms, filtered trees, table sizing and worksheet export.",
     "type": "module",
     "exports": {

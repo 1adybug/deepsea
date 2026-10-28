@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/heroui",
-    "version": "0.12.28",
+    "version": "0.12.29",
     "description": "HeroUI form adapters and selection utilities for TanStack Form, with date/time conversion, validation messages and toast helpers.",
     "type": "module",
     "exports": {

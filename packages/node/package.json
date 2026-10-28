@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/node",
-    "version": "0.8.16",
+    "version": "0.8.17",
     "description": "Node.js helpers for files, response streams, child processes and archives.",
     "type": "module",
     "exports": {

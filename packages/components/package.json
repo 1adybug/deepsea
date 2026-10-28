@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/components",
-    "version": "5.18.14",
+    "version": "5.18.15",
     "description": "Reusable React components for measured layouts, scrolling, file workflows, charts, media and visual primitives.",
     "type": "module",
     "exports": {

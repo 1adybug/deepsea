@@ -1,6 +1,6 @@
 {
     "name": "soda-coordinate",
-    "version": "5.4.2",
+    "version": "5.4.3",
     "description": "Compatibility entry for @1adybug/coordinate",
     "type": "module",
     "exports": {

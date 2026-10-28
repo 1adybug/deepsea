@@ -1,6 +1,6 @@
 {
     "name": "deepsea-components",
-    "version": "5.18.14",
+    "version": "5.18.15",
     "description": "Compatibility entry for @1adybug/components",
     "type": "module",
     "exports": {

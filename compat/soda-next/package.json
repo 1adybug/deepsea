@@ -1,6 +1,6 @@
 {
     "name": "soda-next",
-    "version": "0.7.39",
+    "version": "0.7.40",
     "description": "Compatibility entry for @1adybug/next",
     "type": "module",
     "exports": {

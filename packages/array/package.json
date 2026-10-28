@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/array",
-    "version": "0.1.10",
+    "version": "0.2.0",
     "description": "Typed standalone array functions, modern Array polyfills, and opt-in prototype extensions for JavaScript and TypeScript.",
     "type": "module",
     "exports": {

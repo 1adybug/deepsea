@@ -1,6 +1,6 @@
 {
     "name": "@1adybug/tools",
-    "version": "5.48.5",
+    "version": "5.48.6",
     "description": "General-purpose TypeScript utilities for parsing, collections, request middleware, browser storage, spreadsheets, geometry and animation.",
     "type": "module",
     "exports": {

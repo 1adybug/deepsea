@@ -1,6 +1,6 @@
 {
 	"name": "@1adybug/xlsx",
-	"version": "0.20.3",
+	"version": "0.20.4",
 	"author": "sheetjs",
 	"description": "Spreadsheet parsing and writing through a packaged SheetJS-based runtime, including workbook utilities and Node/browser entry points.",
 	"keywords": [
