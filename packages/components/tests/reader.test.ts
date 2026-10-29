@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
-import { MediaMTXWebRTCReader } from "../src/components/rtspPlayer/reader"
+import { MediaMTXWebRTCReader } from "../src/components/rtsp-player/reader"
 
 const sdp =
     "v=0\r\na=ice-ufrag:test\r\na=ice-pwd:password\r\nm=audio 9 UDP/TLS/RTP/SAVPF 0 96 97 98 111\r\na=mid:0\r\na=rtpmap:96 pcma/8000/2\r\na=rtpmap:97 multiopus/48000/6\r\na=rtpmap:98 L16/48000/2\r\na=rtpmap:111 opus/48000/2\r\na=fmtp:111 minptime=10\r\nm=video 9 UDP/TLS/RTP/SAVPF 100\r\na=mid:1\r\n"

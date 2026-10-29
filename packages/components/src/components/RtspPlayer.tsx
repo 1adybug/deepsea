@@ -2,7 +2,7 @@
 
 import { type ComponentProps, type FC, useEffect, useImperativeHandle, useRef } from "react"
 
-import { MediaMTXWebRTCReader } from "@/components/rtspPlayer/reader"
+import { MediaMTXWebRTCReader } from "@/components/rtsp-player/reader"
 
 export interface RtspPlayerProps extends Omit<ComponentProps<"video">, "src" | "children"> {
     src: string

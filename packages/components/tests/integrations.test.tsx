@@ -12,11 +12,10 @@ import { getFileData, InputFile } from "../src/components/InputFile"
 import { InputFileButton } from "../src/components/InputFileButton"
 import { ReadExcel } from "../src/components/ReadExcel"
 import { ReadSheet } from "../src/components/ReadSheet"
+import { RtspPlayer } from "../src/components/RtspPlayer"
 import { type Scrollbar, Scroll } from "../src/components/Scroll"
 import { WriteExcel } from "../src/components/WriteExcel"
 import { WriteSheet } from "../src/components/WriteSheet"
-
-import { RtspPlayer } from "../src/components/RtspPlayer"
 
 const mocks = vi.hoisted(() => ({
     clipboard: { on: vi.fn(), destroy: vi.fn() },
@@ -53,7 +52,7 @@ vi.mock("hls.js", () => ({
     ErrorTypes: { NETWORK_ERROR: "networkError", MEDIA_ERROR: "mediaError" },
 }))
 
-vi.mock("../src/components/rtspPlayer/reader", () => ({
+vi.mock("../src/components/rtsp-player/reader", () => ({
     MediaMTXWebRTCReader: class {
         constructor(options: unknown) {
             mocks.readerOptions = options
